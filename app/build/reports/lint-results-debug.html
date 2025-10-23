@@ -177,9 +177,9 @@ document.getElementById(id).style.display = 'none';
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">Lint Report: 116 warnings</span>
+      <span class="mdl-layout-title">Lint Report: 136 warnings</span>
       <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Thu Oct 23 16:17:41 IST 2025 by AGP (8.5.2)</nav>
+      <nav class="mdl-navigation mdl-layout--large-screen-only">Check performed at Thu Oct 23 16:32:44 IST 2025 by AGP (8.5.2)</nav>
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -190,6 +190,7 @@ document.getElementById(id).style.display = 'none';
       <a class="mdl-navigation__link" href="#CustomSplashScreen"><i class="material-icons warning-icon">warning</i>Application-defined Launch Screen (1)</a>
       <a class="mdl-navigation__link" href="#AndroidGradlePluginVersion"><i class="material-icons warning-icon">warning</i>Obsolete Android Gradle Plugin Version (3)</a>
       <a class="mdl-navigation__link" href="#GradleDependency"><i class="material-icons warning-icon">warning</i>Obsolete Gradle Dependency (55)</a>
+      <a class="mdl-navigation__link" href="#DataBindingWithoutKapt"><i class="material-icons warning-icon">warning</i>Data Binding without Annotation Processing (1)</a>
       <a class="mdl-navigation__link" href="#ObsoleteSdkInt"><i class="material-icons warning-icon">warning</i>Obsolete SDK_INT Version Check (2)</a>
       <a class="mdl-navigation__link" href="#Overdraw"><i class="material-icons warning-icon">warning</i>Overdraw: Painting regions more than once (2)</a>
       <a class="mdl-navigation__link" href="#UnusedResources"><i class="material-icons warning-icon">warning</i>Unused resources (4)</a>
@@ -197,8 +198,9 @@ document.getElementById(id).style.display = 'none';
       <a class="mdl-navigation__link" href="#Autofill"><i class="material-icons warning-icon">warning</i>Use Autofill (3)</a>
       <a class="mdl-navigation__link" href="#KtxExtensionAvailable"><i class="material-icons warning-icon">warning</i>KTX Extension Available (4)</a>
       <a class="mdl-navigation__link" href="#UseTomlInstead"><i class="material-icons warning-icon">warning</i>Use TOML Version Catalog Instead (18)</a>
-      <a class="mdl-navigation__link" href="#ContentDescription"><i class="material-icons warning-icon">warning</i>Image without <code>contentDescription</code> (4)</a>
-      <a class="mdl-navigation__link" href="#HardcodedText"><i class="material-icons warning-icon">warning</i>Hardcoded text (22)</a>
+      <a class="mdl-navigation__link" href="#ContentDescription"><i class="material-icons warning-icon">warning</i>Image without <code>contentDescription</code> (13)</a>
+      <a class="mdl-navigation__link" href="#SetTextI18n"><i class="material-icons warning-icon">warning</i>TextView Internationalization (2)</a>
+      <a class="mdl-navigation__link" href="#HardcodedText"><i class="material-icons warning-icon">warning</i>Hardcoded text (30)</a>
     </nav>
   </div>
   <main class="mdl-layout__content">
@@ -225,6 +227,9 @@ document.getElementById(id).style.display = 'none';
 <tr>
 <td class="countColumn">55</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#GradleDependency">GradleDependency</a>: Obsolete Gradle Dependency</td></tr>
+<tr>
+<td class="countColumn">1</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#DataBindingWithoutKapt">DataBindingWithoutKapt</a>: Data Binding without Annotation Processing</td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Performance">Performance</a>
 </td></tr>
 <tr>
@@ -255,12 +260,15 @@ document.getElementById(id).style.display = 'none';
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Accessibility">Accessibility</a>
 </td></tr>
 <tr>
-<td class="countColumn">4</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">13</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#ContentDescription">ContentDescription</a>: Image without <code>contentDescription</code></td></tr>
 <tr><td class="countColumn"></td><td class="categoryColumn"><a href="#Internationalization">Internationalization</a>
 </td></tr>
 <tr>
-<td class="countColumn">22</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<td class="countColumn">2</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
+<a href="#SetTextI18n">SetTextI18n</a>: TextView Internationalization</td></tr>
+<tr>
+<td class="countColumn">30</td><td class="issueColumn"><i class="material-icons warning-icon">warning</i>
 <a href="#HardcodedText">HardcodedText</a>: Hardcoded text</td></tr>
 <tr><td></td><td class="categoryColumn"><a href="#ExtraIssues">Included Additional Checks (35)</a>
 </td></tr>
@@ -445,131 +453,131 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:32</span>: <span class="message">A newer version of com.google.android.material:material than 1.12.0 is available: 1.13.0</span><br /><pre class="errorlines">
-<span class="lineno"> 29 </span>
-<span class="lineno"> 30 </span>dependencies {
-<span class="lineno"> 31 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
-<span class="caretline"><span class="lineno"> 32 </span>    implementation(<span class="warning">"com.google.android.material:material:1.12.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 33 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
-<span class="lineno"> 34 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
-<span class="lineno"> 35 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:33</span>: <span class="message">A newer version of com.google.android.material:material than 1.12.0 is available: 1.13.0</span><br /><pre class="errorlines">
+<span class="lineno"> 30 </span>
+<span class="lineno"> 31 </span>dependencies {
+<span class="lineno"> 32 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
+<span class="caretline"><span class="lineno"> 33 </span>    implementation(<span class="warning">"com.google.android.material:material:1.12.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 34 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
+<span class="lineno"> 35 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+<span class="lineno"> 36 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:33</span>: <span class="message">A newer version of androidx.appcompat:appcompat than 1.7.0 is available: 1.7.1</span><br /><pre class="errorlines">
-<span class="lineno"> 30 </span>dependencies {
-<span class="lineno"> 31 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
-<span class="lineno"> 32 </span>    implementation("com.google.android.material:material:1.12.0")
-<span class="caretline"><span class="lineno"> 33 </span>    implementation(<span class="warning">"androidx.appcompat:appcompat:1.7.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 34 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
-<span class="lineno"> 35 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
-<span class="lineno"> 36 </span>    // Import the BoM for the Firebase platform
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:34</span>: <span class="message">A newer version of androidx.appcompat:appcompat than 1.7.0 is available: 1.7.1</span><br /><pre class="errorlines">
+<span class="lineno"> 31 </span>dependencies {
+<span class="lineno"> 32 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
+<span class="lineno"> 33 </span>    implementation("com.google.android.material:material:1.12.0")
+<span class="caretline"><span class="lineno"> 34 </span>    implementation(<span class="warning">"androidx.appcompat:appcompat:1.7.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 35 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+<span class="lineno"> 36 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
+<span class="lineno"> 37 </span>    // Import the BoM for the Firebase platform
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:34</span>: <span class="message">A newer version of androidx.constraintlayout:constraintlayout than 2.2.0 is available: 2.2.1</span><br /><pre class="errorlines">
-<span class="lineno"> 31 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
-<span class="lineno"> 32 </span>    implementation("com.google.android.material:material:1.12.0")
-<span class="lineno"> 33 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
-<span class="caretline"><span class="lineno"> 34 </span>    implementation(<span class="warning">"androidx.constraintlayout:constraintlayout:2.2.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 35 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
-<span class="lineno"> 36 </span>    // Import the BoM for the Firebase platform
-<span class="lineno"> 37 </span>    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:35</span>: <span class="message">A newer version of androidx.constraintlayout:constraintlayout than 2.2.0 is available: 2.2.1</span><br /><pre class="errorlines">
+<span class="lineno"> 32 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
+<span class="lineno"> 33 </span>    implementation("com.google.android.material:material:1.12.0")
+<span class="lineno"> 34 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
+<span class="caretline"><span class="lineno"> 35 </span>    implementation(<span class="warning">"androidx.constraintlayout:constraintlayout:2.2.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 36 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
+<span class="lineno"> 37 </span>    // Import the BoM for the Firebase platform
+<span class="lineno"> 38 </span>    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:35</span>: <span class="message">A newer version of androidx.recyclerview:recyclerview than 1.3.2 is available: 1.4.0</span><br /><pre class="errorlines">
-<span class="lineno"> 32 </span>    implementation("com.google.android.material:material:1.12.0")
-<span class="lineno"> 33 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
-<span class="lineno"> 34 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
-<span class="caretline"><span class="lineno"> 35 </span>    implementation(<span class="warning">"androidx.recyclerview:recyclerview:1.3.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 36 </span>    // Import the BoM for the Firebase platform
-<span class="lineno"> 37 </span>    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
-<span class="lineno"> 38 </span>    // Add the dependency for the Firebase Authentication library
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:36</span>: <span class="message">A newer version of androidx.recyclerview:recyclerview than 1.3.2 is available: 1.4.0</span><br /><pre class="errorlines">
+<span class="lineno"> 33 </span>    implementation("com.google.android.material:material:1.12.0")
+<span class="lineno"> 34 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
+<span class="lineno"> 35 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+<span class="caretline"><span class="lineno"> 36 </span>    implementation(<span class="warning">"androidx.recyclerview:recyclerview:1.3.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 37 </span>    // Import the BoM for the Firebase platform
+<span class="lineno"> 38 </span>    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
+<span class="lineno"> 39 </span>    // Add the dependency for the Firebase Authentication library
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:43</span>: <span class="message">A newer version of androidx.credentials:credentials than 1.3.0 is available: 1.5.0</span><br /><pre class="errorlines">
-<span class="lineno"> 40 </span>  implementation("com.google.firebase:firebase-auth")
-<span class="lineno"> 41 </span>
-<span class="lineno"> 42 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
-<span class="caretline"><span class="lineno"> 43 </span>  implementation(<span class="warning">"androidx.credentials:credentials:1.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 44 </span>  implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-<span class="lineno"> 45 </span>  implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-<span class="lineno"> 46 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:44</span>: <span class="message">A newer version of androidx.credentials:credentials than 1.3.0 is available: 1.5.0</span><br /><pre class="errorlines">
+<span class="lineno"> 41 </span>  implementation("com.google.firebase:firebase-auth")
+<span class="lineno"> 42 </span>
+<span class="lineno"> 43 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
+<span class="caretline"><span class="lineno"> 44 </span>  implementation(<span class="warning">"androidx.credentials:credentials:1.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 45 </span>  implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+<span class="lineno"> 46 </span>  implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+<span class="lineno"> 47 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
 </pre>
 
 <button class="mdl-button mdl-js-button mdl-button--primary" id="GradleDependencyDivLink" onclick="reveal('GradleDependencyDiv');" />+ 50 More Occurrences...</button>
 <div id="GradleDependencyDiv" style="display: none">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:44</span>: <span class="message">A newer version of androidx.credentials:credentials-play-services-auth than 1.3.0 is available: 1.5.0</span><br /><pre class="errorlines">
-<span class="lineno"> 41 </span>
-<span class="lineno"> 42 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
-<span class="lineno"> 43 </span>  implementation("androidx.credentials:credentials:1.3.0")
-<span class="caretline"><span class="lineno"> 44 </span>  implementation(<span class="warning">"androidx.credentials:credentials-play-services-auth:1.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 45 </span>  implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-<span class="lineno"> 46 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
-<span class="lineno"> 47 </span>  implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:45</span>: <span class="message">A newer version of androidx.credentials:credentials-play-services-auth than 1.3.0 is available: 1.5.0</span><br /><pre class="errorlines">
+<span class="lineno"> 42 </span>
+<span class="lineno"> 43 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
+<span class="lineno"> 44 </span>  implementation("androidx.credentials:credentials:1.3.0")
+<span class="caretline"><span class="lineno"> 45 </span>  implementation(<span class="warning">"androidx.credentials:credentials-play-services-auth:1.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 46 </span>  implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+<span class="lineno"> 47 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="lineno"> 48 </span>  implementation("com.google.firebase:firebase-messaging:24.0.0")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:46</span>: <span class="message">A newer version of com.google.firebase:firebase-firestore than 25.0.0 is available: 26.0.2</span><br /><pre class="errorlines">
-<span class="lineno"> 43 </span>    implementation("androidx.credentials:credentials:1.3.0")
-<span class="lineno"> 44 </span>    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-<span class="lineno"> 45 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-<span class="caretline"><span class="lineno"> 46 </span>    implementation(<span class="warning">"com.google.firebase:firebase-firestore:25.0.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:47</span>: <span class="message">A newer version of com.google.firebase:firebase-firestore than 25.0.0 is available: 26.0.2</span><br /><pre class="errorlines">
+<span class="lineno"> 44 </span>    implementation("androidx.credentials:credentials:1.3.0")
+<span class="lineno"> 45 </span>    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+<span class="lineno"> 46 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+<span class="caretline"><span class="lineno"> 47 </span>    implementation(<span class="warning">"com.google.firebase:firebase-firestore:25.0.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 48 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:47</span>: <span class="message">A newer version of com.google.firebase:firebase-messaging than 24.0.0 is available: 25.0.1</span><br /><pre class="errorlines">
-<span class="lineno"> 44 </span>    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-<span class="lineno"> 45 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-<span class="lineno"> 46 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
-<span class="caretline"><span class="lineno"> 47 </span>    implementation(<span class="warning">"com.google.firebase:firebase-messaging:24.0.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:48</span>: <span class="message">A newer version of com.google.firebase:firebase-messaging than 24.0.0 is available: 25.0.1</span><br /><pre class="errorlines">
+<span class="lineno"> 45 </span>    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+<span class="lineno"> 46 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="caretline"><span class="lineno"> 48 </span>    implementation(<span class="warning">"com.google.firebase:firebase-messaging:24.0.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:49</span>: <span class="message">A newer version of com.google.android.gms:play-services-auth than 21.1.1 is available: 21.4.0</span><br /><pre class="errorlines">
-<span class="lineno"> 46 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
-<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="caretline"><span class="lineno"> 49 </span>    implementation(<span class="warning">"com.google.android.gms:play-services-auth:21.1.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:50</span>: <span class="message">A newer version of com.google.android.gms:play-services-auth than 21.1.1 is available: 21.4.0</span><br /><pre class="errorlines">
+<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="lineno"> 48 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="caretline"><span class="lineno"> 50 </span>    implementation(<span class="warning">"com.google.android.gms:play-services-auth:21.1.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:50</span>: <span class="message">A newer version of androidx.lifecycle:lifecycle-viewmodel than 2.8.5 is available: 2.9.4</span><br /><pre class="errorlines">
-<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="caretline"><span class="lineno"> 50 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-viewmodel:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
-<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:51</span>: <span class="message">A newer version of androidx.lifecycle:lifecycle-viewmodel than 2.8.5 is available: 2.9.4</span><br /><pre class="errorlines">
+<span class="lineno"> 48 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="caretline"><span class="lineno"> 51 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-viewmodel:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="lineno"> 54 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:51</span>: <span class="message">A newer version of androidx.lifecycle:lifecycle-livedata than 2.8.5 is available: 2.9.4</span><br /><pre class="errorlines">
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="caretline"><span class="lineno"> 51 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-livedata:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
-<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
-<span class="lineno"> 54 </span>}</pre>
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:52</span>: <span class="message">A newer version of androidx.lifecycle:lifecycle-livedata than 2.8.5 is available: 2.9.4</span><br /><pre class="errorlines">
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-livedata:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="lineno"> 54 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+<span class="lineno"> 55 </span>}</pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:52</span>: <span class="message">A newer version of androidx.navigation:navigation-fragment than 2.8.0 is available: 2.9.5</span><br /><pre class="errorlines">
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">"androidx.navigation:navigation-fragment:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
-<span class="lineno"> 54 </span>}</pre>
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:53</span>: <span class="message">A newer version of androidx.navigation:navigation-fragment than 2.8.0 is available: 2.9.5</span><br /><pre class="errorlines">
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.navigation:navigation-fragment:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 54 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+<span class="lineno"> 55 </span>}</pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:53</span>: <span class="message">A newer version of androidx.navigation:navigation-ui than 2.8.0 is available: 2.9.5</span><br /><pre class="errorlines">
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
-<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.navigation:navigation-ui:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 54 </span>}</pre>
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:54</span>: <span class="message">A newer version of androidx.navigation:navigation-ui than 2.8.0 is available: 2.9.5</span><br /><pre class="errorlines">
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="caretline"><span class="lineno"> 54 </span>    implementation(<span class="warning">"androidx.navigation:navigation-ui:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 55 </span>}</pre>
 
 <span class="location"><a href="../../../gradle/libs.versions.toml">../../../gradle/libs.versions.toml</a>:9</span>: <span class="message">A newer version of com.google.gms.google-services than 4.4.2 is available: 4.4.4</span><br /><pre class="errorlines">
 <span class="lineno">  6 </span>
@@ -960,6 +968,52 @@ To suppress this error, use the issue id "GradleDependency" as explained in the 
 Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="GradleDependencyCardLink" onclick="hideid('GradleDependencyCard');">
 Dismiss</button>            </div>
             </div>
+          </section><a name="DataBindingWithoutKapt"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="DataBindingWithoutKaptCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Data Binding without Annotation Processing</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:22</span>: <span class="message">If you plan to use data binding in a Kotlin project, you should apply the kotlin-kapt plugin.</span><br /><pre class="errorlines">
+<span class="lineno"> 19 </span>
+<span class="lineno"> 20 </span>    buildFeatures {
+<span class="lineno"> 21 </span>        viewBinding = true
+<span class="caretline"><span class="lineno"> 22 </span>        <span class="warning">dataBinding = true</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 23 </span>    }
+<span class="lineno"> 24 </span>
+<span class="lineno"> 25 </span>    compileOptions {
+</pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationDataBindingWithoutKapt" style="display: none;">
+Apps that use Kotlin and data binding should also apply the kotlin-kapt plugin.<br/><div class="moreinfo">More info: <a href="https://kotlinlang.org/docs/reference/kapt.html">https://kotlinlang.org/docs/reference/kapt.html</a>
+</div>To suppress this error, use the issue id "DataBindingWithoutKapt" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">DataBindingWithoutKapt</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Correctness</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 1/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationDataBindingWithoutKaptLink" onclick="reveal('explanationDataBindingWithoutKapt');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="DataBindingWithoutKaptCardLink" onclick="hideid('DataBindingWithoutKaptCard');">
+Dismiss</button>            </div>
+            </div>
           </section>
 <a name="Performance"></a>
 <a name="ObsoleteSdkInt"></a>
@@ -1282,39 +1336,39 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:50</span>: <span class="message">Add suffix <code>-ktx</code> to enable the Kotlin extensions for this library</span><br /><pre class="errorlines">
-<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="caretline"><span class="lineno"> 50 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-viewmodel:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
-<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:51</span>: <span class="message">Add suffix <code>-ktx</code> to enable the Kotlin extensions for this library</span><br /><pre class="errorlines">
+<span class="lineno"> 48 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="caretline"><span class="lineno"> 51 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-viewmodel:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="lineno"> 54 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:51</span>: <span class="message">Add suffix <code>-ktx</code> to enable the Kotlin extensions for this library</span><br /><pre class="errorlines">
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="caretline"><span class="lineno"> 51 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-livedata:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
-<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
-<span class="lineno"> 54 </span>}</pre>
-
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:52</span>: <span class="message">Add suffix <code>-ktx</code> to enable the Kotlin extensions for this library</span><br /><pre class="errorlines">
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">"androidx.navigation:navigation-fragment:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
-<span class="lineno"> 54 </span>}</pre>
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-livedata:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="lineno"> 54 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+<span class="lineno"> 55 </span>}</pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:53</span>: <span class="message">Add suffix <code>-ktx</code> to enable the Kotlin extensions for this library</span><br /><pre class="errorlines">
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
-<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.navigation:navigation-ui:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 54 </span>}</pre>
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.navigation:navigation-fragment:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 54 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+<span class="lineno"> 55 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:54</span>: <span class="message">Add suffix <code>-ktx</code> to enable the Kotlin extensions for this library</span><br /><pre class="errorlines">
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="caretline"><span class="lineno"> 54 </span>    implementation(<span class="warning">"androidx.navigation:navigation-ui:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 55 </span>}</pre>
 
 </div>
 <div class="metadata"><div class="explanation" id="explanationKtxExtensionAvailable" style="display: none;">
@@ -1355,181 +1409,181 @@ Dismiss</button>            </div>
               <div class="mdl-card__supporting-text">
 <div class="issue">
 <div class="warningslist">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:31</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 28 </span>}
-<span class="lineno"> 29 </span>
-<span class="lineno"> 30 </span>dependencies {
-<span class="caretline"><span class="lineno"> 31 </span>    implementation(<span class="warning">"de.hdodenhof:circleimageview:3.1.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 32 </span>    implementation("com.google.android.material:material:1.12.0")
-<span class="lineno"> 33 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
-<span class="lineno"> 34 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:32</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 29 </span>}
+<span class="lineno"> 30 </span>
+<span class="lineno"> 31 </span>dependencies {
+<span class="caretline"><span class="lineno"> 32 </span>    implementation(<span class="warning">"de.hdodenhof:circleimageview:3.1.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 33 </span>    implementation("com.google.android.material:material:1.12.0")
+<span class="lineno"> 34 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
+<span class="lineno"> 35 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:32</span>: <span class="message">Use the existing version catalog reference (<code>libs.material</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno"> 29 </span>
-<span class="lineno"> 30 </span>dependencies {
-<span class="lineno"> 31 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
-<span class="caretline"><span class="lineno"> 32 </span>    implementation(<span class="warning">"com.google.android.material:material:1.12.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 33 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
-<span class="lineno"> 34 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
-<span class="lineno"> 35 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:33</span>: <span class="message">Use the existing version catalog reference (<code>libs.material</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 30 </span>
+<span class="lineno"> 31 </span>dependencies {
+<span class="lineno"> 32 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
+<span class="caretline"><span class="lineno"> 33 </span>    implementation(<span class="warning">"com.google.android.material:material:1.12.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 34 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
+<span class="lineno"> 35 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+<span class="lineno"> 36 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:33</span>: <span class="message">Use the existing version catalog reference (<code>libs.appcompat</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno"> 30 </span>dependencies {
-<span class="lineno"> 31 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
-<span class="lineno"> 32 </span>    implementation("com.google.android.material:material:1.12.0")
-<span class="caretline"><span class="lineno"> 33 </span>    implementation(<span class="warning">"androidx.appcompat:appcompat:1.7.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 34 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
-<span class="lineno"> 35 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
-<span class="lineno"> 36 </span>    // Import the BoM for the Firebase platform
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:34</span>: <span class="message">Use the existing version catalog reference (<code>libs.appcompat</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 31 </span>dependencies {
+<span class="lineno"> 32 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
+<span class="lineno"> 33 </span>    implementation("com.google.android.material:material:1.12.0")
+<span class="caretline"><span class="lineno"> 34 </span>    implementation(<span class="warning">"androidx.appcompat:appcompat:1.7.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 35 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+<span class="lineno"> 36 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
+<span class="lineno"> 37 </span>    // Import the BoM for the Firebase platform
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:34</span>: <span class="message">Use version catalog instead (androidx.constraintlayout:constraintlayout is already available as <code>constraintlayout</code>, but using version 2.1.4 instead)</span><br /><pre class="errorlines">
-<span class="lineno"> 31 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
-<span class="lineno"> 32 </span>    implementation("com.google.android.material:material:1.12.0")
-<span class="lineno"> 33 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
-<span class="caretline"><span class="lineno"> 34 </span>    implementation(<span class="warning">"androidx.constraintlayout:constraintlayout:2.2.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 35 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
-<span class="lineno"> 36 </span>    // Import the BoM for the Firebase platform
-<span class="lineno"> 37 </span>    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:35</span>: <span class="message">Use version catalog instead (androidx.constraintlayout:constraintlayout is already available as <code>constraintlayout</code>, but using version 2.1.4 instead)</span><br /><pre class="errorlines">
+<span class="lineno"> 32 </span>    implementation("de.hdodenhof:circleimageview:3.1.0")
+<span class="lineno"> 33 </span>    implementation("com.google.android.material:material:1.12.0")
+<span class="lineno"> 34 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
+<span class="caretline"><span class="lineno"> 35 </span>    implementation(<span class="warning">"androidx.constraintlayout:constraintlayout:2.2.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 36 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
+<span class="lineno"> 37 </span>    // Import the BoM for the Firebase platform
+<span class="lineno"> 38 </span>    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:35</span>: <span class="message">Use the existing version catalog reference (<code>libs.recyclerview</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno"> 32 </span>    implementation("com.google.android.material:material:1.12.0")
-<span class="lineno"> 33 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
-<span class="lineno"> 34 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
-<span class="caretline"><span class="lineno"> 35 </span>    implementation(<span class="warning">"androidx.recyclerview:recyclerview:1.3.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 36 </span>    // Import the BoM for the Firebase platform
-<span class="lineno"> 37 </span>    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
-<span class="lineno"> 38 </span>    // Add the dependency for the Firebase Authentication library
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:36</span>: <span class="message">Use the existing version catalog reference (<code>libs.recyclerview</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 33 </span>    implementation("com.google.android.material:material:1.12.0")
+<span class="lineno"> 34 </span>    implementation("androidx.appcompat:appcompat:1.7.0")
+<span class="lineno"> 35 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+<span class="caretline"><span class="lineno"> 36 </span>    implementation(<span class="warning">"androidx.recyclerview:recyclerview:1.3.2"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 37 </span>    // Import the BoM for the Firebase platform
+<span class="lineno"> 38 </span>    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
+<span class="lineno"> 39 </span>    // Add the dependency for the Firebase Authentication library
 </pre>
 
 <button class="mdl-button mdl-js-button mdl-button--primary" id="UseTomlInsteadDivLink" onclick="reveal('UseTomlInsteadDiv');" />+ 13 More Occurrences...</button>
 <div id="UseTomlInsteadDiv" style="display: none">
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:37</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 34 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
-<span class="lineno"> 35 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
-<span class="lineno"> 36 </span>    // Import the BoM for the Firebase platform
-<span class="caretline"><span class="lineno"> 37 </span>    implementation(<span class="warning">platform("com.google.firebase:firebase-bom:34.4.0")</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 38 </span>    // Add the dependency for the Firebase Authentication library
-<span class="lineno"> 39 </span>    // When using the BoM, you don't specify versions in Firebase library dependencies
-<span class="lineno"> 40 </span>    implementation("com.google.firebase:firebase-auth")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:38</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 35 </span>    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+<span class="lineno"> 36 </span>    implementation("androidx.recyclerview:recyclerview:1.3.2")
+<span class="lineno"> 37 </span>    // Import the BoM for the Firebase platform
+<span class="caretline"><span class="lineno"> 38 </span>    implementation(<span class="warning">platform("com.google.firebase:firebase-bom:34.4.0")</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 39 </span>    // Add the dependency for the Firebase Authentication library
+<span class="lineno"> 40 </span>    // When using the BoM, you don't specify versions in Firebase library dependencies
+<span class="lineno"> 41 </span>    implementation("com.google.firebase:firebase-auth")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:40</span>: <span class="message">Use version catalog instead (com.google.firebase:firebase-auth is already available as <code>firebase-auth</code>, but using version 23.0.0 instead)</span><br /><pre class="errorlines">
-<span class="lineno"> 37 </span>  implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
-<span class="lineno"> 38 </span>  // Add the dependency for the Firebase Authentication library
-<span class="lineno"> 39 </span>  // When using the BoM, you don't specify versions in Firebase library dependencies
-<span class="caretline"><span class="lineno"> 40 </span>  implementation(<span class="warning">"com.google.firebase:firebase-auth"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 41 </span>
-<span class="lineno"> 42 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
-<span class="lineno"> 43 </span>  implementation("androidx.credentials:credentials:1.3.0")
-</pre>
-
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:43</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 40 </span>  implementation("com.google.firebase:firebase-auth")
-<span class="lineno"> 41 </span>
-<span class="lineno"> 42 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
-<span class="caretline"><span class="lineno"> 43 </span>  implementation(<span class="warning">"androidx.credentials:credentials:1.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 44 </span>  implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-<span class="lineno"> 45 </span>  implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-<span class="lineno"> 46 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:41</span>: <span class="message">Use version catalog instead (com.google.firebase:firebase-auth is already available as <code>firebase-auth</code>, but using version 23.0.0 instead)</span><br /><pre class="errorlines">
+<span class="lineno"> 38 </span>  implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
+<span class="lineno"> 39 </span>  // Add the dependency for the Firebase Authentication library
+<span class="lineno"> 40 </span>  // When using the BoM, you don't specify versions in Firebase library dependencies
+<span class="caretline"><span class="lineno"> 41 </span>  implementation(<span class="warning">"com.google.firebase:firebase-auth"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 42 </span>
+<span class="lineno"> 43 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
+<span class="lineno"> 44 </span>  implementation("androidx.credentials:credentials:1.3.0")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:44</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 41 </span>
-<span class="lineno"> 42 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
-<span class="lineno"> 43 </span>  implementation("androidx.credentials:credentials:1.3.0")
-<span class="caretline"><span class="lineno"> 44 </span>  implementation(<span class="warning">"androidx.credentials:credentials-play-services-auth:1.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 45 </span>  implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-<span class="lineno"> 46 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
-<span class="lineno"> 47 </span>  implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="lineno"> 41 </span>  implementation("com.google.firebase:firebase-auth")
+<span class="lineno"> 42 </span>
+<span class="lineno"> 43 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
+<span class="caretline"><span class="lineno"> 44 </span>  implementation(<span class="warning">"androidx.credentials:credentials:1.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 45 </span>  implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+<span class="lineno"> 46 </span>  implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+<span class="lineno"> 47 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:45</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 42 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
-<span class="lineno"> 43 </span>  implementation("androidx.credentials:credentials:1.3.0")
-<span class="lineno"> 44 </span>  implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-<span class="caretline"><span class="lineno"> 45 </span>  implementation(<span class="warning">"com.google.android.libraries.identity.googleid:googleid:1.1.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 46 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
-<span class="lineno"> 47 </span>  implementation("com.google.firebase:firebase-messaging:24.0.0")
-<span class="lineno"> 48 </span>  implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 42 </span>
+<span class="lineno"> 43 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
+<span class="lineno"> 44 </span>  implementation("androidx.credentials:credentials:1.3.0")
+<span class="caretline"><span class="lineno"> 45 </span>  implementation(<span class="warning">"androidx.credentials:credentials-play-services-auth:1.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 46 </span>  implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+<span class="lineno"> 47 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="lineno"> 48 </span>  implementation("com.google.firebase:firebase-messaging:24.0.0")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:46</span>: <span class="message">Use the existing version catalog reference (<code>libs.firebase.firestore</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno"> 43 </span>    implementation("androidx.credentials:credentials:1.3.0")
-<span class="lineno"> 44 </span>    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-<span class="lineno"> 45 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-<span class="caretline"><span class="lineno"> 46 </span>    implementation(<span class="warning">"com.google.firebase:firebase-firestore:25.0.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:46</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 43 </span>  // Also add the dependencies for the Credential Manager libraries and specify their versions
+<span class="lineno"> 44 </span>  implementation("androidx.credentials:credentials:1.3.0")
+<span class="lineno"> 45 </span>  implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+<span class="caretline"><span class="lineno"> 46 </span>  implementation(<span class="warning">"com.google.android.libraries.identity.googleid:googleid:1.1.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 47 </span>  implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="lineno"> 48 </span>  implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="lineno"> 49 </span>  implementation("com.google.android.gms:play-services-location:21.3.0")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:47</span>: <span class="message">Use the existing version catalog reference (<code>libs.firebase.messaging</code>) instead</span><br /><pre class="errorlines">
-<span class="lineno"> 44 </span>    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-<span class="lineno"> 45 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-<span class="lineno"> 46 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
-<span class="caretline"><span class="lineno"> 47 </span>    implementation(<span class="warning">"com.google.firebase:firebase-messaging:24.0.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:47</span>: <span class="message">Use the existing version catalog reference (<code>libs.firebase.firestore</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 44 </span>    implementation("androidx.credentials:credentials:1.3.0")
+<span class="lineno"> 45 </span>    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+<span class="lineno"> 46 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+<span class="caretline"><span class="lineno"> 47 </span>    implementation(<span class="warning">"com.google.firebase:firebase-firestore:25.0.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 48 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:48</span>: <span class="message">Use version catalog instead (com.google.android.gms:play-services-location is already available as <code>play-services-location</code>, but using version 21.0.1 instead)</span><br /><pre class="errorlines">
-<span class="lineno"> 45 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-<span class="lineno"> 46 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
-<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
-<span class="caretline"><span class="lineno"> 48 </span>    implementation(<span class="warning">"com.google.android.gms:play-services-location:21.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:48</span>: <span class="message">Use the existing version catalog reference (<code>libs.firebase.messaging</code>) instead</span><br /><pre class="errorlines">
+<span class="lineno"> 45 </span>    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+<span class="lineno"> 46 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="caretline"><span class="lineno"> 48 </span>    implementation(<span class="warning">"com.google.firebase:firebase-messaging:24.0.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:49</span>: <span class="message">Use version catalog instead (com.google.android.gms:play-services-auth is already available as <code>play-services-auth</code>, but using version 21.0.0 instead)</span><br /><pre class="errorlines">
-<span class="lineno"> 46 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
-<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="caretline"><span class="lineno"> 49 </span>    implementation(<span class="warning">"com.google.android.gms:play-services-auth:21.1.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:49</span>: <span class="message">Use version catalog instead (com.google.android.gms:play-services-location is already available as <code>play-services-location</code>, but using version 21.0.1 instead)</span><br /><pre class="errorlines">
+<span class="lineno"> 46 </span>    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="lineno"> 48 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="caretline"><span class="lineno"> 49 </span>    implementation(<span class="warning">"com.google.android.gms:play-services-location:21.3.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
 </pre>
 
-<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:50</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="caretline"><span class="lineno"> 50 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-viewmodel:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
-<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:50</span>: <span class="message">Use version catalog instead (com.google.android.gms:play-services-auth is already available as <code>play-services-auth</code>, but using version 21.0.0 instead)</span><br /><pre class="errorlines">
+<span class="lineno"> 47 </span>    implementation("com.google.firebase:firebase-firestore:25.0.0")
+<span class="lineno"> 48 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="caretline"><span class="lineno"> 50 </span>    implementation(<span class="warning">"com.google.android.gms:play-services-auth:21.1.1"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
 </pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:51</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 48 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="caretline"><span class="lineno"> 51 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-livedata:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
-<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
-<span class="lineno"> 54 </span>}</pre>
+<span class="lineno"> 48 </span>    implementation("com.google.firebase:firebase-messaging:24.0.0")
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="caretline"><span class="lineno"> 51 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-viewmodel:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="lineno"> 54 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+</pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:52</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">"androidx.navigation:navigation-fragment:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
-<span class="lineno"> 54 </span>}</pre>
+<span class="lineno"> 49 </span>    implementation("com.google.android.gms:play-services-location:21.3.0")
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="caretline"><span class="lineno"> 52 </span>    implementation(<span class="warning">"androidx.lifecycle:lifecycle-livedata:2.8.5"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="lineno"> 54 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+<span class="lineno"> 55 </span>}</pre>
 
 <span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:53</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
-<span class="lineno"> 50 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
-<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
-<span class="lineno"> 52 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
-<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.navigation:navigation-ui:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<span class="lineno"> 54 </span>}</pre>
+<span class="lineno"> 50 </span>    implementation("com.google.android.gms:play-services-auth:21.1.1")
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="caretline"><span class="lineno"> 53 </span>    implementation(<span class="warning">"androidx.navigation:navigation-fragment:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 54 </span>    implementation("androidx.navigation:navigation-ui:2.8.0")
+<span class="lineno"> 55 </span>}</pre>
+
+<span class="location"><a href="../../build.gradle.kts">../../build.gradle.kts</a>:54</span>: <span class="message">Use version catalog instead</span><br /><pre class="errorlines">
+<span class="lineno"> 51 </span>    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
+<span class="lineno"> 52 </span>    implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
+<span class="lineno"> 53 </span>    implementation("androidx.navigation:navigation-fragment:2.8.0")
+<span class="caretline"><span class="lineno"> 54 </span>    implementation(<span class="warning">"androidx.navigation:navigation-ui:2.8.0"</span>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 55 </span>}</pre>
 
 </div>
 </div>
@@ -1587,6 +1641,89 @@ Dismiss</button>            </div>
 <span class="lineno">  21 </span>            <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
 <span class="lineno">  22 </span>            <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span></pre>
 
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:80</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">  77 </span>                    <span class="prefix">android:</span><span class="attribute">padding</span>=<span class="value">"16dp"</span>
+<span class="lineno">  78 </span>                    <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical"</span>>
+<span class="lineno">  79 </span>
+<span class="caretline"><span class="lineno">  80 </span>                    <span class="tag">&lt;</span><span class="warning"><span class="tag">ImageView</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno">  81 </span><span class="attribute">                        </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
+<span class="lineno">  82 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span>
+<span class="lineno">  83 </span>                        <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/ic_edit"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:95</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno">  92 </span>                        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno">  93 </span>                        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"16sp"</span> />
+<span class="lineno">  94 </span>
+<span class="caretline"><span class="lineno">  95 </span>                    <span class="tag">&lt;</span><span class="warning"><span class="tag">ImageView</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno">  96 </span><span class="attribute">                        </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
+<span class="lineno">  97 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span>
+<span class="lineno">  98 </span>                        <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/ic_arrow_right"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:119</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno"> 116 </span>                    <span class="prefix">android:</span><span class="attribute">padding</span>=<span class="value">"16dp"</span>
+<span class="lineno"> 117 </span>                    <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical"</span>>
+<span class="lineno"> 118 </span>
+<span class="caretline"><span class="lineno"> 119 </span>                    <span class="tag">&lt;</span><span class="warning"><span class="tag">ImageView</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno"> 120 </span><span class="attribute">                        </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 121 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 122 </span>                        <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/ic_contacts"</span></pre>
+
+<button class="mdl-button mdl-js-button mdl-button--primary" id="ContentDescriptionDivLink" onclick="reveal('ContentDescriptionDiv');" />+ 8 More Occurrences...</button>
+<div id="ContentDescriptionDiv" style="display: none">
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:134</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno"> 131 </span>                        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno"> 132 </span>                        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"16sp"</span> />
+<span class="lineno"> 133 </span>
+<span class="caretline"><span class="lineno"> 134 </span>                    <span class="tag">&lt;</span><span class="warning"><span class="tag">ImageView</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno"> 135 </span><span class="attribute">                        </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 136 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 137 </span>                        <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/ic_arrow_right"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:158</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno"> 155 </span>                    <span class="prefix">android:</span><span class="attribute">padding</span>=<span class="value">"16dp"</span>
+<span class="lineno"> 156 </span>                    <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical"</span>>
+<span class="lineno"> 157 </span>
+<span class="caretline"><span class="lineno"> 158 </span>                    <span class="tag">&lt;</span><span class="warning"><span class="tag">ImageView</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno"> 159 </span><span class="attribute">                        </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 160 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 161 </span>                        <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/ic_location_off"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:197</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno"> 194 </span>                    <span class="prefix">android:</span><span class="attribute">padding</span>=<span class="value">"16dp"</span>
+<span class="lineno"> 195 </span>                    <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical"</span>>
+<span class="lineno"> 196 </span>
+<span class="caretline"><span class="lineno"> 197 </span>                    <span class="tag">&lt;</span><span class="warning"><span class="tag">ImageView</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno"> 198 </span><span class="attribute">                        </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 199 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 200 </span>                        <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/ic_check_circle"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:236</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno"> 233 </span>                    <span class="prefix">android:</span><span class="attribute">padding</span>=<span class="value">"16dp"</span>
+<span class="lineno"> 234 </span>                    <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical"</span>>
+<span class="lineno"> 235 </span>
+<span class="caretline"><span class="lineno"> 236 </span>                    <span class="tag">&lt;</span><span class="warning"><span class="tag">ImageView</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno"> 237 </span><span class="attribute">                        </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 238 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 239 </span>                        <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/ic_timer"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:275</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno"> 272 </span>                    <span class="prefix">android:</span><span class="attribute">padding</span>=<span class="value">"16dp"</span>
+<span class="lineno"> 273 </span>                    <span class="prefix">android:</span><span class="attribute">gravity</span>=<span class="value">"center_vertical"</span>>
+<span class="lineno"> 274 </span>
+<span class="caretline"><span class="lineno"> 275 </span>                    <span class="tag">&lt;</span><span class="warning"><span class="tag">ImageView</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno"> 276 </span><span class="attribute">                        </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 277 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 278 </span>                        <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/ic_logout"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:290</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
+<span class="lineno"> 287 </span>                        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno"> 288 </span>                        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"16sp"</span> />
+<span class="lineno"> 289 </span>
+<span class="caretline"><span class="lineno"> 290 </span>                    <span class="tag">&lt;</span><span class="warning"><span class="tag">ImageView</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">
+</span><span class="lineno"> 291 </span><span class="attribute">                        </span><span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 292 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span>
+<span class="lineno"> 293 </span>                        <span class="prefix">android:</span><span class="attribute">src</span>=<span class="value">"@drawable/ic_arrow_right"</span></pre>
+
 <span class="location"><a href="../../src/main/res/layout/activity_splash.xml">../../src/main/res/layout/activity_splash.xml</a>:23</span>: <span class="message">Missing <code>contentDescription</code> attribute on image</span><br /><pre class="errorlines">
 <span class="lineno"> 20 </span>        <span class="prefix">app:</span><span class="attribute">layout_constraintVertical_bias</span>=<span class="value">"0.4"</span>>
 <span class="lineno"> 21 </span>
@@ -1605,6 +1742,7 @@ Dismiss</button>            </div>
 <span class="lineno"> 18 </span>            <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"24dp"</span>
 <span class="lineno"> 19 </span>            <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"24dp"</span></pre>
 
+</div>
 </div>
 <div class="metadata"><div class="explanation" id="explanationContentDescription" style="display: none;">
 Non-textual widgets like ImageViews and ImageButtons should use the <code>contentDescription</code> attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.<br/>
@@ -1639,7 +1777,64 @@ Dismiss</button>            </div>
             </div>
           </section>
 <a name="Internationalization"></a>
-<a name="HardcodedText"></a>
+<a name="SetTextI18n"></a>
+<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="SetTextI18nCard" style="display: block;">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">TextView Internationalization</h2>
+  </div>
+              <div class="mdl-card__supporting-text">
+<div class="issue">
+<div class="warningslist">
+<span class="location"><a href="../../src/main/java/com/whereu/whereu/ProfileSettingsActivity.java">../../src/main/java/com/whereu/whereu/ProfileSettingsActivity.java</a>:26</span>: <span class="message">String literal in <code>setText</code> can not be translated. Use Android resources instead.</span><br /><pre class="errorlines">
+<span class="lineno"> 23 </span>        setContentView(binding.getRoot());
+<span class="lineno"> 24 </span>
+<span class="lineno"> 25 </span>        <span class="comment">// Set up user info (dummy data for now)</span>
+<span class="caretline"><span class="lineno"> 26 </span>        binding.userName.setText(<span class="warning"><span class="string">"John Doe"</span></span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 27 </span>        binding.userEmail.setText(<span class="string">"john.doe@example.com"</span>);
+<span class="lineno"> 28 </span>        <span class="comment">// binding.profileImage.setImageResource(R.drawable.user_profile_placeholder);</span>
+</pre>
+
+<span class="location"><a href="../../src/main/java/com/whereu/whereu/ProfileSettingsActivity.java">../../src/main/java/com/whereu/whereu/ProfileSettingsActivity.java</a>:27</span>: <span class="message">String literal in <code>setText</code> can not be translated. Use Android resources instead.</span><br /><pre class="errorlines">
+<span class="lineno"> 24 </span>
+<span class="lineno"> 25 </span>        <span class="comment">// Set up user info (dummy data for now)</span>
+<span class="lineno"> 26 </span>        binding.userName.setText(<span class="string">"John Doe"</span>);
+<span class="caretline"><span class="lineno"> 27 </span>        binding.userEmail.setText(<span class="warning"><span class="string">"john.doe@example.com"</span></span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 28 </span>        <span class="comment">// binding.profileImage.setImageResource(R.drawable.user_profile_placeholder);</span>
+<span class="lineno"> 29 </span>
+<span class="lineno"> 30 </span>        <span class="comment">// Set up click listeners for card views</span></pre>
+
+</div>
+<div class="metadata"><div class="explanation" id="explanationSetTextI18n" style="display: none;">
+When calling <code>TextView#setText</code><br/>
+* Never call <code>Number#toString()</code> to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using <code>String#format</code> with proper format specifications (<code>%d</code> or <code>%f</code>) instead.<br/>
+* Do not pass a string literal (e.g. "Hello") to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.<br/>
+* Do not build messages by concatenating text chunks. Such messages can not be properly translated.<br/><div class="moreinfo">More info: <a href="https://developer.android.com/guide/topics/resources/localization.html">https://developer.android.com/guide/topics/resources/localization.html</a>
+</div>To suppress this error, use the issue id "SetTextI18n" as explained in the <a href="#SuppressInfo">Suppressing Warnings and Errors</a> section.<br/>
+<br/></div>
+</div>
+</div>
+<div class="chips">
+<span class="mdl-chip">
+    <span class="mdl-chip__text">SetTextI18n</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Internationalization</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Warning</span>
+</span>
+<span class="mdl-chip">
+    <span class="mdl-chip__text">Priority 6/10</span>
+</span>
+</div>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="explanationSetTextI18nLink" onclick="reveal('explanationSetTextI18n');">
+Explain</button><button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="SetTextI18nCardLink" onclick="hideid('SetTextI18nCard');">
+Dismiss</button>            </div>
+            </div>
+          </section><a name="HardcodedText"></a>
 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="HardcodedTextCard" style="display: block;">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
   <div class="mdl-card__title">
@@ -1693,7 +1888,7 @@ Dismiss</button>            </div>
 <span class="lineno">  69 </span>                <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"18sp"</span>
 <span class="lineno">  70 </span>                <span class="prefix">android:</span><span class="attribute">textStyle</span>=<span class="value">"bold"</span></pre>
 
-<button class="mdl-button mdl-js-button mdl-button--primary" id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 17 More Occurrences...</button>
+<button class="mdl-button mdl-js-button mdl-button--primary" id="HardcodedTextDivLink" onclick="reveal('HardcodedTextDiv');" />+ 25 More Occurrences...</button>
 <div id="HardcodedTextDiv" style="display: none">
 <span class="location"><a href="../../src/main/res/layout/activity_notification.xml">../../src/main/res/layout/activity_notification.xml</a>:83</span>: <span class="message">Hardcoded string "Approve", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno">  80 </span>                <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"0dp"</span>
@@ -1730,6 +1925,78 @@ Dismiss</button>            </div>
 <span class="lineno"> 14 </span>        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"24sp"</span>
 <span class="lineno"> 15 </span>        <span class="prefix">app:</span><span class="attribute">layout_constraintBottom_toBottomOf</span>=<span class="value">"parent"</span>
 <span class="lineno"> 16 </span>        <span class="prefix">app:</span><span class="attribute">layout_constraintEnd_toEndOf</span>=<span class="value">"parent"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:29</span>: <span class="message">Hardcoded string "John Doe", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  26 </span>        <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"wrap_content"</span>
+<span class="lineno">  27 </span>        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="lineno">  28 </span>        <span class="prefix">android:</span><span class="attribute">layout_marginTop</span>=<span class="value">"8dp"</span>
+<span class="caretline"><span class="lineno">  29 </span>        <span class="warning"><span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"John Doe"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  30 </span>        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno">  31 </span>        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"20sp"</span>
+<span class="lineno">  32 </span>        <span class="prefix">android:</span><span class="attribute">textStyle</span>=<span class="value">"bold"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:41</span>: <span class="message">Hardcoded string "john.doe@example.com", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  38 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@+id/user_email"</span>
+<span class="lineno">  39 </span>        <span class="prefix">android:</span><span class="attribute">layout_width</span>=<span class="value">"wrap_content"</span>
+<span class="lineno">  40 </span>        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="caretline"><span class="lineno">  41 </span>        <span class="warning"><span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"john.doe@example.com"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  42 </span>        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/darker_gray"</span>
+<span class="lineno">  43 </span>        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"14sp"</span>
+<span class="lineno">  44 </span>        <span class="prefix">app:</span><span class="attribute">layout_constraintEnd_toEndOf</span>=<span class="value">"parent"</span></pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:91</span>: <span class="message">Hardcoded string "Edit Profile", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno">  88 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="lineno">  89 </span>                        <span class="prefix">android:</span><span class="attribute">layout_weight</span>=<span class="value">"1"</span>
+<span class="lineno">  90 </span>                        <span class="prefix">android:</span><span class="attribute">layout_marginStart</span>=<span class="value">"16dp"</span>
+<span class="caretline"><span class="lineno">  91 </span>                        <span class="warning"><span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"Edit Profile"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno">  92 </span>                        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno">  93 </span>                        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"16sp"</span> />
+</pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:130</span>: <span class="message">Hardcoded string "Trusted Contacts", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno"> 127 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="lineno"> 128 </span>                        <span class="prefix">android:</span><span class="attribute">layout_weight</span>=<span class="value">"1"</span>
+<span class="lineno"> 129 </span>                        <span class="prefix">android:</span><span class="attribute">layout_marginStart</span>=<span class="value">"16dp"</span>
+<span class="caretline"><span class="lineno"> 130 </span>                        <span class="warning"><span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"Trusted Contacts"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 131 </span>                        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno"> 132 </span>                        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"16sp"</span> />
+</pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:169</span>: <span class="message">Hardcoded string "Hide My Location", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno"> 166 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="lineno"> 167 </span>                        <span class="prefix">android:</span><span class="attribute">layout_weight</span>=<span class="value">"1"</span>
+<span class="lineno"> 168 </span>                        <span class="prefix">android:</span><span class="attribute">layout_marginStart</span>=<span class="value">"16dp"</span>
+<span class="caretline"><span class="lineno"> 169 </span>                        <span class="warning"><span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"Hide My Location"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 170 </span>                        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno"> 171 </span>                        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"16sp"</span> />
+</pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:208</span>: <span class="message">Hardcoded string "Auto-Approve Trusted Contacts", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno"> 205 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="lineno"> 206 </span>                        <span class="prefix">android:</span><span class="attribute">layout_weight</span>=<span class="value">"1"</span>
+<span class="lineno"> 207 </span>                        <span class="prefix">android:</span><span class="attribute">layout_marginStart</span>=<span class="value">"16dp"</span>
+<span class="caretline"><span class="lineno"> 208 </span>                        <span class="warning"><span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"Auto-Approve Trusted Contacts"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 209 </span>                        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno"> 210 </span>                        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"16sp"</span> />
+</pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:247</span>: <span class="message">Hardcoded string "Location Share Expiry Time", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno"> 244 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="lineno"> 245 </span>                        <span class="prefix">android:</span><span class="attribute">layout_weight</span>=<span class="value">"1"</span>
+<span class="lineno"> 246 </span>                        <span class="prefix">android:</span><span class="attribute">layout_marginStart</span>=<span class="value">"16dp"</span>
+<span class="caretline"><span class="lineno"> 247 </span>                        <span class="warning"><span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"Location Share Expiry Time"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 248 </span>                        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno"> 249 </span>                        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"16sp"</span> />
+</pre>
+
+<span class="location"><a href="../../src/main/res/layout/activity_profile_settings.xml">../../src/main/res/layout/activity_profile_settings.xml</a>:286</span>: <span class="message">Hardcoded string "Logout", should use <code>@string</code> resource</span><br /><pre class="errorlines">
+<span class="lineno"> 283 </span>                        <span class="prefix">android:</span><span class="attribute">layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="lineno"> 284 </span>                        <span class="prefix">android:</span><span class="attribute">layout_weight</span>=<span class="value">"1"</span>
+<span class="lineno"> 285 </span>                        <span class="prefix">android:</span><span class="attribute">layout_marginStart</span>=<span class="value">"16dp"</span>
+<span class="caretline"><span class="lineno"> 286 </span>                        <span class="warning"><span class="prefix">android:</span><span class="attribute">text</span>=<span class="value">"Logout"</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="lineno"> 287 </span>                        <span class="prefix">android:</span><span class="attribute">textColor</span>=<span class="value">"@android:color/black"</span>
+<span class="lineno"> 288 </span>                        <span class="prefix">android:</span><span class="attribute">textSize</span>=<span class="value">"16sp"</span> />
+</pre>
 
 <span class="location"><a href="../../src/main/res/layout/activity_sign_in.xml">../../src/main/res/layout/activity_sign_in.xml</a>:13</span>: <span class="message">Hardcoded string "Sign In Screen", should use <code>@string</code> resource</span><br /><pre class="errorlines">
 <span class="lineno"> 10 </span><span class="attribute">        </span><span class="prefix">android:</span><span class="attribute">id</span>=<span class="value">"@+id/textView"</span>

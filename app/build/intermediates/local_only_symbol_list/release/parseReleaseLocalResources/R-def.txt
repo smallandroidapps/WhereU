@@ -1,5 +1,6 @@
 R_DEF: Internal format may change without notice
 local
+array location_expiry_options
 color black
 color blue_500
 color bottom_nav_item_color
@@ -11,9 +12,15 @@ color teal_700
 color white
 drawable dot_background
 drawable gradient_blue
+drawable ic_arrow_right
 drawable ic_bell
+drawable ic_check_circle
+drawable ic_contacts
+drawable ic_edit
 drawable ic_home
+drawable ic_location_off
 drawable ic_location_pin
+drawable ic_logout
 drawable ic_profile
 drawable ic_profile_placeholder
 drawable ic_requests
@@ -21,12 +28,19 @@ drawable ic_search
 drawable ic_status_approved
 drawable ic_status_pending
 drawable ic_status_rejected
+drawable ic_timer
 drawable rounded_search_bar
 id app_name
 id bell_icon
 id bottom_navigation_bar
 id button_approve
 id button_reject
+id card_auto_approve
+id card_edit_profile
+id card_hide_location
+id card_location_expiry
+id card_logout
+id card_trusted_contacts
 id codeEditText
 id contact_avatar
 id contact_name
@@ -56,15 +70,21 @@ id search_bar
 id sendCodeButton
 id signInActivity
 id signInButton
+id spinner_location_expiry
 id status_icon
+id switch_auto_approve
+id switch_hide_location
 id textView
 id title_home
 id title_notifications
 id top_bar
+id user_email
+id user_name
 id verifyCodeButton
 layout activity_home
 layout activity_notification
 layout activity_profile
+layout activity_profile_settings
 layout activity_sign_in
 layout activity_splash
 layout item_past_notification

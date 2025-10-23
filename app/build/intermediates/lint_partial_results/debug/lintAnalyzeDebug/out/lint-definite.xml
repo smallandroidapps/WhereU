@@ -235,6 +235,370 @@
     <incident
         id="HardcodedText"
         severity="warning"
+        message="Hardcoded string &quot;John Doe&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="29"
+            column="9"
+            startOffset="1143"
+            endLine="29"
+            endColumn="32"
+            endOffset="1166"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;john.doe@example.com&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="41"
+            column="9"
+            startOffset="1602"
+            endLine="41"
+            endColumn="44"
+            endOffset="1637"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="80"
+            column="22"
+            startOffset="3178"
+            endLine="80"
+            endColumn="31"
+            endOffset="3187"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Edit Profile&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="91"
+            column="25"
+            startOffset="3678"
+            endLine="91"
+            endColumn="52"
+            endOffset="3705"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="95"
+            column="22"
+            startOffset="3844"
+            endLine="95"
+            endColumn="31"
+            endOffset="3853"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="119"
+            column="22"
+            startOffset="4872"
+            endLine="119"
+            endColumn="31"
+            endOffset="4881"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Trusted Contacts&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="130"
+            column="25"
+            startOffset="5376"
+            endLine="130"
+            endColumn="56"
+            endOffset="5407"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="134"
+            column="22"
+            startOffset="5546"
+            endLine="134"
+            endColumn="31"
+            endOffset="5555"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="158"
+            column="22"
+            startOffset="6578"
+            endLine="158"
+            endColumn="31"
+            endOffset="6587"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Hide My Location&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="169"
+            column="25"
+            startOffset="7086"
+            endLine="169"
+            endColumn="56"
+            endOffset="7117"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="197"
+            column="22"
+            startOffset="8331"
+            endLine="197"
+            endColumn="31"
+            endOffset="8340"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Auto-Approve Trusted Contacts&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="208"
+            column="25"
+            startOffset="8839"
+            endLine="208"
+            endColumn="69"
+            endOffset="8883"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="236"
+            column="22"
+            startOffset="10097"
+            endLine="236"
+            endColumn="31"
+            endOffset="10106"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Location Share Expiry Time&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="247"
+            column="25"
+            startOffset="10598"
+            endLine="247"
+            endColumn="66"
+            endOffset="10639"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="275"
+            column="22"
+            startOffset="11814"
+            endLine="275"
+            endColumn="31"
+            endOffset="11823"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Logout&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="286"
+            column="25"
+            startOffset="12316"
+            endLine="286"
+            endColumn="46"
+            endOffset="12337"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
+            line="290"
+            column="22"
+            startOffset="12476"
+            endLine="290"
+            endColumn="31"
+            endOffset="12485"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
         message="Hardcoded string &quot;Sign In Screen&quot;, should use `@string` resource">
         <location
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_sign_in.xml"
@@ -527,6 +891,34 @@
     </incident>
 
     <incident
+        id="SetTextI18n"
+        severity="warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead.">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/whereu/whereu/ProfileSettingsActivity.java"
+            line="26"
+            column="34"
+            startOffset="818"
+            endLine="26"
+            endColumn="44"
+            endOffset="828"/>
+    </incident>
+
+    <incident
+        id="SetTextI18n"
+        severity="warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead.">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/whereu/whereu/ProfileSettingsActivity.java"
+            line="27"
+            column="35"
+            startOffset="865"
+            endLine="27"
+            endColumn="57"
+            endOffset="887"/>
+    </incident>
+
+    <incident
         id="OldTargetApi"
         severity="warning"
         message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details.">
@@ -546,17 +938,31 @@
     </incident>
 
     <incident
+        id="DataBindingWithoutKapt"
+        severity="warning"
+        message="If you plan to use data binding in a Kotlin project, you should apply the kotlin-kapt plugin.">
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="22"
+            column="9"
+            startOffset="446"
+            endLine="22"
+            endColumn="27"
+            endOffset="464"/>
+    </incident>
+
+    <incident
         id="UseTomlInstead"
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for de-hdodenhof-circleimageview"
+            description="Replace with new library catalog declaration for de-hdodenhof-circleimageview5"
             robot="true">
             <fix-replace
-                description="Replace with deCircleimageviewVersion = &quot;3.1.0&quot;..."
+                description="Replace with deHdodenhofCircleimageview4 = &quot;3.1.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="deCircleimageviewVersion = &quot;3.1.0&quot;&#xA;"
+                replacement="deHdodenhofCircleimageview4 = &quot;3.1.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -564,10 +970,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with de-hdodenhof-circleimageview = { module = &quot;de.hdodenhof:circleimageview&quot;, version.ref = &quot;deCircleimageviewVersion&quot; }..."
+                description="Replace with de-hdodenhof-circleimageview5 = { module = &quot;de.hdodenhof:circleimageview&quot;, version.ref = &quot;deHdodenhofCircleimageview4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="de-hdodenhof-circleimageview = { module = &quot;de.hdodenhof:circleimageview&quot;, version.ref = &quot;deCircleimageviewVersion&quot; }&#xA;"
+                replacement="de-hdodenhof-circleimageview5 = { module = &quot;de.hdodenhof:circleimageview&quot;, version.ref = &quot;deHdodenhofCircleimageview4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -575,24 +981,24 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.de.hdodenhof.circleimageview"
+                description="Replace with libs.de.hdodenhof.circleimageview5"
                 robot="true"
-                replacement="libs.de.hdodenhof.circleimageview"
+                replacement="libs.de.hdodenhof.circleimageview5"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="615"
-                    endOffset="651"/>
+                    startOffset="642"
+                    endOffset="678"/>
             </fix-replace>
         </fix-composite>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="31"
+            line="32"
             column="20"
-            startOffset="615"
-            endLine="31"
+            startOffset="642"
+            endLine="32"
             endColumn="56"
-            endOffset="651"/>
+            endOffset="678"/>
     </incident>
 
     <incident
@@ -607,17 +1013,17 @@
             priority="0">
             <range
                 file="${:app*projectDir}/build.gradle.kts"
-                startOffset="672"
-                endOffset="717"/>
+                startOffset="699"
+                endOffset="744"/>
         </fix-replace>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="32"
+            line="33"
             column="20"
-            startOffset="672"
-            endLine="32"
+            startOffset="699"
+            endLine="33"
             endColumn="65"
-            endOffset="717"/>
+            endOffset="744"/>
     </incident>
 
     <incident
@@ -632,17 +1038,17 @@
             priority="0">
             <range
                 file="${:app*projectDir}/build.gradle.kts"
-                startOffset="738"
-                endOffset="774"/>
+                startOffset="765"
+                endOffset="801"/>
         </fix-replace>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="33"
+            line="34"
             column="20"
-            startOffset="738"
-            endLine="33"
+            startOffset="765"
+            endLine="34"
             endColumn="56"
-            endOffset="774"/>
+            endOffset="801"/>
     </incident>
 
     <incident
@@ -651,15 +1057,15 @@
         message="Use version catalog instead (androidx.constraintlayout:constraintlayout is already available as `constraintlayout`, but using version 2.1.4 instead)">
         <fix-alternatives>
             <fix-composite
-                description="Replace with new library catalog declaration for androidx-constraintlayout-constraintlayout-v220-x8"
+                description="Replace with new library catalog declaration for androidx-constraintlayout-constraintlayout-v220-x12"
                 robot="true"
                 independent="true">
                 <fix-replace
-                    description="Replace with androidxConstraintlayoutConstraintlayout7 = &quot;2.2.0&quot;..."
+                    description="Replace with androidxConstraintlayoutConstraintlayout11 = &quot;2.2.0&quot;..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="androidxConstraintlayoutConstraintlayout7 = &quot;2.2.0&quot;&#xA;"
+                    replacement="androidxConstraintlayoutConstraintlayout11 = &quot;2.2.0&quot;&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -667,11 +1073,11 @@
                         endOffset="11"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with androidx-constraintlayout-constraintlayout-v220-x8 = { module = &quot;androidx.constraintlayout:constraintlayout&quot;, version.ref = &quot;androidxConstraintlayoutConstraintlayout7&quot; }..."
+                    description="Replace with androidx-constraintlayout-constraintlayout-v220-x12 = { module = &quot;androidx.constraintlayout:constraintlayout&quot;, version.ref = &quot;androidxConstraintlayoutConstraintlayout11&quot; }..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="androidx-constraintlayout-constraintlayout-v220-x8 = { module = &quot;androidx.constraintlayout:constraintlayout&quot;, version.ref = &quot;androidxConstraintlayoutConstraintlayout7&quot; }&#xA;"
+                    replacement="androidx-constraintlayout-constraintlayout-v220-x12 = { module = &quot;androidx.constraintlayout:constraintlayout&quot;, version.ref = &quot;androidxConstraintlayoutConstraintlayout11&quot; }&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -679,15 +1085,15 @@
                         endOffset="531"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with libs.androidx.constraintlayout.constraintlayout.v220.x8"
+                    description="Replace with libs.androidx.constraintlayout.constraintlayout.v220.x12"
                     robot="true"
                     independent="true"
-                    replacement="libs.androidx.constraintlayout.constraintlayout.v220.x8"
+                    replacement="libs.androidx.constraintlayout.constraintlayout.v220.x12"
                     priority="0">
                     <range
                         file="${:app*projectDir}/build.gradle.kts"
-                        startOffset="795"
-                        endOffset="845"/>
+                        startOffset="822"
+                        endOffset="872"/>
                 </fix-replace>
             </fix-composite>
             <fix-replace
@@ -696,18 +1102,18 @@
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="795"
-                    endOffset="845"/>
+                    startOffset="822"
+                    endOffset="872"/>
             </fix-replace>
         </fix-alternatives>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="34"
+            line="35"
             column="20"
-            startOffset="795"
-            endLine="34"
+            startOffset="822"
+            endLine="35"
             endColumn="70"
-            endOffset="845"/>
+            endOffset="872"/>
     </incident>
 
     <incident
@@ -722,17 +1128,17 @@
             priority="0">
             <range
                 file="${:app*projectDir}/build.gradle.kts"
-                startOffset="866"
-                endOffset="908"/>
+                startOffset="893"
+                endOffset="935"/>
         </fix-replace>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="35"
+            line="36"
             column="20"
-            startOffset="866"
-            endLine="35"
+            startOffset="893"
+            endLine="36"
             endColumn="62"
-            endOffset="908"/>
+            endOffset="935"/>
     </incident>
 
     <incident
@@ -740,13 +1146,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for com-google-firebase-firebase-bom8"
+            description="Replace with new library catalog declaration for com-google-firebase-firebase-bom12"
             robot="true">
             <fix-replace
-                description="Replace with comGoogleFirebaseFirebaseBom6 = &quot;34.4.0&quot;..."
+                description="Replace with comGoogleFirebaseFirebaseBom10 = &quot;34.4.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="comGoogleFirebaseFirebaseBom6 = &quot;34.4.0&quot;&#xA;"
+                replacement="comGoogleFirebaseFirebaseBom10 = &quot;34.4.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -754,10 +1160,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with com-google-firebase-firebase-bom8 = { module = &quot;com.google.firebase:firebase-bom&quot;, version.ref = &quot;comGoogleFirebaseFirebaseBom6&quot; }..."
+                description="Replace with com-google-firebase-firebase-bom12 = { module = &quot;com.google.firebase:firebase-bom&quot;, version.ref = &quot;comGoogleFirebaseFirebaseBom10&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="com-google-firebase-firebase-bom8 = { module = &quot;com.google.firebase:firebase-bom&quot;, version.ref = &quot;comGoogleFirebaseFirebaseBom6&quot; }&#xA;"
+                replacement="com-google-firebase-firebase-bom12 = { module = &quot;com.google.firebase:firebase-bom&quot;, version.ref = &quot;comGoogleFirebaseFirebaseBom10&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -765,24 +1171,24 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.com.google.firebase.firebase.bom8"
+                description="Replace with libs.com.google.firebase.firebase.bom12"
                 robot="true"
-                replacement="libs.com.google.firebase.firebase.bom8"
+                replacement="libs.com.google.firebase.firebase.bom12"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="977"
-                    endOffset="1028"/>
+                    startOffset="1004"
+                    endOffset="1055"/>
             </fix-replace>
         </fix-composite>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="37"
+            line="38"
             column="20"
-            startOffset="977"
-            endLine="37"
+            startOffset="1004"
+            endLine="38"
             endColumn="71"
-            endOffset="1028"/>
+            endOffset="1055"/>
     </incident>
 
     <incident
@@ -791,15 +1197,15 @@
         message="Use version catalog instead (com.google.firebase:firebase-auth is already available as `firebase-auth`, but using version 23.0.0 instead)">
         <fix-alternatives>
             <fix-composite
-                description="Replace with new library catalog declaration for com-google-firebase-firebase-auth9"
+                description="Replace with new library catalog declaration for com-google-firebase-firebase-auth13"
                 robot="true"
                 independent="true">
                 <fix-replace
-                    description="Replace with com-google-firebase-firebase-auth9 = { module = &quot;com.google.firebase:firebase-auth&quot; }..."
+                    description="Replace with com-google-firebase-firebase-auth13 = { module = &quot;com.google.firebase:firebase-auth&quot; }..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="com-google-firebase-firebase-auth9 = { module = &quot;com.google.firebase:firebase-auth&quot; }&#xA;"
+                    replacement="com-google-firebase-firebase-auth13 = { module = &quot;com.google.firebase:firebase-auth&quot; }&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -807,15 +1213,15 @@
                         endOffset="531"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with libs.com.google.firebase.firebase.auth9"
+                    description="Replace with libs.com.google.firebase.firebase.auth13"
                     robot="true"
                     independent="true"
-                    replacement="libs.com.google.firebase.firebase.auth9"
+                    replacement="libs.com.google.firebase.firebase.auth13"
                     priority="0">
                     <range
                         file="${:app*projectDir}/build.gradle.kts"
-                        startOffset="1202"
-                        endOffset="1237"/>
+                        startOffset="1229"
+                        endOffset="1264"/>
                 </fix-replace>
             </fix-composite>
             <fix-replace
@@ -824,18 +1230,18 @@
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="1202"
-                    endOffset="1237"/>
+                    startOffset="1229"
+                    endOffset="1264"/>
             </fix-replace>
         </fix-alternatives>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="40"
+            line="41"
             column="20"
-            startOffset="1202"
-            endLine="40"
+            startOffset="1229"
+            endLine="41"
             endColumn="55"
-            endOffset="1237"/>
+            endOffset="1264"/>
     </incident>
 
     <incident
@@ -843,13 +1249,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-credentials-credentials8"
+            description="Replace with new library catalog declaration for androidx-credentials-credentials12"
             robot="true">
             <fix-replace
-                description="Replace with androidxCredentialsCredentials6 = &quot;1.3.0&quot;..."
+                description="Replace with androidxCredentialsCredentials10 = &quot;1.3.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxCredentialsCredentials6 = &quot;1.3.0&quot;&#xA;"
+                replacement="androidxCredentialsCredentials10 = &quot;1.3.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -857,10 +1263,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-credentials-credentials8 = { module = &quot;androidx.credentials:credentials&quot;, version.ref = &quot;androidxCredentialsCredentials6&quot; }..."
+                description="Replace with androidx-credentials-credentials12 = { module = &quot;androidx.credentials:credentials&quot;, version.ref = &quot;androidxCredentialsCredentials10&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-credentials-credentials8 = { module = &quot;androidx.credentials:credentials&quot;, version.ref = &quot;androidxCredentialsCredentials6&quot; }&#xA;"
+                replacement="androidx-credentials-credentials12 = { module = &quot;androidx.credentials:credentials&quot;, version.ref = &quot;androidxCredentialsCredentials10&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -868,74 +1274,24 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.credentials.credentials8"
+                description="Replace with libs.androidx.credentials.credentials12"
                 robot="true"
-                replacement="libs.androidx.credentials.credentials8"
+                replacement="libs.androidx.credentials.credentials12"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="1356"
-                    endOffset="1396"/>
-            </fix-replace>
-        </fix-composite>
-        <location
-            file="${:app*projectDir}/build.gradle.kts"
-            line="43"
-            column="20"
-            startOffset="1356"
-            endLine="43"
-            endColumn="60"
-            endOffset="1396"/>
-    </incident>
-
-    <incident
-        id="UseTomlInstead"
-        severity="warning"
-        message="Use version catalog instead">
-        <fix-composite
-            description="Replace with new library catalog declaration for androidx-credentials-credentials-play-services-auth8"
-            robot="true">
-            <fix-replace
-                description="Replace with androidxCredentialsCredentialsPlayServicesAuth6 = &quot;1.3.0&quot;..."
-                robot="true"
-                oldString="_lint_insert_begin_"
-                replacement="androidxCredentialsCredentialsPlayServicesAuth6 = &quot;1.3.0&quot;&#xA;"
-                priority="0">
-                <range
-                    file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
-                    startOffset="11"
-                    endOffset="11"/>
-            </fix-replace>
-            <fix-replace
-                description="Replace with androidx-credentials-credentials-play-services-auth8 = { module = &quot;androidx.credentials:credentials-play-services-auth&quot;, version.ref = &quot;androidxCredentialsCredentialsPlayServicesAuth6&quot; }..."
-                robot="true"
-                oldString="_lint_insert_begin_"
-                replacement="androidx-credentials-credentials-play-services-auth8 = { module = &quot;androidx.credentials:credentials-play-services-auth&quot;, version.ref = &quot;androidxCredentialsCredentialsPlayServicesAuth6&quot; }&#xA;"
-                priority="0">
-                <range
-                    file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
-                    startOffset="531"
-                    endOffset="531"/>
-            </fix-replace>
-            <fix-replace
-                description="Replace with libs.androidx.credentials.credentials.play.services.auth8"
-                robot="true"
-                replacement="libs.androidx.credentials.credentials.play.services.auth8"
-                priority="0">
-                <range
-                    file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="1417"
-                    endOffset="1476"/>
+                    startOffset="1383"
+                    endOffset="1423"/>
             </fix-replace>
         </fix-composite>
         <location
             file="${:app*projectDir}/build.gradle.kts"
             line="44"
             column="20"
-            startOffset="1417"
+            startOffset="1383"
             endLine="44"
-            endColumn="79"
-            endOffset="1476"/>
+            endColumn="60"
+            endOffset="1423"/>
     </incident>
 
     <incident
@@ -943,13 +1299,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for com-google-android-libraries-identity-googleid-googleid8"
+            description="Replace with new library catalog declaration for androidx-credentials-credentials-play-services-auth12"
             robot="true">
             <fix-replace
-                description="Replace with comGoogleAndroidLibrariesIdentityGoogleidGoogleid6 = &quot;1.1.1&quot;..."
+                description="Replace with androidxCredentialsCredentialsPlayServicesAuth10 = &quot;1.3.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="comGoogleAndroidLibrariesIdentityGoogleidGoogleid6 = &quot;1.1.1&quot;&#xA;"
+                replacement="androidxCredentialsCredentialsPlayServicesAuth10 = &quot;1.3.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -957,10 +1313,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with com-google-android-libraries-identity-googleid-googleid8 = { module = &quot;com.google.android.libraries.identity.googleid:googleid&quot;, version.ref = &quot;comGoogleAndroidLibrariesIdentityGoogleidGoogleid6&quot; }..."
+                description="Replace with androidx-credentials-credentials-play-services-auth12 = { module = &quot;androidx.credentials:credentials-play-services-auth&quot;, version.ref = &quot;androidxCredentialsCredentialsPlayServicesAuth10&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="com-google-android-libraries-identity-googleid-googleid8 = { module = &quot;com.google.android.libraries.identity.googleid:googleid&quot;, version.ref = &quot;comGoogleAndroidLibrariesIdentityGoogleidGoogleid6&quot; }&#xA;"
+                replacement="androidx-credentials-credentials-play-services-auth12 = { module = &quot;androidx.credentials:credentials-play-services-auth&quot;, version.ref = &quot;androidxCredentialsCredentialsPlayServicesAuth10&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -968,24 +1324,74 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.com.google.android.libraries.identity.googleid.googleid8"
+                description="Replace with libs.androidx.credentials.credentials.play.services.auth12"
                 robot="true"
-                replacement="libs.com.google.android.libraries.identity.googleid.googleid8"
+                replacement="libs.androidx.credentials.credentials.play.services.auth12"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="1497"
-                    endOffset="1560"/>
+                    startOffset="1444"
+                    endOffset="1503"/>
             </fix-replace>
         </fix-composite>
         <location
             file="${:app*projectDir}/build.gradle.kts"
             line="45"
             column="20"
-            startOffset="1497"
+            startOffset="1444"
             endLine="45"
+            endColumn="79"
+            endOffset="1503"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for com-google-android-libraries-identity-googleid-googleid12"
+            robot="true">
+            <fix-replace
+                description="Replace with comGoogleAndroidLibrariesIdentityGoogleidGoogleid10 = &quot;1.1.1&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="comGoogleAndroidLibrariesIdentityGoogleidGoogleid10 = &quot;1.1.1&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
+                    startOffset="11"
+                    endOffset="11"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with com-google-android-libraries-identity-googleid-googleid12 = { module = &quot;com.google.android.libraries.identity.googleid:googleid&quot;, version.ref = &quot;comGoogleAndroidLibrariesIdentityGoogleidGoogleid10&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="com-google-android-libraries-identity-googleid-googleid12 = { module = &quot;com.google.android.libraries.identity.googleid:googleid&quot;, version.ref = &quot;comGoogleAndroidLibrariesIdentityGoogleidGoogleid10&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
+                    startOffset="531"
+                    endOffset="531"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.com.google.android.libraries.identity.googleid.googleid12"
+                robot="true"
+                replacement="libs.com.google.android.libraries.identity.googleid.googleid12"
+                priority="0">
+                <range
+                    file="${:app*projectDir}/build.gradle.kts"
+                    startOffset="1524"
+                    endOffset="1587"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="46"
+            column="20"
+            startOffset="1524"
+            endLine="46"
             endColumn="83"
-            endOffset="1560"/>
+            endOffset="1587"/>
     </incident>
 
     <incident
@@ -1000,17 +1406,17 @@
             priority="0">
             <range
                 file="${:app*projectDir}/build.gradle.kts"
-                startOffset="1581"
-                endOffset="1628"/>
+                startOffset="1608"
+                endOffset="1655"/>
         </fix-replace>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="46"
+            line="47"
             column="20"
-            startOffset="1581"
-            endLine="46"
+            startOffset="1608"
+            endLine="47"
             endColumn="67"
-            endOffset="1628"/>
+            endOffset="1655"/>
     </incident>
 
     <incident
@@ -1025,17 +1431,17 @@
             priority="0">
             <range
                 file="${:app*projectDir}/build.gradle.kts"
-                startOffset="1649"
-                endOffset="1696"/>
+                startOffset="1676"
+                endOffset="1723"/>
         </fix-replace>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="47"
+            line="48"
             column="20"
-            startOffset="1649"
-            endLine="47"
+            startOffset="1676"
+            endLine="48"
             endColumn="67"
-            endOffset="1696"/>
+            endOffset="1723"/>
     </incident>
 
     <incident
@@ -1044,15 +1450,15 @@
         message="Use version catalog instead (com.google.android.gms:play-services-location is already available as `play-services-location`, but using version 21.0.1 instead)">
         <fix-alternatives>
             <fix-composite
-                description="Replace with new library catalog declaration for com-google-android-gms-play-services-location-v2130-x7"
+                description="Replace with new library catalog declaration for com-google-android-gms-play-services-location-v2130-x11"
                 robot="true"
                 independent="true">
                 <fix-replace
-                    description="Replace with comGoogleAndroidGmsPlayServicesLocation7 = &quot;21.3.0&quot;..."
+                    description="Replace with comGoogleAndroidGmsPlayServicesLocation11 = &quot;21.3.0&quot;..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="comGoogleAndroidGmsPlayServicesLocation7 = &quot;21.3.0&quot;&#xA;"
+                    replacement="comGoogleAndroidGmsPlayServicesLocation11 = &quot;21.3.0&quot;&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1060,11 +1466,11 @@
                         endOffset="11"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with com-google-android-gms-play-services-location-v2130-x7 = { module = &quot;com.google.android.gms:play-services-location&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesLocation7&quot; }..."
+                    description="Replace with com-google-android-gms-play-services-location-v2130-x11 = { module = &quot;com.google.android.gms:play-services-location&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesLocation11&quot; }..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="com-google-android-gms-play-services-location-v2130-x7 = { module = &quot;com.google.android.gms:play-services-location&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesLocation7&quot; }&#xA;"
+                    replacement="com-google-android-gms-play-services-location-v2130-x11 = { module = &quot;com.google.android.gms:play-services-location&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesLocation11&quot; }&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1072,15 +1478,15 @@
                         endOffset="531"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with libs.com.google.android.gms.play.services.location.v2130.x7"
+                    description="Replace with libs.com.google.android.gms.play.services.location.v2130.x11"
                     robot="true"
                     independent="true"
-                    replacement="libs.com.google.android.gms.play.services.location.v2130.x7"
+                    replacement="libs.com.google.android.gms.play.services.location.v2130.x11"
                     priority="0">
                     <range
                         file="${:app*projectDir}/build.gradle.kts"
-                        startOffset="1717"
-                        endOffset="1771"/>
+                        startOffset="1744"
+                        endOffset="1798"/>
                 </fix-replace>
             </fix-composite>
             <fix-replace
@@ -1089,18 +1495,18 @@
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="1717"
-                    endOffset="1771"/>
+                    startOffset="1744"
+                    endOffset="1798"/>
             </fix-replace>
         </fix-alternatives>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="48"
+            line="49"
             column="20"
-            startOffset="1717"
-            endLine="48"
+            startOffset="1744"
+            endLine="49"
             endColumn="74"
-            endOffset="1771"/>
+            endOffset="1798"/>
     </incident>
 
     <incident
@@ -1109,15 +1515,15 @@
         message="Use version catalog instead (com.google.android.gms:play-services-auth is already available as `play-services-auth`, but using version 21.0.0 instead)">
         <fix-alternatives>
             <fix-composite
-                description="Replace with new library catalog declaration for com-google-android-gms-play-services-auth-v2111-x7"
+                description="Replace with new library catalog declaration for com-google-android-gms-play-services-auth-v2111-x11"
                 robot="true"
                 independent="true">
                 <fix-replace
-                    description="Replace with comGoogleAndroidGmsPlayServicesAuth7 = &quot;21.1.1&quot;..."
+                    description="Replace with comGoogleAndroidGmsPlayServicesAuth11 = &quot;21.1.1&quot;..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="comGoogleAndroidGmsPlayServicesAuth7 = &quot;21.1.1&quot;&#xA;"
+                    replacement="comGoogleAndroidGmsPlayServicesAuth11 = &quot;21.1.1&quot;&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1125,11 +1531,11 @@
                         endOffset="11"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with com-google-android-gms-play-services-auth-v2111-x7 = { module = &quot;com.google.android.gms:play-services-auth&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesAuth7&quot; }..."
+                    description="Replace with com-google-android-gms-play-services-auth-v2111-x11 = { module = &quot;com.google.android.gms:play-services-auth&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesAuth11&quot; }..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="com-google-android-gms-play-services-auth-v2111-x7 = { module = &quot;com.google.android.gms:play-services-auth&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesAuth7&quot; }&#xA;"
+                    replacement="com-google-android-gms-play-services-auth-v2111-x11 = { module = &quot;com.google.android.gms:play-services-auth&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesAuth11&quot; }&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1137,15 +1543,15 @@
                         endOffset="531"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with libs.com.google.android.gms.play.services.auth.v2111.x7"
+                    description="Replace with libs.com.google.android.gms.play.services.auth.v2111.x11"
                     robot="true"
                     independent="true"
-                    replacement="libs.com.google.android.gms.play.services.auth.v2111.x7"
+                    replacement="libs.com.google.android.gms.play.services.auth.v2111.x11"
                     priority="0">
                     <range
                         file="${:app*projectDir}/build.gradle.kts"
-                        startOffset="1792"
-                        endOffset="1842"/>
+                        startOffset="1819"
+                        endOffset="1869"/>
                 </fix-replace>
             </fix-composite>
             <fix-replace
@@ -1154,68 +1560,18 @@
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="1792"
-                    endOffset="1842"/>
+                    startOffset="1819"
+                    endOffset="1869"/>
             </fix-replace>
         </fix-alternatives>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="49"
-            column="20"
-            startOffset="1792"
-            endLine="49"
-            endColumn="70"
-            endOffset="1842"/>
-    </incident>
-
-    <incident
-        id="UseTomlInstead"
-        severity="warning"
-        message="Use version catalog instead">
-        <fix-composite
-            description="Replace with new library catalog declaration for androidx-lifecycle-lifecycle-viewmodel8"
-            robot="true">
-            <fix-replace
-                description="Replace with androidxLifecycleLifecycleViewmodel6 = &quot;2.8.5&quot;..."
-                robot="true"
-                oldString="_lint_insert_begin_"
-                replacement="androidxLifecycleLifecycleViewmodel6 = &quot;2.8.5&quot;&#xA;"
-                priority="0">
-                <range
-                    file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
-                    startOffset="11"
-                    endOffset="11"/>
-            </fix-replace>
-            <fix-replace
-                description="Replace with androidx-lifecycle-lifecycle-viewmodel8 = { module = &quot;androidx.lifecycle:lifecycle-viewmodel&quot;, version.ref = &quot;androidxLifecycleLifecycleViewmodel6&quot; }..."
-                robot="true"
-                oldString="_lint_insert_begin_"
-                replacement="androidx-lifecycle-lifecycle-viewmodel8 = { module = &quot;androidx.lifecycle:lifecycle-viewmodel&quot;, version.ref = &quot;androidxLifecycleLifecycleViewmodel6&quot; }&#xA;"
-                priority="0">
-                <range
-                    file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
-                    startOffset="531"
-                    endOffset="531"/>
-            </fix-replace>
-            <fix-replace
-                description="Replace with libs.androidx.lifecycle.lifecycle.viewmodel8"
-                robot="true"
-                replacement="libs.androidx.lifecycle.lifecycle.viewmodel8"
-                priority="0">
-                <range
-                    file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="1863"
-                    endOffset="1909"/>
-            </fix-replace>
-        </fix-composite>
-        <location
-            file="${:app*projectDir}/build.gradle.kts"
             line="50"
             column="20"
-            startOffset="1863"
+            startOffset="1819"
             endLine="50"
-            endColumn="66"
-            endOffset="1909"/>
+            endColumn="70"
+            endOffset="1869"/>
     </incident>
 
     <incident
@@ -1223,13 +1579,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-lifecycle-lifecycle-livedata8"
+            description="Replace with new library catalog declaration for androidx-lifecycle-lifecycle-viewmodel12"
             robot="true">
             <fix-replace
-                description="Replace with androidxLifecycleLifecycleLivedata6 = &quot;2.8.5&quot;..."
+                description="Replace with androidxLifecycleLifecycleViewmodel10 = &quot;2.8.5&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxLifecycleLifecycleLivedata6 = &quot;2.8.5&quot;&#xA;"
+                replacement="androidxLifecycleLifecycleViewmodel10 = &quot;2.8.5&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1237,10 +1593,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-lifecycle-lifecycle-livedata8 = { module = &quot;androidx.lifecycle:lifecycle-livedata&quot;, version.ref = &quot;androidxLifecycleLifecycleLivedata6&quot; }..."
+                description="Replace with androidx-lifecycle-lifecycle-viewmodel12 = { module = &quot;androidx.lifecycle:lifecycle-viewmodel&quot;, version.ref = &quot;androidxLifecycleLifecycleViewmodel10&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-lifecycle-lifecycle-livedata8 = { module = &quot;androidx.lifecycle:lifecycle-livedata&quot;, version.ref = &quot;androidxLifecycleLifecycleLivedata6&quot; }&#xA;"
+                replacement="androidx-lifecycle-lifecycle-viewmodel12 = { module = &quot;androidx.lifecycle:lifecycle-viewmodel&quot;, version.ref = &quot;androidxLifecycleLifecycleViewmodel10&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1248,24 +1604,24 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.lifecycle.lifecycle.livedata8"
+                description="Replace with libs.androidx.lifecycle.lifecycle.viewmodel12"
                 robot="true"
-                replacement="libs.androidx.lifecycle.lifecycle.livedata8"
+                replacement="libs.androidx.lifecycle.lifecycle.viewmodel12"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="1930"
-                    endOffset="1975"/>
+                    startOffset="1890"
+                    endOffset="1936"/>
             </fix-replace>
         </fix-composite>
         <location
             file="${:app*projectDir}/build.gradle.kts"
             line="51"
             column="20"
-            startOffset="1930"
+            startOffset="1890"
             endLine="51"
-            endColumn="65"
-            endOffset="1975"/>
+            endColumn="66"
+            endOffset="1936"/>
     </incident>
 
     <incident
@@ -1273,13 +1629,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-navigation-navigation-fragment8"
+            description="Replace with new library catalog declaration for androidx-lifecycle-lifecycle-livedata12"
             robot="true">
             <fix-replace
-                description="Replace with androidxNavigationNavigationFragment6 = &quot;2.8.0&quot;..."
+                description="Replace with androidxLifecycleLifecycleLivedata10 = &quot;2.8.5&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxNavigationNavigationFragment6 = &quot;2.8.0&quot;&#xA;"
+                replacement="androidxLifecycleLifecycleLivedata10 = &quot;2.8.5&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1287,10 +1643,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-navigation-navigation-fragment8 = { module = &quot;androidx.navigation:navigation-fragment&quot;, version.ref = &quot;androidxNavigationNavigationFragment6&quot; }..."
+                description="Replace with androidx-lifecycle-lifecycle-livedata12 = { module = &quot;androidx.lifecycle:lifecycle-livedata&quot;, version.ref = &quot;androidxLifecycleLifecycleLivedata10&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-navigation-navigation-fragment8 = { module = &quot;androidx.navigation:navigation-fragment&quot;, version.ref = &quot;androidxNavigationNavigationFragment6&quot; }&#xA;"
+                replacement="androidx-lifecycle-lifecycle-livedata12 = { module = &quot;androidx.lifecycle:lifecycle-livedata&quot;, version.ref = &quot;androidxLifecycleLifecycleLivedata10&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1298,24 +1654,24 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.navigation.navigation.fragment8"
+                description="Replace with libs.androidx.lifecycle.lifecycle.livedata12"
                 robot="true"
-                replacement="libs.androidx.navigation.navigation.fragment8"
+                replacement="libs.androidx.lifecycle.lifecycle.livedata12"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="1996"
-                    endOffset="2043"/>
+                    startOffset="1957"
+                    endOffset="2002"/>
             </fix-replace>
         </fix-composite>
         <location
             file="${:app*projectDir}/build.gradle.kts"
             line="52"
             column="20"
-            startOffset="1996"
+            startOffset="1957"
             endLine="52"
-            endColumn="67"
-            endOffset="2043"/>
+            endColumn="65"
+            endOffset="2002"/>
     </incident>
 
     <incident
@@ -1323,13 +1679,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-navigation-navigation-ui8"
+            description="Replace with new library catalog declaration for androidx-navigation-navigation-fragment12"
             robot="true">
             <fix-replace
-                description="Replace with androidxNavigationNavigationUi6 = &quot;2.8.0&quot;..."
+                description="Replace with androidxNavigationNavigationFragment10 = &quot;2.8.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxNavigationNavigationUi6 = &quot;2.8.0&quot;&#xA;"
+                replacement="androidxNavigationNavigationFragment10 = &quot;2.8.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1337,10 +1693,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-navigation-navigation-ui8 = { module = &quot;androidx.navigation:navigation-ui&quot;, version.ref = &quot;androidxNavigationNavigationUi6&quot; }..."
+                description="Replace with androidx-navigation-navigation-fragment12 = { module = &quot;androidx.navigation:navigation-fragment&quot;, version.ref = &quot;androidxNavigationNavigationFragment10&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-navigation-navigation-ui8 = { module = &quot;androidx.navigation:navigation-ui&quot;, version.ref = &quot;androidxNavigationNavigationUi6&quot; }&#xA;"
+                replacement="androidx-navigation-navigation-fragment12 = { module = &quot;androidx.navigation:navigation-fragment&quot;, version.ref = &quot;androidxNavigationNavigationFragment10&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1348,24 +1704,74 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.navigation.navigation.ui8"
+                description="Replace with libs.androidx.navigation.navigation.fragment12"
                 robot="true"
-                replacement="libs.androidx.navigation.navigation.ui8"
+                replacement="libs.androidx.navigation.navigation.fragment12"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
-                    startOffset="2064"
-                    endOffset="2105"/>
+                    startOffset="2023"
+                    endOffset="2070"/>
             </fix-replace>
         </fix-composite>
         <location
             file="${:app*projectDir}/build.gradle.kts"
             line="53"
             column="20"
-            startOffset="2064"
+            startOffset="2023"
             endLine="53"
+            endColumn="67"
+            endOffset="2070"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use version catalog instead">
+        <fix-composite
+            description="Replace with new library catalog declaration for androidx-navigation-navigation-ui12"
+            robot="true">
+            <fix-replace
+                description="Replace with androidxNavigationNavigationUi10 = &quot;2.8.0&quot;..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidxNavigationNavigationUi10 = &quot;2.8.0&quot;&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
+                    startOffset="11"
+                    endOffset="11"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with androidx-navigation-navigation-ui12 = { module = &quot;androidx.navigation:navigation-ui&quot;, version.ref = &quot;androidxNavigationNavigationUi10&quot; }..."
+                robot="true"
+                oldString="_lint_insert_begin_"
+                replacement="androidx-navigation-navigation-ui12 = { module = &quot;androidx.navigation:navigation-ui&quot;, version.ref = &quot;androidxNavigationNavigationUi10&quot; }&#xA;"
+                priority="0">
+                <range
+                    file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
+                    startOffset="531"
+                    endOffset="531"/>
+            </fix-replace>
+            <fix-replace
+                description="Replace with libs.androidx.navigation.navigation.ui12"
+                robot="true"
+                replacement="libs.androidx.navigation.navigation.ui12"
+                priority="0">
+                <range
+                    file="${:app*projectDir}/build.gradle.kts"
+                    startOffset="2091"
+                    endOffset="2132"/>
+            </fix-replace>
+        </fix-composite>
+        <location
+            file="${:app*projectDir}/build.gradle.kts"
+            line="54"
+            column="20"
+            startOffset="2091"
+            endLine="54"
             endColumn="61"
-            endOffset="2105"/>
+            endOffset="2132"/>
     </incident>
 
     <incident
@@ -1680,12 +2086,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="32"
+            line="33"
             column="20"
-            startOffset="672"
-            endLine="32"
+            startOffset="699"
+            endLine="33"
             endColumn="65"
-            endOffset="717"/>
+            endOffset="744"/>
     </incident>
 
     <incident
@@ -1700,12 +2106,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="33"
+            line="34"
             column="20"
-            startOffset="738"
-            endLine="33"
+            startOffset="765"
+            endLine="34"
             endColumn="56"
-            endOffset="774"/>
+            endOffset="801"/>
     </incident>
 
     <incident
@@ -1720,12 +2126,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="34"
+            line="35"
             column="20"
-            startOffset="795"
-            endLine="34"
+            startOffset="822"
+            endLine="35"
             endColumn="70"
-            endOffset="845"/>
+            endOffset="872"/>
     </incident>
 
     <incident
@@ -1740,12 +2146,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="35"
+            line="36"
             column="20"
-            startOffset="866"
-            endLine="35"
+            startOffset="893"
+            endLine="36"
             endColumn="62"
-            endOffset="908"/>
+            endOffset="935"/>
     </incident>
 
     <incident
@@ -1760,12 +2166,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="43"
+            line="44"
             column="20"
-            startOffset="1356"
-            endLine="43"
+            startOffset="1383"
+            endLine="44"
             endColumn="60"
-            endOffset="1396"/>
+            endOffset="1423"/>
     </incident>
 
     <incident
@@ -1780,12 +2186,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="44"
+            line="45"
             column="20"
-            startOffset="1417"
-            endLine="44"
+            startOffset="1444"
+            endLine="45"
             endColumn="79"
-            endOffset="1476"/>
+            endOffset="1503"/>
     </incident>
 
     <incident
@@ -1800,12 +2206,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="46"
+            line="47"
             column="20"
-            startOffset="1581"
-            endLine="46"
+            startOffset="1608"
+            endLine="47"
             endColumn="67"
-            endOffset="1628"/>
+            endOffset="1655"/>
     </incident>
 
     <incident
@@ -1820,12 +2226,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="47"
+            line="48"
             column="20"
-            startOffset="1649"
-            endLine="47"
+            startOffset="1676"
+            endLine="48"
             endColumn="67"
-            endOffset="1696"/>
+            endOffset="1723"/>
     </incident>
 
     <incident
@@ -1840,12 +2246,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="49"
+            line="50"
             column="20"
-            startOffset="1792"
-            endLine="49"
+            startOffset="1819"
+            endLine="50"
             endColumn="70"
-            endOffset="1842"/>
+            endOffset="1869"/>
     </incident>
 
     <incident
@@ -1859,12 +2265,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="50"
+            line="51"
             column="20"
-            startOffset="1863"
-            endLine="50"
+            startOffset="1890"
+            endLine="51"
             endColumn="66"
-            endOffset="1909"/>
+            endOffset="1936"/>
     </incident>
 
     <incident
@@ -1879,12 +2285,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="50"
+            line="51"
             column="20"
-            startOffset="1863"
-            endLine="50"
+            startOffset="1890"
+            endLine="51"
             endColumn="66"
-            endOffset="1909"/>
+            endOffset="1936"/>
     </incident>
 
     <incident
@@ -1898,12 +2304,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="51"
+            line="52"
             column="20"
-            startOffset="1930"
-            endLine="51"
+            startOffset="1957"
+            endLine="52"
             endColumn="65"
-            endOffset="1975"/>
+            endOffset="2002"/>
     </incident>
 
     <incident
@@ -1918,12 +2324,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="51"
+            line="52"
             column="20"
-            startOffset="1930"
-            endLine="51"
+            startOffset="1957"
+            endLine="52"
             endColumn="65"
-            endOffset="1975"/>
+            endOffset="2002"/>
     </incident>
 
     <incident
@@ -1937,12 +2343,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="52"
+            line="53"
             column="20"
-            startOffset="1996"
-            endLine="52"
+            startOffset="2023"
+            endLine="53"
             endColumn="67"
-            endOffset="2043"/>
+            endOffset="2070"/>
     </incident>
 
     <incident
@@ -1957,12 +2363,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="52"
+            line="53"
             column="20"
-            startOffset="1996"
-            endLine="52"
+            startOffset="2023"
+            endLine="53"
             endColumn="67"
-            endOffset="2043"/>
+            endOffset="2070"/>
     </incident>
 
     <incident
@@ -1976,12 +2382,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="53"
+            line="54"
             column="20"
-            startOffset="2064"
-            endLine="53"
+            startOffset="2091"
+            endLine="54"
             endColumn="61"
-            endOffset="2105"/>
+            endOffset="2132"/>
     </incident>
 
     <incident
@@ -1996,12 +2402,12 @@
             priority="0"/>
         <location
             file="${:app*projectDir}/build.gradle.kts"
-            line="53"
+            line="54"
             column="20"
-            startOffset="2064"
-            endLine="53"
+            startOffset="2091"
+            endLine="54"
             endColumn="61"
-            endOffset="2105"/>
+            endOffset="2132"/>
     </incident>
 
     <incident

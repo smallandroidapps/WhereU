@@ -51,6 +51,7 @@
         <activity android:name="com.whereu.whereu.activities.HomeActivity" />
         <activity android:name="com.whereu.whereu.activities.ProfileActivity" />
         <activity android:name="com.whereu.whereu.activities.NotificationActivity" />
+        <activity android:name="com.whereu.whereu.ProfileSettingsActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="http://schemas.android.com/tools">
+    <string-array name="location_expiry_options">
+        <item>1 Hour</item>
+        <item>6 Hours</item>
+        <item>12 Hours</item>
+        <item>24 Hours</item>
+        <item>Never</item>
+    </string-array>
     <color name="black">#FF000000</color>
     <color name="blue_500">#2196F3</color>
     <color name="bottom_nav_item_color">#2196F3</color>

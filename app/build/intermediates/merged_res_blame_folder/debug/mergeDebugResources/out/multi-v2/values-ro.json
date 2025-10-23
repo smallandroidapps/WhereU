@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.whereu.whereu.app-mergeDebugResources-57:/values-ro/values-ro.xml",
+            "outputFile": "com.whereu.whereu.app-mergeDebugResources-60:/values-ro/values-ro.xml",
             "map": [
                 {
                     "source": "/Users/admin/.gradle/caches/transforms-4/5a06a2e41ec0749b2213ff29d2816dde/transformed/jetified-play-services-base-18.5.0/res/values-ro/values.xml",

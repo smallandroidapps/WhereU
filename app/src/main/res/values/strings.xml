@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">LocationApp</string>
     <string name="default_web_client_id">YOUR_WEB_CLIENT_ID</string>
+    <string-array name="location_expiry_options">
+        <item>1 Hour</item>
+        <item>6 Hours</item>
+        <item>12 Hours</item>
+        <item>24 Hours</item>
+        <item>Never</item>
+    </string-array>
 </resources>

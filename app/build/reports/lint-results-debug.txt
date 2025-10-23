@@ -50,43 +50,43 @@ androidGradlePlugin = "8.5.2"
    with an older version. However, you may simply not be aware that a more
    recent version is available, and that is what this lint check helps find.
 
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:32: Warning: A newer version of com.google.android.material:material than 1.12.0 is available: 1.13.0 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:33: Warning: A newer version of com.google.android.material:material than 1.12.0 is available: 1.13.0 [GradleDependency]
     implementation("com.google.android.material:material:1.12.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:33: Warning: A newer version of androidx.appcompat:appcompat than 1.7.0 is available: 1.7.1 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:34: Warning: A newer version of androidx.appcompat:appcompat than 1.7.0 is available: 1.7.1 [GradleDependency]
     implementation("androidx.appcompat:appcompat:1.7.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:34: Warning: A newer version of androidx.constraintlayout:constraintlayout than 2.2.0 is available: 2.2.1 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:35: Warning: A newer version of androidx.constraintlayout:constraintlayout than 2.2.0 is available: 2.2.1 [GradleDependency]
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:35: Warning: A newer version of androidx.recyclerview:recyclerview than 1.3.2 is available: 1.4.0 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:36: Warning: A newer version of androidx.recyclerview:recyclerview than 1.3.2 is available: 1.4.0 [GradleDependency]
     implementation("androidx.recyclerview:recyclerview:1.3.2")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:43: Warning: A newer version of androidx.credentials:credentials than 1.3.0 is available: 1.5.0 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:44: Warning: A newer version of androidx.credentials:credentials than 1.3.0 is available: 1.5.0 [GradleDependency]
     implementation("androidx.credentials:credentials:1.3.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:44: Warning: A newer version of androidx.credentials:credentials-play-services-auth than 1.3.0 is available: 1.5.0 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:45: Warning: A newer version of androidx.credentials:credentials-play-services-auth than 1.3.0 is available: 1.5.0 [GradleDependency]
     implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:46: Warning: A newer version of com.google.firebase:firebase-firestore than 25.0.0 is available: 26.0.2 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:47: Warning: A newer version of com.google.firebase:firebase-firestore than 25.0.0 is available: 26.0.2 [GradleDependency]
     implementation("com.google.firebase:firebase-firestore:25.0.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:47: Warning: A newer version of com.google.firebase:firebase-messaging than 24.0.0 is available: 25.0.1 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:48: Warning: A newer version of com.google.firebase:firebase-messaging than 24.0.0 is available: 25.0.1 [GradleDependency]
     implementation("com.google.firebase:firebase-messaging:24.0.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:49: Warning: A newer version of com.google.android.gms:play-services-auth than 21.1.1 is available: 21.4.0 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:50: Warning: A newer version of com.google.android.gms:play-services-auth than 21.1.1 is available: 21.4.0 [GradleDependency]
     implementation("com.google.android.gms:play-services-auth:21.1.1")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:50: Warning: A newer version of androidx.lifecycle:lifecycle-viewmodel than 2.8.5 is available: 2.9.4 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:51: Warning: A newer version of androidx.lifecycle:lifecycle-viewmodel than 2.8.5 is available: 2.9.4 [GradleDependency]
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:51: Warning: A newer version of androidx.lifecycle:lifecycle-livedata than 2.8.5 is available: 2.9.4 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:52: Warning: A newer version of androidx.lifecycle:lifecycle-livedata than 2.8.5 is available: 2.9.4 [GradleDependency]
     implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:52: Warning: A newer version of androidx.navigation:navigation-fragment than 2.8.0 is available: 2.9.5 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:53: Warning: A newer version of androidx.navigation:navigation-fragment than 2.8.0 is available: 2.9.5 [GradleDependency]
     implementation("androidx.navigation:navigation-fragment:2.8.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:53: Warning: A newer version of androidx.navigation:navigation-ui than 2.8.0 is available: 2.9.5 [GradleDependency]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:54: Warning: A newer version of androidx.navigation:navigation-ui than 2.8.0 is available: 2.9.5 [GradleDependency]
     implementation("androidx.navigation:navigation-ui:2.8.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml:9: Warning: A newer version of com.google.gms.google-services than 4.4.2 is available: 4.4.4 [GradleDependency]
@@ -223,6 +223,16 @@ navigationUiKtx = "2.7.7"
    However, you may simply not be aware that a more recent version is
    available, and that is what this lint check helps find.
 
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:22: Warning: If you plan to use data binding in a Kotlin project, you should apply the kotlin-kapt plugin. [DataBindingWithoutKapt]
+        dataBinding = true
+        ~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "DataBindingWithoutKapt":
+   Apps that use Kotlin and data binding should also apply the kotlin-kapt
+   plugin.
+
+   https://kotlinlang.org/docs/reference/kapt.html
+
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/values/themes.xml:13: Warning: Unnecessary; SDK_INT is always >= 21 [ObsoleteSdkInt]
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
                                             ~~~~~~~~~~~~~~~~~~~
@@ -341,16 +351,16 @@ navigationUiKtx = "2.7.7"
 
    https://developer.android.com/guide/topics/text/autofill.html
 
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:50: Information: Add suffix -ktx to enable the Kotlin extensions for this library [KtxExtensionAvailable]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:51: Information: Add suffix -ktx to enable the Kotlin extensions for this library [KtxExtensionAvailable]
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:51: Information: Add suffix -ktx to enable the Kotlin extensions for this library [KtxExtensionAvailable]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:52: Information: Add suffix -ktx to enable the Kotlin extensions for this library [KtxExtensionAvailable]
     implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:52: Information: Add suffix -ktx to enable the Kotlin extensions for this library [KtxExtensionAvailable]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:53: Information: Add suffix -ktx to enable the Kotlin extensions for this library [KtxExtensionAvailable]
     implementation("androidx.navigation:navigation-fragment:2.8.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:53: Information: Add suffix -ktx to enable the Kotlin extensions for this library [KtxExtensionAvailable]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:54: Information: Add suffix -ktx to enable the Kotlin extensions for this library [KtxExtensionAvailable]
     implementation("androidx.navigation:navigation-ui:2.8.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -365,58 +375,58 @@ navigationUiKtx = "2.7.7"
 
    https://developer.android.com/kotlin/ktx
 
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:31: Warning: Use version catalog instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:32: Warning: Use version catalog instead [UseTomlInstead]
     implementation("de.hdodenhof:circleimageview:3.1.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:32: Warning: Use the existing version catalog reference (libs.material) instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:33: Warning: Use the existing version catalog reference (libs.material) instead [UseTomlInstead]
     implementation("com.google.android.material:material:1.12.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:33: Warning: Use the existing version catalog reference (libs.appcompat) instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:34: Warning: Use the existing version catalog reference (libs.appcompat) instead [UseTomlInstead]
     implementation("androidx.appcompat:appcompat:1.7.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:34: Warning: Use version catalog instead (androidx.constraintlayout:constraintlayout is already available as constraintlayout, but using version 2.1.4 instead) [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:35: Warning: Use version catalog instead (androidx.constraintlayout:constraintlayout is already available as constraintlayout, but using version 2.1.4 instead) [UseTomlInstead]
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:35: Warning: Use the existing version catalog reference (libs.recyclerview) instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:36: Warning: Use the existing version catalog reference (libs.recyclerview) instead [UseTomlInstead]
     implementation("androidx.recyclerview:recyclerview:1.3.2")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:37: Warning: Use version catalog instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:38: Warning: Use version catalog instead [UseTomlInstead]
     implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:40: Warning: Use version catalog instead (com.google.firebase:firebase-auth is already available as firebase-auth, but using version 23.0.0 instead) [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:41: Warning: Use version catalog instead (com.google.firebase:firebase-auth is already available as firebase-auth, but using version 23.0.0 instead) [UseTomlInstead]
     implementation("com.google.firebase:firebase-auth")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:43: Warning: Use version catalog instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:44: Warning: Use version catalog instead [UseTomlInstead]
     implementation("androidx.credentials:credentials:1.3.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:44: Warning: Use version catalog instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:45: Warning: Use version catalog instead [UseTomlInstead]
     implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:45: Warning: Use version catalog instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:46: Warning: Use version catalog instead [UseTomlInstead]
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:46: Warning: Use the existing version catalog reference (libs.firebase.firestore) instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:47: Warning: Use the existing version catalog reference (libs.firebase.firestore) instead [UseTomlInstead]
     implementation("com.google.firebase:firebase-firestore:25.0.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:47: Warning: Use the existing version catalog reference (libs.firebase.messaging) instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:48: Warning: Use the existing version catalog reference (libs.firebase.messaging) instead [UseTomlInstead]
     implementation("com.google.firebase:firebase-messaging:24.0.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:48: Warning: Use version catalog instead (com.google.android.gms:play-services-location is already available as play-services-location, but using version 21.0.1 instead) [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:49: Warning: Use version catalog instead (com.google.android.gms:play-services-location is already available as play-services-location, but using version 21.0.1 instead) [UseTomlInstead]
     implementation("com.google.android.gms:play-services-location:21.3.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:49: Warning: Use version catalog instead (com.google.android.gms:play-services-auth is already available as play-services-auth, but using version 21.0.0 instead) [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:50: Warning: Use version catalog instead (com.google.android.gms:play-services-auth is already available as play-services-auth, but using version 21.0.0 instead) [UseTomlInstead]
     implementation("com.google.android.gms:play-services-auth:21.1.1")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:50: Warning: Use version catalog instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:51: Warning: Use version catalog instead [UseTomlInstead]
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:51: Warning: Use version catalog instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:52: Warning: Use version catalog instead [UseTomlInstead]
     implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:52: Warning: Use version catalog instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:53: Warning: Use version catalog instead [UseTomlInstead]
     implementation("androidx.navigation:navigation-fragment:2.8.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:53: Warning: Use version catalog instead [UseTomlInstead]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/build.gradle.kts:54: Warning: Use version catalog instead [UseTomlInstead]
     implementation("androidx.navigation:navigation-ui:2.8.0")
                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -432,6 +442,33 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:19: Warning: Missing contentDescription attribute on image [ContentDescription]
         <ImageView
          ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:80: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:95: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:119: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:134: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:158: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:197: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:236: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:275: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:290: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_splash.xml:23: Warning: Missing contentDescription attribute on image [ContentDescription]
         <ImageView
          ~~~~~~~~~
@@ -457,6 +494,26 @@ navigationUiKtx = "2.7.7"
    the hint.
 
    https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases
+
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/java/com/whereu/whereu/ProfileSettingsActivity.java:26: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        binding.userName.setText("John Doe");
+                                 ~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/java/com/whereu/whereu/ProfileSettingsActivity.java:27: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        binding.userEmail.setText("john.doe@example.com");
+                                  ~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "SetTextI18n":
+   When calling TextView#setText
+   * Never call Number#toString() to format numbers; it will not handle
+   fraction separators and locale-specific digits properly. Consider using
+   String#format with proper format specifications (%d or %f) instead.
+   * Do not pass a string literal (e.g. "Hello") to display text. Hardcoded
+   text can not be properly translated to other languages. Consider using
+   Android resource strings instead.
+   * Do not build messages by concatenating text chunks. Such messages can not
+   be properly translated.
+
+   https://developer.android.com/guide/topics/resources/localization.html
 
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:25: Warning: Hardcoded string "Home", should use @string resource [HardcodedText]
             android:text="Home"
@@ -485,6 +542,30 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:13: Warning: Hardcoded string "Profile Screen", should use @string resource [HardcodedText]
         android:text="Profile Screen"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:29: Warning: Hardcoded string "John Doe", should use @string resource [HardcodedText]
+        android:text="John Doe"
+        ~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:41: Warning: Hardcoded string "john.doe@example.com", should use @string resource [HardcodedText]
+        android:text="john.doe@example.com"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:91: Warning: Hardcoded string "Edit Profile", should use @string resource [HardcodedText]
+                        android:text="Edit Profile"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:130: Warning: Hardcoded string "Trusted Contacts", should use @string resource [HardcodedText]
+                        android:text="Trusted Contacts"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:169: Warning: Hardcoded string "Hide My Location", should use @string resource [HardcodedText]
+                        android:text="Hide My Location"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:208: Warning: Hardcoded string "Auto-Approve Trusted Contacts", should use @string resource [HardcodedText]
+                        android:text="Auto-Approve Trusted Contacts"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:247: Warning: Hardcoded string "Location Share Expiry Time", should use @string resource [HardcodedText]
+                        android:text="Location Share Expiry Time"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:286: Warning: Hardcoded string "Logout", should use @string resource [HardcodedText]
+                        android:text="Logout"
+                        ~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:13: Warning: Hardcoded string "Sign In Screen", should use @string resource [HardcodedText]
         android:text="Sign In Screen"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -539,4 +620,4 @@ navigationUiKtx = "2.7.7"
    There are quickfixes to automatically extract this hardcoded string into a
    resource lookup.
 
-0 errors, 116 warnings
+0 errors, 136 warnings
