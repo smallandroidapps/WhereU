@@ -7,10 +7,10 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.whereu.whereu.R;
 import android.view.View;
@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         // Animate the logo
-        ImageView logo = findViewById(R.id.logo_container);
+        CardView logo = findViewById(R.id.logo_container);
         AnimationSet logoAnimation = new AnimationSet(true);
         logoAnimation.addAnimation(new ScaleAnimation(0.5f, 1.0f, 0.5f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f));
         logoAnimation.addAnimation(new AlphaAnimation(0.0f, 1.0f));
