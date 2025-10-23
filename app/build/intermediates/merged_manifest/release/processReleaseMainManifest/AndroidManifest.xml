@@ -49,9 +49,9 @@
             android:exported="false" >
         </activity>
         <activity android:name="com.whereu.whereu.activities.HomeActivity" />
-        <activity android:name="com.whereu.whereu.activities.ProfileActivity" />
         <activity android:name="com.whereu.whereu.activities.NotificationActivity" />
-        <activity android:name="com.whereu.whereu.ProfileSettingsActivity" />
+        <activity android:name="com.whereu.whereu.activities.ProfileSettingsActivity" />
+        <activity android:name="com.whereu.whereu.activities.PhoneVerificationActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

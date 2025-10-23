@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,8 +37,6 @@ public class SignInActivity extends AppCompatActivity {
     private ActivitySignInBinding binding;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
-    private EditText phoneEditText;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private String mVerificationId;
 
     @Override
@@ -65,42 +62,14 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        phoneEditText = binding.phoneEditText;
-        binding.sendCodeButton.setOnClickListener(new View.OnClickListener() {
+        binding.buttonPhoneSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendVerificationCode();
+                startActivity(new Intent(SignInActivity.this, PhoneVerificationActivity.class));
             }
         });
 
-        binding.verifyCodeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyCode();
-            }
-        });
 
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-            @Override
-            public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
-                Log.d(TAG, "onVerificationCompleted:" + credential);
-                signInWithPhoneAuthCredential(credential);
-            }
-
-            @Override
-            public void onVerificationFailed(@NonNull com.google.firebase.FirebaseException e) {
-                Log.w(TAG, "onVerificationFailed", e);
-                Toast.makeText(SignInActivity.this, "Verification failed.", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken token) {
-                Log.d(TAG, "onCodeSent:" + verificationId);
-                mVerificationId = verificationId;
-                Toast.makeText(SignInActivity.this, "Code Sent", Toast.LENGTH_SHORT).show();
-            }
-        };
     }
 
     @Override
@@ -116,58 +85,6 @@ public class SignInActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    private void sendVerificationCode() {
-        String phoneNumber = phoneEditText.getText().toString();
-        if (phoneNumber.isEmpty()) {
-            phoneEditText.setError("Phone number is required");
-            phoneEditText.requestFocus();
-            return;
-        }
-
-        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
-                .setPhoneNumber(phoneNumber)       // Phone number to verify
-                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                .setActivity(this)                 // Activity (for callback binding)
-                .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-    }
-
-    private void verifyCode() {
-        String code = binding.codeEditText.getText().toString();
-        if (code.isEmpty()) {
-            binding.codeEditText.setError("Verification code is required");
-            binding.codeEditText.requestFocus();
-            return;
-        }
-
-        if (mVerificationId != null) {
-            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
-            signInWithPhoneAuthCredential(credential);
-        } else {
-            Toast.makeText(SignInActivity.this, "Verification ID is null. Please send code first.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithPhoneAuthCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            Log.w(TAG, "signInWithPhoneAuthCredential:failure", task.getException());
-                            Toast.makeText(SignInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-                    }
-                });
     }
 
     @Override

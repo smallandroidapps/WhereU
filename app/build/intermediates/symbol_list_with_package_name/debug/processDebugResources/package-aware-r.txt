@@ -85,7 +85,7 @@ animator nav_default_enter_anim
 animator nav_default_exit_anim
 animator nav_default_pop_enter_anim
 animator nav_default_pop_exit_anim
-array location_expiry_options
+array expiry_time_options
 attr SharedValue
 attr SharedValueId
 attr action
@@ -3117,6 +3117,7 @@ drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable gradient_blue
 drawable ic_arrow_back_black_24
+drawable ic_arrow_forward
 drawable ic_arrow_right
 drawable ic_bell
 drawable ic_call_answer
@@ -3145,6 +3146,8 @@ drawable ic_mtrl_chip_close_circle
 drawable ic_other_sign_in
 drawable ic_passkey
 drawable ic_password
+drawable ic_people
+drawable ic_person
 drawable ic_profile
 drawable ic_profile_placeholder
 drawable ic_requests
@@ -3323,6 +3326,7 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
+id auto_approve_switch
 id axisRelative
 id barrier
 id baseline
@@ -3344,6 +3348,9 @@ id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
 id buttonPanel
+id buttonPhoneSignIn
+id buttonSendOtp
+id buttonVerifyOtp
 id button_approve
 id button_reject
 id cache_measures
@@ -3373,7 +3380,6 @@ id clip_horizontal
 id clip_vertical
 id clockwise
 id closest
-id codeEditText
 id collapseActionView
 id compress
 id confirm_button
@@ -3432,6 +3438,9 @@ id easeInOut
 id easeOut
 id east
 id edge
+id editTextOtp
+id editTextPhoneNumber
+id edit_profile_layout
 id edit_query
 id edit_text_id
 id elastic
@@ -3444,6 +3453,7 @@ id escape
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id expiry_time_spinner
 id fab_request_location
 id fade
 id fill
@@ -3459,6 +3469,7 @@ id fixed
 id flip
 id floating
 id forever
+id fragment_container
 id fragment_container_view_tag
 id frost
 id fullscreen_header
@@ -3472,10 +3483,12 @@ id grouping
 id groups
 id header_title
 id hide_ime_id
+id hide_location_switch
 id hideable
 id home
 id homeActivity
 id homeAsUp
+id home_content_group
 id honorRequest
 id horizontal
 id horizontal_only
@@ -3511,6 +3524,7 @@ id list_item
 id loading_dots
 id locale
 id logo_container
+id logout_button
 id ltr
 id m3_side_sheet
 id main_notification_card
@@ -3634,7 +3648,6 @@ id path
 id pathRelative
 id peekHeight
 id percent
-id phoneEditText
 id pin
 id pooling_container_listener_holder_tag
 id position
@@ -3682,7 +3695,6 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
-id sendCodeButton
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -3768,6 +3780,7 @@ id title_home
 id title_notifications
 id title_template
 id toggle
+id toolbar
 id top
 id topPanel
 id top_bar
@@ -3783,6 +3796,7 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id trusted_contacts_layout
 id unchecked
 id uniform
 id unlabeled
@@ -3790,7 +3804,6 @@ id up
 id useLogo
 id user_email
 id user_name
-id verifyCodeButton
 id vertical
 id vertical_only
 id view_offset_helper
@@ -3929,6 +3942,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_home
 layout activity_notification
+layout activity_phone_verification
 layout activity_profile
 layout activity_profile_settings
 layout activity_sign_in
@@ -3951,6 +3965,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout fragment_profile
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_past_notification

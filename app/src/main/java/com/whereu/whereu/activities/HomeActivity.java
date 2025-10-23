@@ -1,24 +1,23 @@
 package com.whereu.whereu.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.constraintlayout.widget.Group;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.whereu.whereu.R;
 import com.whereu.whereu.databinding.ActivityHomeBinding;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.whereu.whereu.fragments.ProfileFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
-    private RecyclerView recentContactsRecyclerView;
-    private ContactAdapter contactAdapter;
-    private List<Contact> contactList;
+    private Group homeContentGroup;
+    private TextView titleHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,38 +25,50 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize RecyclerView
-        recentContactsRecyclerView = binding.recentContactsRecyclerView;
-        recentContactsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        contactList = new ArrayList<>();
-        // Add some dummy data
-        contactList.add(new Contact("John Doe", "123-456-7890"));
-        contactList.add(new Contact("Jane Smith", "098-765-4321"));
-        contactList.add(new Contact("Peter Jones", "111-222-3333"));
-        contactAdapter = new ContactAdapter(contactList);
-        recentContactsRecyclerView.setAdapter(contactAdapter);
+        homeContentGroup = binding.homeContentGroup;
+        titleHome = binding.titleHome;
 
-        // Initialize Bottom Navigation View
         BottomNavigationView bottomNavigationView = binding.bottomNavigationBar;
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home) {
-                // Handle Home navigation
+                showHomeContent();
                 return true;
             } else if (itemId == R.id.navigation_requests) {
                 // Handle Requests navigation
+                showHomeContent(); // Placeholder, show home for now
                 return true;
             } else if (itemId == R.id.navigation_profile) {
-                // Handle Profile navigation
+                showProfileFragment();
                 return true;
             }
             return false;
         });
 
-        // Initialize Floating Action Button
-        FloatingActionButton fab = binding.fabRequestLocation;
-        fab.setOnClickListener(view -> {
-            // Handle FAB click (e.g., open a new request screen)
-        });
+        // Set default view
+        showHomeContent();
+    }
+
+    private void showHomeContent() {
+        homeContentGroup.setVisibility(View.VISIBLE);
+        binding.fragmentContainer.setVisibility(View.GONE);
+        titleHome.setText("Home");
+        removeFragment();
+    }
+
+    private void showProfileFragment() {
+        homeContentGroup.setVisibility(View.GONE);
+        binding.fragmentContainer.setVisibility(View.VISIBLE);
+        titleHome.setText("Profile");
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new ProfileFragment())
+                .commit();
+    }
+
+    private void removeFragment() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
     }
 }

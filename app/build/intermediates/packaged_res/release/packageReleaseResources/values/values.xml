@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="http://schemas.android.com/tools">
-    <string-array name="location_expiry_options">
+    <string-array name="expiry_time_options">
         <item>1 Hour</item>
         <item>6 Hours</item>
         <item>12 Hours</item>

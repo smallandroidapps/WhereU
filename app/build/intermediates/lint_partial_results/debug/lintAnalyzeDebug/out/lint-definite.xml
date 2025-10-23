@@ -7,33 +7,12 @@
         message="Hardcoded string &quot;Home&quot;, should use `@string` resource">
         <location
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_home.xml"
-            line="25"
+            line="38"
             column="13"
-            startOffset="1033"
-            endLine="25"
+            startOffset="1618"
+            endLine="38"
             endColumn="32"
-            endOffset="1052"/>
-    </incident>
-
-    <incident
-        id="TextFields"
-        severity="warning"
-        message="This text field does not specify an `inputType`">
-        <fix-attribute
-            description="Set inputType"
-            namespace="http://schemas.android.com/apk/res/android"
-            attribute="inputType"
-            value="TODO"
-            point="4"
-            mark="0"/>
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_home.xml"
-            line="48"
-            column="6"
-            startOffset="1979"
-            endLine="48"
-            endColumn="14"
-            endOffset="1987"/>
+            endOffset="1637"/>
     </incident>
 
     <incident
@@ -56,12 +35,33 @@
         </fix-alternatives>
         <location
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_home.xml"
-            line="48"
+            line="61"
             column="6"
-            startOffset="1979"
-            endLine="48"
+            startOffset="2564"
+            endLine="61"
             endColumn="14"
-            endOffset="1987"/>
+            endOffset="2572"/>
+    </incident>
+
+    <incident
+        id="TextFields"
+        severity="warning"
+        message="This text field does not specify an `inputType`">
+        <fix-attribute
+            description="Set inputType"
+            namespace="http://schemas.android.com/apk/res/android"
+            attribute="inputType"
+            value="TODO"
+            point="4"
+            mark="0"/>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_home.xml"
+            line="61"
+            column="6"
+            startOffset="2564"
+            endLine="61"
+            endColumn="14"
+            endOffset="2572"/>
     </incident>
 
     <incident
@@ -70,12 +70,12 @@
         message="Hardcoded string &quot;Search contact or number&quot;, should use `@string` resource">
         <location
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_home.xml"
-            line="58"
+            line="71"
             column="9"
-            startOffset="2375"
-            endLine="58"
+            startOffset="2960"
+            endLine="71"
             endColumn="48"
-            endOffset="2414"/>
+            endOffset="2999"/>
     </incident>
 
     <incident
@@ -84,12 +84,12 @@
         message="Hardcoded string &quot;Request Location&quot;, should use `@string` resource">
         <location
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_home.xml"
-            line="76"
+            line="89"
             column="9"
-            startOffset="3074"
-            endLine="76"
+            startOffset="3659"
+            endLine="89"
             endColumn="40"
-            endOffset="3105"/>
+            endOffset="3690"/>
     </incident>
 
     <incident
@@ -112,12 +112,12 @@
         </fix-alternatives>
         <location
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_home.xml"
-            line="114"
+            line="127"
             column="6"
-            startOffset="4743"
-            endLine="114"
+            startOffset="5328"
+            endLine="127"
             endColumn="75"
-            endOffset="4812"/>
+            endOffset="5397"/>
     </incident>
 
     <incident
@@ -219,45 +219,115 @@
     </incident>
 
     <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_phone_verification.xml"
+            line="9"
+            column="6"
+            startOffset="402"
+            endLine="9"
+            endColumn="14"
+            endOffset="410"/>
+    </incident>
+
+    <incident
         id="HardcodedText"
         severity="warning"
-        message="Hardcoded string &quot;Profile Screen&quot;, should use `@string` resource">
+        message="Hardcoded string &quot;Enter Phone Number&quot;, should use `@string` resource">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_phone_verification.xml"
             line="13"
             column="9"
-            startOffset="533"
+            startOffset="545"
             endLine="13"
-            endColumn="38"
-            endOffset="562"/>
+            endColumn="42"
+            endOffset="578"/>
     </incident>
 
     <incident
         id="HardcodedText"
         severity="warning"
-        message="Hardcoded string &quot;John Doe&quot;, should use `@string` resource">
+        message="Hardcoded string &quot;Send OTP&quot;, should use `@string` resource">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="29"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_phone_verification.xml"
+            line="27"
             column="9"
-            startOffset="1143"
-            endLine="29"
+            startOffset="1116"
+            endLine="27"
             endColumn="32"
-            endOffset="1166"/>
+            endOffset="1139"/>
+    </incident>
+
+    <incident
+        id="Autofill"
+        severity="warning"
+        message="Missing `autofillHints` attribute">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set autofillHints"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="autofillHints"
+                value=""
+                point="0"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAutofill=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAutofill"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_phone_verification.xml"
+            line="35"
+            column="6"
+            startOffset="1469"
+            endLine="35"
+            endColumn="14"
+            endOffset="1477"/>
     </incident>
 
     <incident
         id="HardcodedText"
         severity="warning"
-        message="Hardcoded string &quot;john.doe@example.com&quot;, should use `@string` resource">
+        message="Hardcoded string &quot;Enter OTP&quot;, should use `@string` resource">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="41"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_phone_verification.xml"
+            line="39"
             column="9"
-            startOffset="1602"
-            endLine="41"
-            endColumn="44"
-            endOffset="1637"/>
+            startOffset="1604"
+            endLine="39"
+            endColumn="33"
+            endOffset="1628"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Verify OTP&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_phone_verification.xml"
+            line="52"
+            column="9"
+            startOffset="2128"
+            endLine="52"
+            endColumn="34"
+            endOffset="2153"/>
     </incident>
 
     <incident
@@ -279,13 +349,13 @@
                 value="no"/>
         </fix-alternatives>
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="80"
-            column="22"
-            startOffset="3178"
-            endLine="80"
-            endColumn="31"
-            endOffset="3187"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="41"
+            column="18"
+            startOffset="1504"
+            endLine="41"
+            endColumn="27"
+            endOffset="1513"/>
     </incident>
 
     <incident
@@ -293,13 +363,13 @@
         severity="warning"
         message="Hardcoded string &quot;Edit Profile&quot;, should use `@string` resource">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="91"
-            column="25"
-            startOffset="3678"
-            endLine="91"
-            endColumn="52"
-            endOffset="3705"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="52"
+            column="21"
+            startOffset="1971"
+            endLine="52"
+            endColumn="48"
+            endOffset="1998"/>
     </incident>
 
     <incident
@@ -321,13 +391,13 @@
                 value="no"/>
         </fix-alternatives>
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="95"
-            column="22"
-            startOffset="3844"
-            endLine="95"
-            endColumn="31"
-            endOffset="3853"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="55"
+            column="18"
+            startOffset="2091"
+            endLine="55"
+            endColumn="27"
+            endOffset="2100"/>
     </incident>
 
     <incident
@@ -349,13 +419,13 @@
                 value="no"/>
         </fix-alternatives>
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="119"
-            column="22"
-            startOffset="4872"
-            endLine="119"
-            endColumn="31"
-            endOffset="4881"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="74"
+            column="18"
+            startOffset="2826"
+            endLine="74"
+            endColumn="27"
+            endOffset="2835"/>
     </incident>
 
     <incident
@@ -363,13 +433,13 @@
         severity="warning"
         message="Hardcoded string &quot;Trusted Contacts&quot;, should use `@string` resource">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="130"
-            column="25"
-            startOffset="5376"
-            endLine="130"
-            endColumn="56"
-            endOffset="5407"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="85"
+            column="21"
+            startOffset="3293"
+            endLine="85"
+            endColumn="52"
+            endOffset="3324"/>
     </incident>
 
     <incident
@@ -391,41 +461,13 @@
                 value="no"/>
         </fix-alternatives>
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="134"
-            column="22"
-            startOffset="5546"
-            endLine="134"
-            endColumn="31"
-            endOffset="5555"/>
-    </incident>
-
-    <incident
-        id="ContentDescription"
-        severity="warning"
-        message="Missing `contentDescription` attribute on image">
-        <fix-alternatives>
-            <fix-attribute
-                description="Set contentDescription"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="contentDescription"
-                value="TODO"
-                point="4"
-                mark="0"/>
-            <fix-attribute
-                description="Set importantForAccessibility=&quot;no&quot;"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="importantForAccessibility"
-                value="no"/>
-        </fix-alternatives>
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="158"
-            column="22"
-            startOffset="6578"
-            endLine="158"
-            endColumn="31"
-            endOffset="6587"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="88"
+            column="18"
+            startOffset="3417"
+            endLine="88"
+            endColumn="27"
+            endOffset="3426"/>
     </incident>
 
     <incident
@@ -433,41 +475,13 @@
         severity="warning"
         message="Hardcoded string &quot;Hide My Location&quot;, should use `@string` resource">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="169"
-            column="25"
-            startOffset="7086"
-            endLine="169"
-            endColumn="56"
-            endOffset="7117"/>
-    </incident>
-
-    <incident
-        id="ContentDescription"
-        severity="warning"
-        message="Missing `contentDescription` attribute on image">
-        <fix-alternatives>
-            <fix-attribute
-                description="Set contentDescription"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="contentDescription"
-                value="TODO"
-                point="4"
-                mark="0"/>
-            <fix-attribute
-                description="Set importantForAccessibility=&quot;no&quot;"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="importantForAccessibility"
-                value="no"/>
-        </fix-alternatives>
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="197"
-            column="22"
-            startOffset="8331"
-            endLine="197"
-            endColumn="31"
-            endOffset="8340"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="103"
+            column="17"
+            startOffset="4045"
+            endLine="103"
+            endColumn="48"
+            endOffset="4076"/>
     </incident>
 
     <incident
@@ -475,41 +489,13 @@
         severity="warning"
         message="Hardcoded string &quot;Auto-Approve Trusted Contacts&quot;, should use `@string` resource">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="208"
-            column="25"
-            startOffset="8839"
-            endLine="208"
-            endColumn="69"
-            endOffset="8883"/>
-    </incident>
-
-    <incident
-        id="ContentDescription"
-        severity="warning"
-        message="Missing `contentDescription` attribute on image">
-        <fix-alternatives>
-            <fix-attribute
-                description="Set contentDescription"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="contentDescription"
-                value="TODO"
-                point="4"
-                mark="0"/>
-            <fix-attribute
-                description="Set importantForAccessibility=&quot;no&quot;"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="importantForAccessibility"
-                value="no"/>
-        </fix-alternatives>
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="236"
-            column="22"
-            startOffset="10097"
-            endLine="236"
-            endColumn="31"
-            endOffset="10106"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="115"
+            column="17"
+            startOffset="4554"
+            endLine="115"
+            endColumn="61"
+            endOffset="4598"/>
     </incident>
 
     <incident
@@ -517,41 +503,13 @@
         severity="warning"
         message="Hardcoded string &quot;Location Share Expiry Time&quot;, should use `@string` resource">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="247"
-            column="25"
-            startOffset="10598"
-            endLine="247"
-            endColumn="66"
-            endOffset="10639"/>
-    </incident>
-
-    <incident
-        id="ContentDescription"
-        severity="warning"
-        message="Missing `contentDescription` attribute on image">
-        <fix-alternatives>
-            <fix-attribute
-                description="Set contentDescription"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="contentDescription"
-                value="TODO"
-                point="4"
-                mark="0"/>
-            <fix-attribute
-                description="Set importantForAccessibility=&quot;no&quot;"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="importantForAccessibility"
-                value="no"/>
-        </fix-alternatives>
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="275"
-            column="22"
-            startOffset="11814"
-            endLine="275"
-            endColumn="31"
-            endOffset="11823"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="134"
+            column="21"
+            startOffset="5305"
+            endLine="134"
+            endColumn="62"
+            endOffset="5346"/>
     </incident>
 
     <incident
@@ -559,41 +517,13 @@
         severity="warning"
         message="Hardcoded string &quot;Logout&quot;, should use `@string` resource">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="286"
-            column="25"
-            startOffset="12316"
-            endLine="286"
-            endColumn="46"
-            endOffset="12337"/>
-    </incident>
-
-    <incident
-        id="ContentDescription"
-        severity="warning"
-        message="Missing `contentDescription` attribute on image">
-        <fix-alternatives>
-            <fix-attribute
-                description="Set contentDescription"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="contentDescription"
-                value="TODO"
-                point="4"
-                mark="0"/>
-            <fix-attribute
-                description="Set importantForAccessibility=&quot;no&quot;"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="importantForAccessibility"
-                value="no"/>
-        </fix-alternatives>
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile_settings.xml"
-            line="290"
-            column="22"
-            startOffset="12476"
-            endLine="290"
-            endColumn="31"
-            endOffset="12485"/>
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="151"
+            column="9"
+            startOffset="5879"
+            endLine="151"
+            endColumn="30"
+            endOffset="5900"/>
     </incident>
 
     <incident
@@ -625,115 +555,17 @@
     </incident>
 
     <incident
-        id="Autofill"
-        severity="warning"
-        message="Missing `autofillHints` attribute">
-        <fix-alternatives>
-            <fix-attribute
-                description="Set autofillHints"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="autofillHints"
-                value=""
-                point="0"
-                mark="0"/>
-            <fix-attribute
-                description="Set importantForAutofill=&quot;no&quot;"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="importantForAutofill"
-                value="no"/>
-        </fix-alternatives>
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_sign_in.xml"
-            line="30"
-            column="6"
-            startOffset="1218"
-            endLine="30"
-            endColumn="14"
-            endOffset="1226"/>
-    </incident>
-
-    <incident
         id="HardcodedText"
         severity="warning"
-        message="Hardcoded string &quot;Phone Number&quot;, should use `@string` resource">
+        message="Hardcoded string &quot;Sign In with Phone&quot;, should use `@string` resource">
         <location
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_sign_in.xml"
-            line="36"
+            line="35"
             column="9"
-            startOffset="1429"
-            endLine="36"
-            endColumn="36"
-            endOffset="1456"/>
-    </incident>
-
-    <incident
-        id="HardcodedText"
-        severity="warning"
-        message="Hardcoded string &quot;Send Verification Code&quot;, should use `@string` resource">
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_sign_in.xml"
-            line="47"
-            column="9"
-            startOffset="1852"
-            endLine="47"
-            endColumn="46"
-            endOffset="1889"/>
-    </incident>
-
-    <incident
-        id="Autofill"
-        severity="warning"
-        message="Missing `autofillHints` attribute">
-        <fix-alternatives>
-            <fix-attribute
-                description="Set autofillHints"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="autofillHints"
-                value=""
-                point="0"
-                mark="0"/>
-            <fix-attribute
-                description="Set importantForAutofill=&quot;no&quot;"
-                namespace="http://schemas.android.com/apk/res/android"
-                attribute="importantForAutofill"
-                value="no"/>
-        </fix-alternatives>
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_sign_in.xml"
-            line="52"
-            column="6"
-            startOffset="2068"
-            endLine="52"
-            endColumn="14"
-            endOffset="2076"/>
-    </incident>
-
-    <incident
-        id="HardcodedText"
-        severity="warning"
-        message="Hardcoded string &quot;Verification Code&quot;, should use `@string` resource">
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_sign_in.xml"
-            line="58"
-            column="9"
-            startOffset="2278"
-            endLine="58"
-            endColumn="41"
-            endOffset="2310"/>
-    </incident>
-
-    <incident
-        id="HardcodedText"
-        severity="warning"
-        message="Hardcoded string &quot;Verify Code&quot;, should use `@string` resource">
-        <location
-            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_sign_in.xml"
-            line="69"
-            column="9"
-            startOffset="2711"
-            endLine="69"
-            endColumn="35"
-            endOffset="2737"/>
+            startOffset="1406"
+            endLine="35"
+            endColumn="42"
+            endOffset="1439"/>
     </incident>
 
     <incident
@@ -776,6 +608,370 @@
             endLine="36"
             endColumn="29"
             endOffset="1420"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;John Doe&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="29"
+            column="9"
+            startOffset="1143"
+            endLine="29"
+            endColumn="32"
+            endOffset="1166"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;john.doe@example.com&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="41"
+            column="9"
+            startOffset="1602"
+            endLine="41"
+            endColumn="44"
+            endOffset="1637"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="80"
+            column="22"
+            startOffset="3178"
+            endLine="80"
+            endColumn="31"
+            endOffset="3187"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Edit Profile&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="91"
+            column="25"
+            startOffset="3678"
+            endLine="91"
+            endColumn="52"
+            endOffset="3705"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="95"
+            column="22"
+            startOffset="3844"
+            endLine="95"
+            endColumn="31"
+            endOffset="3853"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="119"
+            column="22"
+            startOffset="4872"
+            endLine="119"
+            endColumn="31"
+            endOffset="4881"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Trusted Contacts&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="130"
+            column="25"
+            startOffset="5376"
+            endLine="130"
+            endColumn="56"
+            endOffset="5407"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="134"
+            column="22"
+            startOffset="5546"
+            endLine="134"
+            endColumn="31"
+            endOffset="5555"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="158"
+            column="22"
+            startOffset="6578"
+            endLine="158"
+            endColumn="31"
+            endOffset="6587"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Hide My Location&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="169"
+            column="25"
+            startOffset="7086"
+            endLine="169"
+            endColumn="56"
+            endOffset="7117"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="197"
+            column="22"
+            startOffset="8331"
+            endLine="197"
+            endColumn="31"
+            endOffset="8340"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Auto-Approve Trusted Contacts&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="208"
+            column="25"
+            startOffset="8839"
+            endLine="208"
+            endColumn="69"
+            endOffset="8883"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="236"
+            column="22"
+            startOffset="10097"
+            endLine="236"
+            endColumn="31"
+            endOffset="10106"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Location Share Expiry Time&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="247"
+            column="25"
+            startOffset="10598"
+            endLine="247"
+            endColumn="66"
+            endOffset="10639"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="275"
+            column="22"
+            startOffset="11810"
+            endLine="275"
+            endColumn="31"
+            endOffset="11819"/>
+    </incident>
+
+    <incident
+        id="HardcodedText"
+        severity="warning"
+        message="Hardcoded string &quot;Logout&quot;, should use `@string` resource">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="286"
+            column="25"
+            startOffset="12312"
+            endLine="286"
+            endColumn="46"
+            endOffset="12333"/>
+    </incident>
+
+    <incident
+        id="ContentDescription"
+        severity="warning"
+        message="Missing `contentDescription` attribute on image">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set contentDescription"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="contentDescription"
+                value="TODO"
+                point="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set importantForAccessibility=&quot;no&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="importantForAccessibility"
+                value="no"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/fragment_profile.xml"
+            line="290"
+            column="22"
+            startOffset="12472"
+            endLine="290"
+            endColumn="31"
+            endOffset="12481"/>
     </incident>
 
     <incident
@@ -895,13 +1091,13 @@
         severity="warning"
         message="String literal in `setText` can not be translated. Use Android resources instead.">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/whereu/whereu/ProfileSettingsActivity.java"
-            line="26"
-            column="34"
-            startOffset="818"
-            endLine="26"
-            endColumn="44"
-            endOffset="828"/>
+            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/whereu/whereu/activities/HomeActivity.java"
+            line="55"
+            column="27"
+            startOffset="1886"
+            endLine="55"
+            endColumn="33"
+            endOffset="1892"/>
     </incident>
 
     <incident
@@ -909,13 +1105,13 @@
         severity="warning"
         message="String literal in `setText` can not be translated. Use Android resources instead.">
         <location
-            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/whereu/whereu/ProfileSettingsActivity.java"
-            line="27"
-            column="35"
-            startOffset="865"
-            endLine="27"
-            endColumn="57"
-            endOffset="887"/>
+            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/whereu/whereu/activities/HomeActivity.java"
+            line="62"
+            column="27"
+            startOffset="2109"
+            endLine="62"
+            endColumn="36"
+            endOffset="2118"/>
     </incident>
 
     <incident
@@ -1057,15 +1253,15 @@
         message="Use version catalog instead (androidx.constraintlayout:constraintlayout is already available as `constraintlayout`, but using version 2.1.4 instead)">
         <fix-alternatives>
             <fix-composite
-                description="Replace with new library catalog declaration for androidx-constraintlayout-constraintlayout-v220-x12"
+                description="Replace with new library catalog declaration for androidx-constraintlayout-constraintlayout-v220-x6"
                 robot="true"
                 independent="true">
                 <fix-replace
-                    description="Replace with androidxConstraintlayoutConstraintlayout11 = &quot;2.2.0&quot;..."
+                    description="Replace with androidxConstraintlayoutConstraintlayout5 = &quot;2.2.0&quot;..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="androidxConstraintlayoutConstraintlayout11 = &quot;2.2.0&quot;&#xA;"
+                    replacement="androidxConstraintlayoutConstraintlayout5 = &quot;2.2.0&quot;&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1073,11 +1269,11 @@
                         endOffset="11"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with androidx-constraintlayout-constraintlayout-v220-x12 = { module = &quot;androidx.constraintlayout:constraintlayout&quot;, version.ref = &quot;androidxConstraintlayoutConstraintlayout11&quot; }..."
+                    description="Replace with androidx-constraintlayout-constraintlayout-v220-x6 = { module = &quot;androidx.constraintlayout:constraintlayout&quot;, version.ref = &quot;androidxConstraintlayoutConstraintlayout5&quot; }..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="androidx-constraintlayout-constraintlayout-v220-x12 = { module = &quot;androidx.constraintlayout:constraintlayout&quot;, version.ref = &quot;androidxConstraintlayoutConstraintlayout11&quot; }&#xA;"
+                    replacement="androidx-constraintlayout-constraintlayout-v220-x6 = { module = &quot;androidx.constraintlayout:constraintlayout&quot;, version.ref = &quot;androidxConstraintlayoutConstraintlayout5&quot; }&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1085,10 +1281,10 @@
                         endOffset="531"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with libs.androidx.constraintlayout.constraintlayout.v220.x12"
+                    description="Replace with libs.androidx.constraintlayout.constraintlayout.v220.x6"
                     robot="true"
                     independent="true"
-                    replacement="libs.androidx.constraintlayout.constraintlayout.v220.x12"
+                    replacement="libs.androidx.constraintlayout.constraintlayout.v220.x6"
                     priority="0">
                     <range
                         file="${:app*projectDir}/build.gradle.kts"
@@ -1146,13 +1342,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for com-google-firebase-firebase-bom12"
+            description="Replace with new library catalog declaration for com-google-firebase-firebase-bom6"
             robot="true">
             <fix-replace
-                description="Replace with comGoogleFirebaseFirebaseBom10 = &quot;34.4.0&quot;..."
+                description="Replace with comGoogleFirebaseFirebaseBom4 = &quot;34.4.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="comGoogleFirebaseFirebaseBom10 = &quot;34.4.0&quot;&#xA;"
+                replacement="comGoogleFirebaseFirebaseBom4 = &quot;34.4.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1160,10 +1356,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with com-google-firebase-firebase-bom12 = { module = &quot;com.google.firebase:firebase-bom&quot;, version.ref = &quot;comGoogleFirebaseFirebaseBom10&quot; }..."
+                description="Replace with com-google-firebase-firebase-bom6 = { module = &quot;com.google.firebase:firebase-bom&quot;, version.ref = &quot;comGoogleFirebaseFirebaseBom4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="com-google-firebase-firebase-bom12 = { module = &quot;com.google.firebase:firebase-bom&quot;, version.ref = &quot;comGoogleFirebaseFirebaseBom10&quot; }&#xA;"
+                replacement="com-google-firebase-firebase-bom6 = { module = &quot;com.google.firebase:firebase-bom&quot;, version.ref = &quot;comGoogleFirebaseFirebaseBom4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1171,9 +1367,9 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.com.google.firebase.firebase.bom12"
+                description="Replace with libs.com.google.firebase.firebase.bom6"
                 robot="true"
-                replacement="libs.com.google.firebase.firebase.bom12"
+                replacement="libs.com.google.firebase.firebase.bom6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -1197,15 +1393,15 @@
         message="Use version catalog instead (com.google.firebase:firebase-auth is already available as `firebase-auth`, but using version 23.0.0 instead)">
         <fix-alternatives>
             <fix-composite
-                description="Replace with new library catalog declaration for com-google-firebase-firebase-auth13"
+                description="Replace with new library catalog declaration for com-google-firebase-firebase-auth7"
                 robot="true"
                 independent="true">
                 <fix-replace
-                    description="Replace with com-google-firebase-firebase-auth13 = { module = &quot;com.google.firebase:firebase-auth&quot; }..."
+                    description="Replace with com-google-firebase-firebase-auth7 = { module = &quot;com.google.firebase:firebase-auth&quot; }..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="com-google-firebase-firebase-auth13 = { module = &quot;com.google.firebase:firebase-auth&quot; }&#xA;"
+                    replacement="com-google-firebase-firebase-auth7 = { module = &quot;com.google.firebase:firebase-auth&quot; }&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1213,10 +1409,10 @@
                         endOffset="531"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with libs.com.google.firebase.firebase.auth13"
+                    description="Replace with libs.com.google.firebase.firebase.auth7"
                     robot="true"
                     independent="true"
-                    replacement="libs.com.google.firebase.firebase.auth13"
+                    replacement="libs.com.google.firebase.firebase.auth7"
                     priority="0">
                     <range
                         file="${:app*projectDir}/build.gradle.kts"
@@ -1249,13 +1445,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-credentials-credentials12"
+            description="Replace with new library catalog declaration for androidx-credentials-credentials6"
             robot="true">
             <fix-replace
-                description="Replace with androidxCredentialsCredentials10 = &quot;1.3.0&quot;..."
+                description="Replace with androidxCredentialsCredentials4 = &quot;1.3.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxCredentialsCredentials10 = &quot;1.3.0&quot;&#xA;"
+                replacement="androidxCredentialsCredentials4 = &quot;1.3.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1263,10 +1459,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-credentials-credentials12 = { module = &quot;androidx.credentials:credentials&quot;, version.ref = &quot;androidxCredentialsCredentials10&quot; }..."
+                description="Replace with androidx-credentials-credentials6 = { module = &quot;androidx.credentials:credentials&quot;, version.ref = &quot;androidxCredentialsCredentials4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-credentials-credentials12 = { module = &quot;androidx.credentials:credentials&quot;, version.ref = &quot;androidxCredentialsCredentials10&quot; }&#xA;"
+                replacement="androidx-credentials-credentials6 = { module = &quot;androidx.credentials:credentials&quot;, version.ref = &quot;androidxCredentialsCredentials4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1274,9 +1470,9 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.credentials.credentials12"
+                description="Replace with libs.androidx.credentials.credentials6"
                 robot="true"
-                replacement="libs.androidx.credentials.credentials12"
+                replacement="libs.androidx.credentials.credentials6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -1299,13 +1495,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-credentials-credentials-play-services-auth12"
+            description="Replace with new library catalog declaration for androidx-credentials-credentials-play-services-auth6"
             robot="true">
             <fix-replace
-                description="Replace with androidxCredentialsCredentialsPlayServicesAuth10 = &quot;1.3.0&quot;..."
+                description="Replace with androidxCredentialsCredentialsPlayServicesAuth4 = &quot;1.3.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxCredentialsCredentialsPlayServicesAuth10 = &quot;1.3.0&quot;&#xA;"
+                replacement="androidxCredentialsCredentialsPlayServicesAuth4 = &quot;1.3.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1313,10 +1509,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-credentials-credentials-play-services-auth12 = { module = &quot;androidx.credentials:credentials-play-services-auth&quot;, version.ref = &quot;androidxCredentialsCredentialsPlayServicesAuth10&quot; }..."
+                description="Replace with androidx-credentials-credentials-play-services-auth6 = { module = &quot;androidx.credentials:credentials-play-services-auth&quot;, version.ref = &quot;androidxCredentialsCredentialsPlayServicesAuth4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-credentials-credentials-play-services-auth12 = { module = &quot;androidx.credentials:credentials-play-services-auth&quot;, version.ref = &quot;androidxCredentialsCredentialsPlayServicesAuth10&quot; }&#xA;"
+                replacement="androidx-credentials-credentials-play-services-auth6 = { module = &quot;androidx.credentials:credentials-play-services-auth&quot;, version.ref = &quot;androidxCredentialsCredentialsPlayServicesAuth4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1324,9 +1520,9 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.credentials.credentials.play.services.auth12"
+                description="Replace with libs.androidx.credentials.credentials.play.services.auth6"
                 robot="true"
-                replacement="libs.androidx.credentials.credentials.play.services.auth12"
+                replacement="libs.androidx.credentials.credentials.play.services.auth6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -1349,13 +1545,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for com-google-android-libraries-identity-googleid-googleid12"
+            description="Replace with new library catalog declaration for com-google-android-libraries-identity-googleid-googleid6"
             robot="true">
             <fix-replace
-                description="Replace with comGoogleAndroidLibrariesIdentityGoogleidGoogleid10 = &quot;1.1.1&quot;..."
+                description="Replace with comGoogleAndroidLibrariesIdentityGoogleidGoogleid4 = &quot;1.1.1&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="comGoogleAndroidLibrariesIdentityGoogleidGoogleid10 = &quot;1.1.1&quot;&#xA;"
+                replacement="comGoogleAndroidLibrariesIdentityGoogleidGoogleid4 = &quot;1.1.1&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1363,10 +1559,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with com-google-android-libraries-identity-googleid-googleid12 = { module = &quot;com.google.android.libraries.identity.googleid:googleid&quot;, version.ref = &quot;comGoogleAndroidLibrariesIdentityGoogleidGoogleid10&quot; }..."
+                description="Replace with com-google-android-libraries-identity-googleid-googleid6 = { module = &quot;com.google.android.libraries.identity.googleid:googleid&quot;, version.ref = &quot;comGoogleAndroidLibrariesIdentityGoogleidGoogleid4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="com-google-android-libraries-identity-googleid-googleid12 = { module = &quot;com.google.android.libraries.identity.googleid:googleid&quot;, version.ref = &quot;comGoogleAndroidLibrariesIdentityGoogleidGoogleid10&quot; }&#xA;"
+                replacement="com-google-android-libraries-identity-googleid-googleid6 = { module = &quot;com.google.android.libraries.identity.googleid:googleid&quot;, version.ref = &quot;comGoogleAndroidLibrariesIdentityGoogleidGoogleid4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1374,9 +1570,9 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.com.google.android.libraries.identity.googleid.googleid12"
+                description="Replace with libs.com.google.android.libraries.identity.googleid.googleid6"
                 robot="true"
-                replacement="libs.com.google.android.libraries.identity.googleid.googleid12"
+                replacement="libs.com.google.android.libraries.identity.googleid.googleid6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -1450,15 +1646,15 @@
         message="Use version catalog instead (com.google.android.gms:play-services-location is already available as `play-services-location`, but using version 21.0.1 instead)">
         <fix-alternatives>
             <fix-composite
-                description="Replace with new library catalog declaration for com-google-android-gms-play-services-location-v2130-x11"
+                description="Replace with new library catalog declaration for com-google-android-gms-play-services-location-v2130-x5"
                 robot="true"
                 independent="true">
                 <fix-replace
-                    description="Replace with comGoogleAndroidGmsPlayServicesLocation11 = &quot;21.3.0&quot;..."
+                    description="Replace with comGoogleAndroidGmsPlayServicesLocation5 = &quot;21.3.0&quot;..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="comGoogleAndroidGmsPlayServicesLocation11 = &quot;21.3.0&quot;&#xA;"
+                    replacement="comGoogleAndroidGmsPlayServicesLocation5 = &quot;21.3.0&quot;&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1466,11 +1662,11 @@
                         endOffset="11"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with com-google-android-gms-play-services-location-v2130-x11 = { module = &quot;com.google.android.gms:play-services-location&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesLocation11&quot; }..."
+                    description="Replace with com-google-android-gms-play-services-location-v2130-x5 = { module = &quot;com.google.android.gms:play-services-location&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesLocation5&quot; }..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="com-google-android-gms-play-services-location-v2130-x11 = { module = &quot;com.google.android.gms:play-services-location&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesLocation11&quot; }&#xA;"
+                    replacement="com-google-android-gms-play-services-location-v2130-x5 = { module = &quot;com.google.android.gms:play-services-location&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesLocation5&quot; }&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1478,10 +1674,10 @@
                         endOffset="531"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with libs.com.google.android.gms.play.services.location.v2130.x11"
+                    description="Replace with libs.com.google.android.gms.play.services.location.v2130.x5"
                     robot="true"
                     independent="true"
-                    replacement="libs.com.google.android.gms.play.services.location.v2130.x11"
+                    replacement="libs.com.google.android.gms.play.services.location.v2130.x5"
                     priority="0">
                     <range
                         file="${:app*projectDir}/build.gradle.kts"
@@ -1515,15 +1711,15 @@
         message="Use version catalog instead (com.google.android.gms:play-services-auth is already available as `play-services-auth`, but using version 21.0.0 instead)">
         <fix-alternatives>
             <fix-composite
-                description="Replace with new library catalog declaration for com-google-android-gms-play-services-auth-v2111-x11"
+                description="Replace with new library catalog declaration for com-google-android-gms-play-services-auth-v2111-x5"
                 robot="true"
                 independent="true">
                 <fix-replace
-                    description="Replace with comGoogleAndroidGmsPlayServicesAuth11 = &quot;21.1.1&quot;..."
+                    description="Replace with comGoogleAndroidGmsPlayServicesAuth5 = &quot;21.1.1&quot;..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="comGoogleAndroidGmsPlayServicesAuth11 = &quot;21.1.1&quot;&#xA;"
+                    replacement="comGoogleAndroidGmsPlayServicesAuth5 = &quot;21.1.1&quot;&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1531,11 +1727,11 @@
                         endOffset="11"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with com-google-android-gms-play-services-auth-v2111-x11 = { module = &quot;com.google.android.gms:play-services-auth&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesAuth11&quot; }..."
+                    description="Replace with com-google-android-gms-play-services-auth-v2111-x5 = { module = &quot;com.google.android.gms:play-services-auth&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesAuth5&quot; }..."
                     robot="true"
                     independent="true"
                     oldString="_lint_insert_begin_"
-                    replacement="com-google-android-gms-play-services-auth-v2111-x11 = { module = &quot;com.google.android.gms:play-services-auth&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesAuth11&quot; }&#xA;"
+                    replacement="com-google-android-gms-play-services-auth-v2111-x5 = { module = &quot;com.google.android.gms:play-services-auth&quot;, version.ref = &quot;comGoogleAndroidGmsPlayServicesAuth5&quot; }&#xA;"
                     priority="0">
                     <range
                         file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1543,10 +1739,10 @@
                         endOffset="531"/>
                 </fix-replace>
                 <fix-replace
-                    description="Replace with libs.com.google.android.gms.play.services.auth.v2111.x11"
+                    description="Replace with libs.com.google.android.gms.play.services.auth.v2111.x5"
                     robot="true"
                     independent="true"
-                    replacement="libs.com.google.android.gms.play.services.auth.v2111.x11"
+                    replacement="libs.com.google.android.gms.play.services.auth.v2111.x5"
                     priority="0">
                     <range
                         file="${:app*projectDir}/build.gradle.kts"
@@ -1579,13 +1775,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-lifecycle-lifecycle-viewmodel12"
+            description="Replace with new library catalog declaration for androidx-lifecycle-lifecycle-viewmodel6"
             robot="true">
             <fix-replace
-                description="Replace with androidxLifecycleLifecycleViewmodel10 = &quot;2.8.5&quot;..."
+                description="Replace with androidxLifecycleLifecycleViewmodel4 = &quot;2.8.5&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxLifecycleLifecycleViewmodel10 = &quot;2.8.5&quot;&#xA;"
+                replacement="androidxLifecycleLifecycleViewmodel4 = &quot;2.8.5&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1593,10 +1789,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-lifecycle-lifecycle-viewmodel12 = { module = &quot;androidx.lifecycle:lifecycle-viewmodel&quot;, version.ref = &quot;androidxLifecycleLifecycleViewmodel10&quot; }..."
+                description="Replace with androidx-lifecycle-lifecycle-viewmodel6 = { module = &quot;androidx.lifecycle:lifecycle-viewmodel&quot;, version.ref = &quot;androidxLifecycleLifecycleViewmodel4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-lifecycle-lifecycle-viewmodel12 = { module = &quot;androidx.lifecycle:lifecycle-viewmodel&quot;, version.ref = &quot;androidxLifecycleLifecycleViewmodel10&quot; }&#xA;"
+                replacement="androidx-lifecycle-lifecycle-viewmodel6 = { module = &quot;androidx.lifecycle:lifecycle-viewmodel&quot;, version.ref = &quot;androidxLifecycleLifecycleViewmodel4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1604,9 +1800,9 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.lifecycle.lifecycle.viewmodel12"
+                description="Replace with libs.androidx.lifecycle.lifecycle.viewmodel6"
                 robot="true"
-                replacement="libs.androidx.lifecycle.lifecycle.viewmodel12"
+                replacement="libs.androidx.lifecycle.lifecycle.viewmodel6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -1629,13 +1825,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-lifecycle-lifecycle-livedata12"
+            description="Replace with new library catalog declaration for androidx-lifecycle-lifecycle-livedata6"
             robot="true">
             <fix-replace
-                description="Replace with androidxLifecycleLifecycleLivedata10 = &quot;2.8.5&quot;..."
+                description="Replace with androidxLifecycleLifecycleLivedata4 = &quot;2.8.5&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxLifecycleLifecycleLivedata10 = &quot;2.8.5&quot;&#xA;"
+                replacement="androidxLifecycleLifecycleLivedata4 = &quot;2.8.5&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1643,10 +1839,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-lifecycle-lifecycle-livedata12 = { module = &quot;androidx.lifecycle:lifecycle-livedata&quot;, version.ref = &quot;androidxLifecycleLifecycleLivedata10&quot; }..."
+                description="Replace with androidx-lifecycle-lifecycle-livedata6 = { module = &quot;androidx.lifecycle:lifecycle-livedata&quot;, version.ref = &quot;androidxLifecycleLifecycleLivedata4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-lifecycle-lifecycle-livedata12 = { module = &quot;androidx.lifecycle:lifecycle-livedata&quot;, version.ref = &quot;androidxLifecycleLifecycleLivedata10&quot; }&#xA;"
+                replacement="androidx-lifecycle-lifecycle-livedata6 = { module = &quot;androidx.lifecycle:lifecycle-livedata&quot;, version.ref = &quot;androidxLifecycleLifecycleLivedata4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1654,9 +1850,9 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.lifecycle.lifecycle.livedata12"
+                description="Replace with libs.androidx.lifecycle.lifecycle.livedata6"
                 robot="true"
-                replacement="libs.androidx.lifecycle.lifecycle.livedata12"
+                replacement="libs.androidx.lifecycle.lifecycle.livedata6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -1679,13 +1875,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-navigation-navigation-fragment12"
+            description="Replace with new library catalog declaration for androidx-navigation-navigation-fragment6"
             robot="true">
             <fix-replace
-                description="Replace with androidxNavigationNavigationFragment10 = &quot;2.8.0&quot;..."
+                description="Replace with androidxNavigationNavigationFragment4 = &quot;2.8.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxNavigationNavigationFragment10 = &quot;2.8.0&quot;&#xA;"
+                replacement="androidxNavigationNavigationFragment4 = &quot;2.8.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1693,10 +1889,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-navigation-navigation-fragment12 = { module = &quot;androidx.navigation:navigation-fragment&quot;, version.ref = &quot;androidxNavigationNavigationFragment10&quot; }..."
+                description="Replace with androidx-navigation-navigation-fragment6 = { module = &quot;androidx.navigation:navigation-fragment&quot;, version.ref = &quot;androidxNavigationNavigationFragment4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-navigation-navigation-fragment12 = { module = &quot;androidx.navigation:navigation-fragment&quot;, version.ref = &quot;androidxNavigationNavigationFragment10&quot; }&#xA;"
+                replacement="androidx-navigation-navigation-fragment6 = { module = &quot;androidx.navigation:navigation-fragment&quot;, version.ref = &quot;androidxNavigationNavigationFragment4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1704,9 +1900,9 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.navigation.navigation.fragment12"
+                description="Replace with libs.androidx.navigation.navigation.fragment6"
                 robot="true"
-                replacement="libs.androidx.navigation.navigation.fragment12"
+                replacement="libs.androidx.navigation.navigation.fragment6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"
@@ -1729,13 +1925,13 @@
         severity="warning"
         message="Use version catalog instead">
         <fix-composite
-            description="Replace with new library catalog declaration for androidx-navigation-navigation-ui12"
+            description="Replace with new library catalog declaration for androidx-navigation-navigation-ui6"
             robot="true">
             <fix-replace
-                description="Replace with androidxNavigationNavigationUi10 = &quot;2.8.0&quot;..."
+                description="Replace with androidxNavigationNavigationUi4 = &quot;2.8.0&quot;..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidxNavigationNavigationUi10 = &quot;2.8.0&quot;&#xA;"
+                replacement="androidxNavigationNavigationUi4 = &quot;2.8.0&quot;&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1743,10 +1939,10 @@
                     endOffset="11"/>
             </fix-replace>
             <fix-replace
-                description="Replace with androidx-navigation-navigation-ui12 = { module = &quot;androidx.navigation:navigation-ui&quot;, version.ref = &quot;androidxNavigationNavigationUi10&quot; }..."
+                description="Replace with androidx-navigation-navigation-ui6 = { module = &quot;androidx.navigation:navigation-ui&quot;, version.ref = &quot;androidxNavigationNavigationUi4&quot; }..."
                 robot="true"
                 oldString="_lint_insert_begin_"
-                replacement="androidx-navigation-navigation-ui12 = { module = &quot;androidx.navigation:navigation-ui&quot;, version.ref = &quot;androidxNavigationNavigationUi10&quot; }&#xA;"
+                replacement="androidx-navigation-navigation-ui6 = { module = &quot;androidx.navigation:navigation-ui&quot;, version.ref = &quot;androidxNavigationNavigationUi4&quot; }&#xA;"
                 priority="0">
                 <range
                     file="$HOME/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml"
@@ -1754,9 +1950,9 @@
                     endOffset="531"/>
             </fix-replace>
             <fix-replace
-                description="Replace with libs.androidx.navigation.navigation.ui12"
+                description="Replace with libs.androidx.navigation.navigation.ui6"
                 robot="true"
-                replacement="libs.androidx.navigation.navigation.ui12"
+                replacement="libs.androidx.navigation.navigation.ui6"
                 priority="0">
                 <range
                     file="${:app*projectDir}/build.gradle.kts"

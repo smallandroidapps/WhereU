@@ -277,6 +277,9 @@ navigationUiKtx = "2.7.7"
    performance if you pre-mix the background with your drawable and use that
    resulting image or color as a custom theme background instead.
 
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:2: Warning: The resource R.layout.activity_profile appears to be unused [UnusedResources]
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+^
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/values/colors.xml:3: Warning: The resource R.color.purple_500 appears to be unused [UnusedResources]
     <color name="purple_500">#FF6200EE</color>
            ~~~~~~~~~~~~~~~~~
@@ -286,6 +289,15 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/values/colors.xml:8: Warning: The resource R.color.white appears to be unused [UnusedResources]
     <color name="white">#FFFFFFFF</color>
            ~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/drawable/ic_arrow_forward.xml:1: Warning: The resource R.drawable.ic_arrow_forward appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/drawable/ic_people.xml:1: Warning: The resource R.drawable.ic_people appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/drawable/ic_person.xml:1: Warning: The resource R.drawable.ic_person appears to be unused [UnusedResources]
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+^
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/navigation/nav_graph.xml:2: Warning: The resource R.navigation.nav_graph appears to be unused [UnusedResources]
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
 ^
@@ -304,7 +316,7 @@ navigationUiKtx = "2.7.7"
    lint.unused-resources.exclude-tests =true.
    ,
 
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:48: Warning: This text field does not specify an inputType [TextFields]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:61: Warning: This text field does not specify an inputType [TextFields]
     <EditText
      ~~~~~~~~
 
@@ -321,13 +333,13 @@ navigationUiKtx = "2.7.7"
    If you really want to keep the text field generic, you can suppress this
    warning by setting inputType="text".
 
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:48: Warning: Missing autofillHints attribute [Autofill]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:61: Warning: Missing autofillHints attribute [Autofill]
     <EditText
      ~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:30: Warning: Missing autofillHints attribute [Autofill]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_phone_verification.xml:9: Warning: Missing autofillHints attribute [Autofill]
     <EditText
      ~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:52: Warning: Missing autofillHints attribute [Autofill]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_phone_verification.xml:35: Warning: Missing autofillHints attribute [Autofill]
     <EditText
      ~~~~~~~~
 
@@ -436,42 +448,54 @@ navigationUiKtx = "2.7.7"
    declarations outside of the TOML file and suggests moving them (and in the
    IDE, provides a quickfix to performing the operation automatically).
 
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:114: Warning: Missing contentDescription attribute on image [ContentDescription]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:127: Warning: Missing contentDescription attribute on image [ContentDescription]
     <com.google.android.material.floatingactionbutton.FloatingActionButton
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:19: Warning: Missing contentDescription attribute on image [ContentDescription]
         <ImageView
          ~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:80: Warning: Missing contentDescription attribute on image [ContentDescription]
-                    <ImageView
-                     ~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:95: Warning: Missing contentDescription attribute on image [ContentDescription]
-                    <ImageView
-                     ~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:119: Warning: Missing contentDescription attribute on image [ContentDescription]
-                    <ImageView
-                     ~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:134: Warning: Missing contentDescription attribute on image [ContentDescription]
-                    <ImageView
-                     ~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:158: Warning: Missing contentDescription attribute on image [ContentDescription]
-                    <ImageView
-                     ~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:197: Warning: Missing contentDescription attribute on image [ContentDescription]
-                    <ImageView
-                     ~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:236: Warning: Missing contentDescription attribute on image [ContentDescription]
-                    <ImageView
-                     ~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:275: Warning: Missing contentDescription attribute on image [ContentDescription]
-                    <ImageView
-                     ~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:290: Warning: Missing contentDescription attribute on image [ContentDescription]
-                    <ImageView
-                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:41: Warning: Missing contentDescription attribute on image [ContentDescription]
+                <ImageView
+                 ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:55: Warning: Missing contentDescription attribute on image [ContentDescription]
+                <ImageView
+                 ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:74: Warning: Missing contentDescription attribute on image [ContentDescription]
+                <ImageView
+                 ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:88: Warning: Missing contentDescription attribute on image [ContentDescription]
+                <ImageView
+                 ~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_splash.xml:23: Warning: Missing contentDescription attribute on image [ContentDescription]
         <ImageView
          ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:80: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:95: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:119: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:134: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:158: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:197: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:236: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:275: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:290: Warning: Missing contentDescription attribute on image [ContentDescription]
+                    <ImageView
+                     ~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/item_past_notification.xml:16: Warning: Missing contentDescription attribute on image [ContentDescription]
         <ImageView
          ~~~~~~~~~
@@ -495,12 +519,12 @@ navigationUiKtx = "2.7.7"
 
    https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases
 
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/java/com/whereu/whereu/ProfileSettingsActivity.java:26: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
-        binding.userName.setText("John Doe");
-                                 ~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/java/com/whereu/whereu/ProfileSettingsActivity.java:27: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
-        binding.userEmail.setText("john.doe@example.com");
-                                  ~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/java/com/whereu/whereu/activities/HomeActivity.java:55: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        titleHome.setText("Home");
+                          ~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/java/com/whereu/whereu/activities/HomeActivity.java:62: Warning: String literal in setText can not be translated. Use Android resources instead. [SetTextI18n]
+        titleHome.setText("Profile");
+                          ~~~~~~~~~
 
    Explanation for issues of type "SetTextI18n":
    When calling TextView#setText
@@ -515,13 +539,13 @@ navigationUiKtx = "2.7.7"
 
    https://developer.android.com/guide/topics/resources/localization.html
 
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:25: Warning: Hardcoded string "Home", should use @string resource [HardcodedText]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:38: Warning: Hardcoded string "Home", should use @string resource [HardcodedText]
             android:text="Home"
             ~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:58: Warning: Hardcoded string "Search contact or number", should use @string resource [HardcodedText]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:71: Warning: Hardcoded string "Search contact or number", should use @string resource [HardcodedText]
         android:hint="Search contact or number"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:76: Warning: Hardcoded string "Request Location", should use @string resource [HardcodedText]
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:89: Warning: Hardcoded string "Request Location", should use @string resource [HardcodedText]
         android:text="Request Location"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:34: Warning: Hardcoded string "Notifications", should use @string resource [HardcodedText]
@@ -539,51 +563,45 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:113: Warning: Hardcoded string "Past Notifications", should use @string resource [HardcodedText]
         android:text="Past Notifications"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:13: Warning: Hardcoded string "Profile Screen", should use @string resource [HardcodedText]
-        android:text="Profile Screen"
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:29: Warning: Hardcoded string "John Doe", should use @string resource [HardcodedText]
-        android:text="John Doe"
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_phone_verification.xml:13: Warning: Hardcoded string "Enter Phone Number", should use @string resource [HardcodedText]
+        android:hint="Enter Phone Number"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_phone_verification.xml:27: Warning: Hardcoded string "Send OTP", should use @string resource [HardcodedText]
+        android:text="Send OTP"
         ~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:41: Warning: Hardcoded string "john.doe@example.com", should use @string resource [HardcodedText]
-        android:text="john.doe@example.com"
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:91: Warning: Hardcoded string "Edit Profile", should use @string resource [HardcodedText]
-                        android:text="Edit Profile"
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:130: Warning: Hardcoded string "Trusted Contacts", should use @string resource [HardcodedText]
-                        android:text="Trusted Contacts"
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:169: Warning: Hardcoded string "Hide My Location", should use @string resource [HardcodedText]
-                        android:text="Hide My Location"
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:208: Warning: Hardcoded string "Auto-Approve Trusted Contacts", should use @string resource [HardcodedText]
-                        android:text="Auto-Approve Trusted Contacts"
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:247: Warning: Hardcoded string "Location Share Expiry Time", should use @string resource [HardcodedText]
-                        android:text="Location Share Expiry Time"
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile_settings.xml:286: Warning: Hardcoded string "Logout", should use @string resource [HardcodedText]
-                        android:text="Logout"
-                        ~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_phone_verification.xml:39: Warning: Hardcoded string "Enter OTP", should use @string resource [HardcodedText]
+        android:hint="Enter OTP"
+        ~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_phone_verification.xml:52: Warning: Hardcoded string "Verify OTP", should use @string resource [HardcodedText]
+        android:text="Verify OTP"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:52: Warning: Hardcoded string "Edit Profile", should use @string resource [HardcodedText]
+                    android:text="Edit Profile"
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:85: Warning: Hardcoded string "Trusted Contacts", should use @string resource [HardcodedText]
+                    android:text="Trusted Contacts"
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:103: Warning: Hardcoded string "Hide My Location", should use @string resource [HardcodedText]
+                android:text="Hide My Location"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:115: Warning: Hardcoded string "Auto-Approve Trusted Contacts", should use @string resource [HardcodedText]
+                android:text="Auto-Approve Trusted Contacts"
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:134: Warning: Hardcoded string "Location Share Expiry Time", should use @string resource [HardcodedText]
+                    android:text="Location Share Expiry Time"
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:151: Warning: Hardcoded string "Logout", should use @string resource [HardcodedText]
+        android:text="Logout" />
+        ~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:13: Warning: Hardcoded string "Sign In Screen", should use @string resource [HardcodedText]
         android:text="Sign In Screen"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:24: Warning: Hardcoded string "Sign In with Google", should use @string resource [HardcodedText]
         android:text="Sign In with Google"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:36: Warning: Hardcoded string "Phone Number", should use @string resource [HardcodedText]
-        android:hint="Phone Number"
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:47: Warning: Hardcoded string "Send Verification Code", should use @string resource [HardcodedText]
-        android:text="Send Verification Code"
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:58: Warning: Hardcoded string "Verification Code", should use @string resource [HardcodedText]
-        android:hint="Verification Code"
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:69: Warning: Hardcoded string "Verify Code", should use @string resource [HardcodedText]
-        android:text="Verify Code"
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:35: Warning: Hardcoded string "Sign In with Phone", should use @string resource [HardcodedText]
+        android:text="Sign In with Phone"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_splash.xml:36: Warning: Hardcoded string "WherU", should use @string resource [HardcodedText]
         android:text="WherU"
         ~~~~~~~~~~~~~~~~~~~~
@@ -596,6 +614,30 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/menu/bottom_navigation_menu.xml:17: Warning: Hardcoded string "Profile", should use @string resource [HardcodedText]
         android:title="Profile" />
         ~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:29: Warning: Hardcoded string "John Doe", should use @string resource [HardcodedText]
+        android:text="John Doe"
+        ~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:41: Warning: Hardcoded string "john.doe@example.com", should use @string resource [HardcodedText]
+        android:text="john.doe@example.com"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:91: Warning: Hardcoded string "Edit Profile", should use @string resource [HardcodedText]
+                        android:text="Edit Profile"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:130: Warning: Hardcoded string "Trusted Contacts", should use @string resource [HardcodedText]
+                        android:text="Trusted Contacts"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:169: Warning: Hardcoded string "Hide My Location", should use @string resource [HardcodedText]
+                        android:text="Hide My Location"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:208: Warning: Hardcoded string "Auto-Approve Trusted Contacts", should use @string resource [HardcodedText]
+                        android:text="Auto-Approve Trusted Contacts"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:247: Warning: Hardcoded string "Location Share Expiry Time", should use @string resource [HardcodedText]
+                        android:text="Location Share Expiry Time"
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/fragment_profile.xml:286: Warning: Hardcoded string "Logout", should use @string resource [HardcodedText]
+                        android:text="Logout"
+                        ~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/item_past_notification.xml:32: Warning: Hardcoded string "John Doe requested your location (Pending)", should use @string resource [HardcodedText]
             android:text="John Doe requested your location (Pending)"
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -620,4 +662,4 @@ navigationUiKtx = "2.7.7"
    There are quickfixes to automatically extract this hardcoded string into a
    resource lookup.
 
-0 errors, 136 warnings
+0 errors, 150 warnings

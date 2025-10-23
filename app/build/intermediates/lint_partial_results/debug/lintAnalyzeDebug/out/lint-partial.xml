@@ -15,6 +15,14 @@
             file="$GRADLE_USER_HOME/caches/transforms-4/ca719b197924b6f0438ba85d0501915b/transformed/jetified-firebase-messaging-25.0.1/jars/classes.jar"/>
     </map>
     <map id="UnusedResources">
+        <location id="R.drawable.ic_people"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/drawable/ic_people.xml"
+            line="1"
+            column="1"
+            startOffset="0"
+            endLine="9"
+            endColumn="10"
+            endOffset="595"/>
         <location id="R.color.teal_700"
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/colors.xml"
             line="6"
@@ -31,6 +39,14 @@
             endLine="8"
             endColumn="24"
             endOffset="308"/>
+        <location id="R.drawable.ic_person"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/drawable/ic_person.xml"
+            line="1"
+            column="1"
+            startOffset="0"
+            endLine="9"
+            endColumn="10"
+            endOffset="399"/>
         <location id="R.color.purple_500"
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/colors.xml"
             line="3"
@@ -39,9 +55,25 @@
             endLine="3"
             endColumn="29"
             endOffset="87"/>
+        <location id="R.drawable.ic_arrow_forward"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/drawable/ic_arrow_forward.xml"
+            line="1"
+            column="1"
+            startOffset="0"
+            endLine="9"
+            endColumn="10"
+            endOffset="332"/>
+        <location id="R.layout.activity_profile"
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/layout/activity_profile.xml"
+            line="2"
+            column="1"
+            startOffset="39"
+            endLine="153"
+            endColumn="16"
+            endOffset="5920"/>
         <entry
             name="model"
-            string="array[location_expiry_options(U)],attr[actionBarSize(R),colorPrimaryVariant(R)],color[blue_500(U),bottom_nav_item_color(U),purple_200(U),purple_500(D),purple_700(U),teal_200(U),teal_700(D),black(U),white(D)],drawable[dot_background(U),gradient_blue(U),ic_arrow_right(U),ic_bell(U),ic_check_circle(U),ic_contacts(U),ic_edit(U),ic_home(U),ic_location_off(U),ic_location_pin(U),ic_logout(U),ic_profile(U),ic_profile_placeholder(U),ic_requests(U),ic_search(U),ic_status_approved(U),ic_status_pending(U),ic_status_rejected(U),ic_timer(U),rounded_search_bar(U)],id[top_bar(U),title_home(D),profile_image(U),search_bar(U),request_location_button(U),recent_contacts_recycler_view(D),bottom_navigation_bar(U),fab_request_location(D),bell_icon(U),title_notifications(D),main_notification_card(U),notification_message(U),button_approve(U),button_reject(D),past_notifications_title(U),past_notifications_recycler_view(D),textView(D),user_name(U),user_email(U),card_edit_profile(R),card_trusted_contacts(R),card_hide_location(R),switch_hide_location(R),card_auto_approve(R),switch_auto_approve(R),card_location_expiry(R),spinner_location_expiry(R),card_logout(R),signInButton(U),phoneEditText(U),sendCodeButton(U),codeEditText(U),verifyCodeButton(U),logo_container(U),app_name(U),loading_dots(U),dot1(U),dot2(U),dot3(U),status_icon(U),notification_text(U),contact_avatar(U),contact_name(U),request_button(U),navigation_home(U),navigation_requests(U),navigation_profile(U),nav_graph(D),signInActivity(D),homeActivity(D),profileActivity(D)],integer[google_play_services_version(R)],layout[activity_home(U),item_recent_contact(U),activity_notification(U),item_past_notification(U),activity_profile(U),activity_profile_settings(U),activity_sign_in(U),activity_splash(U)],menu[bottom_navigation_menu(U)],mipmap[ic_launcher(U),ic_launcher_round(U)],navigation[nav_graph(D)],string[app_name(U),default_web_client_id(U)],style[Theme_LocationApp(U),Theme_LocationApp_NoActionBar(U),Theme_MaterialComponents_DayNight_DarkActionBar(R),Theme_MaterialComponents_DayNight_NoActionBar(R)],xml[data_extraction_rules(U),backup_rules(U)];54^1^18^1f^1a^20^3^23^26^24^55^4^5c^15,55^18^4b^49^3,56^1^f^28^20^2c^3^2b^2a^2e^57,57^1c^3^47,59^17^3^22^31^32^12^e^11^14^10^1e^0^16,5a^3c^3d^3e^3f,5b^d^42^15^43^41^c,5c^13^19^17,5f^50,62^64^5^7^a^8^2,63^65;;;"/>
+            string="array[expiry_time_options(U)],attr[actionBarSize(R),colorOnSurface(E),textAppearanceBody1(E),colorPrimaryVariant(R)],color[blue_500(U),bottom_nav_item_color(U),purple_200(U),purple_500(D),purple_700(U),teal_200(U),teal_700(D),black(U),white(D)],drawable[dot_background(U),gradient_blue(U),ic_arrow_forward(D),ic_arrow_right(U),ic_bell(U),ic_check_circle(U),ic_contacts(U),ic_edit(U),ic_home(U),ic_location_off(U),ic_location_pin(U),ic_logout(U),ic_people(D),ic_person(D),ic_profile(U),ic_profile_placeholder(U),ic_requests(U),ic_search(U),ic_status_approved(U),ic_status_pending(U),ic_status_rejected(U),ic_timer(U),rounded_search_bar(U)],id[fragment_container(U),bottom_navigation_bar(U),home_content_group(D),top_bar(U),search_bar(U),request_location_button(U),recent_contacts_recycler_view(U),fab_request_location(U),title_home(D),profile_image(U),bell_icon(U),title_notifications(D),main_notification_card(U),notification_message(U),button_approve(U),button_reject(D),past_notifications_title(U),past_notifications_recycler_view(D),editTextPhoneNumber(U),buttonSendOtp(U),editTextOtp(U),buttonVerifyOtp(U),toolbar(D),edit_profile_layout(D),trusted_contacts_layout(D),hide_location_switch(D),auto_approve_switch(D),expiry_time_spinner(D),logout_button(D),textView(D),signInButton(U),buttonPhoneSignIn(U),logo_container(U),app_name(U),loading_dots(U),dot1(U),dot2(U),dot3(U),user_name(U),user_email(U),card_edit_profile(R),card_trusted_contacts(R),card_hide_location(R),switch_hide_location(R),card_auto_approve(R),switch_auto_approve(R),card_location_expiry(R),spinner_location_expiry(R),card_logout(R),status_icon(U),notification_text(U),contact_avatar(U),contact_name(U),request_button(U),navigation_home(U),navigation_requests(U),navigation_profile(U),nav_graph(D),signInActivity(D),homeActivity(D),profileActivity(D)],integer[google_play_services_version(R)],layout[activity_home(U),item_recent_contact(U),activity_notification(U),item_past_notification(U),activity_phone_verification(U),activity_profile(D),activity_profile_settings(U),activity_sign_in(U),activity_splash(U),fragment_profile(U)],menu[bottom_navigation_menu(U)],mipmap[ic_launcher(U),ic_launcher_round(U)],navigation[nav_graph(D)],string[app_name(U),default_web_client_id(U)],style[Theme_LocationApp(U),Theme_LocationApp_NoActionBar(U),Theme_MaterialComponents_DayNight_DarkActionBar(R),Theme_MaterialComponents_DayNight_NoActionBar(R)],xml[data_extraction_rules(U),backup_rules(U)];63^26^1^1d^24^1f^28^5^29^2a^64^6^6d^18,64^1d^5a^58^5,65^1^12^2f^28^33^5^32^31^35^66,66^21^5^56,67^38^39^37^3a,68^1^1b^2^3^10^1a,6a^43,6b^f^46^18^47^45^e,6c^1c^5^2e^4b^4c^15^11^14^17^13^23^0^19,6d^16^1e^1c,70^5f,73^75^7^9^c^a^4,74^76;;;"/>
         <location id="R.navigation.nav_graph"
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/navigation/nav_graph.xml"
             line="2"

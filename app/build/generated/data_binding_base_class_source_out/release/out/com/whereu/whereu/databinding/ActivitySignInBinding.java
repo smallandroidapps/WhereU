@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,13 +21,7 @@ public final class ActivitySignInBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final EditText codeEditText;
-
-  @NonNull
-  public final EditText phoneEditText;
-
-  @NonNull
-  public final Button sendCodeButton;
+  public final Button buttonPhoneSignIn;
 
   @NonNull
   public final Button signInButton;
@@ -36,19 +29,12 @@ public final class ActivitySignInBinding implements ViewBinding {
   @NonNull
   public final TextView textView;
 
-  @NonNull
-  public final Button verifyCodeButton;
-
-  private ActivitySignInBinding(@NonNull ConstraintLayout rootView, @NonNull EditText codeEditText,
-      @NonNull EditText phoneEditText, @NonNull Button sendCodeButton, @NonNull Button signInButton,
-      @NonNull TextView textView, @NonNull Button verifyCodeButton) {
+  private ActivitySignInBinding(@NonNull ConstraintLayout rootView,
+      @NonNull Button buttonPhoneSignIn, @NonNull Button signInButton, @NonNull TextView textView) {
     this.rootView = rootView;
-    this.codeEditText = codeEditText;
-    this.phoneEditText = phoneEditText;
-    this.sendCodeButton = sendCodeButton;
+    this.buttonPhoneSignIn = buttonPhoneSignIn;
     this.signInButton = signInButton;
     this.textView = textView;
-    this.verifyCodeButton = verifyCodeButton;
   }
 
   @Override
@@ -78,21 +64,9 @@ public final class ActivitySignInBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.codeEditText;
-      EditText codeEditText = ViewBindings.findChildViewById(rootView, id);
-      if (codeEditText == null) {
-        break missingId;
-      }
-
-      id = R.id.phoneEditText;
-      EditText phoneEditText = ViewBindings.findChildViewById(rootView, id);
-      if (phoneEditText == null) {
-        break missingId;
-      }
-
-      id = R.id.sendCodeButton;
-      Button sendCodeButton = ViewBindings.findChildViewById(rootView, id);
-      if (sendCodeButton == null) {
+      id = R.id.buttonPhoneSignIn;
+      Button buttonPhoneSignIn = ViewBindings.findChildViewById(rootView, id);
+      if (buttonPhoneSignIn == null) {
         break missingId;
       }
 
@@ -108,14 +82,8 @@ public final class ActivitySignInBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.verifyCodeButton;
-      Button verifyCodeButton = ViewBindings.findChildViewById(rootView, id);
-      if (verifyCodeButton == null) {
-        break missingId;
-      }
-
-      return new ActivitySignInBinding((ConstraintLayout) rootView, codeEditText, phoneEditText,
-          sendCodeButton, signInButton, textView, verifyCodeButton);
+      return new ActivitySignInBinding((ConstraintLayout) rootView, buttonPhoneSignIn, signInButton,
+          textView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

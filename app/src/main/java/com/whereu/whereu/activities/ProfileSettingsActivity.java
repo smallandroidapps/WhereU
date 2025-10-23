@@ -1,0 +1,15 @@
+package com.whereu.whereu.activities;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
+import com.whereu.whereu.R;
+
+public class ProfileSettingsActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile_settings);
+    }
+}

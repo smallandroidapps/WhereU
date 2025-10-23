@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Group;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
@@ -32,6 +34,12 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final FloatingActionButton fabRequestLocation;
 
   @NonNull
+  public final FrameLayout fragmentContainer;
+
+  @NonNull
+  public final Group homeContentGroup;
+
+  @NonNull
   public final CircleImageView profileImage;
 
   @NonNull
@@ -51,12 +59,15 @@ public final class ActivityHomeBinding implements ViewBinding {
 
   private ActivityHomeBinding(@NonNull ConstraintLayout rootView,
       @NonNull BottomNavigationView bottomNavigationBar,
-      @NonNull FloatingActionButton fabRequestLocation, @NonNull CircleImageView profileImage,
+      @NonNull FloatingActionButton fabRequestLocation, @NonNull FrameLayout fragmentContainer,
+      @NonNull Group homeContentGroup, @NonNull CircleImageView profileImage,
       @NonNull RecyclerView recentContactsRecyclerView, @NonNull Button requestLocationButton,
       @NonNull EditText searchBar, @NonNull TextView titleHome, @NonNull ConstraintLayout topBar) {
     this.rootView = rootView;
     this.bottomNavigationBar = bottomNavigationBar;
     this.fabRequestLocation = fabRequestLocation;
+    this.fragmentContainer = fragmentContainer;
+    this.homeContentGroup = homeContentGroup;
     this.profileImage = profileImage;
     this.recentContactsRecyclerView = recentContactsRecyclerView;
     this.requestLocationButton = requestLocationButton;
@@ -104,6 +115,18 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.fragment_container;
+      FrameLayout fragmentContainer = ViewBindings.findChildViewById(rootView, id);
+      if (fragmentContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.home_content_group;
+      Group homeContentGroup = ViewBindings.findChildViewById(rootView, id);
+      if (homeContentGroup == null) {
+        break missingId;
+      }
+
       id = R.id.profile_image;
       CircleImageView profileImage = ViewBindings.findChildViewById(rootView, id);
       if (profileImage == null) {
@@ -141,8 +164,8 @@ public final class ActivityHomeBinding implements ViewBinding {
       }
 
       return new ActivityHomeBinding((ConstraintLayout) rootView, bottomNavigationBar,
-          fabRequestLocation, profileImage, recentContactsRecyclerView, requestLocationButton,
-          searchBar, titleHome, topBar);
+          fabRequestLocation, fragmentContainer, homeContentGroup, profileImage,
+          recentContactsRecyclerView, requestLocationButton, searchBar, titleHome, topBar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
