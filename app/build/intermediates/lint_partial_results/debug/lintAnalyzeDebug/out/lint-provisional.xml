@@ -87,10 +87,10 @@
             file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/whereu/whereu/activities/SplashActivity.java"
             line="18"
             column="14"
-            startOffset="484"
+            startOffset="493"
             endLine="18"
             endColumn="28"
-            endOffset="498"/>
+            endOffset="507"/>
         <map>
             <condition targetGE="31"/>
         </map>

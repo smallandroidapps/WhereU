@@ -1056,6 +1056,19 @@
       jars="/Users/admin/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.0.21/618b539767b4899b4660a83006e052b63f1db551/kotlin-stdlib-2.0.21.jar"
       resolved="org.jetbrains.kotlin:kotlin-stdlib:2.0.21"/>
   <library
+      name="de.hdodenhof:circleimageview:3.1.0@aar"
+      jars="/Users/admin/.gradle/caches/transforms-4/5006284fdb2324323789fd7837def08f/transformed/jetified-circleimageview-3.1.0/jars/classes.jar"
+      resolved="de.hdodenhof:circleimageview:3.1.0"
+      folder="/Users/admin/.gradle/caches/transforms-4/5006284fdb2324323789fd7837def08f/transformed/jetified-circleimageview-3.1.0"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="androidx.constraintlayout:constraintlayout:2.2.0@aar"
       jars="/Users/admin/.gradle/caches/transforms-4/7f117d9d9165a595a5ec9873005f52cb/transformed/constraintlayout-2.2.0/jars/classes.jar"
       resolved="androidx.constraintlayout:constraintlayout:2.2.0"
