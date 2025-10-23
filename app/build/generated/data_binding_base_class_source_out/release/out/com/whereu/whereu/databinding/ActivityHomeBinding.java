@@ -4,13 +4,19 @@ package com.whereu.whereu.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.whereu.whereu.R;
+import de.hdodenhof.circleimageview.CircleImageView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -20,11 +26,43 @@ public final class ActivityHomeBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final TextView textView;
+  public final BottomNavigationView bottomNavigationBar;
 
-  private ActivityHomeBinding(@NonNull ConstraintLayout rootView, @NonNull TextView textView) {
+  @NonNull
+  public final FloatingActionButton fabRequestLocation;
+
+  @NonNull
+  public final CircleImageView profileImage;
+
+  @NonNull
+  public final RecyclerView recentContactsRecyclerView;
+
+  @NonNull
+  public final Button requestLocationButton;
+
+  @NonNull
+  public final EditText searchBar;
+
+  @NonNull
+  public final TextView titleHome;
+
+  @NonNull
+  public final ConstraintLayout topBar;
+
+  private ActivityHomeBinding(@NonNull ConstraintLayout rootView,
+      @NonNull BottomNavigationView bottomNavigationBar,
+      @NonNull FloatingActionButton fabRequestLocation, @NonNull CircleImageView profileImage,
+      @NonNull RecyclerView recentContactsRecyclerView, @NonNull Button requestLocationButton,
+      @NonNull EditText searchBar, @NonNull TextView titleHome, @NonNull ConstraintLayout topBar) {
     this.rootView = rootView;
-    this.textView = textView;
+    this.bottomNavigationBar = bottomNavigationBar;
+    this.fabRequestLocation = fabRequestLocation;
+    this.profileImage = profileImage;
+    this.recentContactsRecyclerView = recentContactsRecyclerView;
+    this.requestLocationButton = requestLocationButton;
+    this.searchBar = searchBar;
+    this.titleHome = titleHome;
+    this.topBar = topBar;
   }
 
   @Override
@@ -54,13 +92,57 @@ public final class ActivityHomeBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.textView;
-      TextView textView = ViewBindings.findChildViewById(rootView, id);
-      if (textView == null) {
+      id = R.id.bottom_navigation_bar;
+      BottomNavigationView bottomNavigationBar = ViewBindings.findChildViewById(rootView, id);
+      if (bottomNavigationBar == null) {
         break missingId;
       }
 
-      return new ActivityHomeBinding((ConstraintLayout) rootView, textView);
+      id = R.id.fab_request_location;
+      FloatingActionButton fabRequestLocation = ViewBindings.findChildViewById(rootView, id);
+      if (fabRequestLocation == null) {
+        break missingId;
+      }
+
+      id = R.id.profile_image;
+      CircleImageView profileImage = ViewBindings.findChildViewById(rootView, id);
+      if (profileImage == null) {
+        break missingId;
+      }
+
+      id = R.id.recent_contacts_recycler_view;
+      RecyclerView recentContactsRecyclerView = ViewBindings.findChildViewById(rootView, id);
+      if (recentContactsRecyclerView == null) {
+        break missingId;
+      }
+
+      id = R.id.request_location_button;
+      Button requestLocationButton = ViewBindings.findChildViewById(rootView, id);
+      if (requestLocationButton == null) {
+        break missingId;
+      }
+
+      id = R.id.search_bar;
+      EditText searchBar = ViewBindings.findChildViewById(rootView, id);
+      if (searchBar == null) {
+        break missingId;
+      }
+
+      id = R.id.title_home;
+      TextView titleHome = ViewBindings.findChildViewById(rootView, id);
+      if (titleHome == null) {
+        break missingId;
+      }
+
+      id = R.id.top_bar;
+      ConstraintLayout topBar = ViewBindings.findChildViewById(rootView, id);
+      if (topBar == null) {
+        break missingId;
+      }
+
+      return new ActivityHomeBinding((ConstraintLayout) rootView, bottomNavigationBar,
+          fabRequestLocation, profileImage, recentContactsRecyclerView, requestLocationButton,
+          searchBar, titleHome, topBar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

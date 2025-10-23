@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.whereu.whereu.app-mergeReleaseResources-56:/values-tl/values-tl.xml",
+            "outputFile": "com.whereu.whereu.app-mergeReleaseResources-57:/values-tl/values-tl.xml",
             "map": [
                 {
                     "source": "/Users/admin/.gradle/caches/transforms-4/b2237a218e281c93c50574bd56274e8c/transformed/core-1.13.0/res/values-tl/values-tl.xml",
