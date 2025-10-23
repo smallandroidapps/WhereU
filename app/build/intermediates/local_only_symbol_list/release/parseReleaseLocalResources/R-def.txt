@@ -1,0 +1,36 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color purple_200
+color purple_500
+color purple_700
+color teal_200
+color teal_700
+color white
+id codeEditText
+id homeActivity
+id nav_graph
+id phoneEditText
+id profileActivity
+id sendCodeButton
+id signInActivity
+id signInButton
+id textView
+id verifyCodeButton
+layout activity_home
+layout activity_profile
+layout activity_sign_in
+mipmap ic_launcher
+mipmap ic_launcher_round
+navigation nav_graph
+string app_name
+string default_web_client_id
+string gcm_defaultSenderId
+string google_api_key
+string google_app_id
+string google_crash_reporting_api_key
+string google_storage_bucket
+string project_id
+style Theme.LocationApp
+xml backup_rules
+xml data_extraction_rules

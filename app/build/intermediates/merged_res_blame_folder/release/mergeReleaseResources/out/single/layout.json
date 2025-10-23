@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.whereu.whereu.app-mergeReleaseResources-57:/layout/activity_home.xml",
+        "source": "com.whereu.whereu.app-main-59:/layout/activity_home.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-mergeReleaseResources-57:/layout/activity_profile.xml",
+        "source": "com.whereu.whereu.app-main-59:/layout/activity_profile.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-mergeReleaseResources-57:/layout/activity_sign_in.xml",
+        "source": "com.whereu.whereu.app-main-59:/layout/activity_sign_in.xml"
+    }
+]

@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-58:/layout_activity_profile.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_profile.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-58:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-58:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-debug-58:/layout_activity_sign_in.xml.flat",
+        "source": "com.whereu.whereu.app-main-60:/layout/activity_sign_in.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-58:/navigation_nav_graph.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/navigation/nav_graph.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-58:/layout_activity_home.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_home.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-58:/xml_backup_rules.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-58:/xml_data_extraction_rules.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-58:/layout_activity_sign_in.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_sign_in.xml"
+    }
+]

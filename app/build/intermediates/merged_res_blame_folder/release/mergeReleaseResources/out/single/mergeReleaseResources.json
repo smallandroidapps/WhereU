@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "com.whereu.whereu.app-release-58:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.whereu.whereu.app-main-59:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-release-58:/layout_activity_sign_in.xml.flat",
+        "source": "com.whereu.whereu.app-main-59:/layout/activity_sign_in.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-release-58:/xml_data_extraction_rules.xml.flat",
+        "source": "com.whereu.whereu.app-main-59:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-release-58:/navigation_nav_graph.xml.flat",
+        "source": "com.whereu.whereu.app-main-59:/navigation/nav_graph.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-release-58:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.whereu.whereu.app-main-59:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-release-58:/layout_activity_profile.xml.flat",
+        "source": "com.whereu.whereu.app-main-59:/layout/activity_profile.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-release-58:/xml_backup_rules.xml.flat",
+        "source": "com.whereu.whereu.app-main-59:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-release-58:/layout_activity_home.xml.flat",
+        "source": "com.whereu.whereu.app-main-59:/layout/activity_home.xml"
+    }
+]

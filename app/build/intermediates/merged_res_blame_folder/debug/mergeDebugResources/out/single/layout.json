@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeDebugResources-57:/layout/activity_profile.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_profile.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-mergeDebugResources-57:/layout/activity_sign_in.xml",
+        "source": "com.whereu.whereu.app-main-60:/layout/activity_sign_in.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeDebugResources-57:/layout/activity_home.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_home.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeDebugResources-57:/layout/activity_sign_in.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_sign_in.xml"
+    }
+]
