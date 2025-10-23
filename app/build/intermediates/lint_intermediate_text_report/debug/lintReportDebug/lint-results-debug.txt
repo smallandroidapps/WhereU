@@ -242,6 +242,9 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:7: Warning: Possible overdraw: Root element paints background @android:color/white with a theme that also paints a background (inferred theme is @style/Theme.LocationApp) [Overdraw]
     android:background="@android:color/white"
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:7: Warning: Possible overdraw: Root element paints background @android:color/white with a theme that also paints a background (inferred theme is @style/Theme.LocationApp) [Overdraw]
+    android:background="@android:color/white"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Explanation for issues of type "Overdraw":
    If you set a background drawable on a root view, then you should use a
@@ -426,7 +429,13 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:114: Warning: Missing contentDescription attribute on image [ContentDescription]
     <com.google.android.material.floatingactionbutton.FloatingActionButton
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:19: Warning: Missing contentDescription attribute on image [ContentDescription]
+        <ImageView
+         ~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_splash.xml:23: Warning: Missing contentDescription attribute on image [ContentDescription]
+        <ImageView
+         ~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/item_past_notification.xml:16: Warning: Missing contentDescription attribute on image [ContentDescription]
         <ImageView
          ~~~~~~~~~
 
@@ -458,6 +467,21 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:76: Warning: Hardcoded string "Request Location", should use @string resource [HardcodedText]
         android:text="Request Location"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:34: Warning: Hardcoded string "Notifications", should use @string resource [HardcodedText]
+            android:text="Notifications"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:67: Warning: Hardcoded string "John requested your location.", should use @string resource [HardcodedText]
+                android:text="John requested your location."
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:83: Warning: Hardcoded string "Approve", should use @string resource [HardcodedText]
+                android:text="Approve"
+                ~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:96: Warning: Hardcoded string "Reject", should use @string resource [HardcodedText]
+                android:text="Reject"
+                ~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_notification.xml:113: Warning: Hardcoded string "Past Notifications", should use @string resource [HardcodedText]
+        android:text="Past Notifications"
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_profile.xml:13: Warning: Hardcoded string "Profile Screen", should use @string resource [HardcodedText]
         android:text="Profile Screen"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -491,6 +515,9 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/menu/bottom_navigation_menu.xml:17: Warning: Hardcoded string "Profile", should use @string resource [HardcodedText]
         android:title="Profile" />
         ~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/item_past_notification.xml:32: Warning: Hardcoded string "John Doe requested your location (Pending)", should use @string resource [HardcodedText]
+            android:text="John Doe requested your location (Pending)"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/item_recent_contact.xml:31: Warning: Hardcoded string "Contact Name", should use @string resource [HardcodedText]
             android:text="Contact Name"
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -512,4 +539,4 @@ navigationUiKtx = "2.7.7"
    There are quickfixes to automatically extract this hardcoded string into a
    resource lookup.
 
-0 errors, 107 warnings
+0 errors, 116 warnings

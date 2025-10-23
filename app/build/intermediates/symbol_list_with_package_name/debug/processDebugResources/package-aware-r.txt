@@ -3116,6 +3116,7 @@ drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable gradient_blue
 drawable ic_arrow_back_black_24
+drawable ic_bell
 drawable ic_call_answer
 drawable ic_call_answer_low
 drawable ic_call_answer_video
@@ -3142,6 +3143,9 @@ drawable ic_profile_placeholder
 drawable ic_requests
 drawable ic_search
 drawable ic_search_black_24
+drawable ic_status_approved
+drawable ic_status_pending
+drawable ic_status_rejected
 drawable indeterminate_static
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -3316,6 +3320,7 @@ id barrier
 id baseline
 id beginOnFirstDraw
 id beginning
+id bell_icon
 id below
 id bestChoice
 id blocking
@@ -3331,6 +3336,8 @@ id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
 id buttonPanel
+id button_approve
+id button_reject
 id cache_measures
 id callMeasure
 id cancel_button
@@ -3491,6 +3498,7 @@ id locale
 id logo_container
 id ltr
 id m3_side_sheet
+id main_notification_card
 id marquee
 id masked
 id match_constraint
@@ -3574,6 +3582,8 @@ id north
 id notification_background
 id notification_main_column
 id notification_main_column_container
+id notification_message
+id notification_text
 id off
 id on
 id onInterceptTouchReturnSwipe
@@ -3601,6 +3611,8 @@ id parentPanel
 id parentRelative
 id parent_matrix
 id password_toggle
+id past_notifications_recycler_view
+id past_notifications_title
 id path
 id pathRelative
 id peekHeight
@@ -3691,6 +3703,7 @@ id startToEnd
 id startVertical
 id staticLayout
 id staticPostLayout
+id status_icon
 id stop
 id stretch
 id submenuarrow
@@ -3731,6 +3744,7 @@ id time
 id title
 id titleDividerNoCustom
 id title_home
+id title_notifications
 id title_template
 id toggle
 id top
@@ -3891,6 +3905,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_home
+layout activity_notification
 layout activity_profile
 layout activity_sign_in
 layout activity_splash
@@ -3914,6 +3929,7 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_past_notification
 layout item_recent_contact
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
