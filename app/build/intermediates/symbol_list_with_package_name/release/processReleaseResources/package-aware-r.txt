@@ -3105,8 +3105,10 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable dot_background
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
+drawable gradient_blue
 drawable ic_arrow_back_black_24
 drawable ic_call_answer
 drawable ic_call_answer_low
@@ -3117,6 +3119,7 @@ drawable ic_call_decline_low
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
+drawable ic_location_pin
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
@@ -3288,6 +3291,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id app_name
 id arc
 id asConfigured
 id async
@@ -3374,6 +3378,9 @@ id disableIntraAutoTransition
 id disablePostScroll
 id disableScroll
 id disjoint
+id dot1
+id dot2
+id dot3
 id dragAnticlockwise
 id dragClockwise
 id dragDown
@@ -3463,7 +3470,9 @@ id line3
 id linear
 id listMode
 id list_item
+id loading_dots
 id locale
+id logo_container
 id ltr
 id m3_side_sheet
 id marquee
@@ -3859,6 +3868,7 @@ layout abc_tooltip
 layout activity_home
 layout activity_profile
 layout activity_sign_in
+layout activity_splash
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog
@@ -4700,6 +4710,7 @@ style Theme_Design_Light_NoActionBar
 style Theme_Design_NoActionBar
 style Theme_Hidden
 style Theme_LocationApp
+style Theme_LocationApp_NoActionBar
 style Theme_Material3_Dark
 style Theme_Material3_Dark_BottomSheetDialog
 style Theme_Material3_Dark_Dialog

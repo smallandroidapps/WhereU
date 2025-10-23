@@ -20,6 +20,19 @@
 
    https://developer.android.com/distribute/best-practices/develop/target-sdk.html
 
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/java/com/whereu/whereu/activities/SplashActivity.java:18: Warning: The application should not provide its own launch screen [CustomSplashScreen]
+public class SplashActivity extends AppCompatActivity {
+             ~~~~~~~~~~~~~~
+
+   Explanation for issues of type "CustomSplashScreen":
+   Starting in Android 12 (API 31+), the application's Launch Screen is
+   provided by the system and the application should not create its own,
+   otherwise the user will see two splashscreens. Please check the
+   SplashScreen class to check how the Splash Screen can be controlled and
+   customized.
+
+   https://developer.android.com/guide/topics/ui/splash-screen
+
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/gradle/libs.versions.toml:8: Warning: A newer version of com.android.application than 8.5.2 is available: 8.13.0 [AndroidGradlePluginVersion]
 androidGradlePlugin = "8.5.2"
                       ~~~~~~~
@@ -213,6 +226,9 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/values/themes.xml:13: Warning: Unnecessary; SDK_INT is always >= 21 [ObsoleteSdkInt]
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
                                             ~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/values/themes.xml:20: Warning: Unnecessary; SDK_INT is always >= 21 [ObsoleteSdkInt]
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+                                            ~~~~~~~~~~~~~~~~~~~
 
    Explanation for issues of type "ObsoleteSdkInt":
    This check flags version checks that are not necessary, because the
@@ -359,6 +375,29 @@ navigationUiKtx = "2.7.7"
    declarations outside of the TOML file and suggests moving them (and in the
    IDE, provides a quickfix to performing the operation automatically).
 
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_splash.xml:23: Warning: Missing contentDescription attribute on image [ContentDescription]
+        <ImageView
+         ~~~~~~~~~
+
+   Explanation for issues of type "ContentDescription":
+   Non-textual widgets like ImageViews and ImageButtons should use the
+   contentDescription attribute to specify a textual description of the widget
+   such that screen readers and other accessibility tools can adequately
+   describe the user interface.
+
+   Note that elements in application screens that are purely decorative and do
+   not provide any content or enable a user action should not have
+   accessibility content descriptions. In this case, set their descriptions to
+   @null. If your app's minSdkVersion is 16 or higher, you can instead set
+   these graphical elements' android:importantForAccessibility attributes to
+   no.
+
+   Note that for text fields, you should not set both the hint and the
+   contentDescription attributes since the hint will never be shown. Just set
+   the hint.
+
+   https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases
+
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_home.xml:13: Warning: Hardcoded string "Home Screen", should use @string resource [HardcodedText]
         android:text="Home Screen"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -383,6 +422,9 @@ navigationUiKtx = "2.7.7"
 /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_sign_in.xml:69: Warning: Hardcoded string "Verify Code", should use @string resource [HardcodedText]
         android:text="Verify Code"
         ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/res/layout/activity_splash.xml:36: Warning: Hardcoded string "WherU", should use @string resource [HardcodedText]
+        android:text="WherU"
+        ~~~~~~~~~~~~~~~~~~~~
 
    Explanation for issues of type "HardcodedText":
    Hardcoding text attributes directly in layout files is bad for several
@@ -398,4 +440,4 @@ navigationUiKtx = "2.7.7"
    There are quickfixes to automatically extract this hardcoded string into a
    resource lookup.
 
-0 errors, 91 warnings
+0 errors, 95 warnings
