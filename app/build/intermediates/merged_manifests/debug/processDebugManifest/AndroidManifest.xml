@@ -37,13 +37,18 @@
         android:testOnly="true"
         android:theme="@style/Theme.LocationApp" >
         <activity
-            android:name="com.whereu.whereu.activities.SignInActivity"
-            android:exported="true" >
+            android:name="com.whereu.whereu.activities.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.LocationApp.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.whereu.whereu.activities.SignInActivity"
+            android:exported="false" >
         </activity>
         <activity android:name="com.whereu.whereu.activities.HomeActivity" />
         <activity android:name="com.whereu.whereu.activities.ProfileActivity" />

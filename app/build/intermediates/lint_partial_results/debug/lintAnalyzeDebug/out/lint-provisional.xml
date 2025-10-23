@@ -53,4 +53,47 @@
         </map>
     </incident>
 
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 21">
+        <fix-replace
+            description="Delete tools:targetApi"
+            replacement=""
+            priority="0">
+            <range
+                file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/themes.xml"
+                startOffset="1067"
+                endOffset="1086"/>
+        </fix-replace>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/themes.xml"
+            line="20"
+            column="45"
+            startOffset="1067"
+            endLine="20"
+            endColumn="64"
+            endOffset="1086"/>
+        <map>
+            <condition minGE="fffffffffff00000"/>
+        </map>
+    </incident>
+
+    <incident
+        id="CustomSplashScreen"
+        severity="warning"
+        message="The application should not provide its own launch screen">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/whereu/whereu/activities/SplashActivity.java"
+            line="18"
+            column="14"
+            startOffset="484"
+            endLine="18"
+            endColumn="28"
+            endOffset="498"/>
+        <map>
+            <condition targetGE="31"/>
+        </map>
+    </incident>
+
 </incidents>

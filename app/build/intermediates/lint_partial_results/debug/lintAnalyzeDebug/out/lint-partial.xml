@@ -3,7 +3,7 @@
     <map id="UnsafeIntentLaunch">
             <map id="unprotected">
                 <entry
-                    name="com.whereu.whereu.activities.SignInActivity"
+                    name="com.whereu.whereu.activities.SplashActivity"
                     boolean="true"/>
             </map>
     </map>
@@ -41,7 +41,7 @@
             endOffset="87"/>
         <entry
             name="model"
-            string="attr[colorPrimaryVariant(R)],color[purple_200(U),purple_500(D),purple_700(U),teal_200(U),teal_700(D),black(U),white(D)],id[textView(D),signInButton(U),phoneEditText(U),sendCodeButton(U),codeEditText(U),verifyCodeButton(U),nav_graph(D),signInActivity(D),homeActivity(D),profileActivity(D)],integer[google_play_services_version(R)],layout[activity_home(U),activity_profile(U),activity_sign_in(U)],mipmap[ic_launcher(U),ic_launcher_round(U)],navigation[nav_graph(D)],string[app_name(U),default_web_client_id(U)],style[Theme_LocationApp(U),Theme_MaterialComponents_DayNight_DarkActionBar(R)],xml[data_extraction_rules(U),backup_rules(U)];15^9^a^b^c,18^f,1b^1c^1^3^6^4^0;;;"/>
+            string="attr[colorPrimaryVariant(R)],color[purple_200(U),purple_500(D),purple_700(U),teal_200(U),teal_700(D),black(U),white(D)],drawable[dot_background(U),gradient_blue(U),ic_location_pin(U)],id[textView(D),signInButton(U),phoneEditText(U),sendCodeButton(U),codeEditText(U),verifyCodeButton(U),logo_container(U),app_name(U),loading_dots(U),dot1(U),dot2(U),dot3(U),nav_graph(D),signInActivity(D),homeActivity(D),profileActivity(D)],integer[google_play_services_version(R)],layout[activity_home(U),activity_profile(U),activity_sign_in(U),activity_splash(U)],mipmap[ic_launcher(U),ic_launcher_round(U)],navigation[nav_graph(D)],string[app_name(U),default_web_client_id(U)],style[Theme_LocationApp(U),Theme_LocationApp_NoActionBar(U),Theme_MaterialComponents_DayNight_DarkActionBar(R),Theme_MaterialComponents_DayNight_NoActionBar(R)],xml[data_extraction_rules(U),backup_rules(U)];1e^c^d^e^f,1f^9^12^a^13^11^8,22^18,25^27^1^3^6^4^0,26^28;;;"/>
         <location id="R.navigation.nav_graph"
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/navigation/nav_graph.xml"
             line="2"
