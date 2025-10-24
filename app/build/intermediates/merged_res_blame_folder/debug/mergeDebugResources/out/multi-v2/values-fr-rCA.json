@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.whereu.whereu.app-mergeDebugResources-62:/values-fr-rCA/values-fr-rCA.xml",
+            "outputFile": "com.whereu.whereu.app-mergeDebugResources-66:/values-fr-rCA/values-fr-rCA.xml",
             "map": [
                 {
                     "source": "/Users/admin/.gradle/caches/transforms-4/8cbe94204587627b60d4f3150e5a7d04/transformed/browser-1.4.0/res/values-fr-rCA/values-fr-rCA.xml",

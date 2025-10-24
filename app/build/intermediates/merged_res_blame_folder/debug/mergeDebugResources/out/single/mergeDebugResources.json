@@ -1,186 +1,190 @@
 [
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_bell.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_bell.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_item_past_notification.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/item_past_notification.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_location_pin.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_location_pin.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_gradient_blue.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/gradient_blue.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_profile.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_profile.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_profile.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_profile.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_activity_sign_in.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/activity_sign_in.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_bell.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_bell.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_dot_background.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/dot_background.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_logout.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_logout.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/xml_data_extraction_rules.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/xml/data_extraction_rules.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_person.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_person.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_contacts.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_contacts.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_item_recent_contact.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/item_recent_contact.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_activity_profile.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/activity_profile.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_filter.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_filter.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_activity_phone_verification.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/activity_phone_verification.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_timer.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_timer.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_status_rejected.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_status_rejected.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_profile_settings.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_profile_settings.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_activity_home.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/activity_home.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_status_rejected.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_status_rejected.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_status_approved.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_status_approved.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_location_off.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_location_off.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_item_past_notification.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/item_past_notification.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_sign_in.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_sign_in.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_activity_add_trusted_contact.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/activity_add_trusted_contact.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_fragment_requests.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/fragment_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_item_trusted_contact.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/item_trusted_contact.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/navigation_nav_graph.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/navigation/nav_graph.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_person.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_person.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/xml_backup_rules.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_requests.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_requests.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_search.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_search.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_fragment_requests.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/fragment_requests.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_fragment_profile.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/fragment_profile.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_activity_splash.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/activity_splash.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_trusted_contacts.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_trusted_contacts.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_people.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_people.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_status_approved.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_status_approved.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/menu_bottom_navigation_menu.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/menu/bottom_navigation_menu.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_splash.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_splash.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_activity_trusted_contacts.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/activity_trusted_contacts.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_check_circle.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_check_circle.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_profile_placeholder.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_profile_placeholder.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/xml_data_extraction_rules.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/xml_backup_rules.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/xml/backup_rules.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_timer.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_timer.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_arrow_forward.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_arrow_forward.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_rounded_search_bar.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/rounded_search_bar.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_status_pending.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_status_pending.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_item_trusted_contact.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/item_trusted_contact.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_logout.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_logout.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_home.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_home.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_fragment_profile.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/fragment_profile.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_edit.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_edit.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_edit.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_edit.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_notification.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_notification.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_filter.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_filter.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_status_pending.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_status_pending.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_location_off.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_location_off.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_location_pin.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_location_pin.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_search.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_search.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_item_search_result.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/item_search_result.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_check_circle.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_check_circle.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_add_trusted_contact.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_add_trusted_contact.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/navigation_nav_graph.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/navigation/nav_graph.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_arrow_forward.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_arrow_forward.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_contacts.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_contacts.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_map.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_map.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_activity_profile_settings.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/activity_profile_settings.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_home.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_home.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_activity_notification.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/activity_notification.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_requests.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_arrow_right.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_arrow_right.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_profile.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_profile.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_item_search_result.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/item_search_result.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_item_request.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/item_request.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_rounded_search_bar.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/rounded_search_bar.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_arrow_right.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_arrow_right.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_item_recent_contact.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/item_recent_contact.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/menu_bottom_navigation_menu.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/menu/bottom_navigation_menu.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/layout_item_request.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/layout/item_request.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_profile_placeholder.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_profile_placeholder.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_gradient_blue.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/gradient_blue.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/layout_activity_phone_verification.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/layout/activity_phone_verification.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-64:/drawable_ic_home.xml.flat",
-        "source": "com.whereu.whereu.app-main-66:/drawable/ic_home.xml"
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_ic_people.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/ic_people.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-debug-68:/drawable_dot_background.xml.flat",
+        "source": "com.whereu.whereu.app-main-70:/drawable/dot_background.xml"
     }
 ]

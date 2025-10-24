@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.whereu.whereu.R;
+import com.whereu.whereu.activities.ProfileSettingsActivity;
 import com.whereu.whereu.activities.SignInActivity;
 import com.whereu.whereu.databinding.FragmentProfileBinding;
 import com.wheru.models.User;
@@ -61,8 +62,8 @@ public class ProfileFragment extends Fragment {
         loadUserProfile();
 
         binding.cardEditProfile.setOnClickListener(v -> {
-            // Handle Edit Profile click
-            Toast.makeText(getContext(), "Edit Profile clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), ProfileSettingsActivity.class);
+            startActivity(intent);
         });
 
         binding.cardTrustedContacts.setOnClickListener(v -> {

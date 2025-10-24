@@ -1,22 +1,28 @@
 package com.wheru.models;
 
+import java.util.Date;
+
 public class User {
     private String userId;
     private String displayName;
     private String email;
     private String phoneNumber;
     private String profilePhotoUrl;
+    private String accountType;
+    private Date registeredAt;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String userId, String displayName, String email, String phoneNumber, String profilePhotoUrl) {
+    public User(String userId, String displayName, String email, String phoneNumber, String profilePhotoUrl, String accountType, Date registeredAt) {
         this.userId = userId;
         this.displayName = displayName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.profilePhotoUrl = profilePhotoUrl;
+        this.accountType = accountType;
+        this.registeredAt = registeredAt;
     }
 
     public String getUserId() {
@@ -57,5 +63,21 @@ public class User {
 
     public void setProfilePhotoUrl(String profilePhotoUrl) {
         this.profilePhotoUrl = profilePhotoUrl;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public Date getRegisteredAt() {
+        return registeredAt;
+    }
+
+    public void setRegisteredAt(Date registeredAt) {
+        this.registeredAt = registeredAt;
     }
 }

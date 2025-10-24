@@ -14,8 +14,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.whereu.whereu.databinding.ActivityPhoneVerificationBinding;
+import com.wheru.models.User;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class PhoneVerificationActivity extends AppCompatActivity {
@@ -23,6 +26,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     private static final String TAG = "PhoneVerification";
     private ActivityPhoneVerificationBinding binding;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
 
@@ -33,6 +37,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         binding.buttonSendVerificationCode.setOnClickListener(v -> sendVerificationCode());
         binding.buttonVerifyPhoneNumber.setOnClickListener(v -> verifyPhoneNumber());
@@ -92,23 +97,40 @@ public class PhoneVerificationActivity extends AppCompatActivity {
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(PhoneVerificationActivity.this, "Sign in successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(PhoneVerificationActivity.this, HomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        String errorMessage = "Sign in failed. Please try again.";
-                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            errorMessage = "Invalid verification code. Please try again.";
-                        } else {
-                            finish(); // Go back to SignInActivity for other errors
-                        }
-                        Toast.makeText(PhoneVerificationActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-                    }
-                });
+        String phoneNumber = binding.ccp.getFullNumberWithPlus();
+        db.collection("users").whereEqualTo("phoneNumber", phoneNumber).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                Toast.makeText(this, "This phone number is already linked with another account.", Toast.LENGTH_SHORT).show();
+            } else {
+                mAuth.signInWithCredential(credential)
+                        .addOnCompleteListener(this, authTask -> {
+                            if (authTask.isSuccessful()) {
+                                FirebaseUser user = authTask.getResult().getUser();
+                                createNewUser(user, phoneNumber);
+                                Toast.makeText(PhoneVerificationActivity.this, "Sign in successful!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(PhoneVerificationActivity.this, HomeActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                String errorMessage = "Sign in failed. Please try again.";
+                                if (authTask.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                    errorMessage = "Invalid verification code. Please try again.";
+                                } else {
+                                    finish(); // Go back to SignInActivity for other errors
+                                }
+                                Toast.makeText(PhoneVerificationActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                            }
+                        });
+            }
+        });
+    }
+
+    private void createNewUser(FirebaseUser firebaseUser, String phoneNumber) {
+        String userId = firebaseUser.getUid();
+        User user = new User(userId, "", "", phoneNumber, "", "phone", new Date());
+        db.collection("users").document(userId).set(user)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "User created successfully"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error creating user", e));
     }
 }
