@@ -1,60 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".activities.PhoneVerificationActivity">
 
-    <EditText
-        android:id="@+id/editTextPhoneNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter Phone Number"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSendOtp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
-
-    <Button
-        android:id="@+id/buttonSendOtp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Send OTP"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOtp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhoneNumber"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/ccp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/editTextOtp"
-        android:layout_width="0dp"
+        android:id="@+id/edit_text_phone_number"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter OTP"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/buttonVerifyOtp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSendOtp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:hint="Phone Number"
+        android:inputType="phone" />
 
     <Button
-        android:id="@+id/buttonVerifyOtp"
-        android:layout_width="0dp"
+        android:id="@+id/button_send_verification_code"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Verify OTP"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOtp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:text="Send Verification Code" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/edit_text_verification_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Verification Code"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/button_verify_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify Phone Number" />
+
+</LinearLayout>

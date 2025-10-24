@@ -1954,6 +1954,70 @@ library {
   repo_index {
   }
 }
+library {
+  maven_library {
+    groupId: "com.github.bumptech.glide"
+    artifactId: "glide"
+    version: "4.12.0"
+  }
+  digests {
+    sha256: "j\342\224J\333b\227\177\345?B\304\370j\"\2752l\030(\266\223D\034\314\3440\351/\024\203\204"
+  }
+  repo_index {
+    value: 1
+  }
+}
+library {
+  maven_library {
+    groupId: "com.github.bumptech.glide"
+    artifactId: "gifdecoder"
+    version: "4.12.0"
+  }
+  digests {
+    sha256: "\031z\034\325\267hU\252\002\2620\3019t\342\223\"\233\220\035\302\271o\253C\025 \036x\272\250\004"
+  }
+  repo_index {
+    value: 1
+  }
+}
+library {
+  maven_library {
+    groupId: "com.github.bumptech.glide"
+    artifactId: "disklrucache"
+    version: "4.12.0"
+  }
+  digests {
+    sha256: "o\f\311\006\226F\254X.\347\215\277b\036\2200>\242\000\271\316A\302\n\303h\351%\355Ecy"
+  }
+  repo_index {
+    value: 1
+  }
+}
+library {
+  maven_library {
+    groupId: "com.github.bumptech.glide"
+    artifactId: "annotations"
+    version: "4.12.0"
+  }
+  digests {
+    sha256: "\372C\f\277\217\223\037\315\211\303\201\225\253UD\357Mb\310\254l.oI\370\364\256x`\372\336\216"
+  }
+  repo_index {
+    value: 1
+  }
+}
+library {
+  maven_library {
+    groupId: "androidx.exifinterface"
+    artifactId: "exifinterface"
+    version: "1.2.0"
+  }
+  digests {
+    sha256: "\252\346\216Q0\225\344u\247g\005V\352\313\247r\354+\265\222\321q\207\t\025x\323\376\371G\256\247"
+  }
+  repo_index {
+  }
+}
 library_dependencies {
   library_dep_index: 1
 }
@@ -3158,6 +3222,23 @@ library_dependencies {
   library_dep_index: 10
   library_dep_index: 26
 }
+library_dependencies {
+  library_index: 164
+  library_dep_index: 165
+  library_dep_index: 166
+  library_dep_index: 167
+  library_dep_index: 33
+  library_dep_index: 65
+  library_dep_index: 168
+}
+library_dependencies {
+  library_index: 165
+  library_dep_index: 1
+}
+library_dependencies {
+  library_index: 168
+  library_dep_index: 1
+}
 module_dependencies {
   module_name: "base"
   dependency_index: 0
@@ -3184,6 +3265,8 @@ module_dependencies {
   dependency_index: 37
   dependency_index: 155
   dependency_index: 161
+  dependency_index: 131
+  dependency_index: 164
 }
 repositories {
   maven_repo {

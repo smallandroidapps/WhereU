@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LocationApp"
+rootProject.name = "WherU"
 include(":app")

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,7 +53,19 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final EditText searchBar;
 
   @NonNull
+  public final RecyclerView searchResultsRecyclerView;
+
+  @NonNull
+  public final RecyclerView suggestedContactsCarousel;
+
+  @NonNull
+  public final RecyclerView suggestionsRecyclerView;
+
+  @NonNull
   public final TextView titleHome;
+
+  @NonNull
+  public final Switch toggleMyContactsOnly;
 
   @NonNull
   public final ConstraintLayout topBar;
@@ -62,7 +75,10 @@ public final class ActivityHomeBinding implements ViewBinding {
       @NonNull FloatingActionButton fabRequestLocation, @NonNull FrameLayout fragmentContainer,
       @NonNull Group homeContentGroup, @NonNull CircleImageView profileImage,
       @NonNull RecyclerView recentContactsRecyclerView, @NonNull Button requestLocationButton,
-      @NonNull EditText searchBar, @NonNull TextView titleHome, @NonNull ConstraintLayout topBar) {
+      @NonNull EditText searchBar, @NonNull RecyclerView searchResultsRecyclerView,
+      @NonNull RecyclerView suggestedContactsCarousel,
+      @NonNull RecyclerView suggestionsRecyclerView, @NonNull TextView titleHome,
+      @NonNull Switch toggleMyContactsOnly, @NonNull ConstraintLayout topBar) {
     this.rootView = rootView;
     this.bottomNavigationBar = bottomNavigationBar;
     this.fabRequestLocation = fabRequestLocation;
@@ -72,7 +88,11 @@ public final class ActivityHomeBinding implements ViewBinding {
     this.recentContactsRecyclerView = recentContactsRecyclerView;
     this.requestLocationButton = requestLocationButton;
     this.searchBar = searchBar;
+    this.searchResultsRecyclerView = searchResultsRecyclerView;
+    this.suggestedContactsCarousel = suggestedContactsCarousel;
+    this.suggestionsRecyclerView = suggestionsRecyclerView;
     this.titleHome = titleHome;
+    this.toggleMyContactsOnly = toggleMyContactsOnly;
     this.topBar = topBar;
   }
 
@@ -151,9 +171,33 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.search_results_recycler_view;
+      RecyclerView searchResultsRecyclerView = ViewBindings.findChildViewById(rootView, id);
+      if (searchResultsRecyclerView == null) {
+        break missingId;
+      }
+
+      id = R.id.suggested_contacts_carousel;
+      RecyclerView suggestedContactsCarousel = ViewBindings.findChildViewById(rootView, id);
+      if (suggestedContactsCarousel == null) {
+        break missingId;
+      }
+
+      id = R.id.suggestions_recycler_view;
+      RecyclerView suggestionsRecyclerView = ViewBindings.findChildViewById(rootView, id);
+      if (suggestionsRecyclerView == null) {
+        break missingId;
+      }
+
       id = R.id.title_home;
       TextView titleHome = ViewBindings.findChildViewById(rootView, id);
       if (titleHome == null) {
+        break missingId;
+      }
+
+      id = R.id.toggle_my_contacts_only;
+      Switch toggleMyContactsOnly = ViewBindings.findChildViewById(rootView, id);
+      if (toggleMyContactsOnly == null) {
         break missingId;
       }
 
@@ -165,7 +209,9 @@ public final class ActivityHomeBinding implements ViewBinding {
 
       return new ActivityHomeBinding((ConstraintLayout) rootView, bottomNavigationBar,
           fabRequestLocation, fragmentContainer, homeContentGroup, profileImage,
-          recentContactsRecyclerView, requestLocationButton, searchBar, titleHome, topBar);
+          recentContactsRecyclerView, requestLocationButton, searchBar, searchResultsRecyclerView,
+          suggestedContactsCarousel, suggestionsRecyclerView, titleHome, toggleMyContactsOnly,
+          topBar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

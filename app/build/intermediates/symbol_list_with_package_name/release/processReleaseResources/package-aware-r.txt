@@ -3131,6 +3131,7 @@ drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_contacts
 drawable ic_edit
+drawable ic_filter
 drawable ic_home
 drawable ic_keyboard_black_24dp
 drawable ic_location_off
@@ -3353,6 +3354,7 @@ id buttonSendOtp
 id buttonVerifyOtp
 id button_approve
 id button_reject
+id button_save_profile
 id cache_measures
 id callMeasure
 id cancel_button
@@ -3421,6 +3423,7 @@ id disableIntraAutoTransition
 id disablePostScroll
 id disableScroll
 id disjoint
+id display_name
 id dot1
 id dot2
 id dot3
@@ -3442,7 +3445,9 @@ id editTextOtp
 id editTextPhoneNumber
 id edit_profile_layout
 id edit_query
+id edit_text_display_name
 id edit_text_id
+id edit_text_phone_number
 id elastic
 id embed
 id end
@@ -3454,6 +3459,7 @@ id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
 id expiry_time_spinner
+id fab_add_trusted_contact
 id fab_request_location
 id fade
 id fill
@@ -3475,6 +3481,7 @@ id frost
 id fullscreen_header
 id ghost_view
 id ghost_view_holder
+id glide_custom_view_target_tag
 id gone
 id graph
 id graph_wrap
@@ -3499,11 +3506,13 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id image_profile_picture
 id immediateStop
 id included
 id indeterminate
 id info
 id invisible
+id invite_button
 id inward
 id is_pooling_container_tag
 id italic
@@ -3661,6 +3670,8 @@ id radio
 id ratio
 id recent_contacts_recycler_view
 id rectangles
+id recycler_view_requests
+id recycler_view_trusted_contacts
 id report_drawn
 id request_button
 id request_location_button
@@ -3690,6 +3701,7 @@ id search_edit_frame
 id search_go_btn
 id search_mag_icon
 id search_plate
+id search_results_recycler_view
 id search_src_text
 id search_voice_btn
 id select_dialog_listview
@@ -3738,6 +3750,8 @@ id stop
 id stretch
 id submenuarrow
 id submit_area
+id suggested_contacts_carousel
+id suggestions_recycler_view
 id supportScrollUp
 id switch_auto_approve
 id switch_hide_location
@@ -3767,6 +3781,11 @@ id textWatcher
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
+id text_request_status
+id text_sender_name
+id text_timestamp
+id text_view_display_name
+id text_view_phone_number
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -3780,6 +3799,7 @@ id title_home
 id title_notifications
 id title_template
 id toggle
+id toggle_my_contacts_only
 id toolbar
 id top
 id topPanel
@@ -3797,6 +3817,7 @@ id transition_scene_layoutid_cache
 id transition_transform
 id triangle
 id trusted_contacts_layout
+id trusted_contacts_title
 id unchecked
 id uniform
 id unlabeled
@@ -3947,6 +3968,7 @@ layout activity_profile
 layout activity_profile_settings
 layout activity_sign_in
 layout activity_splash
+layout activity_trusted_contacts
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog
@@ -3966,10 +3988,14 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_profile
+layout fragment_requests
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_past_notification
 layout item_recent_contact
+layout item_request
+layout item_search_result
+layout item_trusted_contact
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -4791,8 +4817,6 @@ style Theme_Design_Light_BottomSheetDialog
 style Theme_Design_Light_NoActionBar
 style Theme_Design_NoActionBar
 style Theme_Hidden
-style Theme_LocationApp
-style Theme_LocationApp_NoActionBar
 style Theme_Material3_Dark
 style Theme_Material3_Dark_BottomSheetDialog
 style Theme_Material3_Dark_Dialog
@@ -4871,6 +4895,8 @@ style Theme_MaterialComponents_Light_NoActionBar_Bridge
 style Theme_MaterialComponents_NoActionBar
 style Theme_MaterialComponents_NoActionBar_Bridge
 style Theme_PlayCore_Transparent
+style Theme_WherU
+style Theme_WherU_NoActionBar
 style ThemeOverlay_AppCompat
 style ThemeOverlay_AppCompat_ActionBar
 style ThemeOverlay_AppCompat_Dark

@@ -11,17 +11,17 @@
             priority="0">
             <range
                 file="${:app*debug*MAIN*sourceProvider*0*manifest*0}"
-                startOffset="790"
-                endOffset="810"/>
+                startOffset="1012"
+                endOffset="1032"/>
         </fix-replace>
         <location
             file="${:app*debug*MAIN*sourceProvider*0*manifest*0}"
-            line="18"
+            line="22"
             column="9"
-            startOffset="790"
-            endLine="18"
+            startOffset="1012"
+            endLine="22"
             endColumn="29"
-            endOffset="810"/>
+            endOffset="1032"/>
         <map>
             <condition minGE="ffffffffc0000000"/>
         </map>
@@ -233,17 +233,17 @@
             priority="0">
             <range
                 file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/themes.xml"
-                startOffset="711"
-                endOffset="730"/>
+                startOffset="705"
+                endOffset="724"/>
         </fix-replace>
         <location
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/themes.xml"
             line="13"
             column="45"
-            startOffset="711"
+            startOffset="705"
             endLine="13"
             endColumn="64"
-            endOffset="730"/>
+            endOffset="724"/>
         <map>
             <condition minGE="fffffffffff00000"/>
         </map>
@@ -259,17 +259,17 @@
             priority="0">
             <range
                 file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/themes.xml"
-                startOffset="1067"
-                endOffset="1086"/>
+                startOffset="1055"
+                endOffset="1074"/>
         </fix-replace>
         <location
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/themes.xml"
             line="20"
             column="45"
-            startOffset="1067"
+            startOffset="1055"
             endLine="20"
             endColumn="64"
-            endOffset="1086"/>
+            endOffset="1074"/>
         <map>
             <condition minGE="fffffffffff00000"/>
         </map>
