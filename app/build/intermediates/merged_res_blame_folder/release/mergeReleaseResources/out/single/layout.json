@@ -1,30 +1,62 @@
 [
     {
-        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-58:/layout/activity_sign_in.xml",
-        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_sign_in.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/activity_phone_verification.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/activity_phone_verification.xml"
     },
     {
-        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-58:/layout/activity_splash.xml",
-        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_splash.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/activity_home.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/activity_home.xml"
     },
     {
-        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-58:/layout/activity_home.xml",
-        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_home.xml"
+        "merged": "com.whereu.whereu.app-mergeReleaseResources-62:/layout/item_trusted_contact.xml",
+        "source": "com.whereu.whereu.app-main-64:/layout/item_trusted_contact.xml"
     },
     {
-        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-58:/layout/activity_profile.xml",
-        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/activity_profile.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/fragment_profile.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/fragment_profile.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-mergeReleaseResources-58:/layout/activity_notification.xml",
-        "source": "com.whereu.whereu.app-main-60:/layout/activity_notification.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/activity_notification.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/activity_notification.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-mergeReleaseResources-58:/layout/item_past_notification.xml",
-        "source": "com.whereu.whereu.app-main-60:/layout/item_past_notification.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/fragment_requests.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/fragment_requests.xml"
     },
     {
-        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-58:/layout/item_recent_contact.xml",
-        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-60:/layout/item_recent_contact.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/activity_splash.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/item_past_notification.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/item_past_notification.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-mergeReleaseResources-62:/layout/activity_trusted_contacts.xml",
+        "source": "com.whereu.whereu.app-main-64:/layout/activity_trusted_contacts.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/item_recent_contact.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/item_recent_contact.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/item_search_result.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/item_search_result.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/activity_profile.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/activity_profile.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/activity_profile_settings.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/activity_profile_settings.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/activity_sign_in.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/activity_sign_in.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeReleaseResources-62:/layout/item_request.xml",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-64:/layout/item_request.xml"
     }
 ]

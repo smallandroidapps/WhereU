@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.whereu.whereu.app-mergeReleaseResources-57:/values-bn/values-bn.xml",
+            "outputFile": "com.whereu.whereu.app-mergeReleaseResources-61:/values-bn/values-bn.xml",
             "map": [
                 {
                     "source": "/Users/admin/.gradle/caches/transforms-4/237344ffcafdc0d9748a936ffd6ff689/transformed/material-1.12.0/res/values-bn/values-bn.xml",

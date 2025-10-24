@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".activities.PhoneVerificationActivity">
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/ccp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/edit_text_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/button_send_verification_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Verification Code" />
+
+    <EditText
+        android:id="@+id/edit_text_verification_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Verification Code"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/button_verify_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify Phone Number" />
+
+</LinearLayout>

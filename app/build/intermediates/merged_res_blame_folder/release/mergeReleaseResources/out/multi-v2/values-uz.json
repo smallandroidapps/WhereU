@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.whereu.whereu.app-mergeReleaseResources-57:/values-uz/values-uz.xml",
+            "outputFile": "com.whereu.whereu.app-mergeReleaseResources-61:/values-uz/values-uz.xml",
             "map": [
                 {
                     "source": "/Users/admin/.gradle/caches/transforms-4/ead450b55494324b49dd8c6ce602d05a/transformed/jetified-credentials-1.3.0/res/values-uz/values-uz.xml",

@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Group;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
@@ -32,6 +35,12 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final FloatingActionButton fabRequestLocation;
 
   @NonNull
+  public final FrameLayout fragmentContainer;
+
+  @NonNull
+  public final Group homeContentGroup;
+
+  @NonNull
   public final CircleImageView profileImage;
 
   @NonNull
@@ -44,24 +53,46 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final EditText searchBar;
 
   @NonNull
+  public final RecyclerView searchResultsRecyclerView;
+
+  @NonNull
+  public final RecyclerView suggestedContactsCarousel;
+
+  @NonNull
+  public final RecyclerView suggestionsRecyclerView;
+
+  @NonNull
   public final TextView titleHome;
+
+  @NonNull
+  public final Switch toggleMyContactsOnly;
 
   @NonNull
   public final ConstraintLayout topBar;
 
   private ActivityHomeBinding(@NonNull ConstraintLayout rootView,
       @NonNull BottomNavigationView bottomNavigationBar,
-      @NonNull FloatingActionButton fabRequestLocation, @NonNull CircleImageView profileImage,
+      @NonNull FloatingActionButton fabRequestLocation, @NonNull FrameLayout fragmentContainer,
+      @NonNull Group homeContentGroup, @NonNull CircleImageView profileImage,
       @NonNull RecyclerView recentContactsRecyclerView, @NonNull Button requestLocationButton,
-      @NonNull EditText searchBar, @NonNull TextView titleHome, @NonNull ConstraintLayout topBar) {
+      @NonNull EditText searchBar, @NonNull RecyclerView searchResultsRecyclerView,
+      @NonNull RecyclerView suggestedContactsCarousel,
+      @NonNull RecyclerView suggestionsRecyclerView, @NonNull TextView titleHome,
+      @NonNull Switch toggleMyContactsOnly, @NonNull ConstraintLayout topBar) {
     this.rootView = rootView;
     this.bottomNavigationBar = bottomNavigationBar;
     this.fabRequestLocation = fabRequestLocation;
+    this.fragmentContainer = fragmentContainer;
+    this.homeContentGroup = homeContentGroup;
     this.profileImage = profileImage;
     this.recentContactsRecyclerView = recentContactsRecyclerView;
     this.requestLocationButton = requestLocationButton;
     this.searchBar = searchBar;
+    this.searchResultsRecyclerView = searchResultsRecyclerView;
+    this.suggestedContactsCarousel = suggestedContactsCarousel;
+    this.suggestionsRecyclerView = suggestionsRecyclerView;
     this.titleHome = titleHome;
+    this.toggleMyContactsOnly = toggleMyContactsOnly;
     this.topBar = topBar;
   }
 
@@ -104,6 +135,18 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.fragment_container;
+      FrameLayout fragmentContainer = ViewBindings.findChildViewById(rootView, id);
+      if (fragmentContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.home_content_group;
+      Group homeContentGroup = ViewBindings.findChildViewById(rootView, id);
+      if (homeContentGroup == null) {
+        break missingId;
+      }
+
       id = R.id.profile_image;
       CircleImageView profileImage = ViewBindings.findChildViewById(rootView, id);
       if (profileImage == null) {
@@ -128,9 +171,33 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.search_results_recycler_view;
+      RecyclerView searchResultsRecyclerView = ViewBindings.findChildViewById(rootView, id);
+      if (searchResultsRecyclerView == null) {
+        break missingId;
+      }
+
+      id = R.id.suggested_contacts_carousel;
+      RecyclerView suggestedContactsCarousel = ViewBindings.findChildViewById(rootView, id);
+      if (suggestedContactsCarousel == null) {
+        break missingId;
+      }
+
+      id = R.id.suggestions_recycler_view;
+      RecyclerView suggestionsRecyclerView = ViewBindings.findChildViewById(rootView, id);
+      if (suggestionsRecyclerView == null) {
+        break missingId;
+      }
+
       id = R.id.title_home;
       TextView titleHome = ViewBindings.findChildViewById(rootView, id);
       if (titleHome == null) {
+        break missingId;
+      }
+
+      id = R.id.toggle_my_contacts_only;
+      Switch toggleMyContactsOnly = ViewBindings.findChildViewById(rootView, id);
+      if (toggleMyContactsOnly == null) {
         break missingId;
       }
 
@@ -141,8 +208,10 @@ public final class ActivityHomeBinding implements ViewBinding {
       }
 
       return new ActivityHomeBinding((ConstraintLayout) rootView, bottomNavigationBar,
-          fabRequestLocation, profileImage, recentContactsRecyclerView, requestLocationButton,
-          searchBar, titleHome, topBar);
+          fabRequestLocation, fragmentContainer, homeContentGroup, profileImage,
+          recentContactsRecyclerView, requestLocationButton, searchBar, searchResultsRecyclerView,
+          suggestedContactsCarousel, suggestionsRecyclerView, titleHome, toggleMyContactsOnly,
+          topBar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
