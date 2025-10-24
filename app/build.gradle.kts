@@ -55,6 +55,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
     implementation("androidx.navigation:navigation-fragment:2.8.0")
     implementation("androidx.navigation:navigation-ui:2.8.0")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.hbb20:ccp:2.5.1")

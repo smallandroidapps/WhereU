@@ -19,6 +19,17 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <queries>
+
+        <!-- Needs to be explicitly declared on Android R+ -->
+        <package android:name="com.google.android.apps.maps" />
+    </queries>
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -53,7 +64,7 @@
         </activity>
         <activity
             android:name="com.whereu.whereu.activities.SignInActivity"
-            android:exported="false" >
+            android:exported="true" >
         </activity>
         <activity
             android:name="com.whereu.whereu.activities.HomeActivity"
@@ -62,6 +73,8 @@
         <activity android:name="com.whereu.whereu.activities.ProfileSettingsActivity" />
         <activity android:name="com.whereu.whereu.activities.PhoneVerificationActivity" />
         <activity android:name="com.whereu.whereu.activities.TrustedContactsActivity" />
+        <activity android:name="com.whereu.whereu.activities.AddTrustedContactActivity" />
+        <activity android:name="com.whereu.whereu.activities.TrustedContactDetailsActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -166,7 +179,10 @@
             android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
             android:exported="true"
             android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
-            android:visibleToInstantApps="true" />
+            android:visibleToInstantApps="true" /> <!-- Needs to be explicitly declared on P+ -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <receiver
             android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"

@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.whereu.whereu.R;
 import com.whereu.whereu.activities.ProfileSettingsActivity;
 import com.whereu.whereu.activities.SignInActivity;
+import com.whereu.whereu.activities.TrustedContactsActivity;
 import com.whereu.whereu.databinding.FragmentProfileBinding;
 import com.wheru.models.User;
 
@@ -67,8 +68,8 @@ public class ProfileFragment extends Fragment {
         });
 
         binding.cardTrustedContacts.setOnClickListener(v -> {
-            // Handle Trusted Contacts click
-            Toast.makeText(getContext(), "Trusted Contacts clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), TrustedContactsActivity.class);
+            startActivity(intent);
         });
 
         binding.switchHideLocation.setOnCheckedChangeListener((buttonView, isChecked) -> {

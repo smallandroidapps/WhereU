@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.whereu.whereu.R;
@@ -119,43 +120,45 @@ public class ProfileSettingsActivity extends AppCompatActivity {
             }
 
             String originalPhone = documentSnapshot.getString("phoneNumber");
-            String originalEmail = documentSnapshot.getString("email");
-
-            List<Task<QuerySnapshot>> validationTasks = new ArrayList<>();
 
             if (accountType.equals("google") && !phoneNumber.equals(originalPhone)) {
-                validationTasks.add(db.collection("users").whereEqualTo("phoneNumber", phoneNumber).get());
-            }
-
-            if (accountType.equals("phone") && !email.equals(originalEmail)) {
-                validationTasks.add(db.collection("users").whereEqualTo("email", email).get());
-            }
-
-            Tasks.whenAllSuccess(validationTasks).addOnSuccessListener(list -> {
-                for (Object snapshot : list) {
-                    if (!((QuerySnapshot) snapshot).isEmpty()) {
-                        Toast.makeText(ProfileSettingsActivity.this, "Phone number or email already in use.", Toast.LENGTH_SHORT).show();
-                        return;
+                db.collection("users").whereEqualTo("phoneNumber", phoneNumber).get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        DocumentSnapshot existingUserDoc = task.getResult().getDocuments().get(0);
+                        String existingAccountType = existingUserDoc.getString("accountType");
+                        if ("phone".equals(existingAccountType)) {
+                            // Orphaned account, delete it and update the current user
+                            db.collection("users").document(existingUserDoc.getId()).delete().addOnSuccessListener(aVoid -> {
+                                updateCurrentUserProfile(userId, displayName, phoneNumber, email, hideLocation);
+                            });
+                        } else {
+                            Toast.makeText(ProfileSettingsActivity.this, "Phone number is already linked to another Google account.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        updateCurrentUserProfile(userId, displayName, phoneNumber, email, hideLocation);
                     }
-                }
-
-                Map<String, Object> userUpdates = new HashMap<>();
-                userUpdates.put("displayName", displayName);
-                userUpdates.put("hideLocation", hideLocation);
-
-                if (accountType.equals("google")) {
-                    userUpdates.put("phoneNumber", phoneNumber);
-                } else { // phone account
-                    userUpdates.put("email", email);
-                }
-
-                db.collection("users").document(userId).update(userUpdates)
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(ProfileSettingsActivity.this, "Profile updated successfully.", Toast.LENGTH_SHORT).show();
-                            finish();
-                        })
-                        .addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show());
-            }).addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Failed to validate profile data.", Toast.LENGTH_SHORT).show());
+                });
+            } else {
+                updateCurrentUserProfile(userId, displayName, phoneNumber, email, hideLocation);
+            }
         });
+    }
+
+    private void updateCurrentUserProfile(String userId, String displayName, String phoneNumber, String email, boolean hideLocation) {
+        Map<String, Object> userUpdates = new HashMap<>();
+        userUpdates.put("displayName", displayName);
+        userUpdates.put("hideLocation", hideLocation);
+        if (accountType.equals("google")) {
+            userUpdates.put("phoneNumber", phoneNumber);
+        } else { // phone account
+            userUpdates.put("email", email);
+        }
+
+        db.collection("users").document(userId).update(userUpdates)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(ProfileSettingsActivity.this, "Profile updated successfully.", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show());
     }
 }
