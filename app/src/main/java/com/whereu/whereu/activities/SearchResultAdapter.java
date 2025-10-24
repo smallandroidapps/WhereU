@@ -100,22 +100,6 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             this.profilePhotoUrl = profilePhotoUrl;
         }
 
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(displayName);
-            dest.writeString(userId);
-            dest.writeString(phoneNumber);
-            dest.writeString(email);
-            dest.writeByte((byte) (isExistingUser ? 1 : 0));
-            dest.writeByte((byte) (isCurrentUserEmail ? 1 : 0));
-            dest.writeString(profilePhotoUrl);
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
         protected SearchResult(Parcel in) {
             displayName = in.readString();
             userId = in.readString();
@@ -142,8 +126,16 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             return displayName;
         }
 
+        public void setDisplayName(String displayName) {
+            this.displayName = displayName;
+        }
+
         public String getUserId() {
             return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
         }
 
         public String getPhoneNumber() {
@@ -158,12 +150,36 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             return isExistingUser;
         }
 
+        public void setExistingUser(boolean existingUser) {
+            isExistingUser = existingUser;
+        }
+
         public boolean isCurrentUserEmail() {
             return isCurrentUserEmail;
         }
 
         public String getProfilePhotoUrl() {
             return profilePhotoUrl;
+        }
+
+        public void setProfilePhotoUrl(String profilePhotoUrl) {
+            this.profilePhotoUrl = profilePhotoUrl;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(displayName);
+            dest.writeString(userId);
+            dest.writeString(phoneNumber);
+            dest.writeString(email);
+            dest.writeByte((byte) (isExistingUser ? 1 : 0));
+            dest.writeByte((byte) (isCurrentUserEmail ? 1 : 0));
+            dest.writeString(profilePhotoUrl);
         }
     }
 }

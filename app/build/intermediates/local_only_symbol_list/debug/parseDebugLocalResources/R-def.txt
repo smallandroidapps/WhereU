@@ -77,6 +77,7 @@ id loading_dots
 id logo_container
 id logout_button
 id main_notification_card
+id map
 id nav_graph
 id navigation_home
 id navigation_profile
@@ -119,6 +120,7 @@ id user_email
 id user_name
 layout activity_add_trusted_contact
 layout activity_home
+layout activity_map
 layout activity_notification
 layout activity_phone_verification
 layout activity_profile

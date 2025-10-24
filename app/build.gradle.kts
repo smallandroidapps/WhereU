@@ -15,6 +15,8 @@ android {
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -48,6 +50,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:24.0.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("com.google.android.gms:play-services-auth:21.1.1")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
     implementation("androidx.lifecycle:lifecycle-livedata:2.8.5")
     implementation("androidx.navigation:navigation-fragment:2.8.0")
@@ -56,4 +59,11 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.hbb20:ccp:2.5.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+
+    // Testing dependencies
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("org.mockito:mockito-android:3.12.4")
+    debugImplementation("androidx.fragment:fragment-testing:1.7.1")
 }

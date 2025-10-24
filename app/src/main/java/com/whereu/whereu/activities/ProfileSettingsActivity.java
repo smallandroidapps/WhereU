@@ -1,25 +1,27 @@
 package com.whereu.whereu.activities;
 
-import android.widget.Switch;
-import android.widget.Toast;
-import android.util.Log;
-
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.whereu.whereu.R;
-import com.wheru.models.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProfileSettingsActivity extends AppCompatActivity {
@@ -36,6 +38,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
+    private String accountType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,109 +62,100 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     }
 
     private void loadUserProfile() {
-        Log.d(TAG, "loadUserProfile called.");
         if (currentUser == null) {
-            Log.d(TAG, "currentUser is null. User not logged in.");
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
             return;
         }
-        Log.d(TAG, "currentUser is not null. User ID: " + currentUser.getUid());
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-            Log.d(TAG, "Current user ID: " + userId);
-            String userEmail = currentUser.getEmail(); // Get email from FirebaseUser
-            if (userEmail != null) {
-                editTextEmail.setText(userEmail);
-            }
-            db.collection("users").document(userId).get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            Log.d(TAG, "User profile exists in Firestore.");
-                            String displayName = documentSnapshot.getString("displayName");
-                            String phoneNumber = documentSnapshot.getString("phoneNumber");
-                            String email = documentSnapshot.getString("email"); // Retrieve email from Firestore
-                            String profilePhotoUrl = documentSnapshot.getString("profilePhotoUrl");
-                            Boolean hideLocation = documentSnapshot.getBoolean("hideLocation");
 
-                            editTextDisplayName.setText(displayName);
-                            editTextPhoneNumber.setText(phoneNumber);
-                            editTextEmail.setText(email); // Set email to EditText
+        String userId = currentUser.getUid();
+        db.collection("users").document(userId).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        accountType = documentSnapshot.getString("accountType");
+                        editTextDisplayName.setText(documentSnapshot.getString("displayName"));
+                        editTextPhoneNumber.setText(documentSnapshot.getString("phoneNumber"));
+                        editTextEmail.setText(documentSnapshot.getString("email"));
 
-                            if (profilePhotoUrl != null && !profilePhotoUrl.isEmpty()) {
-                                Glide.with(this).load(profilePhotoUrl).into(imageViewProfilePicture);
+                        if (accountType != null) {
+                            if ("google".equals(accountType)) {
+                                editTextEmail.setEnabled(false);
+                            } else if ("phone".equals(accountType)) {
+                                editTextPhoneNumber.setEnabled(false);
                             }
-
-                            if (hideLocation != null) {
-                                switchHideLocation.setChecked(hideLocation);
-                            }
-                        } else {
-                            Log.d(TAG, "User profile does not exist. Creating default profile.");
-                            // Profile not found, create a new one
-                            Map<String, Object> newUserProfile = new HashMap<>();
-                            newUserProfile.put("displayName", currentUser.getDisplayName() != null ? currentUser.getDisplayName() : "");
-                            newUserProfile.put("phoneNumber", currentUser.getPhoneNumber() != null ? currentUser.getPhoneNumber() : "");
-                            newUserProfile.put("email", currentUser.getEmail() != null ? currentUser.getEmail() : ""); // Add email to new profile
-                            newUserProfile.put("profilePhotoUrl", currentUser.getPhotoUrl() != null ? currentUser.getPhotoUrl().toString() : "");
-                            newUserProfile.put("hideLocation", false); // Default to not hiding location
-
-                            db.collection("users").document(userId).set(newUserProfile)
-                                    .addOnSuccessListener(aVoid -> {
-                                        Log.d(TAG, "Default user profile created successfully.");
-                                        // Now load the newly created profile
-                                        loadUserProfile();
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        Log.e(TAG, "Error creating default user profile", e);
-                                        Toast.makeText(ProfileSettingsActivity.this, "Error creating profile", Toast.LENGTH_SHORT).show();
-                                    });
                         }
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e(TAG, "Error loading user profile", e);
-                        Toast.makeText(ProfileSettingsActivity.this, "Error loading profile", Toast.LENGTH_SHORT).show();
-                    });
-        }
+
+                        String profilePhotoUrl = documentSnapshot.getString("profilePhotoUrl");
+                        if (profilePhotoUrl != null && !profilePhotoUrl.isEmpty()) {
+                            Glide.with(this).load(profilePhotoUrl).into(imageViewProfilePicture);
+                        }
+
+                        Boolean hideLocation = documentSnapshot.getBoolean("hideLocation");
+                        if (hideLocation != null) {
+                            switchHideLocation.setChecked(hideLocation);
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(ProfileSettingsActivity.this, "Error loading profile", Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void saveUserProfile() {
-        Log.d(TAG, "saveUserProfile called.");
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-            String displayName = editTextDisplayName.getText().toString().trim();
-            String phoneNumber = editTextPhoneNumber.getText().toString().trim();
-            String email = editTextEmail.getText().toString().trim();
-            boolean hideLocation = switchHideLocation.isChecked();
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            Map<String, Object> user = new HashMap<>();
-            user.put("displayName", displayName);
-            user.put("phoneNumber", phoneNumber);
-            user.put("hideLocation", hideLocation);
-            Log.d(TAG, "Saving user profile for ID: " + userId + ", data: " + user.toString());
+        String userId = currentUser.getUid();
+        String displayName = editTextDisplayName.getText().toString().trim();
+        String phoneNumber = editTextPhoneNumber.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+        boolean hideLocation = switchHideLocation.isChecked();
 
-            // Update email in Firebase Authentication if it has changed
-            if (!email.isEmpty() && currentUser.getEmail() != null && !currentUser.getEmail().equals(email)) {
-                currentUser.updateEmail(email)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "User email address updated.");
-                            } else {
-                                Log.e(TAG, "Error updating user email address.", task.getException());
-                                Toast.makeText(ProfileSettingsActivity.this, "Error updating email", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+        db.collection("users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
+            if (!documentSnapshot.exists()) {
+                Toast.makeText(ProfileSettingsActivity.this, "User profile not found.", Toast.LENGTH_SHORT).show();
+                return;
             }
 
-            db.collection("users").document(userId)
-                    .update(user)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(ProfileSettingsActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e(TAG, "Error updating user profile", e);
-                        Toast.makeText(ProfileSettingsActivity.this, "Error updating profile", Toast.LENGTH_SHORT).show();
-                    });
-        } else {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
-        }
+            String originalPhone = documentSnapshot.getString("phoneNumber");
+            String originalEmail = documentSnapshot.getString("email");
+
+            List<Task<QuerySnapshot>> validationTasks = new ArrayList<>();
+
+            if (accountType.equals("google") && !phoneNumber.equals(originalPhone)) {
+                validationTasks.add(db.collection("users").whereEqualTo("phoneNumber", phoneNumber).get());
+            }
+
+            if (accountType.equals("phone") && !email.equals(originalEmail)) {
+                validationTasks.add(db.collection("users").whereEqualTo("email", email).get());
+            }
+
+            Tasks.whenAllSuccess(validationTasks).addOnSuccessListener(list -> {
+                for (Object snapshot : list) {
+                    if (!((QuerySnapshot) snapshot).isEmpty()) {
+                        Toast.makeText(ProfileSettingsActivity.this, "Phone number or email already in use.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+                Map<String, Object> userUpdates = new HashMap<>();
+                userUpdates.put("displayName", displayName);
+                userUpdates.put("hideLocation", hideLocation);
+
+                if (accountType.equals("google")) {
+                    userUpdates.put("phoneNumber", phoneNumber);
+                } else { // phone account
+                    userUpdates.put("email", email);
+                }
+
+                db.collection("users").document(userId).update(userUpdates)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(ProfileSettingsActivity.this, "Profile updated successfully.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show());
+            }).addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Failed to validate profile data.", Toast.LENGTH_SHORT).show());
+        });
     }
 }

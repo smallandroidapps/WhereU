@@ -51,6 +51,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 
 import android.util.Log;
 import android.annotation.SuppressLint;
@@ -231,36 +233,23 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         }
 
         CollectionReference usersRef = db.collection("users");
-        Query firestoreQuery = usersRef.whereGreaterThanOrEqualTo("displayName", query)
-                .whereLessThanOrEqualTo("displayName", query + "\uf8ff");
+        Query firestoreQuery = usersRef.whereEqualTo("accountType", "google");
 
         return firestoreQuery.get().continueWithTask(task -> {
             if (task.isSuccessful()) {
                 List<SearchResultAdapter.SearchResult> firestoreResults = new ArrayList<>();
-                List<Task<Void>> contactCheckTasks = new ArrayList<>();
-
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String userId = document.getId();
                     String displayName = document.getString("displayName");
                     String email = document.getString("email");
-                    String phoneNumber = document.getString("phoneNumber"); // Assuming phoneNumber field exists
-                    String profilePhotoUrl = document.getString("profilePhotoUrl"); // Assuming profilePhotoUrl field exists
+                    String phoneNumber = document.getString("phoneNumber");
+                    String profilePhotoUrl = document.getString("profilePhotoUrl");
 
-                    if (myContactsOnly) {
-                        Task<Void> contactCheckTask = db.collection("users").document(currentUser.getUid())
-                                .collection("contacts").document(userId).get()
-                                .continueWith(contactTask -> {
-                                    if (contactTask.isSuccessful() && contactTask.getResult().exists()) {
-                                        firestoreResults.add(new SearchResultAdapter.SearchResult(displayName, userId, phoneNumber, email, true, false, profilePhotoUrl));
-                                    }
-                                    return null;
-                                });
-                        contactCheckTasks.add(contactCheckTask);
-                    } else {
+                    if (displayName.toLowerCase().contains(query.toLowerCase()) || phoneNumber.contains(query)) {
                         firestoreResults.add(new SearchResultAdapter.SearchResult(displayName, userId, phoneNumber, email, true, false, profilePhotoUrl));
                     }
                 }
-                return Tasks.whenAllComplete(contactCheckTasks).continueWith(allContactsTask -> firestoreResults);
+                return Tasks.forResult(firestoreResults);
             } else {
                 Log.w(TAG, "Error getting documents from Firestore.", task.getException());
                 return Tasks.forException(task.getException());
@@ -269,20 +258,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void updateSearchResults(List<SearchResultAdapter.SearchResult> newResults) {
-        // This method will be called to update the main searchResultsList
-        // and notify the adapter. It handles potential duplicates.
-        for (SearchResultAdapter.SearchResult newResult : newResults) {
-            boolean found = false;
-            for (SearchResultAdapter.SearchResult existingResult : searchResultsList) {
-                if (existingResult.getUserId().equals(newResult.getUserId())) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                searchResultsList.add(newResult);
-            }
-        }
+        searchResultsList.clear();
+        searchResultsList.addAll(newResults);
         searchResultsList.sort((r1, r2) -> r1.getDisplayName().compareToIgnoreCase(r2.getDisplayName()));
         searchResultAdapter.notifyDataSetChanged();
         if (!searchResultsList.isEmpty()) {
@@ -308,8 +285,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         Cursor cursor = contentResolver.query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Email.ADDRESS},
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " LIKE ? OR " + ContactsContract.CommonDataKinds.Phone.NUMBER + " LIKE ? OR " + ContactsContract.CommonDataKinds.Email.ADDRESS + " LIKE ?",
-                new String[]{"%" + query + "%", "%" + query + "%", "%" + query + "%"},
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " LIKE ? OR " + ContactsContract.CommonDataKinds.Phone.NUMBER + " LIKE ?",
+                new String[]{"%" + query + "%", "%" + query + "%"},
                 null
         );
 
@@ -318,7 +295,6 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY));
                 @SuppressLint("Range") String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS));
-                // For device contacts, we don't have a userId or email directly, so we'll use phoneNumber as a unique identifier for now
                 deviceContacts.add(new SearchResultAdapter.SearchResult(name, phoneNumber, phoneNumber, email != null ? email : "", false, false, ""));
             }
             cursor.close();
@@ -340,56 +316,6 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 .getStringSet(KEY_RECENT_SEARCHES, new HashSet<>());
     }
 
-    private void fetchFirestoreContacts(String query) {
-        db.collection("users")
-                .whereGreaterThanOrEqualTo("displayName", query)
-                .whereLessThanOrEqualTo("displayName", query + "\uf8ff")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String displayName = document.getString("displayName");
-                            String phoneNumber = document.getString("phoneNumber");
-                            String userId = document.getId();
-                            String profilePhotoUrl = document.getString("profilePhotoUrl");
-                            searchResultsList.add(new SearchResultAdapter.SearchResult(displayName, userId, "", "", true, false, profilePhotoUrl));
-                        }
-                        searchResultAdapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(HomeActivity.this, "Error getting Firestore contacts", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        db.collection("users")
-                .whereGreaterThanOrEqualTo("phoneNumber", query)
-                .whereLessThanOrEqualTo("phoneNumber", query + "\uf8ff")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String displayName = document.getString("displayName");
-                            String phoneNumber = document.getString("phoneNumber");
-                            String userId = document.getId();
-                            String profilePhotoUrl = document.getString("profilePhotoUrl");
-                            // Avoid duplicates if already added by displayName search
-                            boolean exists = false;
-                            for (SearchResultAdapter.SearchResult result : searchResultsList) {
-                                if (result.getUserId().equals(userId)) {
-                                    exists = true;
-                                    break;
-                                }
-                            }
-                            if (!exists) {
-                                searchResultsList.add(new SearchResultAdapter.SearchResult(displayName, userId, "", "", true, false, profilePhotoUrl));
-                            }
-                        }
-                        searchResultAdapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(HomeActivity.this, "Error getting Firestore contacts", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
     private void fetchSuggestedContacts() {
         if (currentUser == null) {
             return;
@@ -397,6 +323,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
         db.collection("users")
                 .limit(5) // Limit to 5 suggested contacts for the carousel
+                .whereEqualTo("accountType", "google")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -422,77 +349,42 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void performSearch(String query) {
-        final String currentUserEmail = (mAuth.getCurrentUser() != null) ? mAuth.getCurrentUser().getEmail() : null;
-
         if (query.isEmpty()) {
             searchResultsList.clear();
             searchResultAdapter.notifyDataSetChanged();
             return;
         }
 
-        List<SearchResultAdapter.SearchResult> cachedResults = getCachedSearchResults(query);
-        if (!cachedResults.isEmpty()) {
-            searchResultsList.clear();
-            searchResultsList.addAll(cachedResults);
-            searchResultAdapter.notifyDataSetChanged();
-            searchResultsRecyclerView.setVisibility(View.VISIBLE);
-            suggestionsRecyclerView.setVisibility(View.GONE);
-            recentContactsRecyclerView.setVisibility(View.GONE);
-            return;
-        }
-
-        // Clear previous search results
-        searchResultsList.clear();
-        searchResultAdapter.notifyDataSetChanged();
-
-        List<SearchResultAdapter.SearchResult> deviceContacts = getDeviceContacts(query);
         Task<List<SearchResultAdapter.SearchResult>> firestoreContactsTask = fetchFirestoreContacts(query, toggleMyContactsOnly.isChecked());
+        List<SearchResultAdapter.SearchResult> deviceContacts = getDeviceContacts(query);
 
         firestoreContactsTask.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                List<SearchResultAdapter.SearchResult> combinedResults = new ArrayList<>();
-                combinedResults.addAll(deviceContacts);
-                combinedResults.addAll(task.getResult());
+                List<SearchResultAdapter.SearchResult> firestoreResults = task.getResult();
+                Map<String, SearchResultAdapter.SearchResult> combinedResults = new HashMap<>();
 
-                // Apply myContactsOnly filter to combined results if toggle is checked
-                if (toggleMyContactsOnly.isChecked()) {
-                    // Fetch all WherU user phone numbers and emails to cross-reference with device contacts
-                    db.collection("users").get().addOnCompleteListener(wheruUsersTask -> {
-                        if (wheruUsersTask.isSuccessful()) {
-                            Set<String> wheruUserPhoneNumbers = new HashSet<>();
-                            Set<String> wheruUserEmails = new HashSet<>();
-                            for (QueryDocumentSnapshot document : wheruUsersTask.getResult()) {
-                                String phoneNumber = document.getString("phoneNumber");
-                                String email = document.getString("email");
-                                if (phoneNumber != null) wheruUserPhoneNumbers.add(phoneNumber);
-                                if (email != null) wheruUserEmails.add(email);
-                            }
-
-                            List<SearchResultAdapter.SearchResult> filteredResults = new ArrayList<>();
-                            for (SearchResultAdapter.SearchResult result : combinedResults) {
-                                // If it's a Firestore result, it's already filtered by myContactsOnly in fetchFirestoreContacts
-                                // If it's a device contact, check if its phone number or email exists in WherU users
-                                if (result.isExistingUser() || // Already a WherU user from Firestore
-                                        (wheruUserPhoneNumbers.contains(result.getPhoneNumber()) || wheruUserEmails.contains(result.getEmail()))) {
-                                    filteredResults.add(result);
-                                }
-                            }
-                            updateSearchResults(filteredResults, currentUserEmail);
-                            saveSearchResultsToCache(query, filteredResults);
-                        } else {
-                            Log.w(TAG, "Error fetching WherU users for contact filtering.", wheruUsersTask.getException());
-                            // If fetching WherU users fails, proceed without filtering device contacts
-                            updateSearchResults(combinedResults);
-                            saveSearchResultsToCache(query, combinedResults);
-                        }
-                    });
-                } else {
-                    updateSearchResults(combinedResults);
-                    saveSearchResultsToCache(query, combinedResults);
+                for (SearchResultAdapter.SearchResult deviceContact : deviceContacts) {
+                    combinedResults.put(deviceContact.getPhoneNumber(), deviceContact);
                 }
+
+                for (SearchResultAdapter.SearchResult firestoreContact : firestoreResults) {
+                    if (combinedResults.containsKey(firestoreContact.getPhoneNumber())) {
+                        // Update the existing device contact with Firestore data
+                        SearchResultAdapter.SearchResult existingContact = combinedResults.get(firestoreContact.getPhoneNumber());
+                        existingContact.setDisplayName(firestoreContact.getDisplayName()); // Prioritize Firestore name
+                        existingContact.setExistingUser(true);
+                        existingContact.setProfilePhotoUrl(firestoreContact.getProfilePhotoUrl());
+                        existingContact.setUserId(firestoreContact.getUserId());
+                    } else {
+                        combinedResults.put(firestoreContact.getPhoneNumber(), firestoreContact);
+                    }
+                }
+
+                List<SearchResultAdapter.SearchResult> finalResults = new ArrayList<>(combinedResults.values());
+                updateSearchResults(finalResults);
+                saveSearchResultsToCache(query, finalResults);
             } else {
-                Log.w(TAG, "Error combining search results.", task.getException());
-                // Even if Firestore fails, update with device contacts
+                Log.w(TAG, "Error getting documents from Firestore.", task.getException());
                 updateSearchResults(deviceContacts);
                 saveSearchResultsToCache(query, deviceContacts);
             }
@@ -522,19 +414,36 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             return;
         }
 
-        String senderUserId = currentUser.getUid();
-        String senderDisplayName = currentUser.getDisplayName() != null ? currentUser.getDisplayName() : "Unknown User";
+        db.collection("users").document(currentUser.getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                String accountType = task.getResult().getString("accountType");
+                if (!"google".equals(accountType)) {
+                    Toast.makeText(this, "Only Google-verified users can send location requests.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                db.collection("users").document(targetUserId).get().addOnCompleteListener(targetTask -> {
+                    if (targetTask.isSuccessful() && targetTask.getResult().exists()) {
+                        String targetAccountType = targetTask.getResult().getString("accountType");
+                        if (!"google".equals(targetAccountType)) {
+                            Toast.makeText(this, "User not found. Invite them to join WhereU.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        String senderUserId = currentUser.getUid();
 
-        // Create a new location request document in Firestore
-        // You might want to add more details like timestamp, status, etc.
-        db.collection("locationRequests")
-                .add(new LocationRequest(senderUserId, senderDisplayName, targetUserId))
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(HomeActivity.this, "Location request sent to " + targetUserId, Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(HomeActivity.this, "Failed to send location request: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        db.collection("locationRequests")
+                                .add(new LocationRequest(senderUserId, targetUserId))
+                                .addOnSuccessListener(documentReference -> {
+                                    Toast.makeText(HomeActivity.this, "Location request sent to " + targetUserId, Toast.LENGTH_SHORT).show();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(HomeActivity.this, "Failed to send location request: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+                    } else {
+                        Toast.makeText(this, "User not found. Invite them to join WhereU.", Toast.LENGTH_SHORT).show();
+                    }
                 });
+            }
+        });
     }
 
     @Override
@@ -635,12 +544,10 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         editor.apply();
     }
 
-
     private void updateSearchResults(List<SearchResultAdapter.SearchResult> results, String currentUserEmail) {
         searchResultsList.clear();
         for (SearchResultAdapter.SearchResult result : results) {
             if (currentUserEmail != null && currentUserEmail.equalsIgnoreCase(result.getEmail())) {
-                // Create a new SearchResult with the isCurrentUserEmail flag set
                 searchResultsList.add(new SearchResultAdapter.SearchResult(
                         result.getDisplayName(),
                         result.getUserId(),
