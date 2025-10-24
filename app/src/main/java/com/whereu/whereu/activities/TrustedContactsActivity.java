@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,7 @@ import com.whereu.whereu.models.TrustedContact;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrustedContactsActivity extends AppCompatActivity {
+public class TrustedContactsActivity extends AppCompatActivity implements TrustedContactAdapter.OnActionButtonClickListener {
 
     private static final String TAG = "TrustedContactsActivity";
 
@@ -45,7 +46,7 @@ public class TrustedContactsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_trusted_contacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         trustedContactList = new ArrayList<>();
-        adapter = new TrustedContactAdapter(trustedContactList);
+        adapter = new TrustedContactAdapter(trustedContactList, this);
         recyclerView.setAdapter(adapter);
 
         fabAddTrustedContact = findViewById(R.id.fab_add_trusted_contact);
@@ -84,6 +85,49 @@ public class TrustedContactsActivity extends AppCompatActivity {
                     });
         } else {
             Log.d(TAG, "No current user, cannot load trusted contacts.");
+        }
+    }
+
+    @Override
+    public void onActionButtonClick(TrustedContact contact, String action) {
+        Log.d(TAG, "Action: " + action + " for contact: " + contact.getDisplayName());
+        switch (action) {
+            case "Request":
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser != null) {
+                    String senderId = currentUser.getUid();
+                    String senderName = currentUser.getDisplayName(); // Assuming display name is available
+                    String receiverId = contact.getUid(); // Assuming contactId is the trusted user's ID
+                    String receiverName = contact.getDisplayName();
+
+                    com.whereu.whereu.models.LocationRequest newRequest = new com.whereu.whereu.models.LocationRequest(
+                            senderId, senderName, receiverId, receiverName, contact.getPhoneNumber(), contact.getProfilePhotoUrl(), System.currentTimeMillis(), "pending", 0.0, 0.0, "");
+
+                    db.collection("locationRequests").add(newRequest)
+                            .addOnSuccessListener(documentReference -> {
+                                Toast.makeText(TrustedContactsActivity.this, "Location request sent to " + contact.getDisplayName(), Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(TrustedContactsActivity.this, "Failed to send location request: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                } else {
+                    Toast.makeText(TrustedContactsActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case "View Details":
+                Intent intent = new Intent(TrustedContactsActivity.this, TrustedContactDetailsActivity.class);
+                intent.putExtra("trustedContact", contact);
+                startActivity(intent);
+                break;
+            case "Approve":
+                // Handle approve action
+                break;
+            case "Deny":
+                // Handle deny action
+                break;
+            case "Request Again":
+                // Handle request again action
+                break;
         }
     }
 }

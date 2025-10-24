@@ -91,6 +91,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
+    <TextView
+        android:id="@+id/frequently_requested_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Frequently Requested"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggle_my_contacts_only" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/frequently_requested_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frequently_requested_title" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/suggested_contacts_carousel"
         android:layout_width="0dp"
@@ -129,7 +156,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/suggested_contacts_carousel" />
+        app:layout_constraintTop_toBottomOf="@+id/frequently_requested_recycler_view" />
 
     <!-- Request Location Button -->
     <Button

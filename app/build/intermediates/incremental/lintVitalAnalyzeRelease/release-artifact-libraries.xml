@@ -225,6 +225,19 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="com.google.android.gms:play-services-maps:18.2.0@aar"
+      jars="/Users/admin/.gradle/caches/transforms-4/8c0a353fab094818dae60b18c12524a1/transformed/jetified-play-services-maps-18.2.0/jars/classes.jar"
+      resolved="com.google.android.gms:play-services-maps:18.2.0"
+      folder="/Users/admin/.gradle/caches/transforms-4/8c0a353fab094818dae60b18c12524a1/transformed/jetified-play-services-maps-18.2.0"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="com.github.bumptech.glide:glide:4.12.0@aar"
       jars="/Users/admin/.gradle/caches/transforms-4/349bd686dd4b0880e1f6b1549db07c9e/transformed/jetified-glide-4.12.0/jars/classes.jar"
       resolved="com.github.bumptech.glide:glide:4.12.0"
@@ -450,6 +463,19 @@
       jars="/Users/admin/.gradle/caches/transforms-4/4b2f19ad8246ceede2fcf55bf2b17ae7/transformed/recyclerview-1.3.2/jars/classes.jar"
       resolved="androidx.recyclerview:recyclerview:1.3.2"
       folder="/Users/admin/.gradle/caches/transforms-4/4b2f19ad8246ceede2fcf55bf2b17ae7/transformed/recyclerview-1.3.2"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.swiperefreshlayout:swiperefreshlayout:1.1.0@aar"
+      jars="/Users/admin/.gradle/caches/transforms-4/1fb7d7c85938a2de004685dfd6745602/transformed/swiperefreshlayout-1.1.0/jars/classes.jar"
+      resolved="androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+      folder="/Users/admin/.gradle/caches/transforms-4/1fb7d7c85938a2de004685dfd6745602/transformed/swiperefreshlayout-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -1046,6 +1072,19 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="androidx.interpolator:interpolator:1.0.0@aar"
+      jars="/Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0/jars/classes.jar"
+      resolved="androidx.interpolator:interpolator:1.0.0"
+      folder="/Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="com.github.bumptech.glide:gifdecoder:4.12.0@aar"
       jars="/Users/admin/.gradle/caches/transforms-4/9d91e5df91d4680f7a23e43a7969214a/transformed/jetified-gifdecoder-4.12.0/jars/classes.jar"
       resolved="com.github.bumptech.glide:gifdecoder:4.12.0"
@@ -1109,19 +1148,6 @@
       name="androidx.arch.core:core-common:2.2.0@jar"
       jars="/Users/admin/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.2.0/5e1b8b81dfd5f52c56a8d53b18ca759c19a301f3/core-common-2.2.0.jar"
       resolved="androidx.arch.core:core-common:2.2.0"/>
-  <library
-      name="androidx.interpolator:interpolator:1.0.0@aar"
-      jars="/Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0/jars/classes.jar"
-      resolved="androidx.interpolator:interpolator:1.0.0"
-      folder="/Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
   <library
       name="androidx.documentfile:documentfile:1.0.0@aar"
       jars="/Users/admin/.gradle/caches/transforms-4/865d7325ee48cc09c7dd1be4c610519c/transformed/documentfile-1.0.0/jars/classes.jar"
@@ -1190,6 +1216,19 @@
       name="com.google.code.gson:gson:2.10.1@jar"
       jars="/Users/admin/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.10.1/b3add478d4382b78ea20b1671390a858002feb6c/gson-2.10.1.jar"
       resolved="com.google.code.gson:gson:2.10.1"/>
+  <library
+      name="com.hbb20:ccp:2.5.1@aar"
+      jars="/Users/admin/.gradle/caches/transforms-4/4a6ef0b444a8ff66de8818642122421f/transformed/jetified-ccp-2.5.1/jars/classes.jar"
+      resolved="com.hbb20:ccp:2.5.1"
+      folder="/Users/admin/.gradle/caches/transforms-4/4a6ef0b444a8ff66de8818642122421f/transformed/jetified-ccp-2.5.1"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
   <library
       name="org.jetbrains:annotations:23.0.0@jar"
       jars="/Users/admin/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar"
@@ -1511,6 +1550,19 @@
       name="com.google.errorprone:error_prone_annotations:2.26.0@jar"
       jars="/Users/admin/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.26.0/c513866fd91bb46587500440a80fa943e95d12d9/error_prone_annotations-2.26.0.jar"
       resolved="com.google.errorprone:error_prone_annotations:2.26.0"/>
+  <library
+      name="io.michaelrocks:libphonenumber-android:8.12.19-2@aar"
+      jars="/Users/admin/.gradle/caches/transforms-4/23797a470b8ae81dec1327f38501ed38/transformed/jetified-libphonenumber-android-8.12.19-2/jars/classes.jar"
+      resolved="io.michaelrocks:libphonenumber-android:8.12.19-2"
+      folder="/Users/admin/.gradle/caches/transforms-4/23797a470b8ae81dec1327f38501ed38/transformed/jetified-libphonenumber-android-8.12.19-2"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
   <library
       name="com.google.protobuf:protobuf-javalite:3.25.5@jar"
       jars="/Users/admin/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-javalite/3.25.5/272641fe157ed7c4a22f8d4c347bcd7f6eac8887/protobuf-javalite-3.25.5.jar"

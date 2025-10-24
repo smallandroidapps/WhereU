@@ -292,4 +292,23 @@
         </map>
     </incident>
 
+    <incident
+        id="QueryPermissionsNeeded"
+        severity="warning"
+        message="Consider adding a `&lt;queries>` declaration to your manifest when calling this method; see https://g.co/dev/packagevisibility for details">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/whereu/whereu/fragments/RequestDetailsBottomSheetFragment.java"
+            line="87"
+            column="31"
+            startOffset="4405"
+            endLine="87"
+            endColumn="46"
+            endOffset="4420"/>
+        <map>
+            <entry
+                name="queryAll"
+                boolean="false"/>
+        </map>
+    </incident>
+
 </incidents>

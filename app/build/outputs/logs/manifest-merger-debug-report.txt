@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-51:12
-INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-51:12
-INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-51:12
-INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-51:12
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-52:12
 MERGED from [androidx.databinding:databinding-adapters:8.5.2] /Users/admin/.gradle/caches/transforms-4/f4210c794f21f724af7b83a54caf81a7/transformed/databinding-adapters-8.5.2/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.databinding:databinding-ktx:8.5.2] /Users/admin/.gradle/caches/transforms-4/151757cc7ec8997ac5507db72d9df2f0/transformed/jetified-databinding-ktx-8.5.2/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.databinding:databinding-runtime:8.5.2] /Users/admin/.gradle/caches/transforms-4/6874a61fc2bd5e062876c89acfbdde3f/transformed/databinding-runtime-8.5.2/AndroidManifest.xml:2:1-7:12
@@ -52,6 +52,7 @@ MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] /Users/admin/.gradle/cac
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/admin/.gradle/caches/transforms-4/adc4c3f366d6c12c20396f4230d65c29/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:17:1-35:12
 MERGED from [androidx.activity:activity:1.8.1] /Users/admin/.gradle/caches/transforms-4/06a7916eea8fba372a0c85236cd20c44/transformed/jetified-activity-1.8.1/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.activity:activity-ktx:1.8.1] /Users/admin/.gradle/caches/transforms-4/942ad19ae511fd16f30500f56fe51995/transformed/jetified-activity-ktx-1.8.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /Users/admin/.gradle/caches/transforms-4/1fb7d7c85938a2de004685dfd6745602/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/admin/.gradle/caches/transforms-4/47e65f317e9aafa31e55a1c4416d33f7/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/admin/.gradle/caches/transforms-4/50b1bbab323a9d2cf2dce50657cc2eb1/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/admin/.gradle/caches/transforms-4/18658afc5abc04dff9134bee417f043c/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
@@ -97,6 +98,7 @@ MERGED from [androidx.cardview:cardview:1.0.0] /Users/admin/.gradle/caches/trans
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/admin/.gradle/caches/transforms-4/59b42cc086af611d232d71e373681891/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/admin/.gradle/caches/transforms-4/e4d42457fb9a48c253e9646ce27e0691/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:17:1-55:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/admin/.gradle/caches/transforms-4/51f26f734d03da462ca6622132c94ec4/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /Users/admin/.gradle/caches/transforms-4/9d91e5df91d4680f7a23e43a7969214a/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.exifinterface:exifinterface:1.2.0] /Users/admin/.gradle/caches/transforms-4/2fd27c2b215cfa2bc1cb747c1641c40c/transformed/exifinterface-1.2.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/admin/.gradle/caches/transforms-4/ed9d19c4928dcf98cad5d0c11caa64bf/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -108,7 +110,6 @@ MERGED from [com.google.android.datatransport:transport-runtime:3.1.9] /Users/ad
 MERGED from [com.google.android.datatransport:transport-api:3.1.0] /Users/admin/.gradle/caches/transforms-4/97b473a98b328ce8fc301f0282d6c022/transformed/jetified-transport-api-3.1.0/AndroidManifest.xml:15:1-20:12
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/admin/.gradle/caches/transforms-4/725494378772090fd7a2621ad688ff63/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/admin/.gradle/caches/transforms-4/65b0ad1f8c649706d96895eb837586cb/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/admin/.gradle/caches/transforms-4/159cec2e013ad1b7418fefc78a273c51/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/admin/.gradle/caches/transforms-4/865d7325ee48cc09c7dd1be4c610519c/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] /Users/admin/.gradle/caches/transforms-4/170403078450b4efc1c6789c4355fc2b/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -168,8 +169,8 @@ ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/Locat
 	android:name
 		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:11:19-60
 application
-ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:13:5-49:19
-INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:13:5-49:19
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:13:5-50:19
+INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:13:5-50:19
 MERGED from [com.google.android.material:material:1.12.0] /Users/admin/.gradle/caches/transforms-4/237344ffcafdc0d9748a936ffd6ff689/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /Users/admin/.gradle/caches/transforms-4/237344ffcafdc0d9748a936ffd6ff689/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] /Users/admin/.gradle/caches/transforms-4/7f117d9d9165a595a5ec9873005f52cb/transformed/constraintlayout-2.2.0/AndroidManifest.xml:7:5-20
@@ -318,14 +319,18 @@ activity#com.whereu.whereu.activities.AddTrustedContactActivity
 ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:43:9-91
 	android:name
 		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:43:19-88
+activity#com.whereu.whereu.activities.TrustedContactDetailsActivity
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:44:9-95
+	android:name
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:44:19-92
 meta-data#com.google.android.gms.version
-ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:45:9-47:69
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:46:9-48:69
 MERGED from [com.google.android.gms:play-services-basement:18.8.0] /Users/admin/.gradle/caches/transforms-4/6d6a96173bf6f3ac53d838f737cdf887/transformed/jetified-play-services-basement-18.8.0/AndroidManifest.xml:21:9-23:69
 MERGED from [com.google.android.gms:play-services-basement:18.8.0] /Users/admin/.gradle/caches/transforms-4/6d6a96173bf6f3ac53d838f737cdf887/transformed/jetified-play-services-basement-18.8.0/AndroidManifest.xml:21:9-23:69
 	android:value
-		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:47:13-66
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:48:13-66
 	android:name
-		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:46:13-58
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:47:13-58
 uses-sdk
 INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml
@@ -426,6 +431,8 @@ MERGED from [androidx.activity:activity:1.8.1] /Users/admin/.gradle/caches/trans
 MERGED from [androidx.activity:activity:1.8.1] /Users/admin/.gradle/caches/transforms-4/06a7916eea8fba372a0c85236cd20c44/transformed/jetified-activity-1.8.1/AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity-ktx:1.8.1] /Users/admin/.gradle/caches/transforms-4/942ad19ae511fd16f30500f56fe51995/transformed/jetified-activity-ktx-1.8.1/AndroidManifest.xml:5:5-44
 MERGED from [androidx.activity:activity-ktx:1.8.1] /Users/admin/.gradle/caches/transforms-4/942ad19ae511fd16f30500f56fe51995/transformed/jetified-activity-ktx-1.8.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /Users/admin/.gradle/caches/transforms-4/1fb7d7c85938a2de004685dfd6745602/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /Users/admin/.gradle/caches/transforms-4/1fb7d7c85938a2de004685dfd6745602/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/admin/.gradle/caches/transforms-4/47e65f317e9aafa31e55a1c4416d33f7/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/admin/.gradle/caches/transforms-4/47e65f317e9aafa31e55a1c4416d33f7/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/admin/.gradle/caches/transforms-4/50b1bbab323a9d2cf2dce50657cc2eb1/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
@@ -516,6 +523,8 @@ MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/admin/.gra
 MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/admin/.gradle/caches/transforms-4/e4d42457fb9a48c253e9646ce27e0691/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:21:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/admin/.gradle/caches/transforms-4/51f26f734d03da462ca6622132c94ec4/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/admin/.gradle/caches/transforms-4/51f26f734d03da462ca6622132c94ec4/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /Users/admin/.gradle/caches/transforms-4/9d91e5df91d4680f7a23e43a7969214a/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:5:5-7:41
 MERGED from [com.github.bumptech.glide:gifdecoder:4.12.0] /Users/admin/.gradle/caches/transforms-4/9d91e5df91d4680f7a23e43a7969214a/transformed/jetified-gifdecoder-4.12.0/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.exifinterface:exifinterface:1.2.0] /Users/admin/.gradle/caches/transforms-4/2fd27c2b215cfa2bc1cb747c1641c40c/transformed/exifinterface-1.2.0/AndroidManifest.xml:20:5-22:41
@@ -538,8 +547,6 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/admin/.gradle/caches
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/admin/.gradle/caches/transforms-4/725494378772090fd7a2621ad688ff63/transformed/jetified-startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/admin/.gradle/caches/transforms-4/65b0ad1f8c649706d96895eb837586cb/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/admin/.gradle/caches/transforms-4/65b0ad1f8c649706d96895eb837586cb/transformed/jetified-tracing-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/admin/.gradle/caches/transforms-4/c16828c7553c154eef28c20de5c9a3fb/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/admin/.gradle/caches/transforms-4/159cec2e013ad1b7418fefc78a273c51/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/admin/.gradle/caches/transforms-4/159cec2e013ad1b7418fefc78a273c51/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/admin/.gradle/caches/transforms-4/865d7325ee48cc09c7dd1be4c610519c/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44

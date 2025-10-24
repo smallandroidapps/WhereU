@@ -38,6 +38,12 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final FrameLayout fragmentContainer;
 
   @NonNull
+  public final RecyclerView frequentlyRequestedRecyclerView;
+
+  @NonNull
+  public final TextView frequentlyRequestedTitle;
+
+  @NonNull
   public final Group homeContentGroup;
 
   @NonNull
@@ -73,9 +79,11 @@ public final class ActivityHomeBinding implements ViewBinding {
   private ActivityHomeBinding(@NonNull ConstraintLayout rootView,
       @NonNull BottomNavigationView bottomNavigationBar,
       @NonNull FloatingActionButton fabRequestLocation, @NonNull FrameLayout fragmentContainer,
-      @NonNull Group homeContentGroup, @NonNull CircleImageView profileImage,
-      @NonNull RecyclerView recentContactsRecyclerView, @NonNull Button requestLocationButton,
-      @NonNull EditText searchBar, @NonNull RecyclerView searchResultsRecyclerView,
+      @NonNull RecyclerView frequentlyRequestedRecyclerView,
+      @NonNull TextView frequentlyRequestedTitle, @NonNull Group homeContentGroup,
+      @NonNull CircleImageView profileImage, @NonNull RecyclerView recentContactsRecyclerView,
+      @NonNull Button requestLocationButton, @NonNull EditText searchBar,
+      @NonNull RecyclerView searchResultsRecyclerView,
       @NonNull RecyclerView suggestedContactsCarousel,
       @NonNull RecyclerView suggestionsRecyclerView, @NonNull TextView titleHome,
       @NonNull Switch toggleMyContactsOnly, @NonNull ConstraintLayout topBar) {
@@ -83,6 +91,8 @@ public final class ActivityHomeBinding implements ViewBinding {
     this.bottomNavigationBar = bottomNavigationBar;
     this.fabRequestLocation = fabRequestLocation;
     this.fragmentContainer = fragmentContainer;
+    this.frequentlyRequestedRecyclerView = frequentlyRequestedRecyclerView;
+    this.frequentlyRequestedTitle = frequentlyRequestedTitle;
     this.homeContentGroup = homeContentGroup;
     this.profileImage = profileImage;
     this.recentContactsRecyclerView = recentContactsRecyclerView;
@@ -138,6 +148,18 @@ public final class ActivityHomeBinding implements ViewBinding {
       id = R.id.fragment_container;
       FrameLayout fragmentContainer = ViewBindings.findChildViewById(rootView, id);
       if (fragmentContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.frequently_requested_recycler_view;
+      RecyclerView frequentlyRequestedRecyclerView = ViewBindings.findChildViewById(rootView, id);
+      if (frequentlyRequestedRecyclerView == null) {
+        break missingId;
+      }
+
+      id = R.id.frequently_requested_title;
+      TextView frequentlyRequestedTitle = ViewBindings.findChildViewById(rootView, id);
+      if (frequentlyRequestedTitle == null) {
         break missingId;
       }
 
@@ -208,10 +230,10 @@ public final class ActivityHomeBinding implements ViewBinding {
       }
 
       return new ActivityHomeBinding((ConstraintLayout) rootView, bottomNavigationBar,
-          fabRequestLocation, fragmentContainer, homeContentGroup, profileImage,
-          recentContactsRecyclerView, requestLocationButton, searchBar, searchResultsRecyclerView,
-          suggestedContactsCarousel, suggestionsRecyclerView, titleHome, toggleMyContactsOnly,
-          topBar);
+          fabRequestLocation, fragmentContainer, frequentlyRequestedRecyclerView,
+          frequentlyRequestedTitle, homeContentGroup, profileImage, recentContactsRecyclerView,
+          requestLocationButton, searchBar, searchResultsRecyclerView, suggestedContactsCarousel,
+          suggestionsRecyclerView, titleHome, toggleMyContactsOnly, topBar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

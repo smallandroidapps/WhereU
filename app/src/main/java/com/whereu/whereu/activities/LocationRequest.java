@@ -6,6 +6,10 @@ public class LocationRequest {
     private String targetUserId;
     private long timestamp;
     private String status; // e.g., "pending", "accepted", "rejected"
+    private double latitude;
+    private double longitude;
+    private long approvedAt;
+    private String areaName;
 
     public LocationRequest() {
         // Required for Firestore deserialization
@@ -17,6 +21,10 @@ public class LocationRequest {
         this.targetUserId = targetUserId;
         this.timestamp = System.currentTimeMillis();
         this.status = "pending";
+        this.latitude = 0.0;
+        this.longitude = 0.0;
+        this.approvedAt = 0;
+        this.areaName = "";
     }
 
     // Getters
@@ -40,6 +48,22 @@ public class LocationRequest {
         return status;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public long getApprovedAt() {
+        return approvedAt;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
     // Setters (optional, depending on whether you want to update these fields directly)
     public void setSenderUserId(String senderUserId) {
         this.senderUserId = senderUserId;
@@ -59,5 +83,21 @@ public class LocationRequest {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setApprovedAt(long approvedAt) {
+        this.approvedAt = approvedAt;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 }

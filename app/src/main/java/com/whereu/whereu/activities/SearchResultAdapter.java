@@ -24,8 +24,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onRequestLocationClick(SearchResult result);
-        void onInviteClick(SearchResult result);
+        void onActionButtonClick(SearchResult result, int position);
         void onItemClick(SearchResult result);
     }
 
@@ -45,19 +44,32 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     public void onBindViewHolder(@NonNull SearchResultViewHolder holder, int position) {
         SearchResult result = searchResults.get(position);
         holder.displayName.setText(result.getDisplayName());
-        // Load profile image using Glide or Picasso if available
-        // holder.profileImage.setImageResource(R.drawable.ic_profile_placeholder);
 
         if (result.isExistingUser()) {
-            holder.requestLocationButton.setVisibility(View.VISIBLE);
-            holder.inviteButton.setVisibility(View.GONE);
+            switch (result.getRequestStatus()) {
+                case "pending":
+                    holder.actionButton.setText("Request Sent");
+                    holder.actionButton.setEnabled(false);
+                    break;
+                case "approved":
+                    holder.actionButton.setText("View Details");
+                    holder.actionButton.setEnabled(true);
+                    break;
+                case "expired":
+                    holder.actionButton.setText("Request Again");
+                    holder.actionButton.setEnabled(true);
+                    break;
+                default:
+                    holder.actionButton.setText("Request Location");
+                    holder.actionButton.setEnabled(true);
+                    break;
+            }
         } else {
-            holder.requestLocationButton.setVisibility(View.GONE);
-            holder.inviteButton.setVisibility(View.VISIBLE);
+            holder.actionButton.setText("Invite");
+            holder.actionButton.setEnabled(true);
         }
 
-        holder.requestLocationButton.setOnClickListener(v -> listener.onRequestLocationClick(result));
-        holder.inviteButton.setOnClickListener(v -> listener.onInviteClick(result));
+        holder.actionButton.setOnClickListener(v -> listener.onActionButtonClick(result, position));
         holder.itemView.setOnClickListener(v -> listener.onItemClick(result));
     }
 
@@ -69,15 +81,13 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     public static class SearchResultViewHolder extends RecyclerView.ViewHolder {
         CircleImageView profileImage;
         TextView displayName;
-        Button requestLocationButton;
-        Button inviteButton;
+        Button actionButton;
 
         public SearchResultViewHolder(@NonNull View itemView) {
             super(itemView);
             profileImage = itemView.findViewById(R.id.profile_image);
             displayName = itemView.findViewById(R.id.display_name);
-            requestLocationButton = itemView.findViewById(R.id.request_location_button);
-            inviteButton = itemView.findViewById(R.id.invite_button);
+            actionButton = itemView.findViewById(R.id.action_button);
         }
     }
 
@@ -89,8 +99,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         private boolean isExistingUser;
         private boolean isCurrentUserEmail;
         private String profilePhotoUrl;
+        private String requestStatus;
+        private String requestId;
 
-        public SearchResult(String displayName, String userId, String phoneNumber, String email, boolean isExistingUser, boolean isCurrentUserEmail, String profilePhotoUrl) {
+        public SearchResult(String displayName, String userId, String phoneNumber, String email, boolean isExistingUser, boolean isCurrentUserEmail, String profilePhotoUrl, String requestStatus) {
             this.displayName = displayName;
             this.userId = userId;
             this.phoneNumber = phoneNumber;
@@ -98,6 +110,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             this.isExistingUser = isExistingUser;
             this.isCurrentUserEmail = isCurrentUserEmail;
             this.profilePhotoUrl = profilePhotoUrl;
+            this.requestStatus = requestStatus;
         }
 
         protected SearchResult(Parcel in) {
@@ -108,6 +121,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             isExistingUser = in.readByte() != 0;
             isCurrentUserEmail = in.readByte() != 0;
             profilePhotoUrl = in.readString();
+            requestStatus = in.readString();
+            requestId = in.readString();
         }
 
         public static final Creator<SearchResult> CREATOR = new Creator<SearchResult>() {
@@ -166,6 +181,22 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             this.profilePhotoUrl = profilePhotoUrl;
         }
 
+        public String getRequestStatus() {
+            return requestStatus;
+        }
+
+        public void setRequestStatus(String requestStatus) {
+            this.requestStatus = requestStatus;
+        }
+
+        public String getRequestId() {
+            return requestId;
+        }
+
+        public void setRequestId(String requestId) {
+            this.requestId = requestId;
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -180,6 +211,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             dest.writeByte((byte) (isExistingUser ? 1 : 0));
             dest.writeByte((byte) (isCurrentUserEmail ? 1 : 0));
             dest.writeString(profilePhotoUrl);
+            dest.writeString(requestStatus);
+            dest.writeString(requestId);
         }
     }
 }

@@ -10,6 +10,7 @@
     <color name="black">#FF000000</color>
     <color name="blue_500">#2196F3</color>
     <color name="bottom_nav_item_color">#2196F3</color>
+    <color name="colorPrimary">#6200EE</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -23,7 +24,9 @@
     <string name="google_app_id" translatable="false">1:529310840497:android:00cfe53435fcffc50f5490</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBqJxYVFFiiOV1mRr19P6_BGiALS3I_VaU</string>
     <string name="google_storage_bucket" translatable="false">whereu-ccbef.firebasestorage.app</string>
+    <string name="profile_title">Profile</string>
     <string name="project_id" translatable="false">whereu-ccbef</string>
+    <string name="requests_title">Requests</string>
     <style name="Theme.WherU" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         
         <item name="colorPrimary">@color/purple_200</item>

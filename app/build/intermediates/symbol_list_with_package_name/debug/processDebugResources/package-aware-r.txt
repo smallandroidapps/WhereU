@@ -1243,6 +1243,7 @@ attr suffixText
 attr suffixTextAppearance
 attr suffixTextColor
 attr suggestionRowLayout
+attr swipeRefreshLayoutProgressSpinnerBackgroundColor
 attr switchMinWidth
 attr switchPadding
 attr switchStyle
@@ -1529,6 +1530,7 @@ color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
 color cardview_shadow_start_color
+color colorPrimary
 color common_google_signin_btn_text_dark
 color common_google_signin_btn_text_dark_default
 color common_google_signin_btn_text_dark_disabled
@@ -3173,6 +3175,7 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable bottom_sheet_background
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -3494,12 +3497,15 @@ drawable ic_passkey
 drawable ic_password
 drawable ic_people
 drawable ic_person
+drawable ic_person_24dp
 drawable ic_profile
 drawable ic_profile_placeholder
 drawable ic_requests
 drawable ic_search
 drawable ic_search_black_24
 drawable ic_status_approved
+drawable ic_status_denied
+drawable ic_status_expired
 drawable ic_status_pending
 drawable ic_status_rejected
 drawable ic_timer
@@ -3577,6 +3583,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable rounded_search_bar
+drawable rounded_status_background
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3706,6 +3713,8 @@ id action_bar_root
 id action_bar_spinner
 id action_bar_subtitle
 id action_bar_title
+id action_button
+id action_buttons_layout
 id action_container
 id action_context_bar
 id action_divider
@@ -3733,7 +3742,10 @@ id animateToStart
 id antiClockwise
 id anticipate
 id app_name
+id approve_button
+id approvedTimeTextView
 id arc
+id areaNameTextView
 id asConfigured
 id async
 id auto
@@ -3741,6 +3753,7 @@ id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
 id auto_approve_switch
+id avatar_image_view
 id axisRelative
 id barrier
 id baseline
@@ -3764,11 +3777,19 @@ id browser_actions_menu_view
 id buttonPanel
 id buttonPhoneSignIn
 id button_approve
+id button_close
+id button_deny
 id button_reject
+id button_remove_contact
+id button_request
+id button_request_again
+id button_request_location
 id button_save_contact
 id button_save_profile
 id button_send_verification_code
 id button_verify_phone_number
+id button_view_details
+id button_view_on_map
 id cache_measures
 id callMeasure
 id cancel_button
@@ -3809,6 +3830,7 @@ id content
 id contentPanel
 id contiguous
 id continuousVelocity
+id coordinatesTextView
 id coordinator
 id cos
 id counterclockwise
@@ -3832,6 +3854,11 @@ id design_menu_item_action_area
 id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
+id detail_area_name
+id detail_coordinates
+id detail_distance
+id detail_timestamp
+id detail_user_name
 id dialog_button
 id dimensions
 id direct
@@ -3896,6 +3923,8 @@ id floating
 id forever
 id fragment_container
 id fragment_container_view_tag
+id frequently_requested_recycler_view
+id frequently_requested_title
 id frost
 id fullscreen_header
 id ghost_view
@@ -3929,6 +3958,7 @@ id image
 id imageView_arrow
 id image_flag
 id image_profile_picture
+id image_view_status_icon
 id img_clear_query
 id img_dismiss
 id immediateStop
@@ -3936,7 +3966,6 @@ id included
 id indeterminate
 id info
 id invisible
-id invite_button
 id inward
 id is_pooling_container_tag
 id italic
@@ -3945,6 +3974,7 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id layout
+id layout_buttons
 id left
 id leftToRight
 id legacy
@@ -4054,6 +4084,7 @@ id on
 id onAttachStateChangeListener
 id onDateChanged
 id onInterceptTouchReturnSwipe
+id open_in_maps_button
 id open_search_bar_text_view
 id open_search_view_background
 id open_search_view_clear_button
@@ -4096,14 +4127,18 @@ id progress_circular
 id progress_horizontal
 id radio
 id ratio
+id receiverTextView
 id recent_contacts_recycler_view
 id rectangles
 id recycler_countryDialog
 id recycler_view_requests
 id recycler_view_trusted_contacts
+id reject_button
 id report_drawn
+id request_actions_layout
 id request_button
 id request_location_button
+id request_status_text
 id reverseSawtooth
 id right
 id rightToLeft
@@ -4140,6 +4175,8 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id senderTextView
+id sender_receiver_text_view
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -4179,6 +4216,7 @@ id startVertical
 id staticLayout
 id staticPostLayout
 id status_icon
+id status_text_view
 id stop
 id stretch
 id submenuarrow
@@ -4186,6 +4224,7 @@ id submit_area
 id suggested_contacts_carousel
 id suggestions_recycler_view
 id supportScrollUp
+id swipe_refresh_layout
 id switch_auto_approve
 id switch_hide_location
 id tabMode
@@ -4217,14 +4256,20 @@ id textView_noresult
 id textView_selectedCountry
 id textView_title
 id textWatcher
+id text_area_name
+id text_coordinates
+id text_distance
+id text_expires_in
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
-id text_request_status
-id text_sender_name
-id text_timestamp
+id text_name
+id text_shared_at
+id text_shared_by
+id text_status
 id text_view_display_name
 id text_view_phone_number
+id text_view_status
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -4232,8 +4277,10 @@ id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
 id time
+id timestamp_text_view
 id title
 id titleDividerNoCustom
+id titleTextView
 id title_home
 id title_notifications
 id title_template
@@ -4255,6 +4302,8 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id trusted_contact_name
+id trusted_contact_phone
 id trusted_contacts_layout
 id trusted_contacts_title
 id unchecked
@@ -4266,6 +4315,7 @@ id user_email
 id user_name
 id vertical
 id vertical_only
+id view_details_button
 id view_offset_helper
 id view_transition
 id view_tree_lifecycle_owner
@@ -4402,6 +4452,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_add_trusted_contact
 layout activity_home
+layout activity_location_details
 layout activity_map
 layout activity_notification
 layout activity_phone_verification
@@ -4409,7 +4460,10 @@ layout activity_profile
 layout activity_profile_settings
 layout activity_sign_in
 layout activity_splash
+layout activity_trusted_contact_details
 layout activity_trusted_contacts
+layout bottom_sheet_location_details
+layout bottom_sheet_request_details
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog
@@ -4429,10 +4483,12 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fastscroll__default_bubble
+layout fragment_location_details
 layout fragment_profile
 layout fragment_requests
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_frequent_contact
 layout item_past_notification
 layout item_recent_contact
 layout item_request
@@ -4745,7 +4801,9 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string profile_title
 string project_id
+string requests_title
 string search_hint
 string search_menu_title
 string searchbar_scrolling_view_behavior
@@ -5973,7 +6031,7 @@ styleable LinearLayoutCompat_Layout android_layout_gravity android_layout_width 
 styleable LinearProgressIndicator indeterminateAnimationType indicatorDirectionLinear trackStopIndicatorSize
 styleable ListPopupWindow android_dropDownHorizontalOffset android_dropDownVerticalOffset
 styleable LoadingImageView circleCrop imageAspectRatio imageAspectRatioAdjust
-styleable MapAttrs backgroundColor ambientEnabled cameraBearing cameraMaxZoomPreference cameraMinZoomPreference cameraTargetLat cameraTargetLng cameraTilt cameraZoom latLngBoundsNorthEastLatitude latLngBoundsNorthEastLongitude latLngBoundsSouthWestLatitude latLngBoundsSouthWestLongitude liteMode mapId mapType uiCompass uiMapToolbar uiRotateGestures uiScrollGestures uiScrollGesturesDuringRotateOrZoom uiTiltGestures uiZoomControls uiZoomGestures useViewLifecycle zOrderOnTop
+styleable MapAttrs ambientEnabled backgroundColor cameraBearing cameraMaxZoomPreference cameraMinZoomPreference cameraTargetLat cameraTargetLng cameraTilt cameraZoom latLngBoundsNorthEastLatitude latLngBoundsNorthEastLongitude latLngBoundsSouthWestLatitude latLngBoundsSouthWestLongitude liteMode mapId mapType uiCompass uiMapToolbar uiRotateGestures uiScrollGestures uiScrollGesturesDuringRotateOrZoom uiTiltGestures uiZoomControls uiZoomGestures useViewLifecycle zOrderOnTop
 styleable MaterialAlertDialog backgroundInsetBottom backgroundInsetEnd backgroundInsetStart backgroundInsetTop backgroundTint
 styleable MaterialAlertDialogTheme materialAlertDialogBodyTextStyle materialAlertDialogButtonSpacerVisibility materialAlertDialogTheme materialAlertDialogTitleIconStyle materialAlertDialogTitlePanelStyle materialAlertDialogTitleTextStyle
 styleable MaterialAutoCompleteTextView android_inputType android_popupElevation dropDownBackgroundTint simpleItemLayout simpleItemSelectedColor simpleItemSelectedRippleColor simpleItems
@@ -6043,6 +6101,7 @@ styleable State android_id constraints
 styleable StateListDrawable android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
 styleable StateListDrawableItem android_drawable
 styleable StateSet defaultState
+styleable SwipeRefreshLayout swipeRefreshLayoutProgressSpinnerBackgroundColor
 styleable SwitchCompat android_textOn android_textOff android_thumb showText splitTrack switchMinWidth switchPadding switchTextAppearance thumbTextPadding thumbTint thumbTintMode track trackTint trackTintMode
 styleable SwitchMaterial useMaterialThemeColors
 styleable TabItem android_icon android_layout android_text
