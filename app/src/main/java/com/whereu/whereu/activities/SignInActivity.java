@@ -99,8 +99,26 @@ public class SignInActivity extends AppCompatActivity {
                         .addOnCompleteListener(this, authTask -> {
                             if (authTask.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                createNewUser(user);
-                                updateUI(user);
+                                if (user != null) {
+                                    db.collection("users").document(user.getUid()).get()
+                                            .addOnSuccessListener(documentSnapshot -> {
+                                                if (documentSnapshot.exists()) {
+                                                    updateUI(user);
+                                                } else {
+                                                    // User document doesn't exist, create new user and then check mobile number
+                                                    createNewUser(user);
+                                                    updateUI(user);
+                                                }
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Log.e(TAG, "Error fetching user document: " + e.getMessage());
+                                                // Proceed to HomeActivity in case of error fetching user document
+                                                createNewUser(user);
+                                                updateUI(user);
+                                            });
+                                } else {
+                                    Toast.makeText(SignInActivity.this, "Authentication failed: User is null.", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 Toast.makeText(SignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             }

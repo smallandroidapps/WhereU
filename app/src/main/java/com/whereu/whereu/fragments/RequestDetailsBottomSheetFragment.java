@@ -67,13 +67,13 @@ public class RequestDetailsBottomSheetFragment extends BottomSheetDialogFragment
 
         if (locationRequest != null) {
             String currentUserId = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "";
-            boolean isReceiver = currentUserId.equals(locationRequest.getReceiverId());
+            boolean isReceiver = currentUserId.equals(locationRequest.getToUserId());
 
-            userNameTextView.setText(String.format("User: %s", isReceiver ? locationRequest.getSenderName() : locationRequest.getReceiverId()));
+            userNameTextView.setText(String.format("User: %s", locationRequest.getUserName()));
             coordinatesTextView.setText(String.format(Locale.getDefault(), "Coordinates: %.4f, %.4f", locationRequest.getLatitude(), locationRequest.getLongitude()));
 
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
-            timestampTextView.setText(String.format("Timestamp: %s", sdf.format(locationRequest.getApprovedAt() != null ? locationRequest.getApprovedAt() : locationRequest.getCreatedAt())));
+            timestampTextView.setText(String.format("Timestamp: %s", sdf.format(locationRequest.getApprovedTimestamp() != 0 ? locationRequest.getApprovedTimestamp() : locationRequest.getTimestamp())));
 
             // Distance will be calculated and set here if available, otherwise a placeholder.
             distanceTextView.setText("Distance: N/A"); // Placeholder for now

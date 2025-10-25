@@ -42,9 +42,11 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        try {
+        if (context instanceof OnLocationDetailActionListener) {
             mListener = (OnLocationDetailActionListener) context;
-        } catch (ClassCastException e) {
+        } else if (getParentFragment() instanceof OnLocationDetailActionListener) {
+            mListener = (OnLocationDetailActionListener) getParentFragment();
+        } else {
             throw new ClassCastException(context.toString() + " must implement OnLocationDetailActionListener");
         }
     }
@@ -79,20 +81,18 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
         Button close = view.findViewById(R.id.button_close);
 
         if (locationRequest != null) {
-            name.setText(locationRequest.getReceiverName());
+            name.setText(locationRequest.getUserName());
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a, MMM dd, yyyy", Locale.getDefault());
-            if(locationRequest.getApprovedAt() != null) {
-                sharedAt.setText("Shared At: " + sdf.format(locationRequest.getApprovedAt()));
+            if(locationRequest.getApprovedTimestamp() != 0) {
+                sharedAt.setText("Shared At: " + sdf.format(locationRequest.getApprovedTimestamp()));
             }
             areaName.setText("Area Name: " + locationRequest.getAreaName());
             coordinates.setText("Coordinates: " + locationRequest.getLatitude() + ", " + locationRequest.getLongitude());
             status.setText("Status: " + locationRequest.getStatus());
 
-            if(locationRequest.getExpiresAt() != null) {
-                long timeRemaining = locationRequest.getExpiresAt().getTime() - System.currentTimeMillis();
-                long hours = TimeUnit.MILLISECONDS.toHours(timeRemaining);
-                expiresIn.setText("Expires In: " + hours + "h left");
-            }
+            long timeRemaining = locationRequest.getApprovedTimestamp() + (24*60*60*1000) - System.currentTimeMillis();
+            long hours = TimeUnit.MILLISECONDS.toHours(timeRemaining);
+            expiresIn.setText("Expires In: " + hours + "h left");
 
             distance.setText("Distance: -- km");
         }
@@ -106,7 +106,7 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
 
         requestAgain.setOnClickListener(v -> {
             if (mListener != null) {
-                mListener.onRequestAgainClick(locationRequest.getReceiverId());
+                mListener.onRequestAgainClick(locationRequest.getToUserId());
             }
             dismiss();
         });

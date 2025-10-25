@@ -50,7 +50,7 @@
             android:layout_marginEnd="8dp"
             android:text="Status: Not Requested"
             android:textSize="12sp"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textColor="@android:color/darker_gray"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/profile_image"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,21 +1,21 @@
 package com.whereu.whereu.fragments;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -28,23 +28,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.whereu.whereu.R;
-import com.whereu.whereu.activities.LocationDetailsActivity;
 import com.wheru.adapters.RequestAdapter;
 import com.whereu.whereu.models.LocationRequest;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.wheru.models.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class RequestsFragment extends Fragment implements RequestAdapter.OnRequestActionListener, RequestDetailsBottomSheetFragment.OnRequestDetailsActionListener {
+public class RequestsFragment extends Fragment implements RequestAdapter.OnRequestActionListener {
 
     private static final String TAG = "RequestsFragment";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -52,11 +51,19 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
     private RecyclerView recyclerView;
     private RequestAdapter requestAdapter;
     private List<LocationRequest> requestList;
+
+    private RecyclerView frequentlyRequestedRecyclerView;
+    private RequestAdapter frequentlyRequestedAdapter;
+    private List<LocationRequest> frequentlyRequestedList;
+    private TextView frequentlyRequestedTitle;
+    private TextView allRequestsTitle;
+
     private FusedLocationProviderClient fusedLocationClient;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private FirebaseUser currentUser;
 
     public RequestsFragment() {
         // Required empty public constructor
@@ -69,8 +76,17 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        currentUser = mAuth.getCurrentUser();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
+        frequentlyRequestedTitle = view.findViewById(R.id.text_view_frequently_requested_title);
+        frequentlyRequestedRecyclerView = view.findViewById(R.id.recycler_view_frequently_requested);
+        frequentlyRequestedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        frequentlyRequestedList = new ArrayList<>();
+        frequentlyRequestedAdapter = new RequestAdapter(frequentlyRequestedList, this);
+        frequentlyRequestedRecyclerView.setAdapter(frequentlyRequestedAdapter);
+
+        allRequestsTitle = view.findViewById(R.id.text_view_all_requests_title);
         recyclerView = view.findViewById(R.id.recycler_view_requests);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -79,9 +95,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
         recyclerView.setAdapter(requestAdapter);
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            fetchRequests();
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::fetchRequests);
 
         fetchRequests();
 
@@ -90,78 +104,137 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
 
     private void fetchRequests() {
         swipeRefreshLayout.setRefreshing(true);
-        String currentUserId = mAuth.getCurrentUser().getUid();
+        if (currentUser == null) return;
 
+        // Fetch frequently requested (approved within last 24 hours)
+        long twentyFourHoursAgo = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+
+        db.collection("locationRequests")
+                .whereEqualTo("status", "approved")
+                .whereGreaterThanOrEqualTo("approvedTimestamp", twentyFourHoursAgo)
+                .orderBy("approvedTimestamp", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        frequentlyRequestedList.clear();
+                        List<Task<User>> userFetchTasks = new ArrayList<>();
+
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            LocationRequest request = document.toObject(LocationRequest.class);
+                            request.setRequestId(document.getId());
+
+                            String otherUserId = request.getFromUserId().equals(currentUser.getUid()) ? request.getToUserId() : request.getFromUserId();
+
+                            Task<User> userTask = db.collection("users").document(otherUserId).get().continueWith(userTaskSnapshot -> {
+                                if (userTaskSnapshot.isSuccessful()) {
+                                    return userTaskSnapshot.getResult().toObject(User.class);
+                                } else {
+                                    return null;
+                                }
+                            });
+                            userFetchTasks.add(userTask);
+                            frequentlyRequestedList.add(request);
+                        }
+
+                        Tasks.whenAllSuccess(userFetchTasks).addOnSuccessListener(users -> {
+                            for (int i = 0; i < users.size(); i++) {
+                                User user = (User) users.get(i);
+                                if (user != null) {
+                                    frequentlyRequestedList.get(i).setUserName(user.getDisplayName());
+                                }
+                            }
+                            frequentlyRequestedAdapter.notifyDataSetChanged();
+                            frequentlyRequestedTitle.setVisibility(frequentlyRequestedList.isEmpty() ? View.GONE : View.VISIBLE);
+                            frequentlyRequestedRecyclerView.setVisibility(frequentlyRequestedList.isEmpty() ? View.GONE : View.VISIBLE);
+                        });
+                    }
+                });
+
+        // Fetch all other requests
         Task<QuerySnapshot> incomingRequestsTask = db.collection("locationRequests")
-                .whereEqualTo("receiverId", currentUserId)
+                .whereEqualTo("toUserId", currentUser.getUid())
                 .get();
 
         Task<QuerySnapshot> outgoingRequestsTask = db.collection("locationRequests")
-                .whereEqualTo("senderId", currentUserId)
+                .whereEqualTo("fromUserId", currentUser.getUid())
                 .get();
 
         Tasks.whenAllSuccess(incomingRequestsTask, outgoingRequestsTask).addOnSuccessListener(list -> {
             requestList.clear();
-            List<Task<Void>> nameFetchTasks = new ArrayList<>();
+            Map<String, Task<User>> userFetchTasks = new HashMap<>();
 
             for (Object snapshot : list) {
                 for (QueryDocumentSnapshot document : (QuerySnapshot) snapshot) {
                     LocationRequest request = document.toObject(LocationRequest.class);
-                    if (request.getExpiresAt() != null && request.getExpiresAt().after(new Date())) {
-                        request.setRequestId(document.getId());
+                    request.setRequestId(document.getId());
 
-                        // Fetch sender's name
-                        Task<Void> senderNameTask = db.collection("users").document(request.getSenderId()).get()
-                                .continueWith(task -> {
-                                    if (task.isSuccessful() && task.getResult().exists()) {
-                                        request.setSenderName(task.getResult().getString("displayName"));
-                                    }
-                                    return null;
-                                });
-                        nameFetchTasks.add(senderNameTask);
+                    String otherUserId = request.getFromUserId().equals(currentUser.getUid()) ? request.getToUserId() : request.getFromUserId();
 
-                        // Fetch receiver's name
-                        Task<Void> receiverNameTask = db.collection("users").document(request.getReceiverId()).get()
-                                .continueWith(task -> {
-                                    if (task.isSuccessful() && task.getResult().exists()) {
-                                        request.setReceiverName(task.getResult().getString("displayName"));
-                                    }
-                                    return null;
-                                });
-                        nameFetchTasks.add(receiverNameTask);
-
-                        requestList.add(request);
-                    } else {
-                        document.getReference().delete();
+                    if (!userFetchTasks.containsKey(otherUserId)) {
+                        Task<User> userTask = db.collection("users").document(otherUserId).get().continueWith(userTaskSnapshot -> {
+                            if (userTaskSnapshot.isSuccessful()) {
+                                return userTaskSnapshot.getResult().toObject(User.class);
+                            } else {
+                                return null;
+                            }
+                        });
+                        userFetchTasks.put(otherUserId, userTask);
                     }
+                    requestList.add(request);
                 }
             }
 
-            Tasks.whenAllSuccess(nameFetchTasks).addOnSuccessListener(aVoid -> {
-                // Sort the requestList by timestamp (latest first)
-                requestList.sort((r1, r2) -> {
-                    Date t1 = "approved".equals(r1.getStatus()) ? r1.getApprovedAt() : r1.getCreatedAt();
-                    Date t2 = "approved".equals(r2.getStatus()) ? r2.getApprovedAt() : r2.getCreatedAt();
-                    if (t1 == null || t2 == null) return 0;
-                    return t2.compareTo(t1); // Latest first
-                });
+            Tasks.whenAllComplete(userFetchTasks.values()).addOnCompleteListener(task -> {
+                for (LocationRequest request : requestList) {
+                    String otherUserId = request.getFromUserId().equals(currentUser.getUid()) ? request.getToUserId() : request.getFromUserId();
+                    Task<User> userTask = userFetchTasks.get(otherUserId);
+                    if (userTask != null && userTask.isSuccessful()) {
+                        User user = userTask.getResult();
+                        if (user != null) {
+                            request.setUserName(user.getDisplayName());
+                        }
+                    }
+                }
+                requestList.sort((r1, r2) -> Long.compare(r2.getTimestamp(), r1.getTimestamp()));
                 requestAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
-            }).addOnFailureListener(e -> {
-                Log.e(TAG, "Error fetching user names", e);
-                swipeRefreshLayout.setRefreshing(false);
             });
-
         }).addOnFailureListener(e -> {
             Log.e(TAG, "Error fetching requests", e);
             swipeRefreshLayout.setRefreshing(false);
         });
     }
 
+
+    @Override
+    public void onApproveClicked(LocationRequest request) {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            return;
+        }
+
+        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+            if (location != null) {
+                updateRequestWithLocation(request, location);
+            } else {
+                Toast.makeText(getContext(), "Could not get location", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onRejectClicked(LocationRequest request) {
+        updateRequestStatus(request, "rejected");
+    }
+
     private void updateRequestStatus(LocationRequest request, String status) {
         DocumentReference requestRef = db.collection("locationRequests").document(request.getRequestId());
         Map<String, Object> updates = new HashMap<>();
         updates.put("status", status);
+
+        if (status.equals("approved")) {
+            updates.put("approvedTimestamp", System.currentTimeMillis());
+        }
 
         requestRef.update(updates)
                 .addOnSuccessListener(aVoid -> {
@@ -171,7 +244,25 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Error updating request", Toast.LENGTH_SHORT).show());
     }
 
+    private void updateRequestWithLocation(LocationRequest request, Location location) {
+        DocumentReference requestRef = db.collection("locationRequests").document(request.getRequestId());
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("status", "approved");
+        updates.put("latitude", location.getLatitude());
+        updates.put("longitude", location.getLongitude());
+        updates.put("areaName", getAreaName(location.getLatitude(), location.getLongitude()));
+        updates.put("approvedTimestamp", System.currentTimeMillis());
+
+        requestRef.update(updates)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getContext(), "Location shared successfully!", Toast.LENGTH_SHORT).show();
+                    fetchRequests();
+                })
+                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error sharing location", Toast.LENGTH_SHORT).show());
+    }
+
     private String getAreaName(double latitude, double longitude) {
+        if (getContext() == null) return "Unknown Area";
         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
@@ -197,62 +288,17 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
     }
 
     @Override
-    public void onRequestItemClicked(int position, LocationRequest request) {
-        RequestDetailsBottomSheetFragment bottomSheet = RequestDetailsBottomSheetFragment.newInstance(request);
-        bottomSheet.setOnRequestDetailsActionListener(this);
-        bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
-    }
-
-    private void updateRequestWithLocation(LocationRequest request, Location location) {
-        DocumentReference requestRef = db.collection("locationRequests").document(request.getRequestId());
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("status", "approved");
-        updates.put("latitude", location.getLatitude());
-        updates.put("longitude", location.getLongitude());
-        updates.put("areaName", getAreaName(location.getLatitude(), location.getLongitude()));
-        updates.put("approvedAt", new Date());
-
-        requestRef.update(updates)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(getContext(), "Location shared successfully!", Toast.LENGTH_SHORT).show();
+    public void onRequestAgainClicked(LocationRequest request) {
+        if (currentUser == null) return;
+        LocationRequest newRequest = new LocationRequest(currentUser.getUid(), request.getToUserId().equals(currentUser.getUid()) ? request.getFromUserId() : request.getToUserId());
+        db.collection("locationRequests").add(newRequest)
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(getContext(), "Location request sent again!", Toast.LENGTH_SHORT).show();
                     fetchRequests();
                 })
-                .addOnFailureListener(e -> Toast.makeText(getContext(), "Error sharing location", Toast.LENGTH_SHORT).show());
-    }
-
-    @Override
-    public void onRequestApproved(int position, LocationRequest request) {
-        // This method is for RequestAdapter.OnRequestActionListener
-        // The actual approval logic is handled by the bottom sheet's listener
-        // No action needed here as the bottom sheet will trigger the other onRequestApproved
-    }
-
-    @Override
-    public void onRequestRejected(int position, LocationRequest request) {
-        // This method is for RequestAdapter.OnRequestActionListener
-        // The actual rejection logic is handled by the bottom sheet's listener
-        // No action needed here as the bottom sheet will trigger the other onRequestRejected
-    }
-
-    // Implementation for RequestDetailsBottomSheetFragment.OnRequestDetailsActionListener
-    @Override
-    public void onRequestApproved(LocationRequest request) {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-            return;
-        }
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(location -> {
-                    if (location != null) {
-                        updateRequestWithLocation(request, location);
-                    } else {
-                        Toast.makeText(getContext(), "Could not get location", Toast.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Failed to send request.", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Failed to send location request to " + newRequest.getToUserId(), e);
                 });
-    }
-
-    @Override
-    public void onRequestRejected(LocationRequest request) {
-        updateRequestStatus(request, "rejected");
     }
 }

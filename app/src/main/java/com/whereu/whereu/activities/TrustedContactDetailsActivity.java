@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.whereu.whereu.R;
+import com.whereu.whereu.models.LocationRequest;
 import com.whereu.whereu.models.TrustedContact;
 
 public class TrustedContactDetailsActivity extends AppCompatActivity {
@@ -51,13 +52,7 @@ public class TrustedContactDetailsActivity extends AppCompatActivity {
     private void sendLocationRequest() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null && trustedContact != null) {
-            String senderId = currentUser.getUid();
-            String senderName = currentUser.getDisplayName();
-            String receiverId = trustedContact.getUid();
-            String receiverName = trustedContact.getDisplayName();
-
-            com.whereu.whereu.models.LocationRequest newRequest = new com.whereu.whereu.models.LocationRequest(
-                    senderId, senderName, receiverId, receiverName, trustedContact.getPhoneNumber(), trustedContact.getProfilePhotoUrl(), System.currentTimeMillis(), "pending", 0.0, 0.0, "");
+            LocationRequest newRequest = new LocationRequest(currentUser.getUid(), trustedContact.getUid());
 
             db.collection("locationRequests").add(newRequest)
                     .addOnSuccessListener(documentReference -> {

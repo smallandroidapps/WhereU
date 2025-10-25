@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardBackgroundColor="#E3F2FD"
+    app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
@@ -14,11 +14,10 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Profile Row -->
         <ImageView
             android:id="@+id/avatar_image_view"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_person_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,52 +29,97 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/timestamp_text_view"
-            app:layout_constraintStart_toEndOf="@+id/avatar_image_view"
-            app:layout_constraintTop_toTopOf="@+id/avatar_image_view"
-            tools:text="John Doe (Sender)" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/avatar_image_view"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="From: John Doe" />
 
         <TextView
             android:id="@+id/timestamp_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/avatar_image_view"
+            app:layout_constraintStart_toEndOf="@id/avatar_image_view"
+            app:layout_constraintTop_toBottomOf="@id/sender_receiver_text_view"
             tools:text="2 hours ago" />
 
-        <!-- Status Section -->
+        <!-- Commented out to diagnose InflateException -->
+        <!--
         <TextView
             android:id="@+id/status_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@drawable/status_background"
             android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingEnd="8dp"
             android:paddingBottom="4dp"
-            android:background="@drawable/rounded_status_background"
             android:textColor="@android:color/white"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/sender_receiver_text_view"
-            app:layout_constraintTop_toBottomOf="@+id/sender_receiver_text_view"
-            tools:text="Pending"
-            tools:backgroundTint="#FFC107" />
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timestamp_text_view" />
+        -->
 
-        <!-- View Details Button -->
+        <LinearLayout
+            android:id="@+id/action_buttons_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timestamp_text_view">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/approve_button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="Approve"
+                android:textColor="@color/status_approved"
+                app:strokeColor="@color/status_approved" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/reject_button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="Reject"
+                android:textColor="@color/status_rejected"
+                app:strokeColor="@color/status_rejected" />
+        </LinearLayout>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/view_details_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="View Details"
-            android:textColor="#2196F3"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/status_text_view" />
+            app:layout_constraintTop_toBottomOf="@id/timestamp_text_view" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/request_again_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Request Again"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_details_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

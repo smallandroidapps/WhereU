@@ -1,41 +1,67 @@
 package com.wheru.adapters;
 
+import android.graphics.drawable.GradientDrawable;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.whereu.whereu.models.LocationRequest;
+import com.google.firebase.auth.FirebaseUser;
 import com.whereu.whereu.R;
+import com.whereu.whereu.models.LocationRequest;
 
-import android.text.format.DateUtils;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder> {
 
     private List<LocationRequest> requestList;
     private OnRequestActionListener listener;
-    private String currentUserId;
-
-    public interface OnRequestActionListener {
-        void onRequestApproved(int position, LocationRequest request);
-        void onRequestRejected(int position, LocationRequest request);
-        void onRequestItemClicked(int position, LocationRequest request);
-    }
+    private FirebaseUser currentUser;
 
     public RequestAdapter(List<LocationRequest> requestList, OnRequestActionListener listener) {
         this.requestList = requestList;
         this.listener = listener;
-        this.currentUserId = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "";
+        this.currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    public static class RequestViewHolder extends RecyclerView.ViewHolder {
+        ImageView avatarImageView;
+        TextView senderReceiverTextView;
+        TextView timestampTextView;
+        // TextView statusTextView; // Removed as status_text_view is removed from layout
+        MaterialButton viewDetailsButton;
+        MaterialButton requestAgainButton;
+        LinearLayout actionButtonsLayout;
+        MaterialButton approveButton;
+        MaterialButton rejectButton;
+
+        public RequestViewHolder(@NonNull View itemView) {
+            super(itemView);
+            avatarImageView = itemView.findViewById(R.id.avatar_image_view);
+            senderReceiverTextView = itemView.findViewById(R.id.sender_receiver_text_view);
+            timestampTextView = itemView.findViewById(R.id.timestamp_text_view);
+            // statusTextView = itemView.findViewById(R.id.status_text_view); // Removed as status_text_view is removed from layout
+            viewDetailsButton = itemView.findViewById(R.id.view_details_button);
+            requestAgainButton = itemView.findViewById(R.id.request_again_button);
+            actionButtonsLayout = itemView.findViewById(R.id.action_buttons_layout);
+            approveButton = itemView.findViewById(R.id.approve_button);
+            rejectButton = itemView.findViewById(R.id.reject_button);
+        }
+    }
+
+    public interface OnRequestActionListener {
+        void onApproveClicked(LocationRequest request);
+        void onRejectClicked(LocationRequest request);
+        void onRequestAgainClicked(LocationRequest request);
     }
 
     @NonNull
@@ -48,59 +74,61 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder holder, int position) {
         LocationRequest request = requestList.get(position);
-        boolean isSender = currentUserId.equals(request.getSenderId());
+        if (currentUser == null) return;
 
-        // Set the name to the other user in the request
-        // In a real app, you would fetch the user's name from the ID
-        holder.senderReceiverTextView.setText(isSender ? "To: " + request.getReceiverName() : "From: " + request.getSenderName());
+        String otherUserName = request.getUserName() != null ? request.getUserName() : "Unknown";
 
-        // Set the status
-        holder.statusTextView.setText(request.getStatus());
-
-        // Use approvedAt for the timestamp if the request is approved, otherwise use createdAt
-        Date timestampToShow = "approved".equals(request.getStatus()) ? request.getApprovedAt() : request.getCreatedAt();
-        if (timestampToShow != null) {
-            holder.timestampTextView.setText(getRelativeTimeSpanString(timestampToShow.getTime()));
+        if (request.getFromUserId().equals(currentUser.getUid())) {
+            holder.senderReceiverTextView.setText("To: " + otherUserName);
+        } else {
+            holder.senderReceiverTextView.setText("From: " + otherUserName);
         }
 
-        // Handle status background color
+        holder.timestampTextView.setText(formatTimestamp(request.getTimestamp()));
+
+        String status = request.getStatus();
+        // holder.statusTextView.setText(status); // Removed as status_text_view is removed from layout
         int statusColor;
-        switch (request.getStatus()) {
+        switch (status) {
             case "pending":
-                statusColor = 0xFFFFA000; // Amber
+                statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.status_pending);
                 break;
             case "approved":
-                statusColor = 0xFF388E3C; // Green
+                statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.status_approved);
                 break;
             case "rejected":
-                statusColor = 0xFFD32F2F; // Red
+                statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.status_rejected);
                 break;
             default:
-                statusColor = 0xFF757575; // Grey
+                statusColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.status_default);
                 break;
         }
-        holder.statusTextView.getBackground().setColorFilter(statusColor, android.graphics.PorterDuff.Mode.SRC_IN);
+        // ((GradientDrawable) holder.statusTextView.getBackground()).setColor(statusColor); // Removed as status_text_view is removed from layout // Removed as status_text_view is removed from layout
 
-        // Hide/Show View Details button based on status
-        if ("approved".equals(request.getStatus())) {
-            holder.viewDetailsButton.setVisibility(View.VISIBLE);
-        } else {
+        // Control button visibility
+        boolean isReceiver = request.getToUserId().equals(currentUser.getUid());
+
+        if (isReceiver && "pending".equals(status)) {
+            holder.actionButtonsLayout.setVisibility(View.VISIBLE);
             holder.viewDetailsButton.setVisibility(View.GONE);
+            holder.requestAgainButton.setVisibility(View.GONE);
+        } else if ("approved".equals(status)) {
+            holder.actionButtonsLayout.setVisibility(View.GONE);
+            holder.viewDetailsButton.setVisibility(View.VISIBLE);
+            holder.requestAgainButton.setVisibility(View.VISIBLE);
+        } else {
+            holder.actionButtonsLayout.setVisibility(View.GONE);
+            holder.viewDetailsButton.setVisibility(View.GONE);
+            holder.requestAgainButton.setVisibility(View.VISIBLE);
         }
 
+        holder.approveButton.setOnClickListener(v -> listener.onApproveClicked(request));
+        holder.rejectButton.setOnClickListener(v -> listener.onRejectClicked(request));
+        holder.requestAgainButton.setOnClickListener(v -> listener.onRequestAgainClicked(request));
+
         holder.viewDetailsButton.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onRequestItemClicked(position, request);
-            }
+            // Optional: Implement details view logic
         });
-
-        // Remove old approve/reject button logic
-        // The new design uses a bottom sheet for actions
-    }
-
-    private CharSequence getRelativeTimeSpanString(long time) {
-        long now = System.currentTimeMillis();
-        return DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
     }
 
     @Override
@@ -108,20 +136,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
         return requestList.size();
     }
 
-    public static class RequestViewHolder extends RecyclerView.ViewHolder {
-        ImageView avatarImageView;
-        TextView senderReceiverTextView;
-        TextView timestampTextView;
-        TextView statusTextView;
-        Button viewDetailsButton;
-
-        public RequestViewHolder(@NonNull View itemView) {
-            super(itemView);
-            avatarImageView = itemView.findViewById(R.id.avatar_image_view);
-            senderReceiverTextView = itemView.findViewById(R.id.sender_receiver_text_view);
-            timestampTextView = itemView.findViewById(R.id.timestamp_text_view);
-            statusTextView = itemView.findViewById(R.id.status_text_view);
-            viewDetailsButton = itemView.findViewById(R.id.view_details_button);
-        }
+    private String formatTimestamp(long timestamp) {
+        return DateUtils.getRelativeTimeSpanString(timestamp, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS).toString();
     }
 }

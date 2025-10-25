@@ -3,54 +3,35 @@ package com.whereu.whereu.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-import java.util.Date;
-
 public class LocationRequest implements Parcelable {
     private String requestId;
-    private String senderId;
-    private String senderName;
-    private String receiverId;
-    private String receiverName;
-    private String receiverPhoneNumber;
-    private String receiverProfilePhotoUrl;
-    private String status;
-    private Date createdAt;
-    private Date approvedAt;
-    private Date expiresAt;
+    private String fromUserId;
+    private String toUserId;
+    private String status; // pending, approved, rejected
     private double latitude;
     private double longitude;
     private String areaName;
+    private long timestamp;
+    private long approvedTimestamp;
+    private String userName;
 
     public LocationRequest() {
         // Default constructor required for calls to DataSnapshot.getValue(LocationRequest.class)
     }
 
-    public LocationRequest(String senderId, String receiverId, String receiverPhoneNumber, String receiverProfilePhotoUrl) {
-        this.senderId = senderId;
-        this.receiverId = receiverId;
-        this.receiverPhoneNumber = receiverPhoneNumber;
-        this.receiverProfilePhotoUrl = receiverProfilePhotoUrl;
+    // Constructor for creating a new request
+    public LocationRequest(String fromUserId, String toUserId) {
+        this.fromUserId = fromUserId;
+        this.toUserId = toUserId;
         this.status = "pending";
-        this.createdAt = new Date();
-        this.expiresAt = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
+        this.timestamp = System.currentTimeMillis();
+        this.approvedTimestamp = 0;
+        this.latitude = 0;
+        this.longitude = 0;
+        this.areaName = "";
     }
 
-    public LocationRequest(String senderId, String senderName, String receiverId, String receiverName, String receiverPhoneNumber, String receiverProfilePhotoUrl, long createdAt, String status, double latitude, double longitude, String areaName) {
-        this.senderId = senderId;
-        this.senderName = senderName;
-        this.receiverId = receiverId;
-        this.receiverName = receiverName;
-        this.receiverPhoneNumber = receiverPhoneNumber;
-        this.receiverProfilePhotoUrl = receiverProfilePhotoUrl;
-        this.createdAt = new Date(createdAt);
-        this.status = status;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.areaName = areaName;
-        this.expiresAt = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
-    }
-
+    // Getters and Setters
     public String getRequestId() {
         return requestId;
     }
@@ -59,52 +40,20 @@ public class LocationRequest implements Parcelable {
         this.requestId = requestId;
     }
 
-    public String getSenderId() {
-        return senderId;
+    public String getFromUserId() {
+        return fromUserId;
     }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
+    public void setFromUserId(String fromUserId) {
+        this.fromUserId = fromUserId;
     }
 
-    public String getSenderName() {
-        return senderName;
+    public String getToUserId() {
+        return toUserId;
     }
 
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
-
-    public String getReceiverId() {
-        return receiverId;
-    }
-
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
-    }
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
-    public String getReceiverPhoneNumber() {
-        return receiverPhoneNumber;
-    }
-
-    public void setReceiverPhoneNumber(String receiverPhoneNumber) {
-        this.receiverPhoneNumber = receiverPhoneNumber;
-    }
-
-    public String getReceiverProfilePhotoUrl() {
-        return receiverProfilePhotoUrl;
-    }
-
-    public void setReceiverProfilePhotoUrl(String receiverProfilePhotoUrl) {
-        this.receiverProfilePhotoUrl = receiverProfilePhotoUrl;
+    public void setToUserId(String toUserId) {
+        this.toUserId = toUserId;
     }
 
     public String getStatus() {
@@ -113,30 +62,6 @@ public class LocationRequest implements Parcelable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getApprovedAt() {
-        return approvedAt;
-    }
-
-    public void setApprovedAt(Date approvedAt) {
-        this.approvedAt = approvedAt;
-    }
-
-    public Date getExpiresAt() {
-        return expiresAt;
-    }
-
-    public void setExpiresAt(Date expiresAt) {
-        this.expiresAt = expiresAt;
     }
 
     public double getLatitude() {
@@ -163,42 +88,56 @@ public class LocationRequest implements Parcelable {
         this.areaName = areaName;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public long getApprovedTimestamp() {
+        return approvedTimestamp;
+    }
+
+    public void setApprovedTimestamp(long approvedTimestamp) {
+        this.approvedTimestamp = approvedTimestamp;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    // Parcelable implementation
     protected LocationRequest(Parcel in) {
         requestId = in.readString();
-        senderId = in.readString();
-        senderName = in.readString();
-        receiverId = in.readString();
-        receiverName = in.readString();
-        receiverPhoneNumber = in.readString();
-        receiverProfilePhotoUrl = in.readString();
+        fromUserId = in.readString();
+        toUserId = in.readString();
         status = in.readString();
-        long tmpCreatedAt = in.readLong();
-        createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
-        long tmpApprovedAt = in.readLong();
-        approvedAt = tmpApprovedAt == -1 ? null : new Date(tmpApprovedAt);
-        long tmpExpiresAt = in.readLong();
-        expiresAt = tmpExpiresAt == -1 ? null : new Date(tmpExpiresAt);
         latitude = in.readDouble();
         longitude = in.readDouble();
         areaName = in.readString();
+        timestamp = in.readLong();
+        approvedTimestamp = in.readLong();
+        userName = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(requestId);
-        dest.writeString(senderId);
-        dest.writeString(senderName);
-        dest.writeString(receiverId);
-        dest.writeString(receiverName);
-        dest.writeString(receiverPhoneNumber);
-        dest.writeString(receiverProfilePhotoUrl);
+        dest.writeString(fromUserId);
+        dest.writeString(toUserId);
         dest.writeString(status);
-        dest.writeLong(createdAt != null ? createdAt.getTime() : -1L);
-        dest.writeLong(approvedAt != null ? approvedAt.getTime() : -1L);
-        dest.writeLong(expiresAt != null ? expiresAt.getTime() : -1L);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         dest.writeString(areaName);
+        dest.writeLong(timestamp);
+        dest.writeLong(approvedTimestamp);
+        dest.writeString(userName);
     }
 
     @Override
