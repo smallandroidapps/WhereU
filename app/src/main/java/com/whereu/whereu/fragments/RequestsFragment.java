@@ -28,10 +28,17 @@ import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.whereu.whereu.R;
 import com.wheru.adapters.RequestAdapter;
 import com.whereu.whereu.models.LocationRequest;
@@ -135,6 +142,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
                     if (task.isSuccessful()) {
                         frequentlyRequestedList.clear();
                         List<Task<User>> userFetchTasks = new ArrayList<>();
+                        Map<String, LocationRequest> uniqueUserRequests = new HashMap<>();
 
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             LocationRequest request = document.toObject(LocationRequest.class);
@@ -142,6 +150,14 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
 
                             String otherUserId = request.getFromUserId().equals(currentUser.getUid()) ? request.getToUserId() : request.getFromUserId();
 
+                            // Only add the most recent request for each user
+                            if (!uniqueUserRequests.containsKey(otherUserId) || uniqueUserRequests.get(otherUserId).getApprovedTimestamp() < request.getApprovedTimestamp()) {
+                                uniqueUserRequests.put(otherUserId, request);
+                            }
+                        }
+
+                        for (LocationRequest request : uniqueUserRequests.values()) {
+                            String otherUserId = request.getFromUserId().equals(currentUser.getUid()) ? request.getToUserId() : request.getFromUserId();
                             Task<User> userTask = db.collection("users").document(otherUserId).get().continueWith(userTaskSnapshot -> {
                                 if (userTaskSnapshot.isSuccessful()) {
                                     return userTaskSnapshot.getResult().toObject(User.class);
@@ -234,7 +250,15 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
             if (location != null) {
                 updateRequestWithLocation(request, location);
             } else {
-                Toast.makeText(getContext(), "Could not get location", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Could not get location. Please enable location services.", Toast.LENGTH_SHORT).show();
+                // Request location again if first attempt fails
+                fusedLocationClient.getLastLocation().addOnSuccessListener(location2 -> {
+                    if (location2 != null) {
+                        updateRequestWithLocation(request, location2);
+                    } else {
+                        Toast.makeText(getContext(), "Still could not get location. Please check your settings.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
@@ -263,6 +287,16 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
                         notificationListener.onSendLocalNotification("Location Request " + status.substring(0, 1).toUpperCase() + status.substring(1), message);
                     }
                     fetchRequests();
+                // Send notification to request sender
+                db.collection("users").document(request.getFromUserId()).get()
+                    .addOnSuccessListener(senderDoc -> {
+                        if (senderDoc.exists()) {
+                            String senderToken = senderDoc.getString("fcmToken");
+                            if (senderToken != null && !senderToken.isEmpty()) {
+                                // Removed sendNotificationToSender(senderToken, request.getUserName());
+                            }
+                        }
+                    });
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Error updating request", Toast.LENGTH_SHORT).show());
     }
@@ -283,6 +317,33 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
                         notificationListener.onSendLocalNotification("Location Shared", "Your location has been shared with " + request.getUserName() + ".");
                     }
                     fetchRequests();
+
+                    // Update frequent requests for the current user
+                    if (currentUser != null) {
+                        DocumentReference frequentRequestRef = db.collection("users")
+                                .document(currentUser.getUid())
+                                .collection("frequent_requests")
+                                .document(request.getToUserId());
+
+                        db.runTransaction((Transaction.Function<Void>) transaction -> {
+                            DocumentSnapshot snapshot = transaction.get(frequentRequestRef);
+                            if (snapshot.exists()) {
+                                // Increment requestCount and update lastRequested
+                                long requestCount = snapshot.getLong("requestCount") != null ? snapshot.getLong("requestCount") : 0;
+                                transaction.update(frequentRequestRef, "requestCount", requestCount + 1);
+                                transaction.update(frequentRequestRef, "lastRequested", System.currentTimeMillis());
+                            } else {
+                                // Create new frequent request record
+                                Map<String, Object> frequentRequestData = new HashMap<>();
+                                frequentRequestData.put("receiverId", request.getToUserId());
+                                frequentRequestData.put("requestCount", 1);
+                                frequentRequestData.put("lastRequested", System.currentTimeMillis());
+                                transaction.set(frequentRequestRef, frequentRequestData);
+                            }
+                            return null;
+                        }).addOnSuccessListener(aVoid1 -> Log.d(TAG, "Frequent request updated successfully!"))
+                                .addOnFailureListener(e -> Log.e(TAG, "Error updating frequent request", e));
+                    }
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Error sharing location", Toast.LENGTH_SHORT).show());
     }
@@ -316,11 +377,27 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
     @Override
     public void onRequestAgainClicked(LocationRequest request) {
         if (currentUser == null) return;
+
+        // Create a new request document in Requests
         LocationRequest newRequest = new LocationRequest(currentUser.getUid(), request.getToUserId().equals(currentUser.getUid()) ? request.getFromUserId() : request.getToUserId());
         db.collection("locationRequests").add(newRequest)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(getContext(), "Location request sent again!", Toast.LENGTH_SHORT).show();
                     fetchRequests();
+
+                    // Update the timestamp in frequent_requests
+                    DocumentReference frequentRequestRef = db.collection("users")
+                            .document(currentUser.getUid())
+                            .collection("frequent_requests")
+                            .document(newRequest.getToUserId());
+
+                    frequentRequestRef.update("lastRequested", System.currentTimeMillis())
+                            .addOnSuccessListener(aVoid -> Log.d(TAG, "Frequent request lastRequested updated successfully!"))
+                            .addOnFailureListener(e -> Log.e(TAG, "Error updating frequent request lastRequested", e));
+
+                    // Trigger FCM push notification to the receiver (approval flow already exists)
+                    // This is handled by the existing Cloud Function 'sendNotificationOnRequestApproval'
+
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(), "Failed to send request.", Toast.LENGTH_SHORT).show();

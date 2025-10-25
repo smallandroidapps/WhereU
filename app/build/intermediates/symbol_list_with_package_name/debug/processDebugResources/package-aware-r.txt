@@ -3491,11 +3491,13 @@ drawable ic_call_answer_video
 drawable ic_call_answer_video_low
 drawable ic_call_decline
 drawable ic_call_decline_low
+drawable ic_check
 drawable ic_check_circle
 drawable ic_clear
 drawable ic_clear_black_24
 drawable ic_clear_black_24dp
 drawable ic_clock_black_24dp
+drawable ic_close
 drawable ic_contacts
 drawable ic_edit
 drawable ic_filter
@@ -3795,7 +3797,6 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
-id btnEditProfile
 id buttonPanel
 id buttonPhoneSignIn
 id button_approve
@@ -3890,6 +3891,7 @@ id disablePostScroll
 id disableScroll
 id disjoint
 id display_name
+id distanceTextView
 id dot1
 id dot2
 id dot3
@@ -3909,7 +3911,6 @@ id east
 id edge
 id editTextMobile
 id editText_search
-id edit_profile_layout
 id edit_query
 id edit_text_display_name
 id edit_text_email
@@ -3918,6 +3919,7 @@ id edit_text_phone_number
 id edit_text_verification_code
 id elastic
 id embed
+id emptyStateTextView
 id end
 id endToStart
 id enterAlways
@@ -3946,6 +3948,7 @@ id floating
 id forever
 id fragment_container
 id fragment_container_view_tag
+id frequentlyRequestedRecyclerView
 id frequently_requested_card_view
 id frequently_requested_recycler_view
 id frequently_requested_title
@@ -3990,6 +3993,7 @@ id immediateStop
 id included
 id indeterminate
 id info
+id infoChip
 id invisible
 id inward
 id is_pooling_container_tag
@@ -3998,6 +4002,7 @@ id item_touch_helper_previous_elevation
 id jumpToEnd
 id jumpToStart
 id labeled
+id lastRequestedTextView
 id layout
 id layout_buttons
 id left
@@ -4079,6 +4084,7 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
+id nameTextView
 id nav_controller_view_tag
 id nav_graph
 id nav_host_fragment_container
@@ -4148,6 +4154,7 @@ id postLayout
 id preferenceDivider
 id pressed
 id profileActivity
+id profileImageView
 id profile_image
 id progress_circular
 id progress_horizontal
@@ -4162,6 +4169,7 @@ id recycler_view_requests
 id recycler_view_trusted_contacts
 id reject_button
 id report_drawn
+id requestAgainButton
 id request_actions_layout
 id request_again_button
 id request_button
@@ -4179,9 +4187,9 @@ id rounded
 id row_index_key
 id rtl
 id satellite
-id save_button
 id save_non_transition_alpha
 id save_overlay_view
+id save_profile_button
 id sawtooth
 id scale
 id screen
@@ -4326,6 +4334,7 @@ id toolbar
 id top
 id topPanel
 id top_bar
+id top_section_layout
 id touch_outside
 id transitionToEnd
 id transitionToStart
@@ -4347,8 +4356,8 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id userName
 id user_email
-id user_name
 id vertical
 id vertical_only
 id view_details_button
@@ -4519,12 +4528,14 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fastscroll__default_bubble
+layout fragment_frequently_requested
 layout fragment_location_details
 layout fragment_profile
 layout fragment_requests
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_frequent_contact
+layout item_frequent_request
 layout item_frequently_requested_location
 layout item_past_notification
 layout item_recent_contact
@@ -4839,6 +4850,7 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string profile_image_description
 string profile_title
 string project_id
 string requests_title
@@ -4862,7 +4874,6 @@ style Animation_Material3_SideSheetDialog
 style Animation_Material3_SideSheetDialog_Left
 style Animation_Material3_SideSheetDialog_Right
 style Animation_MaterialComponents_BottomSheetDialog
-style AppTheme
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog

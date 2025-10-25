@@ -43,15 +43,10 @@
     <string name="google_app_id" translatable="false">1:529310840497:android:00cfe53435fcffc50f5490</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBqJxYVFFiiOV1mRr19P6_BGiALS3I_VaU</string>
     <string name="google_storage_bucket" translatable="false">whereu-ccbef.firebasestorage.app</string>
+    <string name="profile_image_description">Profile image</string>
     <string name="profile_title">Profile</string>
     <string name="project_id" translatable="false">whereu-ccbef</string>
     <string name="requests_title">Requests</string>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
-    </style>
     <style name="BottomNavigationView.ActiveTabTextStyle" parent="Widget.Design.NavigationView">
         <item name="android:textStyle">bold</item>
     </style>

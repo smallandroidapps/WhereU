@@ -68,12 +68,7 @@ public class ProfileFragment extends Fragment {
 
         loadUserProfile();
 
-        binding.saveButton.setOnClickListener(v -> saveMobileNumber());
-
-        binding.cardEditProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), ProfileSettingsActivity.class);
-            startActivity(intent);
-        });
+        binding.saveProfileButton.setOnClickListener(v -> saveProfile());
 
         binding.cardTrustedContacts.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), TrustedContactsActivity.class);
@@ -110,6 +105,13 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
             requireActivity().finish();
         });
+
+        binding.cardEditProfile.setOnClickListener(v -> {
+            binding.userName.setEnabled(true);
+            binding.editTextMobile.setEnabled(true);
+            binding.saveProfileButton.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), "You can now edit your profile.", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void loadUserProfile() {
@@ -126,6 +128,19 @@ public class ProfileFragment extends Fragment {
                             binding.userName.setText(user.getDisplayName());
                             binding.userEmail.setText(user.getEmail());
                             binding.editTextMobile.setText(user.getMobileNumber() != null ? user.getMobileNumber() : "");
+
+                            // Check if displayName or mobileNumber is blank/null
+                            if (user.getDisplayName() == null || user.getDisplayName().trim().isEmpty() ||
+                                user.getMobileNumber() == null || user.getMobileNumber().trim().isEmpty()) {
+                                Toast.makeText(getContext(), "Please update your display name and mobile number.", Toast.LENGTH_LONG).show();
+                                binding.userName.setEnabled(true);
+                                binding.editTextMobile.setEnabled(true);
+                                binding.saveProfileButton.setVisibility(View.VISIBLE);
+                            } else {
+                                binding.userName.setEnabled(false);
+                                binding.editTextMobile.setEnabled(false);
+                                binding.saveProfileButton.setVisibility(View.GONE);
+                            }
                         }
                     } else {
                         Map<String, Object> newUserProfile = new HashMap<>();
@@ -150,17 +165,34 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
-    private void saveMobileNumber() {
+    private void saveProfile() {
+        String displayName = binding.userName.getText().toString().trim();
         String mobileNumber = binding.editTextMobile.getText().toString().trim();
-        if (isValidMobileNumber(mobileNumber)) {
-            if (currentUser != null) {
-                db.collection("users").document(currentUser.getUid())
-                        .update("mobileNumber", mobileNumber)
-                        .addOnSuccessListener(aVoid -> Toast.makeText(getContext(), "Mobile number updated.", Toast.LENGTH_SHORT).show())
-                        .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update mobile number.", Toast.LENGTH_SHORT).show());
-            }
-        } else {
+
+        if (displayName.isEmpty()) {
+            binding.userName.setError("Display name cannot be empty.");
+            return;
+        }
+
+        if (!isValidMobileNumber(mobileNumber)) {
             binding.editTextMobile.setError("Invalid mobile number. Must be a 10-digit Indian number.");
+            return;
+        }
+
+        if (currentUser != null) {
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("displayName", displayName);
+            updates.put("mobileNumber", mobileNumber);
+
+            db.collection("users").document(currentUser.getUid())
+                    .update(updates)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(getContext(), "Profile updated successfully.", Toast.LENGTH_SHORT).show();
+                        binding.userName.setEnabled(false);
+                        binding.editTextMobile.setEnabled(false);
+                        binding.saveProfileButton.setVisibility(View.GONE);
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update profile.", Toast.LENGTH_SHORT).show());
         }
     }
 

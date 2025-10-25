@@ -1,5 +1,6 @@
 package com.whereu.whereu.activities;
 
+import android.animation.ObjectAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,14 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.displayName.setText(result.getDisplayName());
 
         if (result.isExistingUser()) {
+            // Check if request status has changed
+            if (result.getPreviousRequestStatus() != null && !result.getRequestStatus().equals(result.getPreviousRequestStatus())) {
+                // Apply subtle animation
+                ObjectAnimator animator = ObjectAnimator.ofFloat(holder.actionButton, "alpha", 0f, 1f);
+                animator.setDuration(500); // 500ms duration
+                animator.start();
+            }
+
             switch (result.getRequestStatus()) {
                 case "pending":
                     holder.actionButton.setText("Request Sent");
@@ -101,6 +110,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         private String profilePhotoUrl;
         private String requestStatus;
         private String requestId;
+        private String previousRequestStatus; // Added field
 
         public SearchResult(String displayName, String userId, String phoneNumber, String email, boolean isExistingUser, boolean isCurrentUserEmail, String profilePhotoUrl, String requestStatus) {
             this.displayName = displayName;
@@ -111,6 +121,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             this.isCurrentUserEmail = isCurrentUserEmail;
             this.profilePhotoUrl = profilePhotoUrl;
             this.requestStatus = requestStatus;
+            this.previousRequestStatus = requestStatus; // Initialize previous status
         }
 
         protected SearchResult(Parcel in) {
@@ -123,6 +134,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             profilePhotoUrl = in.readString();
             requestStatus = in.readString();
             requestId = in.readString();
+            previousRequestStatus = in.readString(); // Read from parcel
         }
 
         public static final Creator<SearchResult> CREATOR = new Creator<SearchResult>() {
@@ -185,7 +197,14 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             return requestStatus;
         }
 
+        public String getPreviousRequestStatus() {
+            return previousRequestStatus;
+        }
+
         public void setRequestStatus(String requestStatus) {
+            if (this.requestStatus != null) {
+                this.previousRequestStatus = this.requestStatus;
+            }
             this.requestStatus = requestStatus;
         }
 
@@ -213,6 +232,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             dest.writeString(profilePhotoUrl);
             dest.writeString(requestStatus);
             dest.writeString(requestId);
+            dest.writeString(previousRequestStatus); // Write to parcel
         }
     }
 }
