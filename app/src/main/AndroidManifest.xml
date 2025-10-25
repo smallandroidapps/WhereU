@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
@@ -42,6 +44,14 @@
         <activity android:name="com.whereu.whereu.activities.TrustedContactsActivity" />
         <activity android:name="com.whereu.whereu.activities.AddTrustedContactActivity" />
         <activity android:name="com.whereu.whereu.activities.TrustedContactDetailsActivity" />
+
+        <service
+            android:name=".activities.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="com.google.android.gms.version"

@@ -1,6 +1,9 @@
 package com.whereu.whereu.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.AlphaAnimation;
@@ -15,6 +18,8 @@ import androidx.cardview.widget.CardView;
 import com.whereu.whereu.R;
 import android.view.View;
 
+import com.whereu.whereu.utils.NotificationHelper;
+
 public class SplashActivity extends AppCompatActivity {
 
     private static final int SPLASH_DISPLAY_LENGTH = 3000; // 3 seconds
@@ -23,6 +28,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        // Register Notification Channel
+        NotificationHelper.createNotificationChannel(this);
 
         // Animate the logo
         CardView logo = findViewById(R.id.logo_container);

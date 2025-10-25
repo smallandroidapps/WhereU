@@ -128,7 +128,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
     private void createNewUser(FirebaseUser firebaseUser, String phoneNumber) {
         String userId = firebaseUser.getUid();
-        User user = new User(userId, "", "", phoneNumber, "", "phone", new Date());
+        User user = new User(userId, "", "", phoneNumber, "", "phone", new Date(), new Date());
         db.collection("users").document(userId).set(user)
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "User created successfully"))
                 .addOnFailureListener(e -> Log.w(TAG, "Error creating user", e));

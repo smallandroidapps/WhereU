@@ -2,32 +2,36 @@ package com.whereu.whereu.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import android.util.Log;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.whereu.whereu.R;
-import com.whereu.whereu.activities.HomeActivity;
+import com.whereu.whereu.activities.ProfileSettingsActivity;
 import com.whereu.whereu.activities.SignInActivity;
+import com.whereu.whereu.activities.TrustedContactsActivity;
 import com.whereu.whereu.databinding.FragmentProfileBinding;
 import com.wheru.models.User;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 public class ProfileFragment extends Fragment {
 
@@ -49,6 +53,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+        binding.linearLayoutProfileContent.startAnimation(fadeInAnimation);
+
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -63,10 +70,41 @@ public class ProfileFragment extends Fragment {
 
         binding.saveButton.setOnClickListener(v -> saveMobileNumber());
 
+        binding.cardEditProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ProfileSettingsActivity.class);
+            startActivity(intent);
+        });
+
+        binding.cardTrustedContacts.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), TrustedContactsActivity.class);
+            startActivity(intent);
+        });
+
+        binding.switchHideLocation.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                Toast.makeText(getContext(), "Location hidden", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Location visible", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.switchAutoApprove.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                Toast.makeText(getContext(), "Auto-approve enabled", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Auto-approve disabled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.expiry_time_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerLocationExpiry.setAdapter(adapter);
+
         binding.cardLogout.setOnClickListener(v -> {
             mAuth.signOut();
-            mGoogleSignInClient.signOut().addOnCompleteListener(requireActivity(), task -> Log.d("ProfileFragment", "Google Sign Out successful"));
-            mGoogleSignInClient.revokeAccess().addOnCompleteListener(requireActivity(), task -> Log.d("ProfileFragment", "Google access revoked"));
+            mGoogleSignInClient.signOut().addOnCompleteListener(requireActivity(), task -> Log.d(TAG, "Google Sign Out successful"));
+            mGoogleSignInClient.revokeAccess().addOnCompleteListener(requireActivity(), task -> Log.d(TAG, "Google access revoked"));
             Intent intent = new Intent(getContext(), SignInActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -84,15 +122,12 @@ public class ProfileFragment extends Fragment {
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         User user = documentSnapshot.toObject(User.class);
-                        if (user != null) {
+                        if (user != null && binding != null) {
                             binding.userName.setText(user.getDisplayName());
                             binding.userEmail.setText(user.getEmail());
-                            if (user.getMobileNumber() != null && !user.getMobileNumber().isEmpty()) {
-                                binding.mobileNumberEditText.setText(user.getMobileNumber());
-                            }
+                            binding.editTextMobile.setText(user.getMobileNumber() != null ? user.getMobileNumber() : "");
                         }
                     } else {
-                        // Profile not found, create a new one
                         Map<String, Object> newUserProfile = new HashMap<>();
                         newUserProfile.put("displayName", currentUser.getDisplayName() != null ? currentUser.getDisplayName() : "");
                         newUserProfile.put("email", currentUser.getEmail() != null ? currentUser.getEmail() : "");
@@ -116,32 +151,28 @@ public class ProfileFragment extends Fragment {
     }
 
     private void saveMobileNumber() {
-        String mobileNumber = binding.mobileNumberEditText.getText().toString().trim();
+        String mobileNumber = binding.editTextMobile.getText().toString().trim();
         if (isValidMobileNumber(mobileNumber)) {
             if (currentUser != null) {
                 db.collection("users").document(currentUser.getUid())
                         .update("mobileNumber", mobileNumber)
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(getContext(), "Mobile number updated.", Toast.LENGTH_SHORT).show();
-                            // Redirect to HomeActivity
-                            Intent intent = new Intent(getActivity(), HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            if (getActivity() != null) {
-                                getActivity().finish();
-                            }
-                        })
+                        .addOnSuccessListener(aVoid -> Toast.makeText(getContext(), "Mobile number updated.", Toast.LENGTH_SHORT).show())
                         .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update mobile number.", Toast.LENGTH_SHORT).show());
             }
         } else {
-            binding.mobileNumberEditText.setError("Invalid mobile number. Must be a 10-digit Indian number.");
+            binding.editTextMobile.setError("Invalid mobile number. Must be a 10-digit Indian number.");
         }
     }
 
     private boolean isValidMobileNumber(String mobile) {
         if (mobile == null) return false;
-        // Regex for a 10-digit Indian mobile number
         String regex = "^[6-9]\\d{9}$";
         return Pattern.matches(regex, mobile);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
