@@ -65,23 +65,32 @@ public class TrustedContactsActivity extends AppCompatActivity implements Truste
     private void loadTrustedContacts() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
+            Log.d(TAG, "Current user is not null: " + currentUser.getUid());
             db.collection("users").document(currentUser.getUid())
                     .collection("trustedContacts")
                     .addSnapshotListener((value, error) -> {
                         if (error != null) {
-                            Log.w(TAG, "Listen failed.", error);
+                            Log.e(TAG, "Listen failed.", error);
                             return;
                         }
 
+                        if (value == null) {
+                            Log.d(TAG, "Snapshot value is null.");
+                            return;
+                        }
+
+                        Log.d(TAG, "Snapshot value received. Number of documents: " + value.size());
                         trustedContactList.clear();
-                        if (value != null) {
-                            for (DocumentSnapshot doc : value.getDocuments()) {
-                                TrustedContact contact = doc.toObject(TrustedContact.class);
-                                if (contact != null) {
-                                    trustedContactList.add(contact);
-                                }
+                        for (DocumentSnapshot doc : value.getDocuments()) {
+                            TrustedContact contact = doc.toObject(TrustedContact.class);
+                            if (contact != null) {
+                                trustedContactList.add(contact);
+                                Log.d(TAG, "Added trusted contact: " + contact.getDisplayName());
+                            } else {
+                                Log.w(TAG, "Failed to convert document to TrustedContact: " + doc.getId());
                             }
                         }
+                        Log.d(TAG, "Trusted contacts loaded: " + trustedContactList.size());
                         adapter.notifyDataSetChanged();
                     });
         } else {

@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-62:12
-INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-62:12
-INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-62:12
-INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-62:12
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-73:12
+INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-73:12
+INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-73:12
+INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:2:1-73:12
 MERGED from [androidx.databinding:databinding-adapters:8.5.2] /Users/admin/.gradle/caches/transforms-4/f4210c794f21f724af7b83a54caf81a7/transformed/databinding-adapters-8.5.2/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.databinding:databinding-ktx:8.5.2] /Users/admin/.gradle/caches/transforms-4/151757cc7ec8997ac5507db72d9df2f0/transformed/jetified-databinding-ktx-8.5.2/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.databinding:databinding-runtime:8.5.2] /Users/admin/.gradle/caches/transforms-4/6874a61fc2bd5e062876c89acfbdde3f/transformed/databinding-runtime-8.5.2/AndroidManifest.xml:2:1-7:12
@@ -179,8 +179,8 @@ ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/Locat
 	android:name
 		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:13:19-60
 application
-ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:15:5-60:19
-INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:15:5-60:19
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:15:5-71:19
+INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:15:5-71:19
 MERGED from [com.google.android.material:material:1.12.0] /Users/admin/.gradle/caches/transforms-4/237344ffcafdc0d9748a936ffd6ff689/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /Users/admin/.gradle/caches/transforms-4/237344ffcafdc0d9748a936ffd6ff689/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] /Users/admin/.gradle/caches/transforms-4/7f117d9d9165a595a5ec9873005f52cb/transformed/constraintlayout-2.2.0/AndroidManifest.xml:7:5-20
@@ -333,26 +333,48 @@ activity#com.whereu.whereu.activities.TrustedContactDetailsActivity
 ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:46:9-95
 	android:name
 		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:46:19-92
+meta-data#com.google.android.geo.API_KEY
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:48:9-50:44
+	android:value
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:50:13-41
+	android:name
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:49:13-58
 service#com.whereu.whereu.activities.MyFirebaseMessagingService
-ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:48:9-54:19
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:52:9-58:19
 	android:exported
-		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:50:13-37
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:54:13-37
 	android:name
-		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:49:13-66
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:53:13-66
 intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
-ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:51:13-53:29
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:55:13-57:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:52:17-78
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:56:17-78
 	android:name
-		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:52:25-75
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:56:25-75
 meta-data#com.google.android.gms.version
-ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:56:9-58:69
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:60:9-62:69
 MERGED from [com.google.android.gms:play-services-basement:18.8.0] /Users/admin/.gradle/caches/transforms-4/6d6a96173bf6f3ac53d838f737cdf887/transformed/jetified-play-services-basement-18.8.0/AndroidManifest.xml:21:9-23:69
 MERGED from [com.google.android.gms:play-services-basement:18.8.0] /Users/admin/.gradle/caches/transforms-4/6d6a96173bf6f3ac53d838f737cdf887/transformed/jetified-play-services-basement-18.8.0/AndroidManifest.xml:21:9-23:69
 	android:value
-		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:58:13-66
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:62:13-66
 	android:name
-		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:57:13-58
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:61:13-58
+receiver#com.whereu.whereu.activities.NotificationActionReceiver
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:64:9-69:20
+	android:exported
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:64:73-97
+	android:name
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:64:19-72
+intent-filter#action:name:com.whereu.whereu.APPROVE+action:name:com.whereu.whereu.REJECT
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:65:13-68:29
+action#com.whereu.whereu.APPROVE
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:66:17-68
+	android:name
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:66:25-65
+action#com.whereu.whereu.REJECT
+ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:67:17-67
+	android:name
+		ADDED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml:67:25-64
 uses-sdk
 INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/admin/Documents/Ganesh/work/fileOrganizer/KeepSafe/newAI/LocationApp/app/src/main/AndroidManifest.xml

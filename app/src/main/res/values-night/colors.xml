@@ -3,5 +3,23 @@
     <color name="text_color">#FFFFFF</color>
     <color name="card_background_color">#1E1E1E</color>
     <color name="stroke_color">#333333</color>
-    <color name="hint_color">#AAAAAA</color>    <color name="light_gray">#333333</color>
+    <color name="hint_color">#AAAAAA</color>
+    <color name="light_gray">#333333</color>
+
+    <!-- Added for Dark Mode consistency -->
+    <color name="purple_accent">#BB86FC</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="colorPrimary">#BB86FC</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FFFFFF</color>
+    <color name="white">#000000</color>
+    <color name="blue_500">#90CAF9</color>
+    <color name="status_pending">#FFD54F</color>
+    <color name="status_approved">#81C784</color>
+    <color name="status_rejected">#E57373</color>
+    <color name="status_default">#BDBDBD</color>
+    <color name="red_500">#E57373</color>
 </resources>

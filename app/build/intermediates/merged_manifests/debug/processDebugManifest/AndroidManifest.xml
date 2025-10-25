@@ -79,6 +79,10 @@
         <activity android:name="com.whereu.whereu.activities.AddTrustedContactActivity" />
         <activity android:name="com.whereu.whereu.activities.TrustedContactDetailsActivity" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_API_KEY" />
+
         <service
             android:name="com.whereu.whereu.activities.MyFirebaseMessagingService"
             android:exported="false" >
@@ -90,6 +94,15 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <receiver
+            android:name="com.whereu.whereu.activities.NotificationActionReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.whereu.whereu.APPROVE" />
+                <action android:name="com.whereu.whereu.REJECT" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name="com.google.firebase.auth.internal.GenericIdpActivity"

@@ -47,6 +47,8 @@ dependencies {
     implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
     implementation("com.google.firebase:firebase-firestore:25.0.0")
+    // implementation("com.google.firebase:firebase-admin:9.1.1")
+    // implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
     implementation("com.google.firebase:firebase-messaging:24.0.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("com.google.android.gms:play-services-auth:21.1.1")
@@ -63,6 +65,9 @@ dependencies {
 
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation("org.mockito:mockito-inline:3.12.4")
+    testImplementation("org.robolectric:robolectric:4.12.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     androidTestImplementation("org.mockito:mockito-android:3.12.4")

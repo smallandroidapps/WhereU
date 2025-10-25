@@ -26,9 +26,6 @@ public final class ActivityProfileBinding implements ViewBinding {
   public final SwitchMaterial autoApproveSwitch;
 
   @NonNull
-  public final LinearLayout editProfileLayout;
-
-  @NonNull
   public final Spinner expiryTimeSpinner;
 
   @NonNull
@@ -44,13 +41,11 @@ public final class ActivityProfileBinding implements ViewBinding {
   public final LinearLayout trustedContactsLayout;
 
   private ActivityProfileBinding(@NonNull LinearLayout rootView,
-      @NonNull SwitchMaterial autoApproveSwitch, @NonNull LinearLayout editProfileLayout,
-      @NonNull Spinner expiryTimeSpinner, @NonNull SwitchMaterial hideLocationSwitch,
-      @NonNull Button logoutButton, @NonNull MaterialToolbar toolbar,
-      @NonNull LinearLayout trustedContactsLayout) {
+      @NonNull SwitchMaterial autoApproveSwitch, @NonNull Spinner expiryTimeSpinner,
+      @NonNull SwitchMaterial hideLocationSwitch, @NonNull Button logoutButton,
+      @NonNull MaterialToolbar toolbar, @NonNull LinearLayout trustedContactsLayout) {
     this.rootView = rootView;
     this.autoApproveSwitch = autoApproveSwitch;
-    this.editProfileLayout = editProfileLayout;
     this.expiryTimeSpinner = expiryTimeSpinner;
     this.hideLocationSwitch = hideLocationSwitch;
     this.logoutButton = logoutButton;
@@ -91,12 +86,6 @@ public final class ActivityProfileBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.edit_profile_layout;
-      LinearLayout editProfileLayout = ViewBindings.findChildViewById(rootView, id);
-      if (editProfileLayout == null) {
-        break missingId;
-      }
-
       id = R.id.expiry_time_spinner;
       Spinner expiryTimeSpinner = ViewBindings.findChildViewById(rootView, id);
       if (expiryTimeSpinner == null) {
@@ -128,8 +117,7 @@ public final class ActivityProfileBinding implements ViewBinding {
       }
 
       return new ActivityProfileBinding((LinearLayout) rootView, autoApproveSwitch,
-          editProfileLayout, expiryTimeSpinner, hideLocationSwitch, logoutButton, toolbar,
-          trustedContactsLayout);
+          expiryTimeSpinner, hideLocationSwitch, logoutButton, toolbar, trustedContactsLayout);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

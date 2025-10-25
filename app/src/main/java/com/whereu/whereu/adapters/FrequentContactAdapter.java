@@ -59,6 +59,12 @@ public class FrequentContactAdapter extends RecyclerView.Adapter<FrequentContact
         return frequentContacts.size();
     }
 
+    public void updateData(List<SearchResultAdapter.SearchResult> newFrequentContacts) {
+        this.frequentContacts.clear();
+        this.frequentContacts.addAll(newFrequentContacts);
+        notifyDataSetChanged();
+    }
+
     static class FrequentContactViewHolder extends RecyclerView.ViewHolder {
         CircleImageView contactAvatar;
         TextView contactName;

@@ -14,6 +14,7 @@ public class LocationRequest implements Parcelable {
     private long timestamp;
     private long approvedTimestamp;
     private String userName;
+    private double distance;
 
     public LocationRequest() {
         // Default constructor required for calls to DataSnapshot.getValue(LocationRequest.class)
@@ -29,6 +30,7 @@ public class LocationRequest implements Parcelable {
         this.latitude = 0;
         this.longitude = 0;
         this.areaName = "";
+        this.distance = 0.0;
     }
 
     // Getters and Setters
@@ -112,6 +114,14 @@ public class LocationRequest implements Parcelable {
         this.userName = userName;
     }
 
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
     // Parcelable implementation
     protected LocationRequest(Parcel in) {
         requestId = in.readString();
@@ -124,6 +134,7 @@ public class LocationRequest implements Parcelable {
         timestamp = in.readLong();
         approvedTimestamp = in.readLong();
         userName = in.readString();
+        distance = in.readDouble();
     }
 
     @Override
@@ -138,6 +149,7 @@ public class LocationRequest implements Parcelable {
         dest.writeLong(timestamp);
         dest.writeLong(approvedTimestamp);
         dest.writeString(userName);
+        dest.writeDouble(distance);
     }
 
     @Override

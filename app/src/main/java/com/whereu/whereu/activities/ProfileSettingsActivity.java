@@ -115,7 +115,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                                 switchHideLocation.setChecked(hideLocation);
                             }
                             if (accountType != null) {
-                                // Set account type if needed
+                                this.accountType = accountType;
                             }
                         }
                     })
@@ -136,6 +136,12 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         String phoneNumber = editTextPhoneNumber.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         boolean hideLocation = switchHideLocation.isChecked();
+
+        if (accountType == null) {
+            loadUserProfile();
+            Toast.makeText(this, "Profile data not fully loaded, please try again.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Validate mobile number
         if (phoneNumber.isEmpty()) {
