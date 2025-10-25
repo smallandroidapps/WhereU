@@ -60,14 +60,14 @@ public class LocationDetailsBottomSheet extends BottomSheetDialogFragment {
         Button close = view.findViewById(R.id.button_close);
 
         if (locationRequest != null) {
-            name.setText(locationRequest.getReceiverId()); // In a real app, you would fetch the user's name from the ID
+            name.setText(locationRequest.getUserName()); // In a real app, you would fetch the user's name from the ID
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a, MMM dd, yyyy", Locale.getDefault());
-            sharedAt.setText("Shared At: " + sdf.format(locationRequest.getApprovedAt()));
+            sharedAt.setText("Shared At: " + sdf.format(locationRequest.getApprovedTimestamp()));
             areaName.setText("Area Name: " + locationRequest.getAreaName());
             coordinates.setText("Coordinates: " + locationRequest.getLatitude() + ", " + locationRequest.getLongitude());
             status.setText("Status: " + locationRequest.getStatus());
 
-            long timeRemaining = locationRequest.getExpiresAt().getTime() - System.currentTimeMillis();
+            long timeRemaining = locationRequest.getApprovedTimestamp() + (24 * 60 * 60 * 1000) - System.currentTimeMillis();
             long hours = timeRemaining / (1000 * 60 * 60);
             expiresIn.setText("Expires In: " + hours + "h left");
 

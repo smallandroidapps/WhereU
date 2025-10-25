@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<incidents format="6" by="lint 8.5.2" type="partial_results">
-    <map id="UnusedResources">
-        <entry
-            name="model"
-            string="id[search_bar(R),search_results_recycler_view(R),button_send_verification_code(R),edit_text_verification_code(R),button_verify_phone_number(R),edit_text_display_name(R),button_save_profile(R),sign_in_button(R),button_phone_sign_in(R),user_name(R),user_email(R),recycler_view_requests(R)];;;;"/>
-    </map>
-
-</incidents>

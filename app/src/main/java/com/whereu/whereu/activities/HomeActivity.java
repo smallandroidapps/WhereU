@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,8 +25,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.Tasks;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,18 +36,14 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.whereu.whereu.R;
 import com.whereu.whereu.adapters.FrequentContactAdapter;
-import com.whereu.whereu.activities.SearchResultAdapter;
 import com.whereu.whereu.databinding.ActivityHomeBinding;
 import com.whereu.whereu.fragments.LocationDetailsBottomSheetFragment;
 import com.whereu.whereu.fragments.ProfileFragment;
 import com.whereu.whereu.fragments.RequestsFragment;
-import com.whereu.whereu.activities.Contact;
 import com.whereu.whereu.models.LocationRequest;
 import com.wheru.models.User;
-import com.whereu.whereu.utils.FirebaseUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +53,6 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private static final String TAG = "HomeActivity";
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
-    private ActivityHomeBinding binding;
     private Group homeContentGroup;
     private TextView titleHome;
     private EditText searchBar;
@@ -66,16 +60,12 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private SearchResultAdapter searchResultAdapter;
     private List<SearchResultAdapter.SearchResult> searchResultsList;
 
-    private List<Contact> suggestedContacts;
     private List<SearchResultAdapter.SearchResult> frequentContacts;
     private RecyclerView frequentlyRequestedRecyclerView;
     private FrequentContactAdapter frequentContactAdapter;
     private TextView frequentlyRequestedTitle;
-    private Switch toggleMyContactsOnly;
-    private boolean showMyContactsOnly = false;
 
     private FirebaseFirestore db;
-    private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private Map<String, String> requestStatusMap = new HashMap<>();
     private Map<String, String> requestIdMap = new HashMap<>();
@@ -83,15 +73,15 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        ActivityHomeBinding binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-    }
+        }
 
         db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
         homeContentGroup = binding.homeContentGroup;
@@ -136,8 +126,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home) {
                 showHomeContent();
-
-        fetchFrequentlyRequestedContacts();
+                fetchFrequentlyRequestedContacts();
                 return true;
             } else if (itemId == R.id.navigation_requests) {
                 showRequestsFragment();
@@ -150,12 +139,27 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         });
 
         showHomeContent();
+        checkIfMobileNumberExists();
     }
+
+    private void checkIfMobileNumberExists() {
+        if (currentUser != null) {
+            db.collection("users").document(currentUser.getUid()).get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    String mobileNumber = documentSnapshot.getString("mobileNumber");
+                    if (mobileNumber == null || mobileNumber.isEmpty()) {
+                        showProfileFragment();
+                    }
+                }
+            });
+        }
+    }
+
 
     private void setupLocationRequestSnapshotListener() {
         if (currentUser == null) return;
         db.collection("locationRequests")
-                .whereEqualTo("senderId", currentUser.getUid())
+                .whereEqualTo("fromUserId", currentUser.getUid())
                 .addSnapshotListener((snapshots, e) -> {
                     if (e != null) {
                         Log.w(TAG, "Listen failed.", e);
@@ -164,8 +168,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
                     for (QueryDocumentSnapshot doc : snapshots) {
                         LocationRequest request = doc.toObject(LocationRequest.class);
-                        requestStatusMap.put(request.getReceiverId(), request.getStatus());
-                        requestIdMap.put(request.getReceiverId(), doc.getId());
+                        requestStatusMap.put(request.getToUserId(), request.getStatus());
+                        requestIdMap.put(request.getToUserId(), doc.getId());
                     }
                     updateSearchResultsRequestStatus();
                 });
@@ -231,26 +235,30 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 Map<String, SearchResultAdapter.SearchResult> combinedResults = new HashMap<>();
 
                 for (SearchResultAdapter.SearchResult deviceContact : deviceContacts) {
-                    String last10 = getLast10Digits(deviceContact.getPhoneNumber());
-                    if (!last10.isEmpty()) {
-                        combinedResults.put(last10, deviceContact);
+                    if (deviceContact.getPhoneNumber() != null) {
+                        String last10 = getLast10Digits(deviceContact.getPhoneNumber());
+                        if (!last10.isEmpty()) {
+                            combinedResults.put(last10, deviceContact);
+                        }
                     }
                 }
 
                 for (SearchResultAdapter.SearchResult firestoreContact : firestoreResults) {
-                    String last10 = getLast10Digits(firestoreContact.getPhoneNumber());
-                    if (last10.isEmpty()) continue;
+                    if (firestoreContact.getPhoneNumber() != null) {
+                        String last10 = getLast10Digits(firestoreContact.getPhoneNumber());
+                        if (last10.isEmpty()) continue;
 
-                    if (combinedResults.containsKey(last10)) {
-                        SearchResultAdapter.SearchResult existingContact = combinedResults.get(last10);
-                        if (firestoreContact.getDisplayName() != null && !firestoreContact.getDisplayName().isEmpty()) {
-                            existingContact.setDisplayName(firestoreContact.getDisplayName());
+                        if (combinedResults.containsKey(last10)) {
+                            SearchResultAdapter.SearchResult existingContact = combinedResults.get(last10);
+                            if (firestoreContact.getDisplayName() != null && !firestoreContact.getDisplayName().isEmpty()) {
+                                existingContact.setDisplayName(firestoreContact.getDisplayName());
+                            }
+                            existingContact.setExistingUser(true);
+                            existingContact.setProfilePhotoUrl(firestoreContact.getProfilePhotoUrl());
+                            existingContact.setUserId(firestoreContact.getUserId());
+                        } else {
+                            combinedResults.put(last10, firestoreContact);
                         }
-                        existingContact.setExistingUser(true);
-                        existingContact.setProfilePhotoUrl(firestoreContact.getProfilePhotoUrl());
-                        existingContact.setUserId(firestoreContact.getUserId());
-                    } else {
-                        combinedResults.put(last10, firestoreContact);
                     }
                 }
 
@@ -281,13 +289,13 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String displayName = document.getString("displayName");
-                    String phoneNumber = document.getString("phoneNumber");
-                    if (phoneNumber == null || phoneNumber.isEmpty()) continue;
+                    String mobileNumber = document.getString("mobileNumber");
+                    if (mobileNumber == null || mobileNumber.isEmpty()) continue;
 
-                    String normalizedFirestorePhoneNumber = normalizePhoneNumber(phoneNumber);
+                    String normalizedFirestorePhoneNumber = normalizePhoneNumber(mobileNumber);
 
                     if ((displayName != null && displayName.toLowerCase().contains(finalQuery.toLowerCase())) || normalizedFirestorePhoneNumber.contains(normalizedQuery)) {
-                        firestoreResults.add(new SearchResultAdapter.SearchResult(displayName, document.getId(), phoneNumber, document.getString("email"), true, false, document.getString("profilePhotoUrl"), "not_requested"));
+                        firestoreResults.add(new SearchResultAdapter.SearchResult(displayName, document.getId(), mobileNumber, document.getString("email"), true, false, document.getString("profilePhotoUrl"), "not_requested"));
                     }
                 }
             }
@@ -373,7 +381,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     private void sendLocationRequest(SearchResultAdapter.SearchResult result, Integer position) {
         Log.d(TAG, "sendLocationRequest: currentUser.getUid() = " + currentUser.getUid() + ", result.getUserId() = " + result.getUserId());
-        LocationRequest newRequest = new LocationRequest(currentUser.getUid(), result.getUserId(), result.getPhoneNumber(), result.getProfilePhotoUrl());
+        LocationRequest newRequest = new LocationRequest(currentUser.getUid(), result.getUserId());
         db.collection("locationRequests").add(newRequest)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(HomeActivity.this, "Location request sent.", Toast.LENGTH_SHORT).show();
@@ -393,9 +401,9 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         if (currentUser == null) return;
 
         db.collection("locationRequests")
-                .whereEqualTo("senderId", currentUser.getUid())
+                .whereEqualTo("fromUserId", currentUser.getUid())
                 .whereEqualTo("status", "approved")
-                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .limit(5)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -403,7 +411,9 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                         List<String> frequentReceiverIds = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             LocationRequest request = document.toObject(LocationRequest.class);
-                            frequentReceiverIds.add(request.getReceiverId());
+                            if (System.currentTimeMillis() - request.getApprovedTimestamp() <= 24 * 60 * 60 * 1000) {
+                                frequentReceiverIds.add(request.getToUserId());
+                            }
                         }
                         fetchFrequentContactDetails(frequentReceiverIds);
                     } else {
@@ -420,14 +430,14 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         }
 
         db.collection("users")
-                .whereIn("uid", userIds)
+                .whereIn("userId", userIds)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         frequentContacts.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             User user = document.toObject(User.class);
-                            frequentContacts.add(new SearchResultAdapter.SearchResult(user.getDisplayName(), user.getUserId(), user.getPhoneNumber(), user.getEmail(), true, false, user.getProfilePhotoUrl(), requestStatusMap.getOrDefault(user.getUserId(), "not_requested")));
+                            frequentContacts.add(new SearchResultAdapter.SearchResult(user.getDisplayName(), user.getUserId(), user.getMobileNumber(), user.getEmail(), true, false, user.getProfilePhotoUrl(), requestStatusMap.getOrDefault(user.getUserId(), "not_requested")));
                         }
                         frequentContactAdapter.notifyDataSetChanged();
                         frequentlyRequestedTitle.setVisibility(View.VISIBLE);
@@ -511,7 +521,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     SearchResultAdapter.SearchResult result = new SearchResultAdapter.SearchResult(
                             user.getDisplayName(),
                             user.getUserId(),
-                            user.getPhoneNumber(),
+                            user.getMobileNumber(),
                             user.getEmail(),
                             true,
                             false,

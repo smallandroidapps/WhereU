@@ -2266,6 +2266,10 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color status_approved
+color status_default
+color status_pending
+color status_rejected
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -3185,6 +3189,8 @@ drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
 drawable ccp_ic_arrow_drop_down
+drawable chip_background_approved
+drawable chip_background_expired
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -3923,6 +3929,7 @@ id floating
 id forever
 id fragment_container
 id fragment_container_view_tag
+id frequently_requested_card_view
 id frequently_requested_recycler_view
 id frequently_requested_title
 id frost
@@ -3958,6 +3965,7 @@ id image
 id imageView_arrow
 id image_flag
 id image_profile_picture
+id image_view_avatar
 id image_view_status_icon
 id img_clear_query
 id img_dismiss
@@ -4022,6 +4030,7 @@ id matrix
 id message
 id middle
 id mini
+id mobile_number_edit_text
 id month_grid
 id month_navigation_bar
 id month_navigation_fragment_toggle
@@ -4131,11 +4140,13 @@ id receiverTextView
 id recent_contacts_recycler_view
 id rectangles
 id recycler_countryDialog
+id recycler_view_frequently_requested
 id recycler_view_requests
 id recycler_view_trusted_contacts
 id reject_button
 id report_drawn
 id request_actions_layout
+id request_again_button
 id request_button
 id request_location_button
 id request_status_text
@@ -4151,6 +4162,7 @@ id rounded
 id row_index_key
 id rtl
 id satellite
+id save_button
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
@@ -4216,7 +4228,6 @@ id startVertical
 id staticLayout
 id staticPostLayout
 id status_icon
-id status_text_view
 id stop
 id stretch
 id submenuarrow
@@ -4267,9 +4278,17 @@ id text_name
 id text_shared_at
 id text_shared_by
 id text_status
+id text_view_all_requests_title
+id text_view_area_name
+id text_view_coordinates
 id text_view_display_name
+id text_view_distance
+id text_view_frequently_requested_title
 id text_view_phone_number
 id text_view_status
+id text_view_status_chip
+id text_view_timestamp
+id text_view_user_name
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -4489,6 +4508,7 @@ layout fragment_requests
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_frequent_contact
+layout item_frequently_requested_location
 layout item_past_notification
 layout item_recent_contact
 layout item_request
@@ -4636,6 +4656,7 @@ string androidx_credentials_TYPE_PUBLIC_KEY_CREDENTIAL
 string androidx_startup
 string app_name
 string appbar_scrolling_view_behavior
+string avatar_description
 string bottom_sheet_behavior
 string bottomsheet_action_collapse
 string bottomsheet_action_expand

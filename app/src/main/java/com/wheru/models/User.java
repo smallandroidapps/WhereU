@@ -6,7 +6,7 @@ public class User {
     private String userId;
     private String displayName;
     private String email;
-    private String phoneNumber;
+    private String mobileNumber;
     private String profilePhotoUrl;
     private String accountType;
     private Date registeredAt;
@@ -15,11 +15,11 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String userId, String displayName, String email, String phoneNumber, String profilePhotoUrl, String accountType, Date registeredAt) {
+    public User(String userId, String displayName, String email, String mobileNumber, String profilePhotoUrl, String accountType, Date registeredAt) {
         this.userId = userId;
         this.displayName = displayName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.mobileNumber = mobileNumber;
         this.profilePhotoUrl = profilePhotoUrl;
         this.accountType = accountType;
         this.registeredAt = registeredAt;
@@ -49,12 +49,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getProfilePhotoUrl() {

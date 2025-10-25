@@ -32,7 +32,7 @@ public class LocationDetailsActivity extends AppCompatActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_details);
 
-        locationRequest = (LocationRequest) getIntent().getSerializableExtra("locationRequest");
+        locationRequest = (LocationRequest) getIntent().getParcelableExtra("locationRequest");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -65,11 +65,11 @@ public class LocationDetailsActivity extends AppCompatActivity implements OnMapR
         TextView distance = findViewById(R.id.text_distance);
 
         // In a real app, you would fetch the user's name from the ID
-        sharedBy.setText("Shared by: " + locationRequest.getReceiverId());
+        sharedBy.setText("Shared by: " + locationRequest.getUserName());
 
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
-        if (locationRequest.getApprovedAt() != null) {
-            sharedAt.setText("Shared at: " + sdf.format(locationRequest.getApprovedAt()));
+        if (locationRequest.getApprovedTimestamp() != 0) {
+            sharedAt.setText("Shared at: " + sdf.format(locationRequest.getApprovedTimestamp()));
         }
 
         areaName.setText("Approx. Area: " + locationRequest.getAreaName());
@@ -81,7 +81,7 @@ public class LocationDetailsActivity extends AppCompatActivity implements OnMapR
 
     private void requestAgain() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("locationRequests").add(new LocationRequest(locationRequest.getSenderId(), locationRequest.getReceiverId(), locationRequest.getReceiverPhoneNumber(), locationRequest.getReceiverProfilePhotoUrl()));
+        db.collection("locationRequests").add(new LocationRequest(locationRequest.getFromUserId(), locationRequest.getToUserId()));
         Toast.makeText(this, "Location request sent again.", Toast.LENGTH_SHORT).show();
         finish();
     }

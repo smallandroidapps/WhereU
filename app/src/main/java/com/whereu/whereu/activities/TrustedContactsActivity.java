@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.whereu.whereu.R;
 import com.whereu.whereu.adapters.TrustedContactAdapter;
+import com.whereu.whereu.models.LocationRequest;
 import com.whereu.whereu.models.TrustedContact;
 
 import java.util.ArrayList;
@@ -95,13 +96,7 @@ public class TrustedContactsActivity extends AppCompatActivity implements Truste
             case "Request":
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 if (currentUser != null) {
-                    String senderId = currentUser.getUid();
-                    String senderName = currentUser.getDisplayName(); // Assuming display name is available
-                    String receiverId = contact.getUid(); // Assuming contactId is the trusted user's ID
-                    String receiverName = contact.getDisplayName();
-
-                    com.whereu.whereu.models.LocationRequest newRequest = new com.whereu.whereu.models.LocationRequest(
-                            senderId, senderName, receiverId, receiverName, contact.getPhoneNumber(), contact.getProfilePhotoUrl(), System.currentTimeMillis(), "pending", 0.0, 0.0, "");
+                    LocationRequest newRequest = new LocationRequest(currentUser.getUid(), contact.getUid());
 
                     db.collection("locationRequests").add(newRequest)
                             .addOnSuccessListener(documentReference -> {

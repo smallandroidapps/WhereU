@@ -6,11 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".fragments.RequestsFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_requests"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        android:clipToPadding="false"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_view_frequently_requested_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Frequently Requested"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:visibility="gone" /> <!-- Initially hidden -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_frequently_requested"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:clipToPadding="false"
+            android:visibility="gone" /> <!-- Initially hidden -->
+
+        <TextView
+            android:id="@+id/text_view_all_requests_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="All Requests"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:padding="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_requests"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:clipToPadding="false"/>
+
+    </LinearLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

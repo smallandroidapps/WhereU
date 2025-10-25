@@ -1,5 +1,6 @@
 package com.whereu.whereu.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -35,6 +36,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private Button buttonSaveProfile;
     private Switch switchHideLocation;
+    private boolean forceMobileUpdate = false;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -45,6 +47,16 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
+
+        if (getIntent().hasExtra("force_mobile_update")) {
+            forceMobileUpdate = getIntent().getBooleanExtra("force_mobile_update", false);
+            if (forceMobileUpdate) {
+                Toast.makeText(this, "Please update your mobile number to proceed.", Toast.LENGTH_LONG).show();
+                // Optionally disable back button or other navigation if needed
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                setFinishOnTouchOutside(false);
+            }
+        }
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -57,48 +69,60 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         buttonSaveProfile = findViewById(R.id.button_save_profile);
         switchHideLocation = findViewById(R.id.switch_hide_location);
 
-        loadUserProfile();
-
         buttonSaveProfile.setOnClickListener(v -> saveUserProfile());
+
+        if (forceMobileUpdate) {
+            Toast.makeText(this, "Please update your mobile number to proceed.", Toast.LENGTH_LONG).show();
+        }
+
+        loadUserProfile();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (forceMobileUpdate) {
+            // Prevent going back if mobile number update is mandatory
+            Toast.makeText(this, "Please update your mobile number before proceeding.", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void loadUserProfile() {
-        if (currentUser == null) {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            FirebaseFirestore.getInstance().collection("users").document(userId)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String name = documentSnapshot.getString("name");
+                            String email = documentSnapshot.getString("email");
+                            String mobileNumber = documentSnapshot.getString("mobileNumber");
+                            Boolean hideLocation = documentSnapshot.getBoolean("hideLocation");
+                            String accountType = documentSnapshot.getString("accountType");
 
-        String userId = currentUser.getUid();
-        db.collection("users").document(userId).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        accountType = documentSnapshot.getString("accountType");
-                        editTextDisplayName.setText(documentSnapshot.getString("displayName"));
-                        editTextPhoneNumber.setText(documentSnapshot.getString("phoneNumber"));
-                        editTextEmail.setText(documentSnapshot.getString("email"));
-
-                        if (accountType != null) {
-                            if ("google".equals(accountType)) {
-                                editTextEmail.setEnabled(false);
-                            } else if ("phone".equals(accountType)) {
-                                editTextPhoneNumber.setEnabled(false);
+                            if (name != null) {
+                                editTextDisplayName.setText(name);
+                            }
+                            if (email != null) {
+                                editTextEmail.setText(email);
+                            }
+                            if (mobileNumber != null) {
+                                editTextPhoneNumber.setText(mobileNumber);
+                            }
+                            if (hideLocation != null) {
+                                switchHideLocation.setChecked(hideLocation);
+                            }
+                            if (accountType != null) {
+                                // Set account type if needed
                             }
                         }
-
-                        String profilePhotoUrl = documentSnapshot.getString("profilePhotoUrl");
-                        if (profilePhotoUrl != null && !profilePhotoUrl.isEmpty()) {
-                            Glide.with(this).load(profilePhotoUrl).into(imageViewProfilePicture);
-                        }
-
-                        Boolean hideLocation = documentSnapshot.getBoolean("hideLocation");
-                        if (hideLocation != null) {
-                            switchHideLocation.setChecked(hideLocation);
-                        }
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(ProfileSettingsActivity.this, "Error loading profile", Toast.LENGTH_SHORT).show();
-                });
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(ProfileSettingsActivity.this, "Failed to load profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+        }
     }
 
     private void saveUserProfile() {
@@ -113,6 +137,19 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         String email = editTextEmail.getText().toString().trim();
         boolean hideLocation = switchHideLocation.isChecked();
 
+        // Validate mobile number
+        if (phoneNumber.isEmpty()) {
+            editTextPhoneNumber.setError("Mobile number cannot be empty");
+            editTextPhoneNumber.requestFocus();
+            return;
+        }
+
+        if (!phoneNumber.matches("^[6-9]\\d{9}$")) {
+            editTextPhoneNumber.setError("Invalid Indian mobile number (10 digits, starts with 6-9)");
+            editTextPhoneNumber.requestFocus();
+            return;
+        }
+
         db.collection("users").document(userId).get().addOnSuccessListener(documentSnapshot -> {
             if (!documentSnapshot.exists()) {
                 Toast.makeText(ProfileSettingsActivity.this, "User profile not found.", Toast.LENGTH_SHORT).show();
@@ -122,7 +159,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
             String originalPhone = documentSnapshot.getString("phoneNumber");
 
             if (accountType.equals("google") && !phoneNumber.equals(originalPhone)) {
-                db.collection("users").whereEqualTo("phoneNumber", phoneNumber).get().addOnCompleteListener(task -> {
+                db.collection("users").whereEqualTo("mobileNumber", phoneNumber).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful() && !task.getResult().isEmpty()) {
                         DocumentSnapshot existingUserDoc = task.getResult().getDocuments().get(0);
                         String existingAccountType = existingUserDoc.getString("accountType");
@@ -148,15 +185,21 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         Map<String, Object> userUpdates = new HashMap<>();
         userUpdates.put("displayName", displayName);
         userUpdates.put("hideLocation", hideLocation);
-        if (accountType.equals("google")) {
-            userUpdates.put("phoneNumber", phoneNumber);
-        } else { // phone account
+        userUpdates.put("mobileNumber", phoneNumber); // Always update mobile number
+
+        if (accountType.equals("phone")) { // Only update email for phone accounts
             userUpdates.put("email", email);
         }
 
         db.collection("users").document(userId).update(userUpdates)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(ProfileSettingsActivity.this, "Profile updated successfully.", Toast.LENGTH_SHORT).show();
+                    if (forceMobileUpdate) {
+                        // If forced update, go to HomeActivity after successful save
+                        Intent homeIntent = new Intent(ProfileSettingsActivity.this, HomeActivity.class);
+                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(homeIntent);
+                    }
                     finish();
                 })
                 .addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show());

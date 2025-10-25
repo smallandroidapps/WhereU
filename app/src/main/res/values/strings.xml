@@ -3,6 +3,7 @@
     <string name="profile_title">Profile</string>
     <string name="requests_title">Requests</string>
     <string name="default_web_client_id">YOUR_WEB_CLIENT_ID</string>
+    <string name="avatar_description">User avatar</string>
     <string-array name="expiry_time_options">
         <item>1 Hour</item>
         <item>6 Hours</item>
