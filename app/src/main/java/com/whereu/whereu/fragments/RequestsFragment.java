@@ -1,6 +1,7 @@
 package com.whereu.whereu.fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -44,6 +45,22 @@ import java.util.Locale;
 import java.util.Map;
 
 public class RequestsFragment extends Fragment implements RequestAdapter.OnRequestActionListener {
+
+    public interface NotificationListener {
+        void onSendLocalNotification(String title, String message);
+    }
+
+    private NotificationListener notificationListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof NotificationListener) {
+            notificationListener = (NotificationListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement NotificationListener");
+        }
+    }
 
     private static final String TAG = "RequestsFragment";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -239,6 +256,12 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
         requestRef.update(updates)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getContext(), "Request " + status, Toast.LENGTH_SHORT).show();
+                    if (notificationListener != null && request.getUserName() != null) {
+                        String message = status.equals("approved") ?
+                                "Your location is now visible to " + request.getUserName() + "." :
+                                "You have rejected the location request from " + request.getUserName() + ".";
+                        notificationListener.onSendLocalNotification("Location Request " + status.substring(0, 1).toUpperCase() + status.substring(1), message);
+                    }
                     fetchRequests();
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Error updating request", Toast.LENGTH_SHORT).show());
@@ -256,6 +279,9 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
         requestRef.update(updates)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getContext(), "Location shared successfully!", Toast.LENGTH_SHORT).show();
+                    if (notificationListener != null && request.getUserName() != null) {
+                        notificationListener.onSendLocalNotification("Location Shared", "Your location has been shared with " + request.getUserName() + ".");
+                    }
                     fetchRequests();
                 })
                 .addOnFailureListener(e -> Toast.makeText(getContext(), "Error sharing location", Toast.LENGTH_SHORT).show());

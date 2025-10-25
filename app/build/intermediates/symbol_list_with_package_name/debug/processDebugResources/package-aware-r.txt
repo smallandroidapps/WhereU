@@ -27,6 +27,7 @@ anim design_bottom_sheet_slide_in
 anim design_bottom_sheet_slide_out
 anim design_snackbar_in
 anim design_snackbar_out
+anim fade_in
 anim fragment_fast_out_extra_slow_in
 anim linear_indeterminate_line1_head_interpolator
 anim linear_indeterminate_line1_tail_interpolator
@@ -88,6 +89,7 @@ animator nav_default_exit_anim
 animator nav_default_pop_enter_anim
 animator nav_default_pop_exit_anim
 array expiry_time_options
+array location_share_expiry_options
 attr SharedValue
 attr SharedValueId
 attr action
@@ -1505,6 +1507,7 @@ color accent_material_dark
 color accent_material_light
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
+color background_color
 color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
@@ -1526,6 +1529,7 @@ color button_material_dark
 color button_material_light
 color call_notification_answer_color
 color call_notification_decline_color
+color card_background_color
 color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
@@ -1592,6 +1596,8 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color hint_color
+color light_gray
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
 color m3_assist_chip_stroke_color
@@ -2260,6 +2266,8 @@ color primary_text_disabled_material_light
 color purple_200
 color purple_500
 color purple_700
+color purple_accent
+color red_500
 color ripple_material_dark
 color ripple_material_light
 color secondary_text_default_material_dark
@@ -2270,6 +2278,7 @@ color status_approved
 color status_default
 color status_pending
 color status_rejected
+color stroke_color
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -2279,6 +2288,7 @@ color switch_thumb_normal_material_light
 color teal_200
 color teal_700
 color test
+color text_color
 color tooltip_background_dark
 color tooltip_background_light
 color white
@@ -3469,8 +3479,10 @@ drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable gradient_blue
 drawable ic_arrow_back_black_24
+drawable ic_arrow_down
 drawable ic_arrow_forward
 drawable ic_arrow_right
+drawable ic_auto_approve
 drawable ic_backspace_black_24dp
 drawable ic_bell
 drawable ic_call_answer
@@ -3480,15 +3492,16 @@ drawable ic_call_answer_video_low
 drawable ic_call_decline
 drawable ic_call_decline_low
 drawable ic_check_circle
+drawable ic_clear
 drawable ic_clear_black_24
 drawable ic_clear_black_24dp
 drawable ic_clock_black_24dp
 drawable ic_contacts
 drawable ic_edit
 drawable ic_filter
+drawable ic_hide_location
 drawable ic_home
 drawable ic_keyboard_black_24dp
-drawable ic_location_off
 drawable ic_location_pin
 drawable ic_logout
 drawable ic_m3_chip_check
@@ -3498,6 +3511,7 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_notification
 drawable ic_other_sign_in
 drawable ic_passkey
 drawable ic_password
@@ -3590,6 +3604,7 @@ drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable rounded_search_bar
 drawable rounded_status_background
+drawable spinner_background
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3780,6 +3795,7 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
+id btnEditProfile
 id buttonPanel
 id buttonPhoneSignIn
 id button_approve
@@ -3891,6 +3907,7 @@ id easeInOut
 id easeOut
 id east
 id edge
+id editTextMobile
 id editText_search
 id edit_profile_layout
 id edit_query
@@ -3990,6 +4007,7 @@ id light
 id line1
 id line3
 id linear
+id linearLayout_profile_content
 id linear_flag_border
 id linear_flag_holder
 id listMode
@@ -4030,7 +4048,6 @@ id matrix
 id message
 id middle
 id mini
-id mobile_number_edit_text
 id month_grid
 id month_navigation_bar
 id month_navigation_fragment_toggle
@@ -4845,6 +4862,7 @@ style Animation_Material3_SideSheetDialog
 style Animation_Material3_SideSheetDialog_Left
 style Animation_Material3_SideSheetDialog_Right
 style Animation_MaterialComponents_BottomSheetDialog
+style AppTheme
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog
@@ -5121,6 +5139,7 @@ style Base_Widget_MaterialComponents_Snackbar
 style Base_Widget_MaterialComponents_TextInputEditText
 style Base_Widget_MaterialComponents_TextInputLayout
 style Base_Widget_MaterialComponents_TextView
+style BottomNavigationView_ActiveTabTextStyle
 style CardView
 style CardView_Dark
 style CardView_Light
@@ -5238,6 +5257,8 @@ style ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day
 style ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Window_Fullscreen
 style ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Year
 style ShapeAppearanceOverlay_MaterialComponents_TextInputLayout_FilledBox
+style TextAppearance_App_BottomNavigationView_Active
+style TextAppearance_App_BottomNavigationView_Inactive
 style TextAppearance_AppCompat
 style TextAppearance_AppCompat_Body1
 style TextAppearance_AppCompat_Body2
@@ -5583,6 +5604,7 @@ style ThemeOverlay_MaterialComponents_Toolbar_Primary
 style ThemeOverlay_MaterialComponents_Toolbar_Surface
 style WhiteBackgroundDialogTheme
 style WhiteBackgroundTheme
+style Widget_App_BottomNavigationView
 style Widget_AppCompat_ActionBar
 style Widget_AppCompat_ActionBar_Solid
 style Widget_AppCompat_ActionBar_TabBar

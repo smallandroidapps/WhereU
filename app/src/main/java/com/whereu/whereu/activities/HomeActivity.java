@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
@@ -48,7 +49,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeActivity extends AppCompatActivity implements SearchResultAdapter.OnItemClickListener, FrequentContactAdapter.OnFrequentContactClickListener, LocationDetailsBottomSheetFragment.OnLocationDetailActionListener {
+import com.whereu.whereu.utils.NotificationHelper;
+
+public class HomeActivity extends AppCompatActivity implements SearchResultAdapter.OnItemClickListener, FrequentContactAdapter.OnFrequentContactClickListener, LocationDetailsBottomSheetFragment.OnLocationDetailActionListener, RequestsFragment.NotificationListener {
 
     private static final String TAG = "HomeActivity";
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
@@ -69,6 +72,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private FirebaseUser currentUser;
     private Map<String, String> requestStatusMap = new HashMap<>();
     private Map<String, String> requestIdMap = new HashMap<>();
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,15 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 101);
         }
+
+        // Request POST_NOTIFICATIONS permission for Android 13+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 102);
+            }
+        }
+
+        NotificationHelper.createNotificationChannel(this);
 
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -121,7 +134,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             public void afterTextChanged(Editable s) { }
         });
 
-        BottomNavigationView bottomNavigationView = binding.bottomNavigationBar;
+        bottomNavigationView = binding.bottomNavigationBar;
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home) {
@@ -138,7 +151,12 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             return false;
         });
 
-        showHomeContent();
+        if (getIntent().hasExtra("open_fragment") && "requests".equals(getIntent().getStringExtra("open_fragment"))) {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_requests);
+        } else {
+            showHomeContent();
+        }
+
         checkIfMobileNumberExists();
     }
 
@@ -148,7 +166,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 if (documentSnapshot.exists()) {
                     String mobileNumber = documentSnapshot.getString("mobileNumber");
                     if (mobileNumber == null || mobileNumber.isEmpty()) {
-                        showProfileFragment();
+                        bottomNavigationView.setSelectedItemId(R.id.navigation_profile);
                     }
                 }
             });
@@ -532,5 +550,10 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 }
             }
         });
+    }
+
+    @Override
+    public void onSendLocalNotification(String title, String message) {
+        NotificationHelper.sendLocalNotification(this, title, message);
     }
 }

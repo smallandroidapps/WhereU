@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.WherU" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/purple_accent</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
@@ -10,8 +10,23 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#4B2EFF</item>
         <!-- Customize your theme here. -->
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.App.BottomNavigationView.Active</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.App.BottomNavigationView.Inactive</item>
+    </style>
+
+    <style name="TextAppearance.App.BottomNavigationView.Active" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.BottomNavigationView.Inactive" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="Theme.WherU.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">

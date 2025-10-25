@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.whereu.whereu.R;
 import com.whereu.whereu.models.TrustedContact;
+import com.whereu.whereu.utils.NotificationHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +71,7 @@ public class AddTrustedContactActivity extends AppCompatActivity {
                     .set(newContact)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(AddTrustedContactActivity.this, "Trusted contact added", Toast.LENGTH_SHORT).show();
+                        NotificationHelper.sendLocalNotification(AddTrustedContactActivity.this, "New Trusted Contact", displayName + " has been added to your trusted contacts.");
                         finish(); // Close the activity after saving
                     })
                     .addOnFailureListener(e -> {

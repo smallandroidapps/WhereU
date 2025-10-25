@@ -7,19 +7,33 @@
         <item>24 Hours</item>
         <item>Never</item>
     </string-array>
+    <string-array name="location_share_expiry_options">
+        <item>1 Hour</item>
+        <item>6 Hours</item>
+        <item>12 Hours</item>
+        <item>24 Hours</item>
+        <item>Always</item>
+    </string-array>
+    <color name="background_color">@android:color/white</color>
     <color name="black">#FF000000</color>
     <color name="blue_500">#2196F3</color>
-    <color name="bottom_nav_item_color">#2196F3</color>
+    <color name="card_background_color">@android:color/white</color>
     <color name="colorPrimary">#6200EE</color>
+    <color name="hint_color">#808080</color>
+    <color name="light_gray">#E0E0E0</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
+    <color name="purple_accent">#673AB7</color>
+    <color name="red_500">#F44336</color>
     <color name="status_approved">#4CAF50</color>
     <color name="status_default">#9E9E9E</color>
     <color name="status_pending">#FFC107</color>
     <color name="status_rejected">#F44336</color>
+    <color name="stroke_color">#E0E0E0</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="text_color">@android:color/black</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">WherU</string>
     <string name="avatar_description">User avatar</string>
@@ -32,9 +46,24 @@
     <string name="profile_title">Profile</string>
     <string name="project_id" translatable="false">whereu-ccbef</string>
     <string name="requests_title">Requests</string>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorAccent">@color/teal_200</item>
+    </style>
+    <style name="BottomNavigationView.ActiveTabTextStyle" parent="Widget.Design.NavigationView">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextAppearance.App.BottomNavigationView.Active" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextAppearance.App.BottomNavigationView.Inactive" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textStyle">normal</item>
+    </style>
     <style name="Theme.WherU" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/purple_accent</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
         
@@ -42,12 +71,18 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         
-        <item name="android:statusBarColor" ns1:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" ns1:targetApi="l">#4B2EFF</item>
         
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
     <style name="Theme.WherU.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor" ns1:targetApi="l">@android:color/transparent</item>
+    </style>
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.App.BottomNavigationView.Active</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.App.BottomNavigationView.Inactive</item>
     </style>
 </resources>

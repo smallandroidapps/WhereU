@@ -21,6 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FieldValue;
+import java.util.Map;
+import java.util.HashMap;
 import com.whereu.whereu.R;
 import com.whereu.whereu.databinding.ActivitySignInBinding;
 import com.wheru.models.User;
@@ -131,14 +134,39 @@ public class SignInActivity extends AppCompatActivity {
         String userId = firebaseUser.getUid();
         String displayName = firebaseUser.getDisplayName();
         String email = firebaseUser.getEmail();
-        String phoneNumber = firebaseUser.getPhoneNumber();
+        String phoneNumber = ""; // Initialize as empty string to prevent overwriting
         String profilePhotoUrl = firebaseUser.getPhotoUrl() != null ? firebaseUser.getPhotoUrl().toString() : "";
 
-        User user = new User(userId, displayName, email, phoneNumber, profilePhotoUrl, "google", new Date());
+        db.collection("users").document(userId).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    String existingMobileNumber = "";
+                    if (documentSnapshot.exists()) {
+                        User existingUser = documentSnapshot.toObject(User.class);
+                        if (existingUser != null && existingUser.getMobileNumber() != null) {
+                            existingMobileNumber = existingUser.getMobileNumber();
+                        }
+                    }
 
-        db.collection("users").document(userId).set(user)
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "User created successfully"))
-                .addOnFailureListener(e -> Log.w(TAG, "Error creating user", e));
+                    // Use the existing mobile number if available, otherwise use the one from FirebaseUser (which might be null)
+                    String finalPhoneNumber = existingMobileNumber.isEmpty() ? (firebaseUser.getPhoneNumber() != null ? firebaseUser.getPhoneNumber() : "") : existingMobileNumber;
+
+                    User user = new User(userId, displayName, email, finalPhoneNumber, profilePhotoUrl, "google", new Date(), null);
+
+                    Map<String, Object> userMap = new HashMap<>();
+                    userMap.put("userId", user.getUserId());
+                    userMap.put("displayName", user.getDisplayName());
+                    userMap.put("email", user.getEmail());
+                    userMap.put("mobileNumber", user.getMobileNumber());
+                    userMap.put("profilePhotoUrl", user.getProfilePhotoUrl());
+                    userMap.put("accountType", user.getAccountType());
+                    userMap.put("registeredAt", user.getRegisteredAt());
+                    userMap.put("lastUpdated", FieldValue.serverTimestamp());
+
+                    db.collection("users").document(userId).set(userMap)
+                            .addOnSuccessListener(aVoid -> Log.d(TAG, "User created/updated successfully"))
+                            .addOnFailureListener(e -> Log.w(TAG, "Error creating/updating user", e));
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error checking for existing user", e));
     }
 
     private void updateUI(FirebaseUser user) {
