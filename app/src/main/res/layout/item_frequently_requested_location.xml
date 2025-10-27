@@ -52,7 +52,6 @@
             android:id="@+id/text_view_status_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/chip_background_approved"
             android:paddingStart="8dp"
             android:paddingTop="4dp"
             android:paddingEnd="8dp"
@@ -62,8 +61,7 @@
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <!-- Location Details Section -->
         <TextView
@@ -111,10 +109,24 @@
             android:backgroundTint="@color/blue_500"
             android:textColor="@android:color/white"
             app:cornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_distance"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/button_view_from_db"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="View from DB"
+            android:backgroundTint="@color/grey_500"
+            android:textColor="@android:color/white"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_request_again"
             android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

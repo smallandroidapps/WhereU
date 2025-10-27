@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +18,6 @@ import androidx.viewbinding.ViewBindings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.whereu.whereu.R;
-import de.hdodenhof.circleimageview.CircleImageView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -38,16 +36,7 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final FrameLayout fragmentContainer;
 
   @NonNull
-  public final RecyclerView frequentlyRequestedRecyclerView;
-
-  @NonNull
-  public final TextView frequentlyRequestedTitle;
-
-  @NonNull
   public final Group homeContentGroup;
-
-  @NonNull
-  public final CircleImageView profileImage;
 
   @NonNull
   public final RecyclerView recentContactsRecyclerView;
@@ -71,30 +60,29 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final TextView titleHome;
 
   @NonNull
-  public final Switch toggleMyContactsOnly;
+  public final ConstraintLayout topBar;
 
   @NonNull
-  public final ConstraintLayout topBar;
+  public final TextView welcomeSubtitle;
+
+  @NonNull
+  public final TextView welcomeTitle;
 
   private ActivityHomeBinding(@NonNull ConstraintLayout rootView,
       @NonNull BottomNavigationView bottomNavigationBar,
       @NonNull FloatingActionButton fabRequestLocation, @NonNull FrameLayout fragmentContainer,
-      @NonNull RecyclerView frequentlyRequestedRecyclerView,
-      @NonNull TextView frequentlyRequestedTitle, @NonNull Group homeContentGroup,
-      @NonNull CircleImageView profileImage, @NonNull RecyclerView recentContactsRecyclerView,
+      @NonNull Group homeContentGroup, @NonNull RecyclerView recentContactsRecyclerView,
       @NonNull Button requestLocationButton, @NonNull EditText searchBar,
       @NonNull RecyclerView searchResultsRecyclerView,
       @NonNull RecyclerView suggestedContactsCarousel,
       @NonNull RecyclerView suggestionsRecyclerView, @NonNull TextView titleHome,
-      @NonNull Switch toggleMyContactsOnly, @NonNull ConstraintLayout topBar) {
+      @NonNull ConstraintLayout topBar, @NonNull TextView welcomeSubtitle,
+      @NonNull TextView welcomeTitle) {
     this.rootView = rootView;
     this.bottomNavigationBar = bottomNavigationBar;
     this.fabRequestLocation = fabRequestLocation;
     this.fragmentContainer = fragmentContainer;
-    this.frequentlyRequestedRecyclerView = frequentlyRequestedRecyclerView;
-    this.frequentlyRequestedTitle = frequentlyRequestedTitle;
     this.homeContentGroup = homeContentGroup;
-    this.profileImage = profileImage;
     this.recentContactsRecyclerView = recentContactsRecyclerView;
     this.requestLocationButton = requestLocationButton;
     this.searchBar = searchBar;
@@ -102,8 +90,9 @@ public final class ActivityHomeBinding implements ViewBinding {
     this.suggestedContactsCarousel = suggestedContactsCarousel;
     this.suggestionsRecyclerView = suggestionsRecyclerView;
     this.titleHome = titleHome;
-    this.toggleMyContactsOnly = toggleMyContactsOnly;
     this.topBar = topBar;
+    this.welcomeSubtitle = welcomeSubtitle;
+    this.welcomeTitle = welcomeTitle;
   }
 
   @Override
@@ -151,27 +140,9 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.frequently_requested_recycler_view;
-      RecyclerView frequentlyRequestedRecyclerView = ViewBindings.findChildViewById(rootView, id);
-      if (frequentlyRequestedRecyclerView == null) {
-        break missingId;
-      }
-
-      id = R.id.frequently_requested_title;
-      TextView frequentlyRequestedTitle = ViewBindings.findChildViewById(rootView, id);
-      if (frequentlyRequestedTitle == null) {
-        break missingId;
-      }
-
       id = R.id.home_content_group;
       Group homeContentGroup = ViewBindings.findChildViewById(rootView, id);
       if (homeContentGroup == null) {
-        break missingId;
-      }
-
-      id = R.id.profile_image;
-      CircleImageView profileImage = ViewBindings.findChildViewById(rootView, id);
-      if (profileImage == null) {
         break missingId;
       }
 
@@ -217,23 +188,28 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.toggle_my_contacts_only;
-      Switch toggleMyContactsOnly = ViewBindings.findChildViewById(rootView, id);
-      if (toggleMyContactsOnly == null) {
-        break missingId;
-      }
-
       id = R.id.top_bar;
       ConstraintLayout topBar = ViewBindings.findChildViewById(rootView, id);
       if (topBar == null) {
         break missingId;
       }
 
+      id = R.id.welcome_subtitle;
+      TextView welcomeSubtitle = ViewBindings.findChildViewById(rootView, id);
+      if (welcomeSubtitle == null) {
+        break missingId;
+      }
+
+      id = R.id.welcome_title;
+      TextView welcomeTitle = ViewBindings.findChildViewById(rootView, id);
+      if (welcomeTitle == null) {
+        break missingId;
+      }
+
       return new ActivityHomeBinding((ConstraintLayout) rootView, bottomNavigationBar,
-          fabRequestLocation, fragmentContainer, frequentlyRequestedRecyclerView,
-          frequentlyRequestedTitle, homeContentGroup, profileImage, recentContactsRecyclerView,
+          fabRequestLocation, fragmentContainer, homeContentGroup, recentContactsRecyclerView,
           requestLocationButton, searchBar, searchResultsRecyclerView, suggestedContactsCarousel,
-          suggestionsRecyclerView, titleHome, toggleMyContactsOnly, topBar);
+          suggestionsRecyclerView, titleHome, topBar, welcomeSubtitle, welcomeTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

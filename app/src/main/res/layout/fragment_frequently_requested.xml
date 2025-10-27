@@ -6,30 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FrequentlyRequestedFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/frequentlyRequestedRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
-
     <com.google.android.material.chip.Chip
         android:id="@+id/infoChip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
-        android:layout_marginTop="8dp"
-        android:text="Frequently Requested (Top 5)"
-        android:textColor="@android:color/white"
-        app:chipBackgroundColor="@color/colorPrimary"
-        app:chipCornerRadius="16dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:elevation="4dp"
-        android:visibility="gone"/>
+        android:layout_marginTop="16dp"
+        android:text="Tap on a request to view details"
+        android:visibility="gone"
+        app:chipBackgroundColor="@color/blue_500"
+        app:chipEndPadding="12dp"
+        app:chipStartPadding="12dp"
+        app:textStartPadding="4dp"
+        app:textEndPadding="4dp"
+        android:textColor="@color/white"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Chip" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/frequentlyRequestedRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
 
     <TextView
         android:id="@+id/emptyStateTextView"

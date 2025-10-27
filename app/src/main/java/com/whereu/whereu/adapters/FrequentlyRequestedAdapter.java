@@ -55,31 +55,55 @@ public class FrequentlyRequestedAdapter extends RecyclerView.Adapter<FrequentlyR
         }
         holder.coordinates.setText(String.format(Locale.getDefault(), "%.4f, %.4f", request.getLatitude(), request.getLongitude()));
 
-        // Calculate and set distance (if needed, currently not in model)
-        // holder.distance.setText("X km away"); // Placeholder
-
         // Handle status chip
         long twentyFourHoursInMillis = TimeUnit.HOURS.toMillis(24);
         boolean isExpired = (System.currentTimeMillis() - request.getApprovedTimestamp()) > twentyFourHoursInMillis;
 
-        if (request.getStatus().equals("approved") && !isExpired) {
-            holder.statusChip.setText("Approved");
-            holder.statusChip.setBackgroundResource(R.drawable.chip_background_approved);
-            holder.statusChip.setVisibility(View.VISIBLE);
-            holder.requestAgainButton.setVisibility(View.VISIBLE);
-        } else if (request.getStatus().equals("approved") && isExpired) {
-            holder.statusChip.setText("Expired");
-            holder.statusChip.setBackgroundResource(R.drawable.chip_background_expired);
-            holder.statusChip.setVisibility(View.VISIBLE);
-            holder.requestAgainButton.setVisibility(View.GONE);
-        } else {
-            holder.statusChip.setVisibility(View.GONE);
-            holder.requestAgainButton.setVisibility(View.GONE);
+        String status = request.getStatus();
+        holder.statusChip.setVisibility(View.VISIBLE);
+        holder.requestAgainButton.setVisibility(View.GONE);
+        holder.viewFromDbButton.setVisibility(View.GONE);
+
+        switch (status) {
+            case "pending":
+                holder.statusChip.setText("Pending");
+                holder.statusChip.setBackgroundResource(R.drawable.chip_background_pending);
+                holder.requestAgainButton.setVisibility(View.VISIBLE);
+                break;
+            case "approved":
+                if (!isExpired) {
+                    holder.statusChip.setText("Approved");
+                    holder.statusChip.setBackgroundResource(R.drawable.chip_background_approved);
+                    holder.viewFromDbButton.setVisibility(View.VISIBLE);
+                } else {
+                    holder.statusChip.setText("Expired");
+                    holder.statusChip.setBackgroundResource(R.drawable.chip_background_expired);
+                    holder.requestAgainButton.setVisibility(View.VISIBLE);
+                }
+                break;
+            case "rejected":
+                holder.statusChip.setText("Rejected");
+                holder.statusChip.setBackgroundResource(R.drawable.chip_background_rejected);
+                holder.requestAgainButton.setVisibility(View.VISIBLE);
+                break;
+            case "sent": // Assuming 'sent' means an outgoing request that hasn't been approved/rejected yet
+                holder.statusChip.setText("Sent");
+                holder.statusChip.setBackgroundResource(R.drawable.chip_background_sent);
+                break;
+            default:
+                holder.statusChip.setVisibility(View.GONE);
+                break;
         }
 
         holder.requestAgainButton.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onRequestAgain(request);
+            }
+        });
+
+        holder.viewFromDbButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onViewFromDbClicked(request);
             }
         });
     }
@@ -98,6 +122,7 @@ public class FrequentlyRequestedAdapter extends RecyclerView.Adapter<FrequentlyR
         TextView coordinates;
         TextView distance;
         Button requestAgainButton;
+        Button viewFromDbButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,10 +134,12 @@ public class FrequentlyRequestedAdapter extends RecyclerView.Adapter<FrequentlyR
             coordinates = itemView.findViewById(R.id.text_view_coordinates);
             distance = itemView.findViewById(R.id.text_view_distance);
             requestAgainButton = itemView.findViewById(R.id.button_request_again);
+            viewFromDbButton = itemView.findViewById(R.id.button_view_from_db);
         }
     }
 
     public interface OnRequestAgainListener {
         void onRequestAgain(LocationRequest request);
+        void onViewFromDbClicked(LocationRequest request);
     }
 }

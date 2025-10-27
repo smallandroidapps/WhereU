@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 import androidx.core.app.ActivityCompat;
@@ -26,19 +25,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.whereu.whereu.R;
 import com.whereu.whereu.adapters.FrequentContactAdapter;
 import com.whereu.whereu.databinding.ActivityHomeBinding;
@@ -62,13 +56,14 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
     private Group homeContentGroup;
-    private TextView titleHome;
+    private TextView welcomeTitle;
+    private TextView welcomeSubtitle;
     private EditText searchBar;
     private RecyclerView searchResultsRecyclerView;
     private SearchResultAdapter searchResultAdapter;
     private List<SearchResultAdapter.SearchResult> searchResultsList;
 
-    private List<SearchResultAdapter.SearchResult> frequentContacts;
+    private List<SearchResultAdapter.SearchResult> frequentContacts = new ArrayList<>();
     private RecyclerView frequentlyRequestedRecyclerView;
     private FrequentContactAdapter frequentContactAdapter;
     private TextView frequentlyRequestedTitle;
@@ -79,6 +74,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private Map<String, String> requestIdMap = new HashMap<>();
     private BottomNavigationView bottomNavigationView;
     private ActivityHomeBinding binding;
+    private TextView titleHome;
     private ListenerRegistration requestListener;
     private ListenerRegistration incomingRequestListener;
 
@@ -88,9 +84,9 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        titleHome = findViewById(R.id.title_home);
         db = FirebaseFirestore.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         initUI();
         setupListeners();
@@ -105,7 +101,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     private void initUI() {
         homeContentGroup = binding.homeContentGroup;
-        titleHome = binding.titleHome;
+        welcomeTitle = binding.welcomeTitle;
+        welcomeSubtitle = binding.welcomeSubtitle;
         searchBar = binding.searchBar;
         searchResultsRecyclerView = binding.searchResultsRecyclerView;
 
@@ -113,13 +110,6 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         searchResultAdapter = new SearchResultAdapter(searchResultsList, this);
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchResultsRecyclerView.setAdapter(searchResultAdapter);
-
-        frequentlyRequestedRecyclerView = binding.frequentlyRequestedRecyclerView;
-        frequentlyRequestedRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        frequentContacts = new ArrayList<>();
-        frequentContactAdapter = new FrequentContactAdapter(frequentContacts, this);
-        frequentlyRequestedRecyclerView.setAdapter(frequentContactAdapter);
-        frequentlyRequestedTitle = binding.frequentlyRequestedTitle;
 
         bottomNavigationView = binding.bottomNavigationBar;
     }
@@ -133,15 +123,22 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
                     searchResultsRecyclerView.setVisibility(View.VISIBLE);
-                    frequentlyRequestedRecyclerView.setVisibility(View.GONE);
-                    frequentlyRequestedTitle.setVisibility(View.GONE);
+                    if (frequentlyRequestedRecyclerView != null) {
+                        frequentlyRequestedRecyclerView.setVisibility(View.GONE);
+                    }
+                    if (frequentlyRequestedTitle != null) {
+                        frequentlyRequestedTitle.setVisibility(View.GONE);
+                    }
+                    welcomeTitle.setVisibility(View.GONE);
+                    welcomeSubtitle.setVisibility(View.GONE);
                     checkContactsPermissionAndPerformSearch(s.toString());
                 } else {
+                    int size = searchResultsList.size();
                     searchResultsList.clear();
-                    searchResultAdapter.notifyDataSetChanged();
+                    searchResultAdapter.notifyItemRangeRemoved(0, size);
                     searchResultsRecyclerView.setVisibility(View.GONE);
-                    frequentlyRequestedRecyclerView.setVisibility(View.VISIBLE);
-                    frequentlyRequestedTitle.setVisibility(View.VISIBLE);
+                    welcomeTitle.setVisibility(View.VISIBLE);
+                    welcomeSubtitle.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -298,8 +295,9 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     private void performSearch(String query) {
         if (query.isEmpty()) {
+            int size = searchResultsList.size();
             searchResultsList.clear();
-            searchResultAdapter.notifyDataSetChanged();
+            searchResultAdapter.notifyItemRangeRemoved(0, size);
             return;
         }
 
@@ -310,9 +308,11 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         }
 
         if (phoneNumbers.isEmpty()) {
+            int size = searchResultsList.size();
             searchResultsList.clear();
+            searchResultAdapter.notifyItemRangeRemoved(0, size);
             searchResultsList.addAll(deviceContacts);
-            searchResultAdapter.notifyDataSetChanged();
+            searchResultAdapter.notifyItemRangeInserted(0, deviceContacts.size());
             return;
         }
 
@@ -334,8 +334,11 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 }
             }
 
+            int size = searchResultsList.size();
             searchResultsList.clear();
+            searchResultAdapter.notifyItemRangeRemoved(0, size);
             searchResultsList.addAll(deviceContacts);
+            searchResultAdapter.notifyItemRangeInserted(0, deviceContacts.size());
             updateSearchResultsRequestStatus();
         });
     }
@@ -410,7 +413,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(HomeActivity.this, "Location request sent.", Toast.LENGTH_SHORT).show();
                     result.setRequestStatus("pending");
-                    if (position != null) {
+                    if (position != null && position != -1) {
                         searchResultAdapter.notifyItemChanged(position);
                     }
                 })
@@ -444,8 +447,12 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     private void fetchFrequentContactDetails(List<String> userIds) {
         if (userIds.isEmpty()) {
-            frequentlyRequestedTitle.setVisibility(View.GONE);
-            frequentlyRequestedRecyclerView.setVisibility(View.GONE);
+            if (frequentlyRequestedTitle != null) {
+                frequentlyRequestedTitle.setVisibility(View.GONE);
+            }
+            if (frequentlyRequestedRecyclerView != null) {
+                frequentlyRequestedRecyclerView.setVisibility(View.GONE);
+            }
             return;
         }
 
@@ -454,14 +461,24 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        int size = frequentContacts.size();
                         frequentContacts.clear();
+                        if (frequentContactAdapter != null) {
+                            frequentContactAdapter.notifyItemRangeRemoved(0, size);
+                        }
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             User user = document.toObject(User.class);
                             frequentContacts.add(new SearchResultAdapter.SearchResult(user.getDisplayName(), user.getUserId(), user.getMobileNumber(), user.getEmail(), true, false, user.getProfilePhotoUrl(), requestStatusMap.getOrDefault(user.getUserId(), "not_requested")));
                         }
-                        frequentContactAdapter.notifyDataSetChanged();
-                        frequentlyRequestedTitle.setVisibility(View.VISIBLE);
-                        frequentlyRequestedRecyclerView.setVisibility(View.VISIBLE);
+                        if (frequentContactAdapter != null) {
+                            frequentContactAdapter.notifyItemRangeInserted(0, frequentContacts.size());
+                        }
+                        if (frequentlyRequestedTitle != null) {
+                            frequentlyRequestedTitle.setVisibility(View.VISIBLE);
+                        }
+                        if (frequentlyRequestedRecyclerView != null) {
+                            frequentlyRequestedRecyclerView.setVisibility(View.VISIBLE);
+                        }
                     } else {
                         Log.w(TAG, "Error fetching frequent contact details.", task.getException());
                     }
@@ -480,10 +497,9 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     private void showHomeContent() {
         homeContentGroup.setVisibility(View.VISIBLE);
-        titleHome.setText(R.string.app_name);
+        welcomeTitle.setVisibility(View.VISIBLE);
+        welcomeSubtitle.setVisibility(View.VISIBLE);
         searchBar.setVisibility(View.VISIBLE);
-        frequentlyRequestedTitle.setVisibility(View.VISIBLE);
-        frequentlyRequestedRecyclerView.setVisibility(View.VISIBLE);
         if (searchResultsList.isEmpty()) {
             searchResultsRecyclerView.setVisibility(View.GONE);
         }

@@ -76,10 +76,10 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
     private RequestAdapter requestAdapter;
     private List<LocationRequest> requestList;
 
-    private RecyclerView frequentlyRequestedRecyclerView;
+        private RecyclerView frequentlyRequestedRecyclerView;
     private RequestAdapter frequentlyRequestedAdapter;
     private List<LocationRequest> frequentlyRequestedList;
-    private TextView frequentlyRequestedTitle;
+    // private TextView frequentlyRequestedTitle;
     private TextView allRequestsTitle;
 
     private FusedLocationProviderClient fusedLocationClient;
@@ -103,7 +103,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
         currentUser = mAuth.getCurrentUser();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
-        frequentlyRequestedTitle = view.findViewById(R.id.text_view_frequently_requested_title);
+        // frequentlyRequestedTitle = view.findViewById(R.id.text_view_frequently_requested_title);
         frequentlyRequestedRecyclerView = view.findViewById(R.id.recycler_view_frequently_requested);
         frequentlyRequestedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         frequentlyRequestedList = new ArrayList<>();
@@ -131,57 +131,57 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
         if (currentUser == null) return;
 
         // Fetch frequently requested (approved within last 24 hours)
-        long twentyFourHoursAgo = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+        // long twentyFourHoursAgo = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
 
-        db.collection("locationRequests")
-                .whereEqualTo("status", "approved")
-                .whereGreaterThanOrEqualTo("approvedTimestamp", twentyFourHoursAgo)
-                .orderBy("approvedTimestamp", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        frequentlyRequestedList.clear();
-                        List<Task<User>> userFetchTasks = new ArrayList<>();
-                        Map<String, LocationRequest> uniqueUserRequests = new HashMap<>();
+        // db.collection("locationRequests")
+        //         .whereEqualTo("status", "approved")
+        //         .whereGreaterThanOrEqualTo("approvedTimestamp", twentyFourHoursAgo)
+        //         .orderBy("approvedTimestamp", Query.Direction.DESCENDING)
+        //         .get()
+        //         .addOnCompleteListener(task -> {
+        //             if (task.isSuccessful()) {
+        //                 frequentlyRequestedList.clear();
+        //                 List<Task<User>> userFetchTasks = new ArrayList<>();
+        //                 Map<String, LocationRequest> uniqueUserRequests = new HashMap<>();
 
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            LocationRequest request = document.toObject(LocationRequest.class);
-                            request.setRequestId(document.getId());
+        //                 for (QueryDocumentSnapshot document : task.getResult()) {
+        //                     LocationRequest request = document.toObject(LocationRequest.class);
+        //                     request.setRequestId(document.getId());
 
-                            String otherUserId = request.getFromUserId().equals(currentUser.getUid()) ? request.getToUserId() : request.getFromUserId();
+        //                     String otherUserId = request.getFromUserId().equals(currentUser.getUid()) ? request.getToUserId() : request.getFromUserId();
 
-                            // Only add the most recent request for each user
-                            if (!uniqueUserRequests.containsKey(otherUserId) || uniqueUserRequests.get(otherUserId).getApprovedTimestamp() < request.getApprovedTimestamp()) {
-                                uniqueUserRequests.put(otherUserId, request);
-                            }
-                        }
+        //                     // Only add the most recent request for each user
+        //                     if (!uniqueUserRequests.containsKey(otherUserId) || uniqueUserRequests.get(otherUserId).getApprovedTimestamp() < request.getApprovedTimestamp()) {
+        //                         uniqueUserRequests.put(otherUserId, request);
+        //                     }
+        //                 }
 
-                        for (LocationRequest request : uniqueUserRequests.values()) {
-                            String otherUserId = request.getFromUserId().equals(currentUser.getUid()) ? request.getToUserId() : request.getFromUserId();
-                            Task<User> userTask = db.collection("users").document(otherUserId).get().continueWith(userTaskSnapshot -> {
-                                if (userTaskSnapshot.isSuccessful()) {
-                                    return userTaskSnapshot.getResult().toObject(User.class);
-                                } else {
-                                    return null;
-                                }
-                            });
-                            userFetchTasks.add(userTask);
-                            frequentlyRequestedList.add(request);
-                        }
+        //                 for (LocationRequest request : uniqueUserRequests.values()) {
+        //                     String otherUserId = request.getFromUserId().equals(currentUser.getUid()) ? request.getToUserId() : request.getFromUserId();
+        //                     Task<User> userTask = db.collection("users").document(otherUserId).get().continueWith(userTaskSnapshot -> {
+        //                         if (userTaskSnapshot.isSuccessful()) {
+        //                             return userTaskSnapshot.getResult().toObject(User.class);
+        //                         } else {
+        //                             return null;
+        //                         }
+        //                     });
+        //                     userFetchTasks.add(userTask);
+        //                     frequentlyRequestedList.add(request);
+        //                 }
 
-                        Tasks.whenAllSuccess(userFetchTasks).addOnSuccessListener(users -> {
-                            for (int i = 0; i < users.size(); i++) {
-                                User user = (User) users.get(i);
-                                if (user != null) {
-                                    frequentlyRequestedList.get(i).setUserName(user.getDisplayName());
-                                }
-                            }
-                            frequentlyRequestedAdapter.notifyDataSetChanged();
-                            frequentlyRequestedTitle.setVisibility(frequentlyRequestedList.isEmpty() ? View.GONE : View.VISIBLE);
-                            frequentlyRequestedRecyclerView.setVisibility(frequentlyRequestedList.isEmpty() ? View.GONE : View.VISIBLE);
-                        });
-                    }
-                });
+        //                 Tasks.whenAllSuccess(userFetchTasks).addOnSuccessListener(users -> {
+        //                     for (int i = 0; i < users.size(); i++) {
+        //                         User user = (User) users.get(i);
+        //                         if (user != null) {
+        //                             frequentlyRequestedList.get(i).setUserName(user.getDisplayName());
+        //                         }
+        //                     }
+        //                     frequentlyRequestedAdapter.notifyDataSetChanged();
+        //                     frequentlyRequestedTitle.setVisibility(frequentlyRequestedList.isEmpty() ? View.GONE : View.VISIBLE);
+        //                     frequentlyRequestedRecyclerView.setVisibility(frequentlyRequestedList.isEmpty() ? View.GONE : View.VISIBLE);
+        //                 });
+        //             }
+        //         });
 
         // Fetch all other requests
         Task<QuerySnapshot> incomingRequestsTask = db.collection("locationRequests")

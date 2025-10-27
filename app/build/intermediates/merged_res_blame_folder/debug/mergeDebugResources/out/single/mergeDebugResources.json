@@ -64,8 +64,20 @@
         "source": "com.whereu.whereu.app-main-71:/layout/bottom_sheet_location_details.xml"
     },
     {
+        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_location_request_detail.xml.flat",
+        "source": "com.whereu.whereu.app-main-71:/layout/activity_location_request_detail.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-debug-69:/drawable_chip_background_rejected.xml.flat",
+        "source": "com.whereu.whereu.app-main-71:/drawable/chip_background_rejected.xml"
+    },
+    {
         "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_profile.xml.flat",
         "source": "com.whereu.whereu.app-main-71:/drawable/ic_profile.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-debug-69:/drawable_chip_background_pending.xml.flat",
+        "source": "com.whereu.whereu.app-main-71:/drawable/chip_background_pending.xml"
     },
     {
         "merged": "com.whereu.whereu.app-debug-69:/layout_activity_profile_settings.xml.flat",
@@ -170,6 +182,10 @@
     {
         "merged": "com.whereu.whereu.app-debug-69:/drawable_spinner_background.xml.flat",
         "source": "com.whereu.whereu.app-main-71:/drawable/spinner_background.xml"
+    },
+    {
+        "merged": "com.whereu.whereu.app-debug-69:/drawable_chip_background_sent.xml.flat",
+        "source": "com.whereu.whereu.app-main-71:/drawable/chip_background_sent.xml"
     },
     {
         "merged": "com.whereu.whereu.app-debug-69:/layout_item_frequent_request.xml.flat",

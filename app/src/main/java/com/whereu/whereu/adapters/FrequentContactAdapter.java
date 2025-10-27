@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.whereu.whereu.R;
 import com.whereu.whereu.activities.SearchResultAdapter;
 
@@ -40,12 +41,11 @@ public class FrequentContactAdapter extends RecyclerView.Adapter<FrequentContact
     public void onBindViewHolder(@NonNull FrequentContactViewHolder holder, int position) {
         SearchResultAdapter.SearchResult contact = frequentContacts.get(position);
         holder.contactName.setText(contact.getDisplayName());
-        // Set avatar if available
-        // if (contact.getProfilePhotoUrl() != null && !contact.getProfilePhotoUrl().isEmpty()) {
-        //     Glide.with(holder.itemView.getContext()).load(contact.getProfilePhotoUrl()).into(holder.contactAvatar);
-        // } else {
-        //     holder.contactAvatar.setImageResource(R.drawable.ic_profile_placeholder);
-        // }
+        if (contact.getProfilePhotoUrl() != null && !contact.getProfilePhotoUrl().isEmpty()) {
+            Glide.with(holder.itemView.getContext()).load(contact.getProfilePhotoUrl()).into(holder.contactAvatar);
+        } else {
+            holder.contactAvatar.setImageResource(R.drawable.ic_profile_placeholder);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {

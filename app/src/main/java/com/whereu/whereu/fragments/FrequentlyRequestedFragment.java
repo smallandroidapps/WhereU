@@ -1,15 +1,13 @@
 package com.whereu.whereu.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.util.Log;
 import android.widget.Toast;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.DocumentChange;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,32 +15,32 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-
+import com.google.firebase.firestore.Query;
 import com.whereu.whereu.R;
+import com.whereu.whereu.activities.LocationRequestDetailActivity;
 import com.whereu.whereu.adapters.FrequentlyRequestedAdapter;
-import com.whereu.whereu.models.FrequentlyRequestedModel;
-import com.whereu.whereu.utils.FrequentRequestCacheManager;
 import com.whereu.whereu.models.LocationRequest;
+import com.whereu.whereu.utils.FrequentRequestCacheManager;
 import com.whereu.whereu.utils.NotificationHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 public class FrequentlyRequestedFragment extends Fragment implements FrequentlyRequestedAdapter.OnRequestAgainListener {
 
     private static final String TAG = "FrequentlyRequestedFragment";
 
-    private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private ListenerRegistration frequentRequestsListener;
@@ -61,9 +59,8 @@ public class FrequentlyRequestedFragment extends Fragment implements FrequentlyR
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        currentUser = mAuth.getCurrentUser();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         cacheManager = new FrequentRequestCacheManager(requireContext());
     }
 
@@ -72,7 +69,7 @@ public class FrequentlyRequestedFragment extends Fragment implements FrequentlyR
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_frequently_requested, container, false);
 
-        recyclerView = view.findViewById(R.id.recycler_view_frequently_requested);
+        recyclerView = view.findViewById(R.id.frequentlyRequestedRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         frequentRequestsList = new ArrayList<>();
         adapter = new FrequentlyRequestedAdapter(frequentRequestsList, this);
@@ -93,7 +90,7 @@ public class FrequentlyRequestedFragment extends Fragment implements FrequentlyR
             if (!cachedRequests.isEmpty()) {
                 frequentRequestsList.clear();
                 frequentRequestsList.addAll(cachedRequests);
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemRangeInserted(0, frequentRequestsList.size());
                 updateUI();
             }
             listenForFrequentRequests();
@@ -138,7 +135,9 @@ public class FrequentlyRequestedFragment extends Fragment implements FrequentlyR
                         }
 
                         Tasks.whenAllSuccess(userFetchTasks).addOnSuccessListener(results -> {
+                            int originalSize = frequentRequestsList.size();
                             frequentRequestsList.clear();
+                            adapter.notifyItemRangeRemoved(0, originalSize);
                             for (int i = 0; i < fetchedRequests.size(); i++) {
                                 DocumentSnapshot userSnapshot = (DocumentSnapshot) results.get(i);
                                 if (userSnapshot.exists()) {
@@ -148,10 +147,8 @@ public class FrequentlyRequestedFragment extends Fragment implements FrequentlyR
                             }
 
                             // Sort again to ensure correct order after adding/modifying
-                            Collections.sort(frequentRequestsList, (o1, o2) -> {
-                                return Long.compare(o2.getTimestamp(), o1.getTimestamp());
-                            });
-                            adapter.notifyDataSetChanged();
+                            frequentRequestsList.sort((o1, o2) -> Long.compare(o2.getTimestamp(), o1.getTimestamp()));
+                            adapter.notifyItemRangeInserted(0, frequentRequestsList.size());
                             cacheManager.saveFrequentRequests(frequentRequestsList); // Save to cache
                             updateUI();
                         }).addOnFailureListener(innerE -> {
@@ -223,5 +220,12 @@ public class FrequentlyRequestedFragment extends Fragment implements FrequentlyR
                     Log.e(TAG, "Error sending new location request", e);
                     Toast.makeText(getContext(), "Failed to send location request.", Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    @Override
+    public void onViewFromDbClicked(LocationRequest model) {
+        Intent intent = new Intent(getContext(), LocationRequestDetailActivity.class);
+        intent.putExtra("locationRequest", model);
+        startActivity(intent);
     }
 }

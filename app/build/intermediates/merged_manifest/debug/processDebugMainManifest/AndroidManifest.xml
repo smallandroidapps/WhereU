@@ -78,6 +78,7 @@
         <activity android:name="com.whereu.whereu.activities.TrustedContactsActivity" />
         <activity android:name="com.whereu.whereu.activities.AddTrustedContactActivity" />
         <activity android:name="com.whereu.whereu.activities.TrustedContactDetailsActivity" />
+        <activity android:name="com.whereu.whereu.activities.LocationRequestDetailActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

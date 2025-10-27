@@ -64,6 +64,10 @@
         "source": "com.whereu.whereu.app-main-71:/layout/activity_sign_in.xml"
     },
     {
+        "merged": "com.whereu.whereu.app-mergeDebugResources-68:/layout/activity_location_request_detail.xml",
+        "source": "com.whereu.whereu.app-main-71:/layout/activity_location_request_detail.xml"
+    },
+    {
         "merged": "com.whereu.whereu.app-mergeDebugResources-68:/layout/activity_profile.xml",
         "source": "com.whereu.whereu.app-main-71:/layout/activity_profile.xml"
     },
