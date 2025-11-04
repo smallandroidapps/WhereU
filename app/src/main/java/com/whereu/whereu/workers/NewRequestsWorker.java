@@ -44,6 +44,12 @@ public class NewRequestsWorker extends Worker {
             }
 
             Context ctx = getApplicationContext();
+            // Ensure notification channel exists before posting
+            try {
+                NotificationHelper.createNotificationChannel(ctx);
+            } catch (Exception channelEx) {
+                Log.w(TAG, "Failed to create notification channel in worker", channelEx);
+            }
             SharedPreferences prefs = ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
             long lastCheckTs = prefs.getLong(KEY_LAST_CHECK_TS, 0L);
             Set<String> notifiedIds = prefs.getStringSet(KEY_NOTIFIED_IDS, new HashSet<>());
