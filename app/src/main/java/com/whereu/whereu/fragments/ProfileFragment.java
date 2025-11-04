@@ -109,6 +109,8 @@ public class ProfileFragment extends Fragment {
         binding.cardEditProfile.setOnClickListener(v -> {
             binding.userName.setEnabled(true);
             binding.editTextMobile.setEnabled(true);
+            binding.editTextMobile.setVisibility(View.VISIBLE);
+            binding.userMobile.setVisibility(View.GONE);
             binding.saveProfileButton.setVisibility(View.VISIBLE);
             Toast.makeText(getContext(), "You can now edit your profile.", Toast.LENGTH_SHORT).show();
         });
@@ -127,6 +129,7 @@ public class ProfileFragment extends Fragment {
                         if (user != null && binding != null) {
                             binding.userName.setText(user.getDisplayName());
                             binding.userEmail.setText(user.getEmail());
+                            binding.userMobile.setText(user.getMobileNumber() != null ? user.getMobileNumber() : "");
                             binding.editTextMobile.setText(user.getMobileNumber() != null ? user.getMobileNumber() : "");
 
                             // Check if displayName or mobileNumber is blank/null
@@ -135,10 +138,14 @@ public class ProfileFragment extends Fragment {
                                 Toast.makeText(getContext(), "Please update your display name and mobile number.", Toast.LENGTH_LONG).show();
                                 binding.userName.setEnabled(true);
                                 binding.editTextMobile.setEnabled(true);
+                                binding.editTextMobile.setVisibility(View.VISIBLE);
+                                binding.userMobile.setVisibility(View.GONE);
                                 binding.saveProfileButton.setVisibility(View.VISIBLE);
                             } else {
                                 binding.userName.setEnabled(false);
                                 binding.editTextMobile.setEnabled(false);
+                                binding.editTextMobile.setVisibility(View.GONE);
+                                binding.userMobile.setVisibility(View.VISIBLE);
                                 binding.saveProfileButton.setVisibility(View.GONE);
                             }
                         }
@@ -190,6 +197,8 @@ public class ProfileFragment extends Fragment {
                         Toast.makeText(getContext(), "Profile updated successfully.", Toast.LENGTH_SHORT).show();
                         binding.userName.setEnabled(false);
                         binding.editTextMobile.setEnabled(false);
+                        binding.editTextMobile.setVisibility(View.GONE);
+                        binding.userMobile.setVisibility(View.VISIBLE);
                         binding.saveProfileButton.setVisibility(View.GONE);
                     })
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update profile.", Toast.LENGTH_SHORT).show());
