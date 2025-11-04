@@ -13,8 +13,10 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.whereu.whereu.adapters.RequestsPagerAdapter;
 import com.whereu.whereu.adapters.RequestAdapter;
+import com.whereu.whereu.fragments.LocationDetailsBottomSheetFragment;
 import com.whereu.whereu.models.LocationRequest;
 import com.whereu.whereu.databinding.FragmentRequestsBinding;
 
@@ -25,6 +27,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
     }
 
     private NotificationListener notificationListener;
+    private RequestsPagerAdapter requestsPagerAdapter;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -58,28 +61,22 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
             return root;
         }
 
-        RequestsPagerAdapter requestsPagerAdapter = new RequestsPagerAdapter(this);
+        requestsPagerAdapter = new RequestsPagerAdapter(this);
         binding.viewPager.setAdapter(requestsPagerAdapter);
 
         new TabLayoutMediator(binding.tabLayout, binding.viewPager,
                 (tab, position) -> {
                     switch (position) {
                         case 0:
-                            tab.setText("Pending");
+                            tab.setText("To Me");
                             break;
                         case 1:
                             tab.setText("From Me");
                             break;
-                        case 2:
-                            tab.setText("To Me");
-                            break;
                     }
                 }).attach();
 
-        // Refresh current fragment when swiping
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
-            int currentPos = binding.viewPager.getCurrentItem();
-            binding.viewPager.setCurrentItem(currentPos, false);
             binding.swipeRefreshLayout.setRefreshing(false);
         });
 
@@ -101,7 +98,26 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
         // Implement request again logic here
     }
 
+    @Override
+    public void onViewLocationClicked(LocationRequest request) {
+        LocationDetailsBottomSheetFragment.newInstance(request).show(getChildFragmentManager(), "LocationDetailsBottomSheetFragment");
+    }
+
     private void updateRequestStatus(LocationRequest request, String status) {
-        // Update request status in Firestore
+        FirebaseFirestore.getInstance().collection("locationRequests").document(request.getRequestId())
+                .update("status", status)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getContext(), "Request " + status, Toast.LENGTH_SHORT).show();
+                    // Find the ToMeRequestsFragment and tell it to remove the card
+                    for (Fragment fragment : getChildFragmentManager().getFragments()) {
+                        if (fragment instanceof ToMeRequestsFragment && fragment.isAdded()) {
+                            ((ToMeRequestsFragment) fragment).removeRequest(request);
+                            break;
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Failed to update request", Toast.LENGTH_SHORT).show();
+                });
     }
 }

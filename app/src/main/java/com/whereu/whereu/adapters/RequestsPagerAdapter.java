@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.whereu.whereu.fragments.FromMeRequestsFragment;
-import com.whereu.whereu.fragments.PendingRequestsFragment;
 import com.whereu.whereu.fragments.ToMeRequestsFragment;
 
 import java.util.ArrayList;
@@ -17,9 +16,8 @@ public class RequestsPagerAdapter extends FragmentStateAdapter {
 
     public RequestsPagerAdapter(@NonNull Fragment fragment) {
         super(fragment);
-        fragments.add(new PendingRequestsFragment());
-        fragments.add(new FromMeRequestsFragment());
         fragments.add(new ToMeRequestsFragment());
+        fragments.add(new FromMeRequestsFragment());
     }
 
     @NonNull
@@ -31,18 +29,5 @@ public class RequestsPagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return fragments.size();
-    }
-
-    public void refreshFragment(int position) {
-        if (position >= 0 && position < fragments.size()) {
-            Fragment fragment = fragments.get(position);
-            if (fragment instanceof PendingRequestsFragment) {
-                ((PendingRequestsFragment) fragment).fetchRequests();
-            } else if (fragment instanceof FromMeRequestsFragment) {
-                ((FromMeRequestsFragment) fragment).fetchRequests();
-            } else if (fragment instanceof ToMeRequestsFragment) {
-                ((ToMeRequestsFragment) fragment).fetchRequests();
-            }
-        }
     }
 }

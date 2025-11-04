@@ -45,9 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/avatar_image_view"
             app:layout_constraintTop_toBottomOf="@id/sender_receiver_text_view"
-            tools:text="2 hours ago" />
-
-
+            tools:text="Oct 24, 10:00 PM" />
 
         <LinearLayout
             android:id="@+id/action_buttons_layout"
