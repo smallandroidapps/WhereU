@@ -9,6 +9,18 @@
         android:background="@color/background_color"
         tools:context=".fragments.ProfileFragment">
 
+        <!-- Centered loading indicator shown while profile data loads -->
+        <ProgressBar
+            android:id="@+id/profile_loading"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <!-- Top Section: User Photo, Name, Email -->
         <LinearLayout
             android:id="@+id/top_section_layout"
@@ -104,13 +116,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/save_profile_button">
 
-            <LinearLayout
-                android:id="@+id/linearLayout_profile_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp">
+                <LinearLayout
+                    android:id="@+id/linearLayout_profile_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_edit_profile"

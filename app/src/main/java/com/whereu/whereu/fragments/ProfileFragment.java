@@ -66,6 +66,8 @@ public class ProfileFragment extends Fragment {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
 
+        // Show loader and begin fetching profile
+        showLoading(true);
         loadUserProfile();
 
         binding.saveProfileButton.setOnClickListener(v -> saveProfile());
@@ -119,6 +121,7 @@ public class ProfileFragment extends Fragment {
     private void loadUserProfile() {
         if (currentUser == null) {
             Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            showLoading(false);
             return;
         }
         String userId = currentUser.getUid();
@@ -148,6 +151,8 @@ public class ProfileFragment extends Fragment {
                                 binding.userMobile.setVisibility(View.VISIBLE);
                                 binding.saveProfileButton.setVisibility(View.GONE);
                             }
+                            // Hide loader once data is bound
+                            showLoading(false);
                         }
                     } else {
                         Map<String, Object> newUserProfile = new HashMap<>();
@@ -164,11 +169,13 @@ public class ProfileFragment extends Fragment {
                                 .addOnFailureListener(e -> {
                                     Log.e(TAG, "Error creating default user profile", e);
                                     Toast.makeText(getContext(), "Error creating profile", Toast.LENGTH_SHORT).show();
+                                    showLoading(false);
                                 });
                     }
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(), "Error loading profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    showLoading(false);
                 });
     }
 
@@ -202,6 +209,17 @@ public class ProfileFragment extends Fragment {
                         binding.saveProfileButton.setVisibility(View.GONE);
                     })
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update profile.", Toast.LENGTH_SHORT).show());
+        }
+    }
+
+    private void showLoading(boolean loading) {
+        if (binding == null) return;
+        binding.profileLoading.setVisibility(loading ? View.VISIBLE : View.GONE);
+        // Hide content sections while loading and show them after
+        binding.topSectionLayout.setVisibility(loading ? View.GONE : View.VISIBLE);
+        binding.linearLayoutProfileContent.setVisibility(loading ? View.GONE : View.VISIBLE);
+        if (loading) {
+            binding.saveProfileButton.setVisibility(View.GONE);
         }
     }
 
