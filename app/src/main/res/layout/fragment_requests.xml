@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
@@ -11,39 +12,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_view_frequently_requested_title"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Frequently Requested"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:padding="8dp"
-            android:visibility="gone" /> <!-- Initially hidden -->
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_frequently_requested"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:clipToPadding="false"
-            android:visibility="gone" /> <!-- Initially hidden -->
-
-        <TextView
-            android:id="@+id/text_view_all_requests_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="All Requests"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:padding="8dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_requests"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:clipToPadding="false"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

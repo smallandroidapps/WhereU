@@ -1,290 +1,314 @@
 [
     {
-        "merged": "com.whereu.whereu.app-debug-69:/color_bottom_nav_item_color.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/color/bottom_nav_item_color.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_fragment_frequently_requested.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/fragment_frequently_requested.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_home.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_home.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_bottom_sheet_background.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/bottom_sheet_background.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_contacts.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_contacts.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_arrow_down.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_arrow_down.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_check.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_check.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/xml_data_extraction_rules.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/xml/data_extraction_rules.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_logout.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_logout.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_location_details.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_location_details.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_filter.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_filter.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/navigation_nav_graph.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/navigation/nav_graph.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/navigation_nav_graph.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/navigation/nav_graph.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/anim_fade_in.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/anim/fade_in.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/xml_data_extraction_rules.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_requests.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_requests.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_home.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_home.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_status_approved.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_status_approved.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_gradient_blue.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/gradient_blue.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_logout.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_logout.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_rounded_status_background.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/rounded_status_background.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_bottom_sheet_background.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/bottom_sheet_background.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/xml_backup_rules.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_close.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_close.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_location_pin.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_location_pin.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_arrow_forward.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_arrow_forward.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_item_past_notification.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/item_past_notification.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_people.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_people.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_location_details.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_location_details.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_bottom_sheet_location_details.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/bottom_sheet_location_details.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_bottom_sheet_location_details.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/bottom_sheet_location_details.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_profile.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_profile.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_notification.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_notification.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_profile_settings.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_profile_settings.xml"
+        "merged": "com.whereu.whereu.app-debug-69:/layout_fragment_to_me_requests.xml.flat",
+        "source": "com.whereu.whereu.app-main-71:/layout/fragment_to_me_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_person.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_person.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_status_approved.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_status_approved.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_trusted_contact_details.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_trusted_contact_details.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_fragment_profile.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/fragment_profile.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_item_frequent_contact.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/item_frequent_contact.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_status_expired.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_status_expired.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_phone_verification.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_phone_verification.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_person_24dp.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_person_24dp.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_item_search_result.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/item_search_result.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_chip_background_expired.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/chip_background_expired.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_bottom_sheet_request_details.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/bottom_sheet_request_details.xml"
+        "merged": "com.whereu.whereu.app-debug-69:/layout_fragment_from_me_requests.xml.flat",
+        "source": "com.whereu.whereu.app-main-71:/layout/fragment_from_me_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_hide_location.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_hide_location.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_check.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_check.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_bell.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_bell.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_profile.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_profile.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_auto_approve.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_auto_approve.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/color_bottom_nav_item_color.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/color/bottom_nav_item_color.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_check_circle.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_check_circle.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_arrow_right.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_arrow_right.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_fragment_profile.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/fragment_profile.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_fragment_to_me_requests.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/fragment_to_me_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_splash.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_splash.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_bottom_sheet_request_details.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/bottom_sheet_request_details.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_gradient_blue.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/gradient_blue.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_phone_verification.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_phone_verification.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_filter.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_filter.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_dot_background.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/dot_background.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_location_pin.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_location_pin.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_item_frequently_requested_location.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/item_frequently_requested_location.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_trusted_contacts.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_trusted_contacts.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_contacts.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_contacts.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/menu_bottom_navigation_menu.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/menu/bottom_navigation_menu.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_notification.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_notification.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/xml_backup_rules.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/xml/backup_rules.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_notification.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_notification.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/menu_bottom_navigation_menu.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/menu/bottom_navigation_menu.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_item_recent_contact.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/item_recent_contact.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_edit.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_edit.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_status_denied.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_status_denied.xml"
+        "merged": "com.whereu.whereu.app-debug-69:/layout_fragment_pending_requests.xml.flat",
+        "source": "com.whereu.whereu.app-main-71:/layout/fragment_pending_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_fragment_location_details.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/fragment_location_details.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_rounded_search_bar.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/rounded_search_bar.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_fragment_pending_requests.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/fragment_pending_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_add_trusted_contact.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_add_trusted_contact.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_home.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_home.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_spinner_background.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/spinner_background.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_item_request.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/item_request.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_item_frequent_request.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/item_frequent_request.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_people.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_people.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_clear.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_clear.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_chip_background_approved.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/chip_background_approved.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_close.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_close.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_rounded_status_background.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/rounded_status_background.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_item_search_result.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/item_search_result.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_home.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_home.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_trusted_contacts.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_trusted_contacts.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_edit.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_edit.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_item_frequent_request.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/item_frequent_request.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_status_expired.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_status_expired.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_map.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_map.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_chip_background_approved.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/chip_background_approved.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_item_recent_contact.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/item_recent_contact.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_item_frequently_requested_location.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/item_frequently_requested_location.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_spinner_background.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/spinner_background.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_dot_background.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/dot_background.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_splash.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_splash.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_timer.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_timer.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_clear.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_clear.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_status_pending.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_status_pending.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_fragment_from_me_requests.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/fragment_from_me_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_fragment_requests.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/fragment_requests.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_item_frequent_contact.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/item_frequent_contact.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_map.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_map.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_fragment_location_details.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/fragment_location_details.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_fragment_frequently_requested.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/fragment_frequently_requested.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_add_trusted_contact.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_add_trusted_contact.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_profile.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_profile.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_item_trusted_contact.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/item_trusted_contact.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_arrow_right.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_arrow_right.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_check_circle.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_check_circle.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_search.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_search.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_person.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_person.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_profile_placeholder.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_profile_placeholder.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_auto_approve.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_auto_approve.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_item_request.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/item_request.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_status_denied.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_status_denied.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_notification.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_notification.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_bell.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_bell.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_activity_sign_in.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/activity_sign_in.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_requests.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_rounded_search_bar.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/rounded_search_bar.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_fragment_requests.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/fragment_requests.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_item_trusted_contact.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/item_trusted_contact.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_status_rejected.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_status_rejected.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_arrow_down.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_arrow_down.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_hide_location.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_hide_location.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_person_24dp.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_person_24dp.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_trusted_contact_details.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_trusted_contact_details.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_ic_status_rejected.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/ic_status_rejected.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_sign_in.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_sign_in.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/drawable_chip_background_expired.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/drawable/chip_background_expired.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_status_pending.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_status_pending.xml"
     },
     {
-        "merged": "com.whereu.whereu.app-debug-69:/layout_item_past_notification.xml.flat",
-        "source": "com.whereu.whereu.app-main-71:/layout/item_past_notification.xml"
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_search.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_search.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_timer.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_timer.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_profile_settings.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_profile_settings.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/layout_activity_profile.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/layout/activity_profile.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_arrow_forward.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_arrow_forward.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/anim_fade_in.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/anim/fade_in.xml"
+    },
+    {
+        "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-debug-69:/drawable_ic_profile_placeholder.xml.flat",
+        "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-71:/drawable/ic_profile_placeholder.xml"
     }
 ]

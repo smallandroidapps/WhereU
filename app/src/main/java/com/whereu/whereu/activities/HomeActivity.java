@@ -550,6 +550,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         NotificationHelper.sendLocalNotification(this, title, message);
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

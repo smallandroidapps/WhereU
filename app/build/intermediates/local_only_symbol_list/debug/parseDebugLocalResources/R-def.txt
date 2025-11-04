@@ -114,12 +114,10 @@ id edit_text_display_name
 id edit_text_email
 id edit_text_phone_number
 id edit_text_verification_code
-id emptyStateTextView
 id expiry_time_spinner
 id fab_add_trusted_contact
 id fab_request_location
 id fragment_container
-id frequentlyRequestedRecyclerView
 id frequently_requested_card_view
 id frequently_requested_recycler_view
 id frequently_requested_title
@@ -129,7 +127,6 @@ id home_content_group
 id image_profile_picture
 id image_view_avatar
 id image_view_status_icon
-id infoChip
 id lastRequestedTextView
 id layout_buttons
 id linearLayout_profile_content
@@ -153,8 +150,9 @@ id profileImageView
 id profile_image
 id receiverTextView
 id recent_contacts_recycler_view
-id recycler_view_frequently_requested
-id recycler_view_requests
+id recycler_view_from_me
+id recycler_view_pending
+id recycler_view_to_me
 id recycler_view_trusted_contacts
 id reject_button
 id requestAgainButton
@@ -177,6 +175,7 @@ id suggestions_recycler_view
 id swipe_refresh_layout
 id switch_auto_approve
 id switch_hide_location
+id tab_layout
 id textView
 id text_area_name
 id text_coordinates
@@ -186,12 +185,10 @@ id text_name
 id text_shared_at
 id text_shared_by
 id text_status
-id text_view_all_requests_title
 id text_view_area_name
 id text_view_coordinates
 id text_view_display_name
 id text_view_distance
-id text_view_frequently_requested_title
 id text_view_phone_number
 id text_view_status
 id text_view_status_chip
@@ -211,7 +208,9 @@ id trusted_contacts_layout
 id trusted_contacts_title
 id userName
 id user_email
+id user_mobile
 id view_details_button
+id view_pager
 layout activity_add_trusted_contact
 layout activity_home
 layout activity_location_details
@@ -226,10 +225,12 @@ layout activity_trusted_contact_details
 layout activity_trusted_contacts
 layout bottom_sheet_location_details
 layout bottom_sheet_request_details
-layout fragment_frequently_requested
+layout fragment_from_me_requests
 layout fragment_location_details
+layout fragment_pending_requests
 layout fragment_profile
 layout fragment_requests
+layout fragment_to_me_requests
 layout item_frequent_contact
 layout item_frequent_request
 layout item_frequently_requested_location
