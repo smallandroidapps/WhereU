@@ -4,13 +4,14 @@ package com.whereu.whereu.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.button.MaterialButton;
 import com.whereu.whereu.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -21,19 +22,28 @@ public final class ActivitySignInBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final Button buttonPhoneSignIn;
+  public final ImageView appIcon;
 
   @NonNull
-  public final Button signInButton;
+  public final MaterialButton buttonPhoneSignIn;
+
+  @NonNull
+  public final MaterialButton signInButton;
+
+  @NonNull
+  public final TextView subtitle;
 
   @NonNull
   public final TextView textView;
 
-  private ActivitySignInBinding(@NonNull ConstraintLayout rootView,
-      @NonNull Button buttonPhoneSignIn, @NonNull Button signInButton, @NonNull TextView textView) {
+  private ActivitySignInBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView appIcon,
+      @NonNull MaterialButton buttonPhoneSignIn, @NonNull MaterialButton signInButton,
+      @NonNull TextView subtitle, @NonNull TextView textView) {
     this.rootView = rootView;
+    this.appIcon = appIcon;
     this.buttonPhoneSignIn = buttonPhoneSignIn;
     this.signInButton = signInButton;
+    this.subtitle = subtitle;
     this.textView = textView;
   }
 
@@ -64,15 +74,27 @@ public final class ActivitySignInBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.appIcon;
+      ImageView appIcon = ViewBindings.findChildViewById(rootView, id);
+      if (appIcon == null) {
+        break missingId;
+      }
+
       id = R.id.buttonPhoneSignIn;
-      Button buttonPhoneSignIn = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton buttonPhoneSignIn = ViewBindings.findChildViewById(rootView, id);
       if (buttonPhoneSignIn == null) {
         break missingId;
       }
 
       id = R.id.signInButton;
-      Button signInButton = ViewBindings.findChildViewById(rootView, id);
+      MaterialButton signInButton = ViewBindings.findChildViewById(rootView, id);
       if (signInButton == null) {
+        break missingId;
+      }
+
+      id = R.id.subtitle;
+      TextView subtitle = ViewBindings.findChildViewById(rootView, id);
+      if (subtitle == null) {
         break missingId;
       }
 
@@ -82,8 +104,8 @@ public final class ActivitySignInBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivitySignInBinding((ConstraintLayout) rootView, buttonPhoneSignIn, signInButton,
-          textView);
+      return new ActivitySignInBinding((ConstraintLayout) rootView, appIcon, buttonPhoneSignIn,
+          signInButton, subtitle, textView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WhereU — Sign In Preview</title>
+    <style>
+      :root {
+        --color-primary: #4b2eff; /* matches theme statusBarColor */
+        --color-on-primary: #ffffff;
+        --color-surface: #ffffff;
+        --color-on-surface: #1c1c1e;
+        --radius: 12px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-surface: #121212;
+          --color-on-surface: #f5f5f7;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--color-surface);
+        color: var(--color-on-surface);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+      }
+      .container {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 24px;
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .logo {
+        width: 72px;
+        height: 72px;
+        border-radius: 16px;
+        background: var(--color-primary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-on-primary);
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      h1 {
+        font-size: 28px;
+        margin: 8px 0 4px;
+      }
+      p {
+        margin: 0 0 24px;
+        color: #6b7280;
+      }
+      .btn {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: var(--radius);
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 12px;
+      }
+      .btn-primary {
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+      }
+      .btn-outlined {
+        background: transparent;
+        color: var(--color-primary);
+        border: 2px solid var(--color-primary);
+      }
+      .caption {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-top: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <div class="logo">WU</div>
+      <h1>Welcome to WhereU</h1>
+      <p>Choose a sign-in method</p>
+
+      <button class="btn btn-primary">Sign in with Google</button>
+      <button class="btn btn-outlined">Sign in with Phone</button>
+
+      <div class="caption">Preview of Android layout redesign</div>
+    </main>
+  </body>
+  </html>
+

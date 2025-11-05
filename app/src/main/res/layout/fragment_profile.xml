@@ -46,20 +46,39 @@
                 android:backgroundTint="@color/light_gray"
                 android:textColorHint="@color/hint_color" />
 
-            <androidx.cardview.widget.CardView
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="50dp"
-                app:cardElevation="4dp"
                 android:layout_marginTop="16dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_profile" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="50dp"
+                    app:cardElevation="4dp">
 
-            </androidx.cardview.widget.CardView>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/ic_profile" />
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Pen icon overlay shown in edit mode -->
+                <ImageView
+                    android:id="@+id/edit_pen_overlay"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:src="@drawable/ic_edit"
+                    android:padding="6dp"
+                    android:visibility="gone"
+                    app:tint="?attr/colorPrimary" />
+
+            </FrameLayout>
 
             <EditText
                 android:id="@+id/userName"
@@ -96,12 +115,12 @@
             android:layout_height="wrap_content"
             android:text="Update Profile"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/purple_500"
+            android:backgroundTint="?attr/colorPrimary"
             android:paddingHorizontal="24dp"
             android:paddingVertical="8dp"
             android:textAllCaps="true"
             android:elevation="3dp"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorOnPrimary"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/top_section_layout"
             app:layout_constraintStart_toStartOf="parent"
