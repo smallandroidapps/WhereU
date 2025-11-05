@@ -10,12 +10,16 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -42,6 +46,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private String accountType;
+    private ActivityResultLauncher<String> pickImageLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,16 @@ public class ProfileSettingsActivity extends AppCompatActivity {
 
         buttonSaveProfile.setOnClickListener(v -> saveUserProfile());
 
+        // Register image picker
+        pickImageLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+            if (uri != null) {
+                uploadProfileImage(uri);
+            }
+        });
+
+        // Tap to change profile photo
+        imageViewProfilePicture.setOnClickListener(v -> pickImageLauncher.launch("image/*"));
+
         if (forceMobileUpdate) {
             Toast.makeText(this, "Please update your mobile number to proceed.", Toast.LENGTH_LONG).show();
         }
@@ -96,11 +111,12 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
-                            String name = documentSnapshot.getString("name");
+                            String name = documentSnapshot.getString("displayName");
                             String email = documentSnapshot.getString("email");
                             String mobileNumber = documentSnapshot.getString("mobileNumber");
                             Boolean hideLocation = documentSnapshot.getBoolean("hideLocation");
                             String accountType = documentSnapshot.getString("accountType");
+                            String profilePhotoUrl = documentSnapshot.getString("profilePhotoUrl");
 
                             if (name != null) {
                                 editTextDisplayName.setText(name);
@@ -116,6 +132,13 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                             }
                             if (accountType != null) {
                                 this.accountType = accountType;
+                            }
+                            if (profilePhotoUrl != null && !profilePhotoUrl.isEmpty()) {
+                                Glide.with(ProfileSettingsActivity.this)
+                                        .load(profilePhotoUrl)
+                                        .placeholder(R.drawable.ic_profile_placeholder)
+                                        .error(R.drawable.ic_profile_placeholder)
+                                        .into(imageViewProfilePicture);
                             }
                         }
                     })
@@ -162,7 +185,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 return;
             }
 
-            String originalPhone = documentSnapshot.getString("phoneNumber");
+            String originalPhone = documentSnapshot.getString("mobileNumber");
 
             if (accountType.equals("google") && !phoneNumber.equals(originalPhone)) {
                 db.collection("users").whereEqualTo("mobileNumber", phoneNumber).get().addOnCompleteListener(task -> {
@@ -209,5 +232,38 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                     finish();
                 })
                 .addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show());
+    }
+
+    private void uploadProfileImage(android.net.Uri imageUri) {
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String userId = currentUser.getUid();
+        Toast.makeText(this, "Uploading image...", Toast.LENGTH_SHORT).show();
+
+        StorageReference ref = FirebaseStorage.getInstance()
+                .getReference()
+                .child("profile_images/")
+                .child(userId + ".jpg");
+
+        ref.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl()
+                        .addOnSuccessListener(downloadUri -> {
+                            String url = downloadUri.toString();
+                            db.collection("users").document(userId)
+                                    .update("profilePhotoUrl", url)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Glide.with(ProfileSettingsActivity.this)
+                                                .load(url)
+                                                .placeholder(R.drawable.ic_profile_placeholder)
+                                                .error(R.drawable.ic_profile_placeholder)
+                                                .into(imageViewProfilePicture);
+                                        Toast.makeText(ProfileSettingsActivity.this, "Profile image updated.", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Failed to save image URL.", Toast.LENGTH_SHORT).show());
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Failed to get image URL.", Toast.LENGTH_SHORT).show()))
+                .addOnFailureListener(e -> Toast.makeText(ProfileSettingsActivity.this, "Image upload failed.", Toast.LENGTH_SHORT).show());
     }
 }
