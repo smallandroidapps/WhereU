@@ -32,6 +32,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -94,6 +95,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private ActivityHomeBinding binding;
     private ListenerRegistration requestListener;
     private ListenerRegistration incomingRequestListener;
+    private ListenerRegistration userProfileListener;
     private FusedLocationProviderClient fusedLocationClient;
     private Set<String> dismissedFrequentIds = new HashSet<>();
 
@@ -226,6 +228,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         });
 
         setupFirestoreListeners();
+        setupUserProfileListener();
     }
 
     private void handleIntent(Intent intent) {
@@ -898,6 +901,31 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 .commit();
     }
 
+    private void setupUserProfileListener() {
+        if (currentUser == null) return;
+        userProfileListener = db.collection("users").document(currentUser.getUid())
+                .addSnapshotListener((snapshot, e) -> {
+                    if (e != null) {
+                        Log.w(TAG, "User profile listener failed.", e);
+                        return;
+                    }
+                    if (snapshot != null && snapshot.exists()) {
+                        String displayName = snapshot.getString("displayName");
+                        setWelcomeMessage(displayName);
+                        String photoUrl = snapshot.getString("profilePhotoUrl");
+                        if (photoUrl != null && !photoUrl.isEmpty()) {
+                            Glide.with(this)
+                                    .load(photoUrl)
+                                    .placeholder(R.drawable.ic_profile_placeholder)
+                                    .error(R.drawable.ic_profile_placeholder)
+                                    .into(binding.profileImage);
+                        } else {
+                            binding.profileImage.setImageResource(R.drawable.ic_profile_placeholder);
+                        }
+                    }
+                });
+    }
+
     private void removeFragment() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (currentFragment != null) {
@@ -1000,6 +1028,9 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         }
         if (incomingRequestListener != null) {
             incomingRequestListener.remove();
+        }
+        if (userProfileListener != null) {
+            userProfileListener.remove();
         }
     }
 }

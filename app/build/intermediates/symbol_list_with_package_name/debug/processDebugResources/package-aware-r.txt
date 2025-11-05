@@ -3768,6 +3768,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id appIcon
 id app_name
 id approve_button
 id approvedTimeTextView
@@ -3916,6 +3917,7 @@ id east
 id edge
 id editTextMobile
 id editText_search
+id edit_pen_overlay
 id edit_query
 id edit_text_display_name
 id edit_text_email
@@ -4263,6 +4265,7 @@ id stop
 id stretch
 id submenuarrow
 id submit_area
+id subtitle
 id suggested_contacts_carousel
 id suggestions_recycler_view
 id supportScrollUp

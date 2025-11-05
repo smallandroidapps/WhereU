@@ -36,6 +36,10 @@
         "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-75:/layout/fragment_from_me_requests.xml"
     },
     {
+        "merged": "com.whereu.whereu.app-mergeDebugResources-72:/layout/fragment_profile.xml",
+        "source": "com.whereu.whereu.app-main-75:/layout/fragment_profile.xml"
+    },
+    {
         "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeDebugResources-72:/layout/fragment_to_me_requests.xml",
         "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-75:/layout/fragment_to_me_requests.xml"
     },
@@ -50,10 +54,6 @@
     {
         "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeDebugResources-72:/layout/activity_trusted_contact_details.xml",
         "source": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-main-75:/layout/activity_trusted_contact_details.xml"
-    },
-    {
-        "merged": "com.whereu.whereu.app-mergeDebugResources-72:/layout/activity_home.xml",
-        "source": "com.whereu.whereu.app-main-75:/layout/activity_home.xml"
     },
     {
         "merged": "/Users/admin/.gradle/daemon/8.7/com.whereu.whereu.app-mergeDebugResources-72:/layout/activity_profile_settings.xml",

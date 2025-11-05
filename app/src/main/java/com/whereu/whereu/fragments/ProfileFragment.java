@@ -130,6 +130,9 @@ public class ProfileFragment extends Fragment {
             binding.editTextMobile.setVisibility(View.VISIBLE);
             binding.userMobile.setVisibility(View.GONE);
             binding.saveProfileButton.setVisibility(View.VISIBLE);
+            if (binding.editPenOverlay != null) {
+                binding.editPenOverlay.setVisibility(View.VISIBLE);
+            }
             Toast.makeText(getContext(), "You can now edit your profile.", Toast.LENGTH_SHORT).show();
         });
     }
@@ -160,12 +163,18 @@ public class ProfileFragment extends Fragment {
                                 binding.editTextMobile.setVisibility(View.VISIBLE);
                                 binding.userMobile.setVisibility(View.GONE);
                                 binding.saveProfileButton.setVisibility(View.VISIBLE);
+                                if (binding.editPenOverlay != null) {
+                                    binding.editPenOverlay.setVisibility(View.VISIBLE);
+                                }
                             } else {
                                 binding.userName.setEnabled(false);
                                 binding.editTextMobile.setEnabled(false);
                                 binding.editTextMobile.setVisibility(View.GONE);
                                 binding.userMobile.setVisibility(View.VISIBLE);
                                 binding.saveProfileButton.setVisibility(View.GONE);
+                                if (binding.editPenOverlay != null) {
+                                    binding.editPenOverlay.setVisibility(View.GONE);
+                                }
                             }
                             // Load profile image if available
                             if (user.getProfilePhotoUrl() != null && !user.getProfilePhotoUrl().isEmpty()) {
@@ -231,6 +240,9 @@ public class ProfileFragment extends Fragment {
                         binding.editTextMobile.setVisibility(View.GONE);
                         binding.userMobile.setVisibility(View.VISIBLE);
                         binding.saveProfileButton.setVisibility(View.GONE);
+                        if (binding.editPenOverlay != null) {
+                            binding.editPenOverlay.setVisibility(View.GONE);
+                        }
                     })
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update profile.", Toast.LENGTH_SHORT).show());
         }

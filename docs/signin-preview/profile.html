@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile UI Preview</title>
+  <style>
+    :root {
+      --surface: #ffffff;
+      --on-surface: #222222;
+      --primary: #3f51b5; /* Example theme primary */
+      --on-primary: #ffffff;
+      --hint: #777777;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: #f6f7fb;
+      color: var(--on-surface);
+    }
+    .screen {
+      max-width: 420px;
+      margin: 24px auto;
+      background: var(--surface);
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      padding: 20px;
+    }
+    .avatar-wrap {
+      width: 100px;
+      height: 100px;
+      margin: 16px auto 8px;
+      position: relative;
+    }
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+      display: grid;
+      place-items: center;
+      color: #5c6bc0;
+      font-weight: 700;
+      font-size: 28px;
+    }
+    .pen-overlay {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      color: var(--primary);
+    }
+    .title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 8px 0 4px;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: var(--hint);
+      margin: 0 0 12px;
+    }
+    .update-btn {
+      display: inline-block;
+      margin: 12px auto 8px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: var(--primary);
+      color: var(--on-primary);
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(63,81,181,0.3);
+    }
+    .card {
+      margin: 16px 0;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card .edit-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="avatar-wrap">
+      <div class="avatar">U</div>
+      <div class="pen-overlay" title="Edit">
+        <!-- simple pen icon -->
+        <svg class="edit-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M3 17.25V21h3.75l11-11-3.75-3.75-11 11zm14.71-9.04a1.003 1.003 0 0 0 0-1.42L16.21 5.29a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.5-1.66z" />
+        </svg>
+      </div>
+    </div>
+    <div class="title">Display Name</div>
+    <div class="subtitle">user@example.com • 9876543210</div>
+    <button class="update-btn">Update Profile</button>
+
+    <div class="card">
+      <svg class="edit-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M3 17.25V21h3.75l11-11-3.75-3.75-11 11zm14.71-9.04a1.003 1.003 0 0 0 0-1.42L16.21 5.29a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.5-1.66z" />
+      </svg>
+      <div>Edit Profile</div>
+    </div>
+  </div>
+</body>
+</html>
