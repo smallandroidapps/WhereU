@@ -96,6 +96,7 @@ id card_location_expiry
 id card_logout
 id card_trusted_contacts
 id ccp
+id clear_button
 id contact_avatar
 id contact_name
 id coordinatesTextView
@@ -114,10 +115,12 @@ id edit_text_display_name
 id edit_text_email
 id edit_text_phone_number
 id edit_text_verification_code
+id emptyView
 id expiry_time_spinner
 id fab_add_trusted_contact
 id fab_request_location
 id fragment_container
+id frequent_action_button
 id frequently_requested_card_view
 id frequently_requested_recycler_view
 id frequently_requested_title
@@ -148,10 +151,10 @@ id past_notifications_title
 id profileActivity
 id profileImageView
 id profile_image
+id profile_loading
 id receiverTextView
 id recent_contacts_recycler_view
 id recycler_view_from_me
-id recycler_view_pending
 id recycler_view_to_me
 id recycler_view_trusted_contacts
 id reject_button
@@ -170,6 +173,7 @@ id signInActivity
 id signInButton
 id spinner_location_expiry
 id status_icon
+id status_text
 id suggested_contacts_carousel
 id suggestions_recycler_view
 id swipe_refresh_layout
@@ -194,6 +198,7 @@ id text_view_status
 id text_view_status_chip
 id text_view_timestamp
 id text_view_user_name
+id time_text
 id timestamp_text_view
 id titleTextView
 id title_home
@@ -227,7 +232,6 @@ layout bottom_sheet_location_details
 layout bottom_sheet_request_details
 layout fragment_from_me_requests
 layout fragment_location_details
-layout fragment_pending_requests
 layout fragment_profile
 layout fragment_requests
 layout fragment_to_me_requests
@@ -245,6 +249,7 @@ mipmap ic_launcher_round
 navigation nav_graph
 string app_name
 string avatar_description
+string clear
 string default_web_client_id
 string gcm_defaultSenderId
 string google_api_key

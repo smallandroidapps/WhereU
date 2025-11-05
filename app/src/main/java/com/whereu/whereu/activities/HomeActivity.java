@@ -88,6 +88,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private String userDisplayName;
     private Map<String, String> requestStatusMap = new HashMap<>();
     private Map<String, String> requestIdMap = new HashMap<>();
+    // Stores latest approvedTimestamp per contact for expiry calculations
     private Map<String, Long> lastApprovedTsMap = new HashMap<>();
     private BottomNavigationView bottomNavigationView;
     private ActivityHomeBinding binding;
@@ -110,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         initUI();
         setupListeners();
         handleIntent(getIntent());
-        requestInitialPermissions();
+        // Permissions are handled in SplashActivity; avoid duplicate prompts here
         scheduleBackgroundPolling();
     }
 
@@ -208,6 +209,10 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home) {
+                // Clear search when returning to Home
+                if (searchBar != null && searchBar.getText() != null && searchBar.getText().length() > 0) {
+                    searchBar.setText("");
+                }
                 showHomeContent();
                 return true;
             } else if (itemId == R.id.navigation_requests) {
@@ -418,12 +423,13 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     @SuppressLint("Range")
     private List<SearchResultAdapter.SearchResult> getDeviceContacts(String query) {
-        List<SearchResultAdapter.SearchResult> deviceContacts = new ArrayList<>();
+        // Use a LinkedHashMap to deduplicate by normalized last-10 digits while preserving order
+        Map<String, SearchResultAdapter.SearchResult> uniqueByPhone = new java.util.LinkedHashMap<>();
         ContentResolver contentResolver = getContentResolver();
         String normalizedQuery = normalizePhoneNumber(query);
 
         if (query.length() < 2 && normalizedQuery.length() < 2) {
-            return deviceContacts;
+            return new ArrayList<>();
         }
 
         Cursor cursor = contentResolver.query(
@@ -439,12 +445,16 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY));
                 String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 if (phoneNumber != null) {
-                    deviceContacts.add(new SearchResultAdapter.SearchResult(name, "", phoneNumber, "", false, false, "", "not_requested"));
+                    String key = getLast10Digits(phoneNumber);
+                    // Keep the first seen entry for this number
+                    if (!uniqueByPhone.containsKey(key)) {
+                        uniqueByPhone.put(key, new SearchResultAdapter.SearchResult(name, "", phoneNumber, "", false, false, "", "not_requested"));
+                    }
                 }
             }
             cursor.close();
         }
-        return deviceContacts;
+        return new ArrayList<>(uniqueByPhone.values());
     }
 
     @Override
@@ -453,6 +463,12 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
         if (!result.isExistingUser()) {
             Toast.makeText(this, "Invite functionality coming soon!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Prevent sending a request to self
+        if (result.getUserId() != null && result.getUserId().equals(currentUser.getUid())) {
+            Toast.makeText(this, "You cannot request your own location.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -482,6 +498,11 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void sendLocationRequest(SearchResultAdapter.SearchResult result, Integer position) {
+        // Prevent self-requests as a safety check
+        if (currentUser != null && result.getUserId() != null && result.getUserId().equals(currentUser.getUid())) {
+            Toast.makeText(this, "You cannot request your own location.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         // Check if user is in cooldown period
         if (result.isInCooldown()) {
             long remainingTime = result.getCooldownRemainingTime();
@@ -544,34 +565,67 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private void startCooldownTimer(SearchResultAdapter.SearchResult result, Integer position) {
         // Create a countdown timer for the cooldown period
         CountDownTimer timer = new CountDownTimer(60000, 1000) { // 1 minute cooldown
+            private boolean blinkStarted = false;
+
             public void onTick(long millisUntilFinished) {
                 // Update the result with remaining cooldown time
                 result.setCooldownRemainingTime(millisUntilFinished);
+
+                // Update only the timer text on the visible view holder, avoid full card redraws
                 if (position != null && position >= 0) {
-                    searchResultAdapter.notifyItemChanged(position);
+                    RecyclerView.ViewHolder vh = searchResultsRecyclerView.findViewHolderForAdapterPosition(position);
+                    if (vh instanceof SearchResultAdapter.SearchResultViewHolder) {
+                        SearchResultAdapter.SearchResultViewHolder holder = (SearchResultAdapter.SearchResultViewHolder) vh;
+                        holder.actionButton.setText("Wait " + SearchResultAdapter.SearchResult.formatCooldownTime(millisUntilFinished));
+                        holder.actionButton.setEnabled(false);
+
+                        // Start a subtle blink on the timer text once
+                        if (!blinkStarted) {
+                            blinkStarted = true;
+                            android.view.animation.AlphaAnimation blink = new android.view.animation.AlphaAnimation(1.0f, 0.4f);
+                            blink.setDuration(500);
+                            blink.setRepeatMode(android.view.animation.Animation.REVERSE);
+                            blink.setRepeatCount(android.view.animation.Animation.INFINITE);
+                            holder.actionButton.startAnimation(blink);
+                        }
+                    } else {
+                        // If holder not attached, do a minimal item update
+                        searchResultAdapter.notifyItemChanged(position);
+                    }
                 } else {
-                    // If position is invalid, refresh the entire list
                     searchResultAdapter.notifyDataSetChanged();
                 }
             }
-            
+
             public void onFinish() {
                 // Cooldown finished, check if request is still "sent" and update to "pending" if so
                 if ("sent".equals(result.getRequestStatus())) {
                     result.setRequestStatus("pending");
-                    result.setCooldownRemainingTime(0);
-                    if (position != null && position >= 0) {
-                        searchResultAdapter.notifyItemChanged(position);
-                    } else {
-                        // If position is invalid, refresh the entire list
-                        searchResultAdapter.notifyDataSetChanged();
+                }
+                result.setCooldownRemainingTime(0);
+
+                if (position != null && position >= 0) {
+                    RecyclerView.ViewHolder vh = searchResultsRecyclerView.findViewHolderForAdapterPosition(position);
+                    if (vh instanceof SearchResultAdapter.SearchResultViewHolder) {
+                        SearchResultAdapter.SearchResultViewHolder holder = (SearchResultAdapter.SearchResultViewHolder) vh;
+                        holder.actionButton.clearAnimation();
+                        holder.actionButton.setText("Request Sent");
+                        holder.actionButton.setEnabled(false);
                     }
+                    searchResultAdapter.notifyItemChanged(position);
+                } else {
+                    searchResultAdapter.notifyDataSetChanged();
                 }
             }
         }.start();
     }
 
     private void saveLocationRequestToFirestore(LocationRequest request, SearchResultAdapter.SearchResult result, Integer position) {
+        // Double-check we are not saving a self-request
+        if (currentUser != null && request != null && currentUser.getUid().equals(request.getToUserId())) {
+            Toast.makeText(HomeActivity.this, "You cannot request your own location.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         db.collection("locationRequests").add(request)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(HomeActivity.this, "Location request sent.", Toast.LENGTH_SHORT).show();
@@ -579,16 +633,30 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     result.setRequestStatus("sent");
                     result.setRequestSentTimestamp(System.currentTimeMillis());
                     result.setRequestId(documentReference.getId());
+                    // Update in-memory status map for immediate UI refresh
+                    if (request.getToUserId() != null) {
+                        requestStatusMap.put(request.getToUserId(), "sent");
+                    }
                     if (position != null && position >= 0) {
                         searchResultAdapter.notifyItemChanged(position);
                     } else {
                         // If position is invalid, refresh the entire list
                         searchResultAdapter.notifyDataSetChanged();
                     }
+                    // Refresh visible statuses on the search list
+                    updateSearchResultsRequestStatus();
                     // Start countdown timer for cooldown
                     startCooldownTimer(result, position);
                 })
                 .addOnFailureListener(e -> Toast.makeText(HomeActivity.this, "Failed to send request.", Toast.LENGTH_SHORT).show());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Rebuild and refresh statuses whenever screen becomes visible
+        updateSearchResultsRequestStatus();
+        loadDismissedFrequentIdsAndFetch();
     }
 
     private void fetchFrequentlyRequestedContacts() {
@@ -604,8 +672,9 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Map<String, Long> latestRequestTimestampMap = new HashMap<>();
+                        Map<String, Long> latestApprovedTimestampMap = new HashMap<>();
                         Map<String, String> latestRequestStatusMap = new HashMap<>();
+                        Map<String, String> latestRequestIdMap = new HashMap<>();
                         Set<String> frequentReceiverIds = new HashSet<>();
 
                         for (QueryDocumentSnapshot document : task.getResult()) {
@@ -616,19 +685,33 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                             String toId = request.getToUserId();
                             frequentReceiverIds.add(toId);
 
-                            // Store the latest timestamp and status for each receiver
-                            Long existingTimestamp = latestRequestTimestampMap.get(toId);
-                            if (existingTimestamp == null || request.getTimestamp() > existingTimestamp) {
-                                latestRequestTimestampMap.put(toId, request.getTimestamp());
+                            // Track the latest status
+                            String existingStatus = latestRequestStatusMap.get(toId);
+                            if (existingStatus == null) {
                                 latestRequestStatusMap.put(toId, request.getStatus());
+                                latestRequestIdMap.put(toId, document.getId());
+                            }
+
+                            // Track the latest approvedTimestamp per receiver (for expiry)
+                            if ("approved".equals(request.getStatus())) {
+                                long approvedTs = request.getApprovedTimestamp();
+                                Long existingApprovedTs = latestApprovedTimestampMap.get(toId);
+                                if (approvedTs > 0 && (existingApprovedTs == null || approvedTs > existingApprovedTs)) {
+                                    latestApprovedTimestampMap.put(toId, approvedTs);
+                                }
                             }
                         }
 
                         // Update global maps
                         lastApprovedTsMap.clear();
-                        lastApprovedTsMap.putAll(latestRequestTimestampMap);
+                        lastApprovedTsMap.putAll(latestApprovedTimestampMap);
                         requestStatusMap.clear();
                         requestStatusMap.putAll(latestRequestStatusMap);
+                        requestIdMap.clear();
+                        requestIdMap.putAll(latestRequestIdMap);
+
+                        // Refresh search list statuses using the rebuilt maps
+                        updateSearchResultsRequestStatus();
 
                         // Filter out dismissed frequent IDs
                         frequentReceiverIds.removeAll(dismissedFrequentIds);
@@ -646,37 +729,62 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             return;
         }
 
-        db.collection("users")
-                .whereIn("userId", userIds)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        frequentContacts.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            User user = document.toObject(User.class);
-                            SearchResultAdapter.SearchResult sr = new SearchResultAdapter.SearchResult(
-                                    user.getDisplayName(),
-                                    user.getUserId(),
-                                    user.getMobileNumber(),
-                                    user.getEmail(),
-                                    true,
-                                    false,
-                                    user.getProfilePhotoUrl(),
-                                    requestStatusMap.getOrDefault(user.getUserId(), "not_requested")
-                            );
-                            Long ts = lastApprovedTsMap.get(user.getUserId());
-                            if (ts != null) {
-                                sr.setLastRequestTimestamp(ts);
+        // Firestore whereIn supports up to 10 items; batch queries
+        final int batchSize = 10;
+        final int totalBatches = (userIds.size() + batchSize - 1) / batchSize;
+        final java.util.concurrent.atomic.AtomicInteger completedBatches = new java.util.concurrent.atomic.AtomicInteger(0);
+        final List<SearchResultAdapter.SearchResult> aggregated = new ArrayList<>();
+
+        for (int start = 0; start < userIds.size(); start += batchSize) {
+            List<String> batch = userIds.subList(start, Math.min(start + batchSize, userIds.size()));
+            db.collection("users")
+                    .whereIn("userId", batch)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                User user = document.toObject(User.class);
+                                String baseStatus = requestStatusMap.getOrDefault(user.getUserId(), "not_requested");
+                                // If approved and beyond expiry, mark as expired
+                                if ("approved".equals(baseStatus)) {
+                                    Long apTs = lastApprovedTsMap.get(user.getUserId());
+                                    if (apTs != null) {
+                                        long expiryMs = 24L * 60 * 60 * 1000; // 24 hours
+                                        if (System.currentTimeMillis() - apTs > expiryMs) {
+                                            baseStatus = "expired";
+                                        }
+                                    }
+                                }
+
+                                SearchResultAdapter.SearchResult sr = new SearchResultAdapter.SearchResult(
+                                        user.getDisplayName(),
+                                        user.getUserId(),
+                                        user.getMobileNumber(),
+                                        user.getEmail(),
+                                        true,
+                                        false,
+                                        user.getProfilePhotoUrl(),
+                                        baseStatus
+                                );
+                                Long ts = lastApprovedTsMap.get(user.getUserId());
+                                if (ts != null) {
+                                    sr.setLastRequestTimestamp(ts);
+                                }
+                                aggregated.add(sr);
                             }
-                            frequentContacts.add(sr);
+                        } else {
+                            Log.w(TAG, "Error fetching frequent contact details batch.", task.getException());
                         }
-                        frequentContactAdapter.notifyDataSetChanged();
-                        frequentlyRequestedTitle.setVisibility(View.VISIBLE);
-                        frequentlyRequestedRecyclerView.setVisibility(View.VISIBLE);
-                    } else {
-                        Log.w(TAG, "Error fetching frequent contact details.", task.getException());
-                    }
-                });
+
+                        if (completedBatches.incrementAndGet() == totalBatches) {
+                            frequentContacts.clear();
+                            frequentContacts.addAll(aggregated);
+                            frequentContactAdapter.notifyDataSetChanged();
+                            frequentlyRequestedTitle.setVisibility(View.VISIBLE);
+                            frequentlyRequestedRecyclerView.setVisibility(View.VISIBLE);
+                        }
+                    });
+        }
     }
 
     @Override

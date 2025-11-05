@@ -11,8 +11,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import com.whereu.whereu.R;
@@ -34,6 +36,7 @@ import java.util.concurrent.TimeUnit;
 public class SplashActivity extends AppCompatActivity {
 
     private static final int SPLASH_DISPLAY_LENGTH = 3000; // 3 seconds
+    private static final int PERMISSIONS_REQUEST_RUNTIME = 201;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +114,17 @@ public class SplashActivity extends AppCompatActivity {
                 handler.postDelayed(this, 300);
             }
         }, 0);
+        // Request required runtime permissions before navigating further
+        requestRuntimePermissionsIfNeeded();
+    }
 
+    private boolean hasAllRuntimePermissions() {
+        boolean contacts = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+        boolean location = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        return contacts && location;
+    }
+
+    private void proceedToNextScreenWithDelay() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -120,5 +133,31 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
+    }
+
+    private void requestRuntimePermissionsIfNeeded() {
+        if (!hasAllRuntimePermissions()) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_RUNTIME
+            );
+        } else {
+            proceedToNextScreenWithDelay();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSIONS_REQUEST_RUNTIME) {
+            if (hasAllRuntimePermissions()) {
+                proceedToNextScreenWithDelay();
+            } else {
+                Toast.makeText(this, "Permissions required to continue", Toast.LENGTH_LONG).show();
+                // Attempt one more request
+                requestRuntimePermissionsIfNeeded();
+            }
+        }
     }
 }

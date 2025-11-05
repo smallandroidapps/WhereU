@@ -66,12 +66,13 @@ public class FrequentlyRequestedAdapter extends RecyclerView.Adapter<FrequentlyR
             holder.statusChip.setText("Approved");
             holder.statusChip.setBackgroundResource(R.drawable.chip_background_approved);
             holder.statusChip.setVisibility(View.VISIBLE);
-            holder.requestAgainButton.setVisibility(View.VISIBLE);
+            holder.requestAgainButton.setVisibility(View.GONE);
         } else if (request.getStatus().equals("approved") && isExpired) {
             holder.statusChip.setText("Expired");
             holder.statusChip.setBackgroundResource(R.drawable.chip_background_expired);
             holder.statusChip.setVisibility(View.VISIBLE);
-            holder.requestAgainButton.setVisibility(View.GONE);
+            holder.requestAgainButton.setVisibility(View.VISIBLE);
+            holder.requestAgainButton.setText("Request Again");
         } else {
             holder.statusChip.setVisibility(View.GONE);
             holder.requestAgainButton.setVisibility(View.GONE);
