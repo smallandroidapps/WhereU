@@ -11,6 +11,7 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,6 +45,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.whereu.whereu.R;
 import com.whereu.whereu.adapters.FrequentContactAdapter;
+import com.whereu.whereu.adapters.FrequentlyRequestedAdapter;
+import com.whereu.whereu.activities.SearchResultAdapter;
 import com.whereu.whereu.databinding.ActivityHomeBinding;
 import com.whereu.whereu.fragments.LocationDetailsBottomSheetFragment;
 import com.whereu.whereu.fragments.ProfileFragment;
@@ -61,7 +64,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-public class HomeActivity extends AppCompatActivity implements SearchResultAdapter.OnItemClickListener, FrequentContactAdapter.OnFrequentContactClickListener, LocationDetailsBottomSheetFragment.OnLocationDetailActionListener, RequestsFragment.NotificationListener {
+public class HomeActivity extends AppCompatActivity implements SearchResultAdapter.OnItemClickListener, FrequentlyRequestedAdapter.OnRequestAgainListener, FrequentContactAdapter.OnFrequentContactClickListener, LocationDetailsBottomSheetFragment.OnLocationDetailActionListener, RequestsFragment.NotificationListener {
 
     private static final String TAG = "HomeActivity";
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
@@ -124,7 +127,17 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         searchResultsRecyclerView = binding.searchResultsRecyclerView;
 
         searchResultsList = new ArrayList<>();
-        searchResultAdapter = new SearchResultAdapter(searchResultsList, this);
+        searchResultAdapter = new SearchResultAdapter(searchResultsList, new SearchResultAdapter.OnItemClickListener() {
+            @Override
+            public void onActionButtonClick(SearchResultAdapter.SearchResult result, int position) {
+                HomeActivity.this.onActionButtonClick(result, position);
+            }
+
+            @Override
+            public void onItemClick(SearchResultAdapter.SearchResult result) {
+                // Not used
+            }
+        });
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchResultsRecyclerView.setAdapter(searchResultAdapter);
 
@@ -136,6 +149,11 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         frequentlyRequestedTitle = binding.frequentlyRequestedTitle;
 
         bottomNavigationView = binding.bottomNavigationBar;
+    }
+
+    @Override
+    public void onItemClick(SearchResultAdapter.SearchResult result) {
+        // Not used
     }
 
     private void setupListeners() {
@@ -445,6 +463,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 sendLocationRequest(result, position);
                 break;
             case "approved":
+            case "sent":
                 db.collection("locationRequests").document(result.getRequestId()).get().addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         LocationRequest approvedRequest = documentSnapshot.toObject(LocationRequest.class);
@@ -463,6 +482,13 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void sendLocationRequest(SearchResultAdapter.SearchResult result, Integer position) {
+        // Check if user is in cooldown period
+        if (result.isInCooldown()) {
+            long remainingTime = result.getCooldownRemainingTime();
+            Toast.makeText(this, "Please wait " + SearchResultAdapter.SearchResult.formatCooldownTime(remainingTime) + " before sending another request", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Capture requestor's current location when sending request
         boolean fineGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         boolean coarseGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
@@ -515,14 +541,52 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         }
     }
     
+    private void startCooldownTimer(SearchResultAdapter.SearchResult result, Integer position) {
+        // Create a countdown timer for the cooldown period
+        CountDownTimer timer = new CountDownTimer(60000, 1000) { // 1 minute cooldown
+            public void onTick(long millisUntilFinished) {
+                // Update the result with remaining cooldown time
+                result.setCooldownRemainingTime(millisUntilFinished);
+                if (position != null && position >= 0) {
+                    searchResultAdapter.notifyItemChanged(position);
+                } else {
+                    // If position is invalid, refresh the entire list
+                    searchResultAdapter.notifyDataSetChanged();
+                }
+            }
+            
+            public void onFinish() {
+                // Cooldown finished, check if request is still "sent" and update to "pending" if so
+                if ("sent".equals(result.getRequestStatus())) {
+                    result.setRequestStatus("pending");
+                    result.setCooldownRemainingTime(0);
+                    if (position != null && position >= 0) {
+                        searchResultAdapter.notifyItemChanged(position);
+                    } else {
+                        // If position is invalid, refresh the entire list
+                        searchResultAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        }.start();
+    }
+
     private void saveLocationRequestToFirestore(LocationRequest request, SearchResultAdapter.SearchResult result, Integer position) {
         db.collection("locationRequests").add(request)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(HomeActivity.this, "Location request sent.", Toast.LENGTH_SHORT).show();
-                    result.setRequestStatus("pending");
-                    if (position != null) {
+                    // Set status to "sent" and record timestamp for cooldown
+                    result.setRequestStatus("sent");
+                    result.setRequestSentTimestamp(System.currentTimeMillis());
+                    result.setRequestId(documentReference.getId());
+                    if (position != null && position >= 0) {
                         searchResultAdapter.notifyItemChanged(position);
+                    } else {
+                        // If position is invalid, refresh the entire list
+                        searchResultAdapter.notifyDataSetChanged();
                     }
+                    // Start countdown timer for cooldown
+                    startCooldownTimer(result, position);
                 })
                 .addOnFailureListener(e -> Toast.makeText(HomeActivity.this, "Failed to send request.", Toast.LENGTH_SHORT).show());
     }
@@ -616,8 +680,26 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     @Override
-    public void onFrequentContactClick(SearchResultAdapter.SearchResult result) {
-        onActionButtonClick(result, -1);
+    public void onRequestAgain(LocationRequest request) {
+        if (currentUser == null) return;
+        db.collection("users").document(request.getToUserId()).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                User user = documentSnapshot.toObject(User.class);
+                if (user != null) {
+                    SearchResultAdapter.SearchResult result = new SearchResultAdapter.SearchResult(
+                            user.getDisplayName(),
+                            user.getUserId(),
+                            user.getMobileNumber(),
+                            user.getEmail(),
+                            true,
+                            false,
+                            user.getProfilePhotoUrl(),
+                            "not_requested"
+                    );
+                    sendLocationRequest(result, -1);
+                }
+            }
+        });
     }
 
     @Override
@@ -648,10 +730,14 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 .addOnFailureListener(e -> Log.w(TAG, "Failed to save dismissed ID", e));
     }
 
+
+
     @Override
-    public void onItemClick(SearchResultAdapter.SearchResult result) {
-        Log.d(TAG, "Clicked on search result: " + result.getDisplayName());
+    public void onFrequentContactClick(SearchResultAdapter.SearchResult contact) {
+        // Not used
     }
+
+
 
     private void showHomeContent() {
         homeContentGroup.setVisibility(View.VISIBLE);
@@ -787,7 +873,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                             user.getProfilePhotoUrl(),
                             "not_requested"
                     );
-                    sendLocationRequest(result, null);
+                    sendLocationRequest(result, -1);
                 }
             }
         });

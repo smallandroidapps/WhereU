@@ -19,6 +19,17 @@ import com.whereu.whereu.R;
 import android.view.View;
 
 import com.whereu.whereu.utils.NotificationHelper;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import com.whereu.whereu.workers.NewRequestsWorker;
+import java.util.concurrent.TimeUnit;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -31,6 +42,32 @@ public class SplashActivity extends AppCompatActivity {
 
         // Register Notification Channel
         NotificationHelper.createNotificationChannel(this);
+
+        // Request notification permission early (Android 13+), so background posts succeed
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+
+        // Schedule background polling right away so it runs even if user closes the app
+        try {
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+
+            PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(NewRequestsWorker.class, 15, TimeUnit.MINUTES)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    "new_requests_poll",
+                    ExistingPeriodicWorkPolicy.UPDATE,
+                    workRequest
+            );
+        } catch (Exception e) {
+            // Safe log; if WorkManager init fails, we will try again in HomeActivity
+        }
 
         // Animate the logo
         CardView logo = findViewById(R.id.logo_container);

@@ -50,21 +50,35 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             // Check if request status has changed
             if (result.getPreviousRequestStatus() != null && !result.getRequestStatus().equals(result.getPreviousRequestStatus())) {
                 // Apply subtle animation
-                ObjectAnimator animator = ObjectAnimator.ofFloat(holder.actionButton, "alpha", 0f, 1f);
-                animator.setDuration(500); // 500ms duration
-                animator.start();
+                if (!"approved".equals(result.getRequestStatus())) {
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(holder.actionButton, "alpha", 0f, 1f);
+                    animator.setDuration(500); // 500ms duration
+                    animator.start();
+                }
             }
 
             switch (result.getRequestStatus()) {
+                case "sent":
                 case "pending":
-                    holder.actionButton.setText("Request Sent");
-                    holder.actionButton.setEnabled(false);
+                    // Show countdown timer if in cooldown period
+                    if (result.isInCooldown()) {
+                        long remainingTime = result.getCooldownRemainingTime();
+                        holder.actionButton.setText("Wait " + SearchResult.formatCooldownTime(remainingTime));
+                        holder.actionButton.setEnabled(false);
+                    } else {
+                        holder.actionButton.setText("Request Sent");
+                        holder.actionButton.setEnabled(false);
+                    }
                     break;
                 case "approved":
                     holder.actionButton.setText("View Details");
                     holder.actionButton.setEnabled(true);
                     break;
                 case "expired":
+                    holder.actionButton.setText("Request Again");
+                    holder.actionButton.setEnabled(true);
+                    break;
+                case "rejected":
                     holder.actionButton.setText("Request Again");
                     holder.actionButton.setEnabled(true);
                     break;
@@ -111,6 +125,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         private String requestStatus;
         private String requestId;
         private String previousRequestStatus; // Added field
+        private long lastRequestTimestamp; // last approved/request time for frequent card
+        private long requestSentTimestamp;
+        private long cooldownRemainingTime; // timestamp when request was sent for cooldown
 
         public SearchResult(String displayName, String userId, String phoneNumber, String email, boolean isExistingUser, boolean isCurrentUserEmail, String profilePhotoUrl, String requestStatus) {
             this.displayName = displayName;
@@ -122,6 +139,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             this.profilePhotoUrl = profilePhotoUrl;
             this.requestStatus = requestStatus;
             this.previousRequestStatus = requestStatus; // Initialize previous status
+            this.lastRequestTimestamp = 0L;
+            this.requestSentTimestamp = 0L;
+            this.cooldownRemainingTime = 0L;
         }
 
         protected SearchResult(Parcel in) {
@@ -135,6 +155,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             requestStatus = in.readString();
             requestId = in.readString();
             previousRequestStatus = in.readString(); // Read from parcel
+            lastRequestTimestamp = in.readLong();
+            requestSentTimestamp = in.readLong();
+            cooldownRemainingTime = in.readLong();
         }
 
         public static final Creator<SearchResult> CREATOR = new Creator<SearchResult>() {
@@ -216,6 +239,49 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             this.requestId = requestId;
         }
 
+        public long getLastRequestTimestamp() {
+            return lastRequestTimestamp;
+        }
+
+        public void setLastRequestTimestamp(long lastRequestTimestamp) {
+            this.lastRequestTimestamp = lastRequestTimestamp;
+        }
+
+        public long getRequestSentTimestamp() {
+            return requestSentTimestamp;
+        }
+
+        public void setRequestSentTimestamp(long requestSentTimestamp) {
+            this.requestSentTimestamp = requestSentTimestamp;
+        }
+
+        public long getCooldownRemainingTime() {
+            if (!isInCooldown()) return 0L;
+            long cooldownEndTime = requestSentTimestamp + 60 * 1000;
+            return cooldownEndTime - System.currentTimeMillis();
+        }
+
+        public void setCooldownRemainingTime(long cooldownRemainingTime) {
+            this.cooldownRemainingTime = cooldownRemainingTime;
+        }
+
+        public boolean isInCooldown() {
+            if (requestSentTimestamp == 0L) return false;
+            long cooldownEndTime = requestSentTimestamp + 60 * 1000; // 1 minute cooldown
+            return System.currentTimeMillis() < cooldownEndTime;
+        }
+
+        public static String formatCooldownTime(long milliseconds) {
+            long seconds = milliseconds / 1000;
+            if (seconds < 60) {
+                return seconds + "s";
+            } else {
+                long minutes = seconds / 60;
+                long remainingSeconds = seconds % 60;
+                return minutes + "m " + remainingSeconds + "s";
+            }
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -233,6 +299,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             dest.writeString(requestStatus);
             dest.writeString(requestId);
             dest.writeString(previousRequestStatus); // Write to parcel
+            dest.writeLong(lastRequestTimestamp);
+            dest.writeLong(requestSentTimestamp);
+            dest.writeLong(cooldownRemainingTime);
         }
     }
 }

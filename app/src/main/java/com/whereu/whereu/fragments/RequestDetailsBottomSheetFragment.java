@@ -1,6 +1,9 @@
 package com.whereu.whereu.fragments;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +16,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.whereu.whereu.R;
@@ -28,6 +34,7 @@ public class RequestDetailsBottomSheetFragment extends BottomSheetDialogFragment
 
     private LocationRequest locationRequest;
     private OnRequestDetailsActionListener listener;
+    private FusedLocationProviderClient fusedLocationClient;
 
     public interface OnRequestDetailsActionListener {
         void onRequestApproved(LocationRequest request);
@@ -48,6 +55,7 @@ public class RequestDetailsBottomSheetFragment extends BottomSheetDialogFragment
         if (getArguments() != null) {
             locationRequest = getArguments().getParcelable(ARG_LOCATION_REQUEST);
         }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
     }
 
     @Nullable
@@ -75,9 +83,9 @@ public class RequestDetailsBottomSheetFragment extends BottomSheetDialogFragment
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
             timestampTextView.setText(String.format("Timestamp: %s", sdf.format(locationRequest.getApprovedTimestamp() != 0 ? locationRequest.getApprovedTimestamp() : locationRequest.getTimestamp())));
 
-            // Distance will be calculated and set here if available, otherwise a placeholder.
-            distanceTextView.setText("Distance: N/A"); // Placeholder for now
-            distanceTextView.setVisibility(View.VISIBLE); // Make sure it's visible
+            distanceTextView.setText("Distance: Calculating...");
+            updateDistance(distanceTextView);
+            distanceTextView.setVisibility(View.VISIBLE);
             areaNameTextView.setText(String.format("Area: %s", locationRequest.getAreaName() != null ? locationRequest.getAreaName() : "N/A"));
 
             openInMapsButton.setOnClickListener(v -> {
@@ -91,7 +99,6 @@ public class RequestDetailsBottomSheetFragment extends BottomSheetDialogFragment
                 }
             });
 
-            // Show Approve/Reject buttons only for the receiver of a pending request
             if (isReceiver && "pending".equals(locationRequest.getStatus())) {
                 actionButtonsLayout.setVisibility(View.VISIBLE);
                 approveButton.setOnClickListener(v -> {
@@ -111,12 +118,39 @@ public class RequestDetailsBottomSheetFragment extends BottomSheetDialogFragment
             }
 
         } else {
-            // Handle case where locationRequest is null
             Toast.makeText(getContext(), "Error: Location request details not available.", Toast.LENGTH_SHORT).show();
             dismiss();
         }
 
         return view;
+    }
+
+    private void updateDistance(TextView distanceTextView) {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            distanceTextView.setText("Distance: Location permission needed");
+            return;
+        }
+        fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
+            if (location != null && locationRequest != null) {
+                float distance = distanceKm(location.getLatitude(), location.getLongitude(),
+                        locationRequest.getLatitude(), locationRequest.getLongitude());
+                distanceTextView.setText(String.format(Locale.getDefault(), "Distance: %.2f km", distance));
+            } else {
+                distanceTextView.setText("Distance: N/A");
+            }
+        });
+    }
+
+    private float distanceKm(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371; // Earth radius in km
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return (float) (R * c);
     }
 
     public void setOnRequestDetailsActionListener(OnRequestDetailsActionListener listener) {
