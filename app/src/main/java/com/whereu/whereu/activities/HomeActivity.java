@@ -6,6 +6,8 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -26,6 +28,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,10 +48,12 @@ import com.whereu.whereu.models.LocationRequest;
 import com.wheru.models.User;
 import com.whereu.whereu.utils.NotificationHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -79,6 +85,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private ActivityHomeBinding binding;
     private ListenerRegistration requestListener;
     private ListenerRegistration incomingRequestListener;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +96,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         initUI();
         setupListeners();
@@ -425,8 +433,60 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void sendLocationRequest(SearchResultAdapter.SearchResult result, Integer position) {
+        // Capture requestor's current location when sending request
+        boolean fineGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean coarseGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        
         LocationRequest newRequest = new LocationRequest(currentUser.getUid(), result.getUserId());
-        db.collection("locationRequests").add(newRequest)
+        
+        if (fineGranted || coarseGranted) {
+            FusedLocationProviderClient fusedClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedClient.getLastLocation()
+                    .addOnSuccessListener(location -> {
+                        if (location != null) {
+                            newRequest.setLatitude(location.getLatitude());
+                            newRequest.setLongitude(location.getLongitude());
+                            
+                            // Get area name from coordinates
+                            try {
+                                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                if (addresses != null && !addresses.isEmpty()) {
+                                    Address addr = addresses.get(0);
+                                    StringBuilder areaName = new StringBuilder();
+                                    if (addr.getLocality() != null && !addr.getLocality().isEmpty()) {
+                                        areaName.append(addr.getLocality());
+                                    }
+                                    if (addr.getAdminArea() != null && !addr.getAdminArea().isEmpty()) {
+                                        if (areaName.length() > 0) areaName.append(", ");
+                                        areaName.append(addr.getAdminArea());
+                                    }
+                                    if (addr.getCountryName() != null && !addr.getCountryName().isEmpty()) {
+                                        if (areaName.length() > 0) areaName.append(", ");
+                                        areaName.append(addr.getCountryName());
+                                    }
+                                    newRequest.setAreaName(areaName.toString());
+                                }
+                            } catch (IOException e) {
+                                // Ignore geocoding errors
+                            }
+                        }
+                        
+                        // Save request to Firestore
+                        saveLocationRequestToFirestore(newRequest, result, position);
+                    })
+                    .addOnFailureListener(e -> {
+                        // If location fails, still save the request without coordinates
+                        saveLocationRequestToFirestore(newRequest, result, position);
+                    });
+        } else {
+            // No location permission, save request without coordinates
+            saveLocationRequestToFirestore(newRequest, result, position);
+        }
+    }
+    
+    private void saveLocationRequestToFirestore(LocationRequest request, SearchResultAdapter.SearchResult result, Integer position) {
+        db.collection("locationRequests").add(request)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(HomeActivity.this, "Location request sent.", Toast.LENGTH_SHORT).show();
                     result.setRequestStatus("pending");
@@ -567,6 +627,17 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 "new_requests_poll",
                 androidx.work.ExistingPeriodicWorkPolicy.UPDATE,
                 workRequest
+        );
+
+        // Also run an immediate one-time check to notify quickly at startup
+        androidx.work.OneTimeWorkRequest immediate = new androidx.work.OneTimeWorkRequest.Builder(
+                com.whereu.whereu.workers.NewRequestsWorker.class)
+                .setConstraints(constraints)
+                .build();
+        androidx.work.WorkManager.getInstance(this).enqueueUniqueWork(
+                "new_requests_poll_immediate",
+                androidx.work.ExistingWorkPolicy.REPLACE,
+                immediate
         );
     }
 

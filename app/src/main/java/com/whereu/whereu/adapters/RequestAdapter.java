@@ -73,6 +73,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                     User user = documentSnapshot.toObject(User.class);
                     if (user != null) {
                         binding.senderReceiverTextView.setText(user.getDisplayName());
+                        // Hydrate request with userName for downstream UI (details sheet)
+                        request.setUserName(user.getDisplayName());
                         if (user.getProfilePhotoUrl() != null && !user.getProfilePhotoUrl().isEmpty()) {
                             Glide.with(context)
                                     .load(user.getProfilePhotoUrl())
