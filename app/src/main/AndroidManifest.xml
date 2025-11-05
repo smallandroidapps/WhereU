@@ -46,18 +46,6 @@
         <activity android:name="com.whereu.whereu.activities.TrustedContactDetailsActivity" />
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY" />
-
-        <service
-            android:name=".activities.MyFirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
@@ -65,6 +53,13 @@
             <intent-filter>
                 <action android:name="com.whereu.whereu.APPROVE" />
                 <action android:name="com.whereu.whereu.REJECT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Reschedule background polling after boot -->
+        <receiver android:name=".receivers.BootCompletedReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 

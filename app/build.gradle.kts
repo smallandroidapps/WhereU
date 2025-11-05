@@ -70,7 +70,6 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore:25.0.0")
     // implementation("com.google.firebase:firebase-admin:9.1.1")
     // implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
-    implementation("com.google.firebase:firebase-messaging:24.0.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation("com.google.android.gms:play-services-auth:21.1.1")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
@@ -83,6 +82,13 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.hbb20:ccp:2.5.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+
+    // Background work (no paid push service): WorkManager
+    implementation("androidx.work:work-runtime:2.9.0")
+    // Provide ListenableFuture class used by WorkManager internals
+    implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
+    // Fallback: add full Guava for Android to satisfy transitive ListenableFuture references
+    implementation("com.google.guava:guava:32.1.2-android")
 
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")

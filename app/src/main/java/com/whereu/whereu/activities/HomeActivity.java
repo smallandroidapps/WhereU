@@ -6,6 +6,9 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
@@ -17,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 import androidx.core.app.ActivityCompat;
@@ -26,19 +28,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.whereu.whereu.R;
 import com.whereu.whereu.adapters.FrequentContactAdapter;
 import com.whereu.whereu.databinding.ActivityHomeBinding;
@@ -49,10 +48,12 @@ import com.whereu.whereu.models.LocationRequest;
 import com.wheru.models.User;
 import com.whereu.whereu.utils.NotificationHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -60,6 +61,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     private static final String TAG = "HomeActivity";
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+    private static final int PERMISSIONS_REQUEST_POST_NOTIFICATIONS = 101;
+    private static final int PERMISSIONS_REQUEST_LOCATION = 102;
 
     private Group homeContentGroup;
     private TextView titleHome;
@@ -75,12 +78,14 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
+    private String userDisplayName;
     private Map<String, String> requestStatusMap = new HashMap<>();
     private Map<String, String> requestIdMap = new HashMap<>();
     private BottomNavigationView bottomNavigationView;
     private ActivityHomeBinding binding;
     private ListenerRegistration requestListener;
     private ListenerRegistration incomingRequestListener;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +96,13 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         initUI();
         setupListeners();
         handleIntent(getIntent());
+        requestInitialPermissions();
+        scheduleBackgroundPolling();
     }
 
     @Override
@@ -180,8 +188,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             db.collection("users").document(currentUser.getUid()).get().addOnSuccessListener(documentSnapshot -> {
                 if (documentSnapshot.exists()) {
                     String mobileNumber = documentSnapshot.getString("mobileNumber");
-                    String displayName = documentSnapshot.getString("displayName");
-                    if (mobileNumber == null || mobileNumber.isEmpty() || displayName == null || displayName.isEmpty()) {
+                    userDisplayName = documentSnapshot.getString("displayName");
+                    if (mobileNumber == null || mobileNumber.isEmpty() || userDisplayName == null || userDisplayName.isEmpty()) {
                         bottomNavigationView.setSelectedItemId(R.id.navigation_profile);
                         Toast.makeText(HomeActivity.this, "Please complete your profile.", Toast.LENGTH_LONG).show();
                     } else {
@@ -189,6 +197,14 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     }
                 }
             });
+        }
+    }
+
+    private void setWelcomeMessage(String userName) {
+        if (userName != null && !userName.isEmpty()) {
+            binding.titleHome.setText("Welcome, " + userName);
+        } else {
+            binding.titleHome.setText(R.string.app_name);
         }
     }
 
@@ -229,6 +245,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     for (DocumentChange dc : snapshots.getDocumentChanges()) {
                         if (dc.getType() == DocumentChange.Type.MODIFIED) {
                             LocationRequest request = dc.getDocument().toObject(LocationRequest.class);
+                            request.setRequestId(dc.getDocument().getId()); // Add this line
                             handleRequestStatusChange(request);
                         }
                     }
@@ -250,6 +267,11 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 }
             }
         });
+
+        // Update the status in the search results
+        requestStatusMap.put(request.getToUserId(), request.getStatus());
+        requestIdMap.put(request.getToUserId(), request.getRequestId());
+        updateSearchResultsRequestStatus();
     }
 
     private void updateSearchResultsRequestStatus() {
@@ -278,6 +300,12 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 performSearch(searchBar.getText().toString());
             } else {
                 Toast.makeText(this, "Permission denied to read contacts", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == PERMISSIONS_REQUEST_POST_NOTIFICATIONS) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted
+            } else {
+                Toast.makeText(this, "Permission denied for notifications", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -405,8 +433,60 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void sendLocationRequest(SearchResultAdapter.SearchResult result, Integer position) {
+        // Capture requestor's current location when sending request
+        boolean fineGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean coarseGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        
         LocationRequest newRequest = new LocationRequest(currentUser.getUid(), result.getUserId());
-        db.collection("locationRequests").add(newRequest)
+        
+        if (fineGranted || coarseGranted) {
+            FusedLocationProviderClient fusedClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedClient.getLastLocation()
+                    .addOnSuccessListener(location -> {
+                        if (location != null) {
+                            newRequest.setLatitude(location.getLatitude());
+                            newRequest.setLongitude(location.getLongitude());
+                            
+                            // Get area name from coordinates
+                            try {
+                                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                if (addresses != null && !addresses.isEmpty()) {
+                                    Address addr = addresses.get(0);
+                                    StringBuilder areaName = new StringBuilder();
+                                    if (addr.getLocality() != null && !addr.getLocality().isEmpty()) {
+                                        areaName.append(addr.getLocality());
+                                    }
+                                    if (addr.getAdminArea() != null && !addr.getAdminArea().isEmpty()) {
+                                        if (areaName.length() > 0) areaName.append(", ");
+                                        areaName.append(addr.getAdminArea());
+                                    }
+                                    if (addr.getCountryName() != null && !addr.getCountryName().isEmpty()) {
+                                        if (areaName.length() > 0) areaName.append(", ");
+                                        areaName.append(addr.getCountryName());
+                                    }
+                                    newRequest.setAreaName(areaName.toString());
+                                }
+                            } catch (IOException e) {
+                                // Ignore geocoding errors
+                            }
+                        }
+                        
+                        // Save request to Firestore
+                        saveLocationRequestToFirestore(newRequest, result, position);
+                    })
+                    .addOnFailureListener(e -> {
+                        // If location fails, still save the request without coordinates
+                        saveLocationRequestToFirestore(newRequest, result, position);
+                    });
+        } else {
+            // No location permission, save request without coordinates
+            saveLocationRequestToFirestore(newRequest, result, position);
+        }
+    }
+    
+    private void saveLocationRequestToFirestore(LocationRequest request, SearchResultAdapter.SearchResult result, Integer position) {
+        db.collection("locationRequests").add(request)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(HomeActivity.this, "Location request sent.", Toast.LENGTH_SHORT).show();
                     result.setRequestStatus("pending");
@@ -480,7 +560,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     private void showHomeContent() {
         homeContentGroup.setVisibility(View.VISIBLE);
-        titleHome.setText(R.string.app_name);
+        setWelcomeMessage(userDisplayName);
         searchBar.setVisibility(View.VISIBLE);
         frequentlyRequestedTitle.setVisibility(View.VISIBLE);
         frequentlyRequestedRecyclerView.setVisibility(View.VISIBLE);
@@ -512,6 +592,53 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         if (currentFragment != null) {
             getSupportFragmentManager().beginTransaction().remove(currentFragment).commit();
         }
+    }
+
+    private void requestInitialPermissions() {
+        // Notifications (API 33+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, PERMISSIONS_REQUEST_POST_NOTIFICATIONS);
+            }
+        }
+        // Contacts
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
+        // Location (if needed for features like viewing or sharing location)
+        boolean fineGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean coarseGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if (!fineGranted || !coarseGranted) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSIONS_REQUEST_LOCATION);
+        }
+    }
+
+    private void scheduleBackgroundPolling() {
+        androidx.work.Constraints constraints = new androidx.work.Constraints.Builder()
+                .setRequiredNetworkType(androidx.work.NetworkType.CONNECTED)
+                .build();
+
+        androidx.work.PeriodicWorkRequest workRequest = new androidx.work.PeriodicWorkRequest.Builder(
+                com.whereu.whereu.workers.NewRequestsWorker.class, 15, java.util.concurrent.TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .build();
+
+        androidx.work.WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                "new_requests_poll",
+                androidx.work.ExistingPeriodicWorkPolicy.UPDATE,
+                workRequest
+        );
+
+        // Also run an immediate one-time check to notify quickly at startup
+        androidx.work.OneTimeWorkRequest immediate = new androidx.work.OneTimeWorkRequest.Builder(
+                com.whereu.whereu.workers.NewRequestsWorker.class)
+                .setConstraints(constraints)
+                .build();
+        androidx.work.WorkManager.getInstance(this).enqueueUniqueWork(
+                "new_requests_poll_immediate",
+                androidx.work.ExistingWorkPolicy.REPLACE,
+                immediate
+        );
     }
 
     @Override
@@ -549,8 +676,6 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     public void onSendLocalNotification(String title, String message) {
         NotificationHelper.sendLocalNotification(this, title, message);
     }
-
-
 
     @Override
     protected void onDestroy() {
