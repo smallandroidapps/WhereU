@@ -12,12 +12,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.whereu.whereu.R;
 import com.whereu.whereu.activities.ProfileSettingsActivity;
@@ -41,6 +45,7 @@ public class ProfileFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
+    private ActivityResultLauncher<String> pickImageLauncher;
 
     @Nullable
     @Override
@@ -59,6 +64,17 @@ public class ProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        // Register image picker for updating profile photo
+        pickImageLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+            if (uri != null) {
+                uploadProfileImage(uri);
+            }
+        });
+
+        binding.profileImage.setOnClickListener(v -> {
+            pickImageLauncher.launch("image/*");
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -151,6 +167,14 @@ public class ProfileFragment extends Fragment {
                                 binding.userMobile.setVisibility(View.VISIBLE);
                                 binding.saveProfileButton.setVisibility(View.GONE);
                             }
+                            // Load profile image if available
+                            if (user.getProfilePhotoUrl() != null && !user.getProfilePhotoUrl().isEmpty()) {
+                                com.bumptech.glide.Glide.with(requireContext())
+                                        .load(user.getProfilePhotoUrl())
+                                        .placeholder(R.drawable.ic_profile)
+                                        .error(R.drawable.ic_profile)
+                                        .into(binding.profileImage);
+                            }
                             // Hide loader once data is bound
                             showLoading(false);
                         }
@@ -233,5 +257,40 @@ public class ProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void uploadProfileImage(android.net.Uri imageUri) {
+        if (currentUser == null) {
+            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String userId = currentUser.getUid();
+        Toast.makeText(getContext(), "Uploading image...", Toast.LENGTH_SHORT).show();
+
+        StorageReference ref = FirebaseStorage.getInstance()
+                .getReference()
+                .child("profile_images/")
+                .child(userId + ".jpg");
+
+        ref.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl()
+                        .addOnSuccessListener(downloadUri -> {
+                            String url = downloadUri.toString();
+                            db.collection("users").document(userId)
+                                    .update("profilePhotoUrl", url)
+                                    .addOnSuccessListener(aVoid -> {
+                                        if (binding != null) {
+                                            com.bumptech.glide.Glide.with(requireContext())
+                                                    .load(url)
+                                                    .placeholder(R.drawable.ic_profile)
+                                                    .error(R.drawable.ic_profile)
+                                                    .into(binding.profileImage);
+                                        }
+                                        Toast.makeText(getContext(), "Profile image updated.", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to save image URL.", Toast.LENGTH_SHORT).show());
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to get image URL.", Toast.LENGTH_SHORT).show()))
+                .addOnFailureListener(e -> Toast.makeText(getContext(), "Image upload failed.", Toast.LENGTH_SHORT).show());
     }
 }

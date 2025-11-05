@@ -82,19 +82,47 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
 
         if (locationRequest != null) {
             name.setText(locationRequest.getUserName());
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a, MMM dd, yyyy", Locale.getDefault());
-            if(locationRequest.getApprovedTimestamp() != 0) {
+
+            // Shared at formatting
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.getDefault());
+            if (locationRequest.getApprovedTimestamp() != 0) {
                 sharedAt.setText("Shared At: " + sdf.format(locationRequest.getApprovedTimestamp()));
+            } else {
+                sharedAt.setText("Shared At: N/A");
             }
-            areaName.setText("Area Name: " + locationRequest.getAreaName());
-            coordinates.setText("Coordinates: " + locationRequest.getLatitude() + ", " + locationRequest.getLongitude());
+
+            // Area name (fallback to N/A)
+            String area = locationRequest.getAreaName();
+            areaName.setText("Area Name: " + (area != null && !area.isEmpty() ? area : "N/A"));
+
+            // Coordinates formatted to 4 decimals
+            coordinates.setText(String.format(Locale.getDefault(), "Coordinates: %.4f, %.4f", locationRequest.getLatitude(), locationRequest.getLongitude()));
+
+            // Status
             status.setText("Status: " + locationRequest.getStatus());
 
-            long timeRemaining = locationRequest.getApprovedTimestamp() + (24*60*60*1000) - System.currentTimeMillis();
-            long hours = TimeUnit.MILLISECONDS.toHours(timeRemaining);
-            expiresIn.setText("Expires In: " + hours + "h left");
+            // Expiry formatting (24h from approvedTimestamp). Show Expired if past.
+            if (locationRequest.getApprovedTimestamp() > 0) {
+                long expiryAt = locationRequest.getApprovedTimestamp() + (24 * 60 * 60 * 1000);
+                long timeRemaining = expiryAt - System.currentTimeMillis();
+                if (timeRemaining <= 0) {
+                    expiresIn.setText("Expires In: Expired");
+                } else {
+                    long hours = TimeUnit.MILLISECONDS.toHours(timeRemaining);
+                    long minutes = TimeUnit.MILLISECONDS.toMinutes(timeRemaining) - (hours * 60);
+                    expiresIn.setText(String.format(Locale.getDefault(), "Expires In: %dh %dm left", hours, minutes));
+                }
+            } else {
+                expiresIn.setText("Expires In: N/A");
+            }
 
-            distance.setText("Distance: -- km");
+            // Distance (km) if available
+            double dist = locationRequest.getDistance();
+            if (dist > 0) {
+                distance.setText(String.format(Locale.getDefault(), "Distance: %.1f km", dist));
+            } else {
+                distance.setText("Distance: N/A");
+            }
         }
 
         viewOnMap.setOnClickListener(v -> {

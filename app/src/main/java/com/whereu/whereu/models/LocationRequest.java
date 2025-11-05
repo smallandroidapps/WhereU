@@ -3,6 +3,9 @@ package com.whereu.whereu.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class LocationRequest implements Parcelable {
     private String requestId;
     private String fromUserId;
@@ -120,6 +123,11 @@ public class LocationRequest implements Parcelable {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public boolean isSentByCurrentUser() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        return currentUser != null && currentUser.getUid().equals(fromUserId);
     }
 
     // Parcelable implementation

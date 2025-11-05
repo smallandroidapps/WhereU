@@ -1477,7 +1477,11 @@ attr yearTodayStyle
 attr zOrderOnTop
 bool abc_action_bar_embed_tabs
 bool abc_config_actionMenuItemAllCaps
+bool enable_system_alarm_service_default
+bool enable_system_foreground_service_default
+bool enable_system_job_service_default
 bool mtrl_btn_textappearance_all_caps
+bool workmanager_test_configuration
 color abc_background_cache_hint_selector_material_dark
 color abc_background_cache_hint_selector_material_light
 color abc_btn_colored_borderless_text_material
@@ -3837,6 +3841,7 @@ id checkbox
 id checked
 id chronometer
 id circle_center
+id clear_button
 id clear_text
 id clip_horizontal
 id clip_vertical
@@ -3919,6 +3924,7 @@ id edit_text_phone_number
 id edit_text_verification_code
 id elastic
 id embed
+id emptyView
 id end
 id endToStart
 id enterAlways
@@ -3947,6 +3953,7 @@ id floating
 id forever
 id fragment_container
 id fragment_container_view_tag
+id frequent_action_button
 id frequently_requested_card_view
 id frequently_requested_recycler_view
 id frequently_requested_title
@@ -4153,6 +4160,7 @@ id pressed
 id profileActivity
 id profileImageView
 id profile_image
+id profile_loading
 id progress_circular
 id progress_horizontal
 id radio
@@ -4162,7 +4170,6 @@ id recent_contacts_recycler_view
 id rectangles
 id recycler_countryDialog
 id recycler_view_from_me
-id recycler_view_pending
 id recycler_view_to_me
 id recycler_view_trusted_contacts
 id reject_button
@@ -4251,6 +4258,7 @@ id startVertical
 id staticLayout
 id staticPostLayout
 id status_icon
+id status_text
 id stop
 id stretch
 id submenuarrow
@@ -4318,6 +4326,7 @@ id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
 id time
+id time_text
 id timestamp_text_view
 id title
 id titleDividerNoCustom
@@ -4529,7 +4538,6 @@ layout design_text_input_start_icon
 layout fastscroll__default_bubble
 layout fragment_from_me_requests
 layout fragment_location_details
-layout fragment_pending_requests
 layout fragment_profile
 layout fragment_requests
 layout fragment_to_me_requests
@@ -4702,6 +4710,7 @@ string call_notification_screening_text
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
+string clear
 string clear_search_button_content_description
 string clear_text_end_icon_content_description
 string common_google_play_services_enable_button
@@ -4734,7 +4743,6 @@ string fab_transformation_sheet_behavior
 string fallback_menu_item_copy_link
 string fallback_menu_item_open_in_browser
 string fallback_menu_item_share_link
-string fcm_fallback_notification_channel_label
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id

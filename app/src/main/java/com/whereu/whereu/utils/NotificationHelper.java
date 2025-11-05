@@ -70,6 +70,9 @@ public class NotificationHelper {
     }
 
     public static void sendLocalNotification(Context context, String title, String message, Intent contentIntent, String requestId, String senderId, String senderPhotoUrl) {
+        // Ensure channel exists
+        createNotificationChannel(context);
+
         contentIntent.putExtra("open_fragment", "requests");
         contentIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -94,6 +97,14 @@ public class NotificationHelper {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         final int notificationId = senderId != null ? senderId.hashCode() : (int) System.currentTimeMillis();
 
+        // On Android 13+, require POST_NOTIFICATIONS runtime permission; below that, proceed
+        final boolean canNotify;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            canNotify = ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+        } else {
+            canNotify = true;
+        }
+
         if (senderPhotoUrl != null && !senderPhotoUrl.isEmpty()) {
             Glide.with(context)
                     .asBitmap()
@@ -102,7 +113,7 @@ public class NotificationHelper {
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                             builder.setLargeIcon(resource);
-                            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                            if (canNotify) {
                                 notificationManager.notify(notificationId, builder.build());
                             }
                         }
@@ -112,13 +123,13 @@ public class NotificationHelper {
 
                         @Override
                         public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                            if (canNotify) {
                                 notificationManager.notify(notificationId, builder.build());
                             }
                         }
                     });
         } else {
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            if (canNotify) {
                 notificationManager.notify(notificationId, builder.build());
             }
         }

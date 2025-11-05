@@ -37,6 +37,7 @@
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">WherU</string>
     <string name="avatar_description">User avatar</string>
+    <string name="clear">Clear</string>
     <string name="default_web_client_id" translatable="false">529310840497-uu8d59kran7ks98cs84u9sph4qpr3ghf.apps.googleusercontent.com</string>
     <string name="gcm_defaultSenderId" translatable="false">529310840497</string>
     <string name="google_api_key" translatable="false">AIzaSyBqJxYVFFiiOV1mRr19P6_BGiALS3I_VaU</string>

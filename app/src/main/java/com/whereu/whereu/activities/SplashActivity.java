@@ -11,18 +11,32 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import com.whereu.whereu.R;
 import android.view.View;
 
 import com.whereu.whereu.utils.NotificationHelper;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import com.whereu.whereu.workers.NewRequestsWorker;
+import java.util.concurrent.TimeUnit;
 
 public class SplashActivity extends AppCompatActivity {
 
     private static final int SPLASH_DISPLAY_LENGTH = 3000; // 3 seconds
+    private static final int PERMISSIONS_REQUEST_RUNTIME = 201;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +45,32 @@ public class SplashActivity extends AppCompatActivity {
 
         // Register Notification Channel
         NotificationHelper.createNotificationChannel(this);
+
+        // Request notification permission early (Android 13+), so background posts succeed
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+
+        // Schedule background polling right away so it runs even if user closes the app
+        try {
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+
+            PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(NewRequestsWorker.class, 15, TimeUnit.MINUTES)
+                    .setConstraints(constraints)
+                    .build();
+
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    "new_requests_poll",
+                    ExistingPeriodicWorkPolicy.UPDATE,
+                    workRequest
+            );
+        } catch (Exception e) {
+            // Safe log; if WorkManager init fails, we will try again in HomeActivity
+        }
 
         // Animate the logo
         CardView logo = findViewById(R.id.logo_container);
@@ -74,7 +114,17 @@ public class SplashActivity extends AppCompatActivity {
                 handler.postDelayed(this, 300);
             }
         }, 0);
+        // Request required runtime permissions before navigating further
+        requestRuntimePermissionsIfNeeded();
+    }
 
+    private boolean hasAllRuntimePermissions() {
+        boolean contacts = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+        boolean location = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        return contacts && location;
+    }
+
+    private void proceedToNextScreenWithDelay() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -83,5 +133,31 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
+    }
+
+    private void requestRuntimePermissionsIfNeeded() {
+        if (!hasAllRuntimePermissions()) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_RUNTIME
+            );
+        } else {
+            proceedToNextScreenWithDelay();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSIONS_REQUEST_RUNTIME) {
+            if (hasAllRuntimePermissions()) {
+                proceedToNextScreenWithDelay();
+            } else {
+                Toast.makeText(this, "Permissions required to continue", Toast.LENGTH_LONG).show();
+                // Attempt one more request
+                requestRuntimePermissionsIfNeeded();
+            }
+        }
     }
 }
