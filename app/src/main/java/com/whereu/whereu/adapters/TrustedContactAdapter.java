@@ -39,13 +39,17 @@ public class TrustedContactAdapter extends RecyclerView.Adapter<TrustedContactAd
     @Override
     public void onBindViewHolder(@NonNull TrustedContactViewHolder holder, int position) {
         TrustedContact contact = trustedContactList.get(position);
-        holder.displayNameTextView.setText(contact.getDisplayName());
-        holder.phoneNumberTextView.setText(contact.getPhoneNumber());
-        holder.statusTextView.setText("Status: " + contact.getStatus());
+        String displayName = contact.getDisplayName() != null ? contact.getDisplayName() : "";
+        String phoneNumber = contact.getPhoneNumber() != null ? contact.getPhoneNumber() : "";
+        String status = contact.getStatus() != null ? contact.getStatus() : "not_requested";
+
+        holder.displayNameTextView.setText(displayName);
+        holder.phoneNumberTextView.setText(phoneNumber);
+        holder.statusTextView.setText("Status: " + status);
 
         // Set status icon based on status
         holder.statusIconImageView.setVisibility(View.VISIBLE);
-        switch (contact.getStatus()) {
+        switch (status) {
             case "pending":
                 holder.statusIconImageView.setImageResource(R.drawable.ic_status_pending); // Assuming you have this drawable
                 break;
@@ -71,7 +75,7 @@ public class TrustedContactAdapter extends RecyclerView.Adapter<TrustedContactAd
         holder.requestAgainButton.setVisibility(View.GONE);
 
         // Set button visibility based on status
-        switch (contact.getStatus()) {
+        switch (status) {
             case "not_requested":
                 holder.requestButton.setVisibility(View.VISIBLE);
                 break;

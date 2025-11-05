@@ -8,12 +8,15 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -81,11 +85,13 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private String userDisplayName;
     private Map<String, String> requestStatusMap = new HashMap<>();
     private Map<String, String> requestIdMap = new HashMap<>();
+    private Map<String, Long> lastApprovedTsMap = new HashMap<>();
     private BottomNavigationView bottomNavigationView;
     private ActivityHomeBinding binding;
     private ListenerRegistration requestListener;
     private ListenerRegistration incomingRequestListener;
     private FusedLocationProviderClient fusedLocationClient;
+    private Set<String> dismissedFrequentIds = new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,11 +146,15 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
+                    // Show clear icon when there is text
+                    searchBar.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search, 0, R.drawable.ic_clear, 0);
                     searchResultsRecyclerView.setVisibility(View.VISIBLE);
                     frequentlyRequestedRecyclerView.setVisibility(View.GONE);
                     frequentlyRequestedTitle.setVisibility(View.GONE);
                     checkContactsPermissionAndPerformSearch(s.toString());
                 } else {
+                    // Show filter icon when empty
+                    searchBar.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search, 0, R.drawable.ic_filter, 0);
                     searchResultsList.clear();
                     searchResultAdapter.notifyDataSetChanged();
                     searchResultsRecyclerView.setVisibility(View.GONE);
@@ -155,6 +165,26 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
             @Override
             public void afterTextChanged(Editable s) {}
+        });
+
+        // Handle taps on the end drawable to clear text when visible
+        searchBar.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                Drawable end = searchBar.getCompoundDrawables()[2];
+                if (end != null) {
+                    int drawableWidth = end.getBounds().width();
+                    int rightEdge = searchBar.getRight();
+                    int touchX = (int) event.getRawX();
+                    if (touchX >= rightEdge - drawableWidth - searchBar.getPaddingRight()) {
+                        // If there is text, treat end icon as clear
+                        if (searchBar.getText() != null && searchBar.getText().length() > 0) {
+                            searchBar.setText("");
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         });
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -500,21 +530,44 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private void fetchFrequentlyRequestedContacts() {
         if (currentUser == null) return;
 
+        long cutoff = System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000; // last 30 days
+
         db.collection("locationRequests")
                 .whereEqualTo("fromUserId", currentUser.getUid())
-                .whereEqualTo("status", "approved")
+                .whereGreaterThan("timestamp", cutoff)
                 .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(20)
+                .limit(100) // Increased limit to get a better sample
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        Map<String, Long> latestRequestTimestampMap = new HashMap<>();
+                        Map<String, String> latestRequestStatusMap = new HashMap<>();
                         Set<String> frequentReceiverIds = new HashSet<>();
+
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             LocationRequest request = document.toObject(LocationRequest.class);
-                            if (System.currentTimeMillis() - request.getApprovedTimestamp() <= 24 * 60 * 60 * 1000) {
-                                frequentReceiverIds.add(request.getToUserId());
+                            if (request == null || request.getToUserId() == null || request.getToUserId().equals(currentUser.getUid())) {
+                                continue;
+                            }
+                            String toId = request.getToUserId();
+                            frequentReceiverIds.add(toId);
+
+                            // Store the latest timestamp and status for each receiver
+                            Long existingTimestamp = latestRequestTimestampMap.get(toId);
+                            if (existingTimestamp == null || request.getTimestamp() > existingTimestamp) {
+                                latestRequestTimestampMap.put(toId, request.getTimestamp());
+                                latestRequestStatusMap.put(toId, request.getStatus());
                             }
                         }
+
+                        // Update global maps
+                        lastApprovedTsMap.clear();
+                        lastApprovedTsMap.putAll(latestRequestTimestampMap);
+                        requestStatusMap.clear();
+                        requestStatusMap.putAll(latestRequestStatusMap);
+
+                        // Filter out dismissed frequent IDs
+                        frequentReceiverIds.removeAll(dismissedFrequentIds);
                         fetchFrequentContactDetails(new ArrayList<>(frequentReceiverIds));
                     } else {
                         Log.w(TAG, "Error getting frequently requested contacts.", task.getException());
@@ -537,7 +590,21 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                         frequentContacts.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             User user = document.toObject(User.class);
-                            frequentContacts.add(new SearchResultAdapter.SearchResult(user.getDisplayName(), user.getUserId(), user.getMobileNumber(), user.getEmail(), true, false, user.getProfilePhotoUrl(), requestStatusMap.getOrDefault(user.getUserId(), "not_requested")));
+                            SearchResultAdapter.SearchResult sr = new SearchResultAdapter.SearchResult(
+                                    user.getDisplayName(),
+                                    user.getUserId(),
+                                    user.getMobileNumber(),
+                                    user.getEmail(),
+                                    true,
+                                    false,
+                                    user.getProfilePhotoUrl(),
+                                    requestStatusMap.getOrDefault(user.getUserId(), "not_requested")
+                            );
+                            Long ts = lastApprovedTsMap.get(user.getUserId());
+                            if (ts != null) {
+                                sr.setLastRequestTimestamp(ts);
+                            }
+                            frequentContacts.add(sr);
                         }
                         frequentContactAdapter.notifyDataSetChanged();
                         frequentlyRequestedTitle.setVisibility(View.VISIBLE);
@@ -551,6 +618,34 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     @Override
     public void onFrequentContactClick(SearchResultAdapter.SearchResult result) {
         onActionButtonClick(result, -1);
+    }
+
+    @Override
+    public void onClearFrequentContact(SearchResultAdapter.SearchResult contact) {
+        if (currentUser == null || contact == null || contact.getUserId() == null) {
+            return;
+        }
+        String dismissedId = contact.getUserId();
+        dismissedFrequentIds.add(dismissedId);
+
+        // Update UI immediately
+        for (int i = 0; i < frequentContacts.size(); i++) {
+            if (dismissedId.equals(frequentContacts.get(i).getUserId())) {
+                frequentContacts.remove(i);
+                break;
+            }
+        }
+        frequentContactAdapter.notifyDataSetChanged();
+        if (frequentContacts.isEmpty()) {
+            frequentlyRequestedTitle.setVisibility(View.GONE);
+            frequentlyRequestedRecyclerView.setVisibility(View.GONE);
+        }
+
+        // Persist dismissal
+        db.collection("users").document(currentUser.getUid())
+                .update("dismissedFrequentIds", FieldValue.arrayUnion(dismissedId))
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Dismissed ID saved: " + dismissedId))
+                .addOnFailureListener(e -> Log.w(TAG, "Failed to save dismissed ID", e));
     }
 
     @Override
@@ -568,7 +663,29 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             searchResultsRecyclerView.setVisibility(View.GONE);
         }
         removeFragment();
-        fetchFrequentlyRequestedContacts(); 
+        loadDismissedFrequentIdsAndFetch(); 
+    }
+
+    private void loadDismissedFrequentIdsAndFetch() {
+        if (currentUser == null) {
+            fetchFrequentlyRequestedContacts();
+            return;
+        }
+        db.collection("users").document(currentUser.getUid()).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    dismissedFrequentIds.clear();
+                    if (documentSnapshot.exists()) {
+                        List<String> dismissed = (List<String>) documentSnapshot.get("dismissedFrequentIds");
+                        if (dismissed != null) {
+                            dismissedFrequentIds.addAll(dismissed);
+                        }
+                    }
+                    fetchFrequentlyRequestedContacts();
+                })
+                .addOnFailureListener(e -> {
+                    Log.w(TAG, "Failed to load dismissed frequent IDs", e);
+                    fetchFrequentlyRequestedContacts();
+                });
     }
 
     private void showRequestsFragment() {
@@ -643,10 +760,14 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     @Override
     public void onViewOnMapClick(double latitude, double longitude) {
-        Intent intent = new Intent(HomeActivity.this, MapActivity.class);
-        intent.putExtra("latitude", latitude);
-        intent.putExtra("longitude", longitude);
-        startActivity(intent);
+        String uri = String.format(Locale.ENGLISH, "geo:%f,%f?q=%f,%f", latitude, longitude, latitude, longitude);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Google Maps app not installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
