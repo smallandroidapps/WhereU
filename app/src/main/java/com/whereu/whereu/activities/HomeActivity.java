@@ -98,6 +98,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private Map<String, String> requestIdMap = new HashMap<>();
     // Stores latest approvedTimestamp per contact for expiry calculations
     private Map<String, Long> lastApprovedTsMap = new HashMap<>();
+    // Stores latest sent timestamp per contact for cooldown and UI display
+    private Map<String, Long> lastSentTsMap = new HashMap<>();
     private BottomNavigationView bottomNavigationView;
     private ActivityHomeBinding binding;
     private ListenerRegistration requestListener;
@@ -418,6 +420,18 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             }
         });
 
+        // Track latest timestamps for this contact
+        if ("approved".equals(request.getStatus())) {
+            long apTs = request.getApprovedTimestamp();
+            if (apTs > 0) {
+                lastApprovedTsMap.put(request.getToUserId(), apTs);
+            }
+        }
+        long sentTs = request.getTimestamp();
+        if (sentTs > 0) {
+            lastSentTsMap.put(request.getToUserId(), sentTs);
+        }
+
         // Update the status in the search results
         requestStatusMap.put(request.getToUserId(), request.getStatus());
         requestIdMap.put(request.getToUserId(), request.getRequestId());
@@ -434,6 +448,10 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             if (uid != null && requestStatusMap.containsKey(uid)) {
                 contact.setRequestStatus(requestStatusMap.get(uid));
                 contact.setRequestId(requestIdMap.get(uid));
+                Long apTs = lastApprovedTsMap.get(uid);
+                if (apTs != null) contact.setLastRequestTimestamp(apTs);
+                Long sTs = lastSentTsMap.get(uid);
+                if (sTs != null) contact.setRequestSentTimestamp(sTs);
             }
         }
         runOnUiThread(() -> {
@@ -450,6 +468,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             String uid = result.getUserId();
             if (uid != null && requestStatusMap.containsKey(uid)) {
                 String status = requestStatusMap.get(uid);
+                Long sentTs = lastSentTsMap.get(uid);
                 // Use last approved timestamp to gate 'approved' state within 5 minutes
                 if ("approved".equals(status)) {
                     Long approvedTs = lastApprovedTsMap.get(uid);
@@ -459,6 +478,11 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     } else {
                         // Treat older approvals as expired to encourage re-request
                         result.setRequestStatus("expired");
+                    }
+                } else if ("sent".equals(status) || "pending".equals(status)) {
+                    result.setRequestStatus(status);
+                    if (sentTs != null) {
+                        result.setRequestSentTimestamp(sentTs);
                     }
                 } else {
                     result.setRequestStatus(status);
@@ -543,7 +567,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     deviceContact.setExistingUser(true);
                     deviceContact.setUserId(firestoreUser.getUserId());
                     deviceContact.setProfilePhotoUrl(firestoreUser.getProfilePhotoUrl());
-                    deviceContact.setDisplayName(firestoreUser.getDisplayName()); // Overwrite device name with Firestore name
+                    // Preserve device contact name for search by saved name; keep Firestore linkage without overwriting
                 }
             }
 
@@ -564,11 +588,35 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             return new ArrayList<>();
         }
 
+        // Build dynamic selection: all name tokens must match (AND), or number matches
+        List<String> args = new ArrayList<>();
+        List<String> nameClauses = new ArrayList<>();
+        for (String token : query.trim().split("\\s+")) {
+            if (token.length() >= 2) {
+                nameClauses.add(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " LIKE ?");
+                args.add("%" + token + "%");
+            }
+        }
+        StringBuilder selection = new StringBuilder();
+        if (!nameClauses.isEmpty()) {
+            selection.append("(");
+            for (int i = 0; i < nameClauses.size(); i++) {
+                if (i > 0) selection.append(" AND ");
+                selection.append(nameClauses.get(i));
+            }
+            selection.append(")");
+        }
+        if (normalizedQuery.length() >= 2) {
+            if (selection.length() > 0) selection.append(" OR ");
+            selection.append(ContactsContract.CommonDataKinds.Phone.NUMBER).append(" LIKE ?");
+            args.add("%" + normalizedQuery + "%");
+        }
+
         Cursor cursor = contentResolver.query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY, ContactsContract.CommonDataKinds.Phone.NUMBER},
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " LIKE ? OR " + ContactsContract.CommonDataKinds.Phone.NUMBER + " LIKE ?",
-                new String[]{"%" + query + "%", "%" + normalizedQuery + "%"},
+                selection.toString(),
+                args.toArray(new String[0]),
                 null
         );
 
@@ -786,6 +834,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     if (request.getToUserId() != null) {
                         requestStatusMap.put(request.getToUserId(), "sent");
                         requestIdMap.put(request.getToUserId(), documentReference.getId());
+                        lastSentTsMap.put(request.getToUserId(), result.getRequestSentTimestamp());
                     }
                     if (position != null && position >= 0) {
                         searchResultAdapter.notifyItemChanged(position);
@@ -885,6 +934,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Map<String, Long> latestApprovedTimestampMap = new HashMap<>();
+                        Map<String, Long> latestSentTimestampMap = new HashMap<>();
                         Map<String, String> latestRequestStatusMap = new HashMap<>();
                         Map<String, String> latestRequestIdMap = new HashMap<>();
                         Set<String> frequentReceiverIds = new HashSet<>();
@@ -912,11 +962,20 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                                     latestApprovedTimestampMap.put(toId, approvedTs);
                                 }
                             }
+
+                            // Track latest sent timestamp per receiver (for cooldown/UI)
+                            long ts = request.getTimestamp();
+                            Long existingSentTs = latestSentTimestampMap.get(toId);
+                            if (ts > 0 && (existingSentTs == null || ts > existingSentTs)) {
+                                latestSentTimestampMap.put(toId, ts);
+                            }
                         }
 
                         // Update global maps
                         lastApprovedTsMap.clear();
                         lastApprovedTsMap.putAll(latestApprovedTimestampMap);
+                        lastSentTsMap.clear();
+                        lastSentTsMap.putAll(latestSentTimestampMap);
                         requestStatusMap.clear();
                         requestStatusMap.putAll(latestRequestStatusMap);
                         requestIdMap.clear();
@@ -981,6 +1040,14 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                                 Long ts = lastApprovedTsMap.get(user.getUserId());
                                 if (ts != null) {
                                     sr.setLastRequestTimestamp(ts);
+                                }
+                                Long sTs = lastSentTsMap.get(user.getUserId());
+                                if (sTs != null) {
+                                    sr.setRequestSentTimestamp(sTs);
+                                }
+                                String reqId = requestIdMap.get(user.getUserId());
+                                if (reqId != null) {
+                                    sr.setRequestId(reqId);
                                 }
                                 aggregated.add(sr);
                             }
@@ -1063,8 +1130,13 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         homeContentGroup.setVisibility(View.VISIBLE);
         setWelcomeMessage(userDisplayName);
         searchBar.setVisibility(View.VISIBLE);
-        frequentlyRequestedTitle.setVisibility(View.VISIBLE);
-        frequentlyRequestedRecyclerView.setVisibility(View.VISIBLE);
+        if (frequentContacts != null && !frequentContacts.isEmpty()) {
+            frequentlyRequestedTitle.setVisibility(View.VISIBLE);
+            frequentlyRequestedRecyclerView.setVisibility(View.VISIBLE);
+        } else {
+            frequentlyRequestedTitle.setVisibility(View.GONE);
+            frequentlyRequestedRecyclerView.setVisibility(View.GONE);
+        }
         if (searchResultsList.isEmpty()) {
             searchResultsRecyclerView.setVisibility(View.GONE);
         }
@@ -1076,6 +1148,13 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         if (currentUser == null) {
             fetchFrequentlyRequestedContacts();
             return;
+        }
+        // Auto-hide frequent section while loading
+        if (frequentlyRequestedTitle != null) {
+            frequentlyRequestedTitle.setVisibility(View.GONE);
+        }
+        if (frequentlyRequestedRecyclerView != null) {
+            frequentlyRequestedRecyclerView.setVisibility(View.GONE);
         }
         db.collection("users").document(currentUser.getUid()).get()
                 .addOnSuccessListener(documentSnapshot -> {
