@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.whereu.whereu.R;
 import com.whereu.whereu.activities.SearchResultAdapter;
+import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +45,15 @@ public class FrequentContactAdapter extends RecyclerView.Adapter<FrequentContact
     public void onBindViewHolder(@NonNull FrequentContactViewHolder holder, int position) {
         SearchResultAdapter.SearchResult contact = frequentContacts.get(position);
         holder.contactName.setText(contact.getDisplayName());
+
+        // Load avatar if available
+        if (holder.contactAvatar != null) {
+            Glide.with(holder.itemView)
+                    .load(contact.getProfilePhotoUrl())
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .error(R.drawable.ic_profile_placeholder)
+                    .into(holder.contactAvatar);
+        }
 
         String status = contact.getRequestStatus();
         if (status == null) status = "not_requested";

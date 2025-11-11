@@ -101,6 +101,14 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
         // TODO: Hook real limit check; for now method exists to show upgrade prompt
         setupUpgradeEntryPoint();
 
+        // Select initial tab if provided by the parent activity
+        int initialTab = 0;
+        Bundle args = getArguments();
+        if (args != null) {
+            initialTab = args.getInt("initial_tab", 0);
+        }
+        binding.viewPager.setCurrentItem(initialTab, false);
+
         return root;
     }
 

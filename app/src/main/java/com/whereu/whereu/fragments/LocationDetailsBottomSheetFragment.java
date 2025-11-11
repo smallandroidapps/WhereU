@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.whereu.whereu.R;
 import com.whereu.whereu.activities.MapActivity;
 import com.whereu.whereu.models.LocationRequest;
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.wheru.models.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -30,11 +35,23 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
 
     private OnLocationDetailActionListener mListener;
     private LocationRequest locationRequest;
+    private String photoUrl;
 
     public static LocationDetailsBottomSheetFragment newInstance(LocationRequest locationRequest) {
         LocationDetailsBottomSheetFragment fragment = new LocationDetailsBottomSheetFragment();
         Bundle args = new Bundle();
         args.putParcelable("locationRequest", locationRequest);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static LocationDetailsBottomSheetFragment newInstance(LocationRequest locationRequest, @Nullable String photoUrl) {
+        LocationDetailsBottomSheetFragment fragment = new LocationDetailsBottomSheetFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("locationRequest", locationRequest);
+        if (photoUrl != null) {
+            args.putString("photoUrl", photoUrl);
+        }
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,6 +73,7 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             locationRequest = getArguments().getParcelable("locationRequest");
+            photoUrl = getArguments().getString("photoUrl", null);
         }
     }
 
@@ -69,6 +87,7 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ImageView avatarView = view.findViewById(R.id.detail_user_avatar);
         TextView name = view.findViewById(R.id.text_name);
         TextView sharedAt = view.findViewById(R.id.text_shared_at);
         TextView areaName = view.findViewById(R.id.text_area_name);
@@ -82,6 +101,39 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
 
         if (locationRequest != null) {
             name.setText(locationRequest.getUserName());
+
+            // Load avatar if provided, otherwise fetch from Firestore
+            if (avatarView != null) {
+                if (photoUrl != null && !photoUrl.isEmpty()) {
+                    Glide.with(this)
+                            .load(photoUrl)
+                            .placeholder(R.drawable.ic_profile_placeholder)
+                            .error(R.drawable.ic_profile_placeholder)
+                            .into(avatarView);
+                } else {
+                    String currentUserId = FirebaseAuth.getInstance().getCurrentUser() != null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+                    String otherUserId = null;
+                    if (currentUserId != null) {
+                        otherUserId = currentUserId.equals(locationRequest.getFromUserId()) ? locationRequest.getToUserId() : locationRequest.getFromUserId();
+                    }
+                    if (otherUserId != null && !otherUserId.isEmpty()) {
+                        FirebaseFirestore.getInstance().collection("users").document(otherUserId)
+                                .get()
+                                .addOnSuccessListener(documentSnapshot -> {
+                                    if (documentSnapshot.exists()) {
+                                        User user = documentSnapshot.toObject(User.class);
+                                        if (user != null) {
+                                            Glide.with(this)
+                                                    .load(user.getProfilePhotoUrl())
+                                                    .placeholder(R.drawable.ic_profile_placeholder)
+                                                    .error(R.drawable.ic_profile_placeholder)
+                                                    .into(avatarView);
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }
 
             // Timestamp formatting: show Shared At if approved, else Requested At (relative if < 24h)
             long ts = locationRequest.getApprovedTimestamp() != 0 ? locationRequest.getApprovedTimestamp() : locationRequest.getTimestamp();

@@ -8,6 +8,9 @@
 # Android Studio generated files
 .idea/
 .gradle/
+*.iml
+.externalNativeBuild/
+captures/
 
 # Crashlytics/Firebase Crash Reporting
 *.hprof
@@ -18,3 +21,27 @@
 
 # User-specific files
 .DS_Store
+
+# Android build outputs
+*.apk
+*.ap_
+
+# Logs
+*.log
+
+# Node and Firebase Functions
+node_modules/
+functions/node_modules/
+functions/*.log
+
+# Python caches (for cloud functions, scripts)
+__pycache__/
+functions/functions/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+functions/functions/.venv/
+
+# Env files
+.env
+functions/.env

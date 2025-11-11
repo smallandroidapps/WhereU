@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.whereu.whereu.R;
+import com.bumptech.glide.Glide;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -45,6 +46,15 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     public void onBindViewHolder(@NonNull SearchResultViewHolder holder, int position) {
         SearchResult result = searchResults.get(position);
         holder.displayName.setText(result.getDisplayName());
+
+        // Load profile image if available
+        if (holder.profileImage != null) {
+            Glide.with(holder.itemView)
+                    .load(result.getProfilePhotoUrl())
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .error(R.drawable.ic_profile_placeholder)
+                    .into(holder.profileImage);
+        }
 
         if (result.isExistingUser()) {
             // Check if request status has changed
