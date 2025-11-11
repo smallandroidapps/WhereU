@@ -54,6 +54,14 @@ public class TrustedContactsActivity extends AppCompatActivity implements Truste
         fabAddTrustedContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean isPro = com.whereu.whereu.activities.PlansActivity.isProUser(TrustedContactsActivity.this);
+                if (!isPro) {
+                    Toast.makeText(TrustedContactsActivity.this, "Upgrade to Pro to add trusted contacts", Toast.LENGTH_LONG).show();
+                    try {
+                        startActivity(new Intent(TrustedContactsActivity.this, com.whereu.whereu.activities.PlansActivity.class));
+                    } catch (Exception ignored) {}
+                    return;
+                }
                 Intent intent = new Intent(TrustedContactsActivity.this, AddTrustedContactActivity.class);
                 startActivity(intent);
             }

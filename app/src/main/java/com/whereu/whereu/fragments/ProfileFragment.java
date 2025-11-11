@@ -161,6 +161,35 @@ public class ProfileFragment extends Fragment {
 
         // Fetch and reflect Pro status from Firestore
         reflectProStatusFromFirestore();
+
+        // App Info & Feedback wiring
+        try {
+            android.content.pm.PackageManager pm = requireContext().getPackageManager();
+            android.content.pm.PackageInfo info = pm.getPackageInfo(requireContext().getPackageName(), 0);
+            String versionName = info.versionName != null ? info.versionName : "";
+            if (binding.textAppVersion != null) {
+                binding.textAppVersion.setText("Version " + versionName);
+            }
+        } catch (Exception ignored) {}
+
+        View.OnClickListener feedbackClick = v1 -> {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(android.net.Uri.parse("mailto:snymainc@gmail.com"));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "WhereU Feedback & Feature Request");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi WhereU team,\n\n");
+            try {
+                startActivity(Intent.createChooser(emailIntent, "Send feedback"));
+            } catch (Exception e) {
+                Toast.makeText(getContext(), "No email app found", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        if (binding.textFeedbackEmail != null) {
+            binding.textFeedbackEmail.setOnClickListener(feedbackClick);
+        }
+        if (binding.btnSendFeedback != null) {
+            binding.btnSendFeedback.setOnClickListener(feedbackClick);
+        }
     }
 
     private void loadUserProfile() {

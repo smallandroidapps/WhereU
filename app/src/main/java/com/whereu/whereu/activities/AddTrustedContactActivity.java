@@ -35,6 +35,17 @@ public class AddTrustedContactActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        // Gate this screen to Pro users only
+        boolean isPro = com.whereu.whereu.activities.PlansActivity.isProUser(this);
+        if (!isPro) {
+            Toast.makeText(this, "Upgrade to Pro to add trusted contacts", Toast.LENGTH_LONG).show();
+            try {
+                startActivity(new android.content.Intent(this, com.whereu.whereu.activities.PlansActivity.class));
+            } catch (Exception ignored) {}
+            finish();
+            return;
+        }
+
         editTextDisplayName = findViewById(R.id.edit_text_display_name);
         editTextPhoneNumber = findViewById(R.id.edit_text_phone_number);
         buttonSaveContact = findViewById(R.id.button_save_contact);
