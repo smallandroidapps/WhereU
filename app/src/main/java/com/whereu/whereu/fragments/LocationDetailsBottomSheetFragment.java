@@ -83,12 +83,14 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
         if (locationRequest != null) {
             name.setText(locationRequest.getUserName());
 
-            // Shared at formatting
+            // Timestamp formatting: show Shared At if approved, else Requested At
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.getDefault());
             if (locationRequest.getApprovedTimestamp() != 0) {
                 sharedAt.setText("Shared At: " + sdf.format(locationRequest.getApprovedTimestamp()));
+            } else if (locationRequest.getTimestamp() != 0) {
+                sharedAt.setText("Requested At: " + sdf.format(locationRequest.getTimestamp()));
             } else {
-                sharedAt.setText("Shared At: N/A");
+                sharedAt.setText("Requested At: N/A");
             }
 
             // Area name (fallback to N/A)

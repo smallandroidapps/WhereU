@@ -149,7 +149,45 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
             @Override
             public void onItemClick(SearchResultAdapter.SearchResult result) {
-                // Not used
+                if (result == null) return;
+                if (!result.isExistingUser()) {
+                    Toast.makeText(HomeActivity.this, "Invite this contact to WhereU", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String status = result.getRequestStatus();
+                String requestId = result.getRequestId();
+                if (status == null) status = "";
+
+                // For approved/sent/pending show details bottom sheet with ability to request again
+                if ("approved".equals(status) || "sent".equals(status) || "pending".equals(status)) {
+                    if (requestId != null && !requestId.isEmpty()) {
+                        FirebaseFirestore.getInstance().collection("location_requests").document(requestId)
+                                .get()
+                                .addOnSuccessListener(documentSnapshot -> {
+                                    if (documentSnapshot.exists()) {
+                                        LocationRequest req = documentSnapshot.toObject(LocationRequest.class);
+                                        if (req != null) {
+                                            // Ensure name is shown in the sheet
+                                            req.setUserName(result.getDisplayName());
+                                            // Show the details sheet in place
+                                            LocationDetailsBottomSheetFragment fragment = LocationDetailsBottomSheetFragment.newInstance(req);
+                                            fragment.show(getSupportFragmentManager(), "location_details");
+                                        } else {
+                                            Toast.makeText(HomeActivity.this, "Could not load request details", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        Toast.makeText(HomeActivity.this, "Request details not found", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(e -> Toast.makeText(HomeActivity.this, "Failed to load details", Toast.LENGTH_SHORT).show());
+                    } else {
+                        Toast.makeText(HomeActivity.this, "No request associated with this contact", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // For other statuses, keep the current action button flow
+                    Toast.makeText(HomeActivity.this, "Tap the button to request location", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
