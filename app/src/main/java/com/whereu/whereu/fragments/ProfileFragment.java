@@ -147,10 +147,8 @@ public class ProfileFragment extends Fragment {
             });
         }
 
-        // Show crown icon for Pro users
-        if (binding.proCrown != null && com.whereu.whereu.activities.PlansActivity.isProUser(requireContext())) {
-            binding.proCrown.setVisibility(View.VISIBLE);
-        }
+        // Fetch and reflect Pro status from Firestore
+        reflectProStatusFromFirestore();
     }
 
     private void loadUserProfile() {
@@ -262,6 +260,38 @@ public class ProfileFragment extends Fragment {
                     })
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update profile.", Toast.LENGTH_SHORT).show());
         }
+    }
+
+    private void reflectProStatusFromFirestore() {
+        if (currentUser == null) return;
+        String userId = currentUser.getUid();
+        db.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener(doc -> {
+                    if (doc.exists()) {
+                        Boolean isPro = doc.getBoolean("isPro");
+                        String planType = doc.getString("planType");
+                        boolean proActive = isPro != null && isPro;
+
+                        if (binding.proCrown != null) {
+                            binding.proCrown.setVisibility(proActive ? View.VISIBLE : View.GONE);
+                        }
+                        if (binding.cardUpgradePro != null) {
+                            binding.cardUpgradePro.setVisibility(proActive ? View.GONE : View.VISIBLE);
+                        }
+                        // Optionally show plan type somewhere if desired in future
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Fallback to local preference check if Firestore fails
+                    boolean localPro = com.whereu.whereu.activities.PlansActivity.isProUser(requireContext());
+                    if (binding.proCrown != null) {
+                        binding.proCrown.setVisibility(localPro ? View.VISIBLE : View.GONE);
+                    }
+                    if (binding.cardUpgradePro != null) {
+                        binding.cardUpgradePro.setVisibility(localPro ? View.GONE : View.VISIBLE);
+                    }
+                });
     }
 
     private void showLoading(boolean loading) {

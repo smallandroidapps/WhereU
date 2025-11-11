@@ -260,19 +260,36 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
     }
 
     private void setupUpgradeEntryPoint() {
-        // Initially hidden; show when free limit reached
+        // Reflect pro status from Firestore; if not pro, show upgrade banner
         if (binding.cardUpgradeBanner != null) {
             binding.cardUpgradeBanner.setVisibility(View.GONE);
         }
         if (binding.btnUpgradeNow != null) {
             binding.btnUpgradeNow.setOnClickListener(v -> {
-                // Launch PlansActivity
                 try {
                     startActivity(new android.content.Intent(requireContext(), com.whereu.whereu.activities.PlansActivity.class));
                 } catch (Exception e) {
                     Toast.makeText(requireContext(), "Unable to open upgrade", Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+
+        if (currentUser != null) {
+            FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid())
+                    .get()
+                    .addOnSuccessListener(doc -> {
+                        boolean isPro = doc.exists() && Boolean.TRUE.equals(doc.getBoolean("isPro"));
+                        if (binding.cardUpgradeBanner != null) {
+                            binding.cardUpgradeBanner.setVisibility(isPro ? View.GONE : View.VISIBLE);
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Fallback to local preference check
+                        boolean localPro = com.whereu.whereu.activities.PlansActivity.isProUser(requireContext());
+                        if (binding.cardUpgradeBanner != null) {
+                            binding.cardUpgradeBanner.setVisibility(localPro ? View.GONE : View.VISIBLE);
+                        }
+                    });
         }
     }
 
