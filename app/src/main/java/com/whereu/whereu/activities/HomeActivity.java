@@ -313,6 +313,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
     private void handleIntent(Intent intent) {
         if (intent != null && "requests".equals(intent.getStringExtra("open_fragment"))) {
+            int initialTab = intent.getIntExtra("requests_tab", 0);
+            showRequestsFragment(initialTab);
             bottomNavigationView.setSelectedItemId(R.id.navigation_requests);
         } else {
             checkIfProfileIsComplete();
@@ -1061,10 +1063,18 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void showRequestsFragment() {
+        showRequestsFragment(0);
+    }
+
+    private void showRequestsFragment(int initialTab) {
         homeContentGroup.setVisibility(View.GONE);
         titleHome.setText(R.string.requests_title);
+        RequestsFragment fragment = new RequestsFragment();
+        Bundle args = new Bundle();
+        args.putInt("initial_tab", initialTab);
+        fragment.setArguments(args);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new RequestsFragment())
+                .replace(R.id.fragment_container, fragment)
                 .commit();
     }
 
