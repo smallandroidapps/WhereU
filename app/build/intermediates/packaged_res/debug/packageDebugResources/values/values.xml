@@ -57,6 +57,15 @@
     <string name="app_name">WherU</string>
     <string name="avatar_description">User avatar</string>
     <string name="clear">Clear</string>
+    <string name="content_desc_chevron">Chevron icon</string>
+    <string name="content_desc_continue_to_payment">Continue to payment</string>
+    <string name="content_desc_plan_lifetime">Lifetime plan option</string>
+    <string name="content_desc_plan_monthly">Monthly plan option</string>
+    <string name="content_desc_plan_yearly">Yearly plan option</string>
+    <string name="content_desc_pro_crown">Pro status crown</string>
+    <string name="content_desc_upgrade_cta">Upgrade now</string>
+    <string name="content_desc_upgrade_pro_icon">Upgrade to Pro</string>
+    <string name="cta_continue_payment">Continue to Payment</string>
     <string name="default_web_client_id" translatable="false">529310840497-uu8d59kran7ks98cs84u9sph4qpr3ghf.apps.googleusercontent.com</string>
     <string name="gcm_defaultSenderId" translatable="false">529310840497</string>
     <string name="google_api_key" translatable="false">AIzaSyBqJxYVFFiiOV1mRr19P6_BGiALS3I_VaU</string>
@@ -67,6 +76,8 @@
     <string name="profile_title">Profile</string>
     <string name="project_id" translatable="false">whereu-ccbef</string>
     <string name="requests_title">Requests</string>
+    <string name="subtitle_unlock_full_access">Unlock full access</string>
+    <string name="title_upgrade_pro">Upgrade to WherU Pro</string>
     <style name="BottomNavigationView.ActiveTabTextStyle" parent="Widget.Design.NavigationView">
         <item name="android:textStyle">bold</item>
     </style>
@@ -78,17 +89,19 @@
     </style>
     <style name="Theme.WherU" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         
-        <item name="colorPrimary">@color/purple_accent</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/primary_purple</item>
+        <item name="colorPrimaryVariant">@color/status_bar</item>
+        <item name="colorOnPrimary">@color/white</item>
         
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/success_teal</item>
+        <item name="colorSecondaryVariant">@color/success_teal</item>
         <item name="colorOnSecondary">@color/black</item>
         
         <item name="android:statusBarColor" ns1:targetApi="l">#4B2EFF</item>
         
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="android:buttonStyle">@style/Widget.App.Button.Primary</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button.Primary</item>
     </style>
     <style name="Theme.WherU.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -99,5 +112,12 @@
         <item name="labelVisibilityMode">labeled</item>
         <item name="itemTextAppearanceActive">@style/TextAppearance.App.BottomNavigationView.Active</item>
         <item name="itemTextAppearanceInactive">@style/TextAppearance.App.BottomNavigationView.Inactive</item>
+        <item name="itemIconTint">@color/selector_bottom_nav</item>
+        <item name="itemTextColor">@color/selector_bottom_nav</item>
+    </style>
+    <style name="Widget.App.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary_purple</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">12dp</item>
     </style>
 </resources>

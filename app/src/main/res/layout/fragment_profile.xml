@@ -80,12 +80,13 @@
 
             </FrameLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:baselineAligned="true">
 
                 <EditText
                     android:id="@+id/userName"
@@ -100,10 +101,11 @@
                     android:id="@+id/pro_crown"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="4dp"
                     android:src="@drawable/ic_crown"
                     android:contentDescription="@string/content_desc_pro_crown"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:tint="?attr/colorSecondary" />
             </LinearLayout>
 
             <TextView
@@ -180,7 +182,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_edit"
-                            app:tint="@color/blue_500" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -195,7 +197,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_arrow_right"
-                            app:tint="@android:color/darker_gray" />
+                            app:tint="@color/muted_gray" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -220,7 +222,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_contacts"
-                            app:tint="@color/blue_500" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -235,7 +237,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_arrow_right"
-                            app:tint="@android:color/darker_gray" />
+                            app:tint="@color/muted_gray" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -260,7 +262,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@android:drawable/ic_menu_mylocation"
-                            app:tint="@color/blue_500" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -300,7 +302,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_check_circle"
-                            app:tint="@color/blue_500" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -340,7 +342,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_timer"
-                            app:tint="@color/blue_500" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -353,8 +355,8 @@
 
                         <Spinner
                             android:id="@+id/spinner_location_expiry"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:entries="@array/expiry_time_options"
                             android:gravity="center_vertical"
                             android:layout_gravity="center_vertical" />
@@ -425,7 +427,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_logout"
-                            app:tint="@color/blue_500" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -440,7 +442,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_arrow_right"
-                            app:tint="@android:color/darker_gray" />
+                            app:tint="@color/muted_gray" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 

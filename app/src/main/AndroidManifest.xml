@@ -49,9 +49,18 @@
             android:exported="false"
             android:theme="@style/Theme.WherU.NoActionBar" />
 
+        <activity android:name="com.whereu.whereu.activities.PaymentOptionsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WherU.NoActionBar" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <!-- AdMob App ID (Production) -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3041890013064110~1857587742" />
 
         <receiver android:name=".activities.NotificationActionReceiver" android:exported="false">
             <intent-filter>

@@ -11,6 +11,8 @@ public class User {
     private String accountType;
     private Date registeredAt;
     private Date lastUpdated;
+    private Boolean isPro;
+    private String planType; // MONTHLY, YEARLY, LIFETIME or null
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -89,5 +91,21 @@ public class User {
 
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public Boolean getIsPro() {
+        return isPro;
+    }
+
+    public void setIsPro(Boolean pro) {
+        isPro = pro;
+    }
+
+    public String getPlanType() {
+        return planType;
+    }
+
+    public void setPlanType(String planType) {
+        this.planType = planType;
     }
 }
