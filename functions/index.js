@@ -21,7 +21,7 @@ exports.sendNotificationOnRequestCreated = functions.firestore
                 notification: {
                     title: 'New Location Request',
                     body: `${senderName} has requested your location`,
-                    click_action: 'OPEN_REQUESTS'
+                    click_action: 'OPEN_REQUESTS_TO_ME'
                 },
                 data: {
                     requestId: context.params.requestId,
@@ -61,7 +61,7 @@ exports.sendNotificationOnRequestApproval = functions.firestore
                     notification: {
                         title: 'Location Request Approved!',
                         body: `Your location request to ${newValue.receiverName} has been approved.`,
-                        click_action: 'OPEN_REQUESTS'
+                        click_action: 'OPEN_REQUESTS_FROM_ME'
                     },
                     data: {
                         requestId: context.params.requestId,

@@ -312,13 +312,23 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void handleIntent(Intent intent) {
-        if (intent != null && "requests".equals(intent.getStringExtra("open_fragment"))) {
-            int initialTab = intent.getIntExtra("requests_tab", 0);
-            showRequestsFragment(initialTab);
-            bottomNavigationView.setSelectedItemId(R.id.navigation_requests);
-        } else {
-            checkIfProfileIsComplete();
+        if (intent != null) {
+            String openFragment = intent.getStringExtra("open_fragment");
+            String action = intent.getAction();
+            if ("requests".equals(openFragment) || (action != null && action.startsWith("OPEN_REQUESTS"))) {
+                int initialTab = intent.getIntExtra("requests_tab", 0);
+                // If action specifies tab, override
+                if ("OPEN_REQUESTS_FROM_ME".equals(action)) {
+                    initialTab = 1;
+                } else if ("OPEN_REQUESTS_TO_ME".equals(action)) {
+                    initialTab = 0;
+                }
+                showRequestsFragment(initialTab);
+                bottomNavigationView.setSelectedItemId(R.id.navigation_requests);
+                return;
+            }
         }
+        checkIfProfileIsComplete();
     }
 
     private void checkIfProfileIsComplete() {
