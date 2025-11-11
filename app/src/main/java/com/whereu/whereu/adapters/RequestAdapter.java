@@ -1,6 +1,7 @@
 package com.whereu.whereu.adapters;
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,10 +85,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 }
             });
 
-            // Format and display the date and time
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a", Locale.getDefault());
-            String formattedDate = sdf.format(new Date(request.getTimestamp()));
-            binding.timestampTextView.setText(formattedDate);
+            // Format and display timestamp (relative if < 24h)
+            long refTs = request.getApprovedTimestamp() > 0 ? request.getApprovedTimestamp() : request.getTimestamp();
+            String label = request.getApprovedTimestamp() > 0 ? "Shared At: " : "Requested At: ";
+            binding.timestampTextView.setText(label + formatRelativeOrAbsolute(refTs));
 
             if (request.isSentByCurrentUser()) {
                 binding.actionButtonsLayout.setVisibility(View.GONE);
@@ -97,6 +98,49 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 } else {
                     binding.viewDetailsButton.setVisibility(View.GONE);
                     binding.requestAgainButton.setVisibility(View.VISIBLE);
+
+                    // Cooldown: prevent re-request within 60 seconds of last request timestamp
+                    long cooldownMs = 60_000L;
+                    long lastReqTs = request.getTimestamp();
+                    long now = System.currentTimeMillis();
+                    long remaining = (lastReqTs + cooldownMs) - now;
+
+                    // Cancel any existing countdown associated with this button to avoid leaks
+                    Object tag = binding.requestAgainButton.getTag();
+                    if (tag instanceof CountDownTimer) {
+                        ((CountDownTimer) tag).cancel();
+                        binding.requestAgainButton.setTag(null);
+                    }
+
+                    if (remaining > 0) {
+                        binding.requestAgainButton.setEnabled(false);
+                        binding.requestAgainButton.setAlpha(0.6f);
+
+                        CountDownTimer timer = new CountDownTimer(remaining, 1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                long seconds = (millisUntilFinished + 999) / 1000; // ceil
+                                long mins = seconds / 60;
+                                long secs = seconds % 60;
+                                String mmss = String.format(Locale.getDefault(), "%d:%02d", mins, secs);
+                                binding.requestAgainButton.setText("Request Again (" + mmss + ")");
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                binding.requestAgainButton.setText("Request Again");
+                                binding.requestAgainButton.setEnabled(true);
+                                binding.requestAgainButton.setAlpha(1.0f);
+                                binding.requestAgainButton.setTag(null);
+                            }
+                        };
+                        binding.requestAgainButton.setTag(timer);
+                        timer.start();
+                    } else {
+                        binding.requestAgainButton.setText("Request Again");
+                        binding.requestAgainButton.setEnabled(true);
+                        binding.requestAgainButton.setAlpha(1.0f);
+                    }
                 }
             } else {
                 binding.actionButtonsLayout.setVisibility(View.VISIBLE);
@@ -108,6 +152,26 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
             binding.rejectButton.setOnClickListener(v -> listener.onRejectClicked(request));
             binding.requestAgainButton.setOnClickListener(v -> listener.onRequestAgainClicked(request));
             binding.viewDetailsButton.setOnClickListener(v -> listener.onViewLocationClicked(request));
+        }
+
+        private String formatRelativeOrAbsolute(long ts) {
+            if (ts <= 0) return "N/A";
+            long now = System.currentTimeMillis();
+            long diff = Math.abs(now - ts);
+
+            long oneDayMs = 24L * 60L * 60L * 1000L;
+            if (diff < oneDayMs) {
+                long minutes = diff / (60L * 1000L);
+                if (minutes < 60) {
+                    if (minutes <= 0) return "just now";
+                    return minutes + " min ago";
+                } else {
+                    long hours = minutes / 60L;
+                    return hours + " hour" + (hours > 1 ? "s" : "") + " ago";
+                }
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a", Locale.getDefault());
+            return sdf.format(new Date(ts));
         }
     }
 }

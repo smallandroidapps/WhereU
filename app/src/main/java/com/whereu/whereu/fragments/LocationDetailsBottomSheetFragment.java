@@ -83,15 +83,11 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
         if (locationRequest != null) {
             name.setText(locationRequest.getUserName());
 
-            // Timestamp formatting: show Shared At if approved, else Requested At
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.getDefault());
-            if (locationRequest.getApprovedTimestamp() != 0) {
-                sharedAt.setText("Shared At: " + sdf.format(locationRequest.getApprovedTimestamp()));
-            } else if (locationRequest.getTimestamp() != 0) {
-                sharedAt.setText("Requested At: " + sdf.format(locationRequest.getTimestamp()));
-            } else {
-                sharedAt.setText("Requested At: N/A");
-            }
+            // Timestamp formatting: show Shared At if approved, else Requested At (relative if < 24h)
+            long ts = locationRequest.getApprovedTimestamp() != 0 ? locationRequest.getApprovedTimestamp() : locationRequest.getTimestamp();
+            boolean isApproved = locationRequest.getApprovedTimestamp() != 0;
+            String label = isApproved ? "Shared At: " : "Requested At: ";
+            sharedAt.setText(label + formatRelativeOrAbsolute(ts));
 
             // Area name (fallback to N/A)
             String area = locationRequest.getAreaName();
@@ -134,14 +130,52 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
             dismiss();
         });
 
-        requestAgain.setOnClickListener(v -> {
-            if (mListener != null) {
-                mListener.onRequestAgainClick(locationRequest.getToUserId());
-            }
-            dismiss();
-        });
+        // Enforce 1-minute cooldown for re-request based on last request timestamp
+        long lastSentTs = locationRequest.getTimestamp();
+        long cooldownMs = 60L * 1000L;
+        long remaining = (lastSentTs + cooldownMs) - System.currentTimeMillis();
+        if (remaining > 0) {
+            requestAgain.setEnabled(false);
+            requestAgain.setText("Wait " + formatCooldownTime(remaining));
+        } else {
+            requestAgain.setEnabled(true);
+            requestAgain.setText("Request Again");
+            requestAgain.setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onRequestAgainClick(locationRequest.getToUserId());
+                }
+                dismiss();
+            });
+        }
 
         close.setOnClickListener(v -> dismiss());
+    }
+
+    private String formatRelativeOrAbsolute(long ts) {
+        if (ts <= 0) return "N/A";
+        long now = System.currentTimeMillis();
+        long diff = Math.abs(now - ts);
+
+        long oneDayMs = 24L * 60L * 60L * 1000L;
+        if (diff < oneDayMs) {
+            long minutes = diff / (60L * 1000L);
+            if (minutes < 60) {
+                if (minutes <= 0) return "just now";
+                return minutes + " min ago";
+            } else {
+                long hours = minutes / 60L;
+                return hours + " hour" + (hours > 1 ? "s" : "") + " ago";
+            }
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy hh:mm a", Locale.getDefault());
+        return sdf.format(ts);
+    }
+
+    private String formatCooldownTime(long milliseconds) {
+        long seconds = Math.max(0, milliseconds / 1000);
+        long mins = seconds / 60;
+        long secs = seconds % 60;
+        return String.format(Locale.getDefault(), "%02d:%02d", mins, secs);
     }
 
     @Override

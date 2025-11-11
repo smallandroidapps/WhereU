@@ -91,7 +91,8 @@ public class ToMeRequestsFragment extends Fragment {
 
                         String fromUserId = request.getFromUserId();
                         fromUserIds.add(fromUserId);
-                        if (!latestByFromUserId.containsKey(fromUserId) || request.getTimestamp() > latestByFromUserId.get(fromUserId).getTimestamp()) {
+                        long reqTs = effectiveTs(request);
+                        if (!latestByFromUserId.containsKey(fromUserId) || reqTs > effectiveTs(latestByFromUserId.get(fromUserId))) {
                             latestByFromUserId.put(fromUserId, request);
                         }
                     }
@@ -124,13 +125,13 @@ public class ToMeRequestsFragment extends Fragment {
                             if (req == null) continue;
 
                             LocationRequest existing = dedupByEmailMobile.get(key);
-                            if (existing == null || req.getTimestamp() > existing.getTimestamp()) {
+                            if (existing == null || effectiveTs(req) > effectiveTs(existing)) {
                                 dedupByEmailMobile.put(key, req);
                             }
                         }
 
                         List<LocationRequest> pendingRequests = new ArrayList<>(dedupByEmailMobile.values());
-                        Collections.sort(pendingRequests, (o1, o2) -> Long.compare(o2.getTimestamp(), o1.getTimestamp()));
+                        Collections.sort(pendingRequests, (o1, o2) -> Long.compare(effectiveTs(o2), effectiveTs(o1)));
 
                         requestList.clear();
                         requestList.addAll(pendingRequests);
@@ -140,6 +141,11 @@ public class ToMeRequestsFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private long effectiveTs(LocationRequest r) {
+        if (r == null) return 0L;
+        return r.getApprovedTimestamp() > 0 ? r.getApprovedTimestamp() : r.getTimestamp();
     }
 
     public void removeRequest(LocationRequest requestToRemove) {

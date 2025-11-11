@@ -82,9 +82,7 @@ public class FrequentContactAdapter extends RecyclerView.Adapter<FrequentContact
 
         long ts = contact.getLastRequestTimestamp();
         if (ts > 0) {
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a", Locale.getDefault());
-            String time = sdf.format(new Date(ts));
-            holder.statusText.setText(holder.statusText.getText() + " • " + time);
+            holder.statusText.setText(holder.statusText.getText() + " • " + formatRelativeOrAbsolute(ts));
         }
 
         holder.actionButton.setOnClickListener(v -> {
@@ -107,6 +105,26 @@ public class FrequentContactAdapter extends RecyclerView.Adapter<FrequentContact
                 }
             });
         }
+    }
+
+    private String formatRelativeOrAbsolute(long ts) {
+        if (ts <= 0) return "N/A";
+        long now = System.currentTimeMillis();
+        long diff = Math.abs(now - ts);
+
+        long oneDayMs = 24L * 60L * 60L * 1000L;
+        if (diff < oneDayMs) {
+            long minutes = diff / (60L * 1000L);
+            if (minutes < 60) {
+                if (minutes <= 0) return "just now";
+                return minutes + " min ago";
+            } else {
+                long hours = minutes / 60L;
+                return hours + " hour" + (hours > 1 ? "s" : "") + " ago";
+            }
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a", Locale.getDefault());
+        return sdf.format(new Date(ts));
     }
 
     @Override
