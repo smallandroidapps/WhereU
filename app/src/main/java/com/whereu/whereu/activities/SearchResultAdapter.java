@@ -66,7 +66,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                         holder.actionButton.setText("Wait " + SearchResult.formatCooldownTime(remainingTime));
                         holder.actionButton.setEnabled(false);
                     } else {
-                        holder.actionButton.setText("Request Sent");
+                        String suffix = formatRelativeOrAbsolute(result.getRequestSentTimestamp());
+                        holder.actionButton.setText(suffix.isEmpty() ? "Request Sent" : ("Request Sent • " + suffix));
                         holder.actionButton.setEnabled(false);
                     }
                     break;
@@ -112,6 +113,26 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             displayName = itemView.findViewById(R.id.display_name);
             actionButton = itemView.findViewById(R.id.action_button);
         }
+    }
+
+    private String formatRelativeOrAbsolute(long ts) {
+        if (ts <= 0) return "";
+        long now = System.currentTimeMillis();
+        long diff = Math.abs(now - ts);
+
+        long oneDayMs = 24L * 60L * 60L * 1000L;
+        if (diff < oneDayMs) {
+            long minutes = diff / (60L * 1000L);
+            if (minutes < 60) {
+                if (minutes <= 0) return "just now";
+                return minutes + " min ago";
+            } else {
+                long hours = minutes / 60L;
+                return hours + " hour" + (hours > 1 ? "s" : "") + " ago";
+            }
+        }
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMM dd, hh:mm a", java.util.Locale.getDefault());
+        return sdf.format(new java.util.Date(ts));
     }
 
     public static class SearchResult implements Parcelable {

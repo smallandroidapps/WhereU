@@ -149,7 +149,37 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
             @Override
             public void onItemClick(SearchResultAdapter.SearchResult result) {
-                // Not used
+                if (result == null) return;
+                if (!result.isExistingUser()) {
+                    Toast.makeText(HomeActivity.this, "Invite this contact to WhereU", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String requestId = result.getRequestId();
+                // Try to load by requestId first (if present)
+                if (requestId != null && !requestId.isEmpty()) {
+                    FirebaseFirestore.getInstance().collection("locationRequests").document(requestId)
+                            .get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+                                    LocationRequest req = documentSnapshot.toObject(LocationRequest.class);
+                                    if (req != null) {
+                                        req.setUserName(result.getDisplayName());
+                                    showLocationDetailsBottomSheet(req);
+                                    } else {
+                                        // Fallback to latest by from/to
+                                        openBottomSheetWithLatestOrStub(result);
+                                    }
+                                } else {
+                                    // Fallback to latest by from/to
+                                    openBottomSheetWithLatestOrStub(result);
+                                }
+                            })
+                            .addOnFailureListener(e -> openBottomSheetWithLatestOrStub(result));
+                } else {
+                    // No requestId mapped yet; attempt from/to query or stub
+                    openBottomSheetWithLatestOrStub(result);
+                }
             }
         });
         searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -556,7 +586,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     if (documentSnapshot.exists()) {
                         LocationRequest approvedRequest = documentSnapshot.toObject(LocationRequest.class);
                         if (approvedRequest != null) {
-                            LocationDetailsBottomSheetFragment.newInstance(approvedRequest).show(getSupportFragmentManager(), "LocationDetailsBottomSheetFragment");
+                            showLocationDetailsBottomSheet(approvedRequest);
                         }
                     } else {
                         Toast.makeText(this, "Could not find request details.", Toast.LENGTH_SHORT).show();
@@ -725,6 +755,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     // Update in-memory status map for immediate UI refresh
                     if (request.getToUserId() != null) {
                         requestStatusMap.put(request.getToUserId(), "sent");
+                        requestIdMap.put(request.getToUserId(), documentReference.getId());
                     }
                     if (position != null && position >= 0) {
                         searchResultAdapter.notifyItemChanged(position);
@@ -738,6 +769,64 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     startCooldownTimer(result, position);
                 })
                 .addOnFailureListener(e -> Toast.makeText(HomeActivity.this, "Failed to send request.", Toast.LENGTH_SHORT).show());
+    }
+
+    private void showLocationDetailsBottomSheet(LocationRequest req) {
+        if (req == null) return;
+        String tag = "location_details";
+        Fragment existing = getSupportFragmentManager().findFragmentByTag(tag);
+        if (existing != null && existing.isAdded()) {
+            return; // Prevent multiple popups stacking
+        }
+        LocationDetailsBottomSheetFragment fragment = LocationDetailsBottomSheetFragment.newInstance(req);
+        fragment.show(getSupportFragmentManager(), tag);
+    }
+
+    private void openBottomSheetWithLatestOrStub(SearchResultAdapter.SearchResult result) {
+        if (currentUser == null || result == null || result.getUserId() == null) {
+            Toast.makeText(HomeActivity.this, "Could not open details", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Attempt to fetch latest request between current user and this contact WITHOUT orderBy
+        db.collection("locationRequests")
+                .whereEqualTo("fromUserId", currentUser.getUid())
+                .whereEqualTo("toUserId", result.getUserId())
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    LocationRequest latest = null;
+                    long latestTs = Long.MIN_VALUE;
+                    for (QueryDocumentSnapshot doc : querySnapshot) {
+                        LocationRequest lr = doc.toObject(LocationRequest.class);
+                        if (lr != null) {
+                            lr.setRequestId(doc.getId());
+                            long ts = lr.getApprovedTimestamp() > 0 ? lr.getApprovedTimestamp() : lr.getTimestamp();
+                            if (ts > latestTs) {
+                                latestTs = ts;
+                                latest = lr;
+                            }
+                        }
+                    }
+                    if (latest == null) {
+                        // Create a stub request if nothing found
+                        latest = new LocationRequest(currentUser.getUid(), result.getUserId());
+                        String s = result.getRequestStatus();
+                        latest.setStatus(s != null ? s : "not_requested");
+                        latest.setTimestamp(0);
+                        latest.setApprovedTimestamp(0);
+                    }
+                    latest.setUserName(result.getDisplayName());
+                    showLocationDetailsBottomSheet(latest);
+                })
+                .addOnFailureListener(e -> {
+                    // Final fallback to a stub
+                    LocationRequest stub = new LocationRequest(currentUser.getUid(), result.getUserId());
+                    String s = result.getRequestStatus();
+                    stub.setStatus(s != null ? s : "not_requested");
+                    stub.setTimestamp(0);
+                    stub.setApprovedTimestamp(0);
+                    stub.setUserName(result.getDisplayName());
+                    showLocationDetailsBottomSheet(stub);
+                });
     }
 
     @Override

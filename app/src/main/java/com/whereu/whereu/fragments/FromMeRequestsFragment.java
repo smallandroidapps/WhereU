@@ -70,8 +70,7 @@ public class FromMeRequestsFragment extends Fragment {
         if (currentUser != null) {
             String currentUserId = currentUser.getUid();
             Query query = db.collection("locationRequests")
-                    .whereEqualTo("fromUserId", currentUserId)
-                    .orderBy("timestamp", Query.Direction.DESCENDING);
+                    .whereEqualTo("fromUserId", currentUserId);
 
             requestListener = query.addSnapshotListener((snapshots, e) -> {
                 if (e != null) {
@@ -124,13 +123,13 @@ public class FromMeRequestsFragment extends Fragment {
                             if (req == null) continue;
 
                             LocationRequest existing = dedupByEmailMobile.get(key);
-                            if (existing == null || req.getTimestamp() > existing.getTimestamp()) {
+                            if (existing == null || effectiveTs(req) > effectiveTs(existing)) {
                                 dedupByEmailMobile.put(key, req);
                             }
                         }
 
                         List<LocationRequest> uniqueRequests = new ArrayList<>(dedupByEmailMobile.values());
-                        Collections.sort(uniqueRequests, (o1, o2) -> Long.compare(o2.getTimestamp(), o1.getTimestamp()));
+                        Collections.sort(uniqueRequests, (o1, o2) -> Long.compare(effectiveTs(o2), effectiveTs(o1)));
 
                         requestList.clear();
                         requestList.addAll(uniqueRequests);
@@ -139,6 +138,11 @@ public class FromMeRequestsFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private long effectiveTs(LocationRequest r) {
+        if (r == null) return 0L;
+        return r.getApprovedTimestamp() > 0 ? r.getApprovedTimestamp() : r.getTimestamp();
     }
 
     @Override

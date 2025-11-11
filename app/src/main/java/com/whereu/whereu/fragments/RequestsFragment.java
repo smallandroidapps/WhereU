@@ -116,7 +116,56 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
 
     @Override
     public void onRequestAgainClicked(LocationRequest request) {
-        // Implement request again logic here
+        if (currentUser == null || request == null) return;
+        LocationRequest newRequest = new LocationRequest(currentUser.getUid(), request.getToUserId());
+        // Try to capture sender's current location for context
+        boolean fineGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean coarseGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+        if (fineGranted || coarseGranted) {
+            FusedLocationProviderClient fusedClient = LocationServices.getFusedLocationProviderClient(requireContext());
+            fusedClient.getLastLocation().addOnSuccessListener(loc -> {
+                if (loc != null) {
+                    newRequest.setLatitude(loc.getLatitude());
+                    newRequest.setLongitude(loc.getLongitude());
+
+                    // Reverse geocode into area name if possible
+                    try {
+                        Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
+                        List<Address> addresses = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+                        if (addresses != null && !addresses.isEmpty()) {
+                            Address addr = addresses.get(0);
+                            StringBuilder areaName = new StringBuilder();
+                            if (addr.getLocality() != null && !addr.getLocality().isEmpty()) areaName.append(addr.getLocality());
+                            if (addr.getAdminArea() != null && !addr.getAdminArea().isEmpty()) {
+                                if (areaName.length() > 0) areaName.append(", ");
+                                areaName.append(addr.getAdminArea());
+                            }
+                            if (addr.getCountryName() != null && !addr.getCountryName().isEmpty()) {
+                                if (areaName.length() > 0) areaName.append(", ");
+                                areaName.append(addr.getCountryName());
+                            }
+                            newRequest.setAreaName(areaName.toString());
+                        }
+                    } catch (IOException ignored) { }
+                }
+                sendRequestToFirestore(newRequest);
+            }).addOnFailureListener(e -> sendRequestToFirestore(newRequest));
+        } else {
+            // No location permission; proceed without coordinates
+            sendRequestToFirestore(newRequest);
+        }
+    }
+
+    private void sendRequestToFirestore(LocationRequest newRequest) {
+        FirebaseFirestore.getInstance().collection("locationRequests").add(newRequest)
+                .addOnSuccessListener(ref -> {
+                    Toast.makeText(getContext(), "Request sent again", Toast.LENGTH_SHORT).show();
+                    if (notificationListener != null) {
+                        notificationListener.onSendLocalNotification("WhereU", "Location request sent again");
+                    }
+                })
+                .addOnFailureListener(err -> Toast.makeText(getContext(), "Failed to send request", Toast.LENGTH_SHORT).show());
     }
 
     @Override
