@@ -182,9 +182,9 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
             dismiss();
         });
 
-        // Enforce 1-minute cooldown for re-request based on last request timestamp
+        // Enforce 1-hour cooldown for re-request based on last request timestamp
         long lastSentTs = locationRequest.getTimestamp();
-        long cooldownMs = 60L * 1000L;
+        long cooldownMs = 60L * 60L * 1000L;
         long remaining = (lastSentTs + cooldownMs) - System.currentTimeMillis();
         if (remaining > 0) {
             requestAgain.setEnabled(false);

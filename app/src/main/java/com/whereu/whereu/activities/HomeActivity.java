@@ -851,7 +851,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     
     private void startCooldownTimer(SearchResultAdapter.SearchResult result, Integer position) {
         // Create a countdown timer for the cooldown period
-        CountDownTimer timer = new CountDownTimer(60000, 1000) { // 1 minute cooldown
+        CountDownTimer timer = new CountDownTimer(60L * 60L * 1000L, 1000) { // 1 hour cooldown
             private boolean blinkStarted = false;
 
             public void onTick(long millisUntilFinished) {

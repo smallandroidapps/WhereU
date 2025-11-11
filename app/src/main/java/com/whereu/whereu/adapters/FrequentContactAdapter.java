@@ -72,14 +72,24 @@ public class FrequentContactAdapter extends RecyclerView.Adapter<FrequentContact
                 break;
             case "expired":
                 holder.statusText.setText("Expired");
-                holder.actionButton.setText("Request again");
-                holder.actionButton.setEnabled(true);
+                if (contact.isInCooldown()) {
+                    holder.actionButton.setText("Wait " + SearchResultAdapter.SearchResult.formatCooldownTime(contact.getCooldownRemainingTime()));
+                    holder.actionButton.setEnabled(false);
+                } else {
+                    holder.actionButton.setText("Request again");
+                    holder.actionButton.setEnabled(true);
+                }
                 holder.actionButton.setVisibility(View.VISIBLE);
                 break;
             case "rejected":
                 holder.statusText.setText("Rejected");
-                holder.actionButton.setText("Request again");
-                holder.actionButton.setEnabled(true);
+                if (contact.isInCooldown()) {
+                    holder.actionButton.setText("Wait " + SearchResultAdapter.SearchResult.formatCooldownTime(contact.getCooldownRemainingTime()));
+                    holder.actionButton.setEnabled(false);
+                } else {
+                    holder.actionButton.setText("Request again");
+                    holder.actionButton.setEnabled(true);
+                }
                 holder.actionButton.setVisibility(View.VISIBLE);
                 break;
             default:

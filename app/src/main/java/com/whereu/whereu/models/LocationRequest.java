@@ -16,6 +16,7 @@ public class LocationRequest implements Parcelable {
     private String areaName;
     private long timestamp;
     private long approvedTimestamp;
+    private long rejectedTimestamp;
     private String userName;
     private double distance;
 
@@ -30,6 +31,7 @@ public class LocationRequest implements Parcelable {
         this.status = "pending";
         this.timestamp = System.currentTimeMillis();
         this.approvedTimestamp = 0;
+        this.rejectedTimestamp = 0;
         this.latitude = 0;
         this.longitude = 0;
         this.areaName = "";
@@ -109,6 +111,14 @@ public class LocationRequest implements Parcelable {
         this.approvedTimestamp = approvedTimestamp;
     }
 
+    public long getRejectedTimestamp() {
+        return rejectedTimestamp;
+    }
+
+    public void setRejectedTimestamp(long rejectedTimestamp) {
+        this.rejectedTimestamp = rejectedTimestamp;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -141,6 +151,7 @@ public class LocationRequest implements Parcelable {
         areaName = in.readString();
         timestamp = in.readLong();
         approvedTimestamp = in.readLong();
+        rejectedTimestamp = in.readLong();
         userName = in.readString();
         distance = in.readDouble();
     }
@@ -156,6 +167,7 @@ public class LocationRequest implements Parcelable {
         dest.writeString(areaName);
         dest.writeLong(timestamp);
         dest.writeLong(approvedTimestamp);
+        dest.writeLong(rejectedTimestamp);
         dest.writeString(userName);
         dest.writeDouble(distance);
     }

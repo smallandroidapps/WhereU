@@ -3234,6 +3234,7 @@ drawable btn_radio_on_to_off_mtrl_animation
 drawable ccp_ic_arrow_drop_down
 drawable chip_background_approved
 drawable chip_background_expired
+drawable chip_background_rejected
 drawable circle_background
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
