@@ -3545,6 +3545,7 @@ drawable ic_logout
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
+drawable ic_mail
 drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
@@ -3866,12 +3867,14 @@ id cache_measures
 id callMeasure
 id cancel_button
 id cardViewRoot
+id card_app_info
 id card_auto_approve
 id card_edit_profile
 id card_hide_location
 id card_lifetime
 id card_location_expiry
 id card_logout
+id card_manage_background_permissions
 id card_monthly
 id card_subtitle
 id card_title
@@ -4036,6 +4039,7 @@ id horizontal_only
 id hybrid
 id icon
 id icon_edit_profile_picture
+id icon_feedback_email
 id icon_group
 id icon_only
 id ifRoom
@@ -4254,6 +4258,7 @@ id rlClickConsumer
 id rl_query_holder
 id rl_title
 id rounded
+id row_feedback_email
 id row_index_key
 id rtl
 id satellite
@@ -4285,6 +4290,7 @@ id selected
 id selection_type
 id senderTextView
 id sender_receiver_text_view
+id share_button
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -4366,10 +4372,13 @@ id textView_noresult
 id textView_selectedCountry
 id textView_title
 id textWatcher
+id text_app_info_title
+id text_app_version
 id text_area_name
 id text_coordinates
 id text_distance
 id text_expires_in
+id text_feedback_email
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon

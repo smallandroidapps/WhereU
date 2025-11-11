@@ -1,6 +1,7 @@
 package com.whereu.whereu.fragments;
 
 import android.content.Intent;
+import android.Manifest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -36,6 +39,10 @@ import java.util.regex.Pattern;
 
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.os.Build;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.net.Uri;
 
 public class ProfileFragment extends Fragment {
 
@@ -48,6 +55,7 @@ public class ProfileFragment extends Fragment {
     private ActivityResultLauncher<String> pickImageLauncher;
     private boolean isEditing = false;
     private String currentPhotoUrl = null;
+    private static final int REQUEST_BACKGROUND_LOCATION_FROM_PROFILE = 9004;
 
     @Nullable
     @Override
@@ -183,12 +191,18 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getContext(), "No email app found", Toast.LENGTH_SHORT).show();
             }
         };
-
+        if (binding.rowFeedbackEmail != null) {
+            binding.rowFeedbackEmail.setOnClickListener(feedbackClick);
+        }
+        if (binding.iconFeedbackEmail != null) {
+            binding.iconFeedbackEmail.setOnClickListener(feedbackClick);
+        }
         if (binding.textFeedbackEmail != null) {
             binding.textFeedbackEmail.setOnClickListener(feedbackClick);
         }
-        if (binding.btnSendFeedback != null) {
-            binding.btnSendFeedback.setOnClickListener(feedbackClick);
+
+        if (binding.cardManageBackgroundPermissions != null) {
+            binding.cardManageBackgroundPermissions.setOnClickListener(v1 -> openBackgroundPermissionsDialog());
         }
     }
 
@@ -302,6 +316,74 @@ public class ProfileFragment extends Fragment {
                         isEditing = false;
                     })
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update profile.", Toast.LENGTH_SHORT).show());
+        }
+    }
+
+    private void openBackgroundPermissionsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Manage Background Permissions");
+        builder.setMessage("Configure 'Allow all the time' location and battery optimization settings.");
+        builder.setPositiveButton("Location", (d, w) -> {
+            handleBackgroundLocationFromProfile();
+        });
+        builder.setNegativeButton("Battery", (d, w) -> {
+            openBatteryOptimizationSettings();
+        });
+        builder.setNeutralButton("Close", (d, w) -> d.dismiss());
+        builder.show();
+    }
+
+    private void handleBackgroundLocationFromProfile() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            // No separate background permission; direct to app details for location permissions
+            try {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + requireContext().getPackageName()));
+                startActivity(intent);
+            } catch (Exception e) {
+                Toast.makeText(getContext(), "Unable to open settings", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+
+        boolean bgGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                == android.content.pm.PackageManager.PERMISSION_GRANTED;
+
+        if (bgGranted) {
+            Toast.makeText(getContext(), "Background location already allowed.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+            // On Android 10, you can request the background location runtime permission
+            requestPermissions(new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, REQUEST_BACKGROUND_LOCATION_FROM_PROFILE);
+        } else {
+            // On Android 11+, direct users to app settings to choose "Allow all the time"
+            try {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + requireContext().getPackageName()));
+                startActivity(intent);
+                Toast.makeText(getContext(), "In Settings > Permissions, set Location to 'Allow all the time'", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(getContext(), "Unable to open settings", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void openBatteryOptimizationSettings() {
+        try {
+            PowerManager pm = (PowerManager) requireContext().getSystemService(android.content.Context.POWER_SERVICE);
+            if (pm != null && pm.isIgnoringBatteryOptimizations(requireContext().getPackageName())) {
+                Toast.makeText(getContext(), "Battery optimization already disabled.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception ignored) {}
+
+        try {
+            Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Unable to open battery settings", Toast.LENGTH_SHORT).show();
         }
     }
 

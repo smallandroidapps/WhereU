@@ -1008,8 +1008,6 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         // Rebuild and refresh statuses whenever screen becomes visible
         updateSearchResultsRequestStatus();
         loadDismissedFrequentIdsAndFetch();
-        // Re-check background location after returning from Settings
-        ensureAlwaysLocationPermission();
     }
 
     private void fetchFrequentlyRequestedContacts() {
@@ -1355,10 +1353,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         if (!fineGranted || !coarseGranted) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSIONS_REQUEST_LOCATION);
         }
-        // Encourage "Always allow" background location for reliable updates
-        ensureAlwaysLocationPermission();
-        // Encourage disabling battery optimizations for background reliability
-        promptBackgroundRunPermission();
+        // Background location and battery optimization prompts handled via Profile > Manage Background Permissions
     }
 
     private void ensureAlwaysLocationPermission() {

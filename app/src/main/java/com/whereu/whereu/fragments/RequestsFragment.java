@@ -60,6 +60,7 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FragmentRequestsBinding binding;
+    private String openRequestIdArg;
 
     public RequestsFragment() {
         // Required empty public constructor
@@ -106,8 +107,62 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
         Bundle args = getArguments();
         if (args != null) {
             initialTab = args.getInt("initial_tab", 0);
+            openRequestIdArg = args.getString("open_request_id", null);
         }
         binding.viewPager.setCurrentItem(initialTab, false);
+
+        if (openRequestIdArg != null && !openRequestIdArg.isEmpty()) {
+            binding.viewPager.postDelayed(() -> {
+                // Attempt to open the specific request on the active tab (default To Me)
+                boolean openedViaList = false;
+                for (Fragment fragment : getChildFragmentManager().getFragments()) {
+                    if (fragment instanceof ToMeRequestsFragment && fragment.isAdded()) {
+                        ((ToMeRequestsFragment) fragment).openRequestById(openRequestIdArg);
+                        openedViaList = true;
+                        break;
+                    }
+                }
+                // Fallback: fetch directly by id and open appropriate sheet.
+                // Avoid double-open by checking if a sheet is already present.
+                if (!openedViaList) {
+                    List<Fragment> sheets = getChildFragmentManager().getFragments();
+                    boolean sheetVisible = false;
+                    for (Fragment f : sheets) {
+                        if (f instanceof LocationDetailsBottomSheetFragment ||
+                                (f != null && "RequestDetailsBottomSheetFragment".equals(f.getTag()))) {
+                            sheetVisible = true;
+                            break;
+                        }
+                    }
+                    if (!sheetVisible) {
+                        FirebaseFirestore.getInstance().collection("locationRequests").document(openRequestIdArg)
+                                .get()
+                                .addOnSuccessListener(doc -> {
+                                    if (doc != null && doc.exists()) {
+                                        LocationRequest req = doc.toObject(LocationRequest.class);
+                                        if (req != null) {
+                                            req.setRequestId(doc.getId());
+                                            String status = req.getStatus();
+                                            if ("approved".equals(status)) {
+                                                LocationDetailsBottomSheetFragment.newInstance(req)
+                                                        .show(getChildFragmentManager(), "LocationDetailsBottomSheetFragment");
+                                            } else {
+                                                RequestDetailsBottomSheetFragment sheet = RequestDetailsBottomSheetFragment.newInstance(req);
+                                                sheet.setOnRequestDetailsActionListener(new RequestDetailsBottomSheetFragment.OnRequestDetailsActionListener() {
+                                                    @Override
+                                                    public void onRequestApproved(LocationRequest r) { onApproveClicked(r); }
+                                                    @Override
+                                                    public void onRequestRejected(LocationRequest r) { onRejectClicked(r); }
+                                                });
+                                                sheet.show(getChildFragmentManager(), "RequestDetailsBottomSheetFragment");
+                                            }
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }, 200);
+        }
 
         return root;
     }
@@ -319,6 +374,8 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
                                         break;
                                     }
                                 }
+                                // After approving one request from a sender, close older pending ones
+                                closeOlderPendingFromSameSender(request);
                             })
                             .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to approve request", Toast.LENGTH_SHORT).show());
                 })
@@ -337,8 +394,27 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
                                         break;
                                     }
                                 }
+                                closeOlderPendingFromSameSender(request);
                             })
                             .addOnFailureListener(err -> Toast.makeText(getContext(), "Failed to approve request", Toast.LENGTH_SHORT).show());
+                });
+    }
+
+    private void closeOlderPendingFromSameSender(LocationRequest request) {
+        if (currentUser == null || request == null) return;
+        String toUserId = currentUser.getUid();
+        String fromUserId = request.getFromUserId();
+        FirebaseFirestore.getInstance().collection("locationRequests")
+                .whereEqualTo("toUserId", toUserId)
+                .whereEqualTo("fromUserId", fromUserId)
+                .whereEqualTo("status", "pending")
+                .get()
+                .addOnSuccessListener(qs -> {
+                    qs.getDocuments().forEach(doc -> {
+                        if (!doc.getId().equals(request.getRequestId())) {
+                            doc.getReference().update("status", "rejected");
+                        }
+                    });
                 });
     }
 

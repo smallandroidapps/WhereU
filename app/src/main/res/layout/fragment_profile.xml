@@ -105,7 +105,7 @@
                     android:src="@drawable/ic_crown"
                     android:contentDescription="@string/content_desc_pro_crown"
                     android:visibility="gone"
-                    android:tint="?attr/colorSecondary" />
+                    android:tint="?attr/colorPrimary" />
             </LinearLayout>
 
             <TextView
@@ -321,6 +321,47 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Manage Background Permissions -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_manage_background_permissions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/light_gray"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_location_pin"
+                            app:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:text="Manage Background Permissions"
+                            android:textColor="@color/text_color"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/muted_gray" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_location_expiry"
                     android:layout_width="match_parent"
@@ -439,20 +480,30 @@
                             android:text="Version"
                             android:textSize="14sp" />
 
-                        <TextView
-                            android:id="@+id/text_feedback_email"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/row_feedback_email"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Feedback: snymainc@gmail.com"
-                            android:textSize="14sp" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
-                        <Button
-                            android:id="@+id/btn_send_feedback"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="Send Feedback" />
+                            <ImageView
+                                android:id="@+id/icon_feedback_email"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_mail"
+                                app:tint="?attr/colorPrimary" />
+
+                            <TextView
+                                android:id="@+id/text_feedback_email"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="snymainc@gmail.com"
+                                android:textSize="14sp"
+                                android:textColor="@color/text_color" />
+                        </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 

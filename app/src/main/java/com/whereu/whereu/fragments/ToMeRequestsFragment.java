@@ -43,6 +43,7 @@ public class ToMeRequestsFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private ListenerRegistration requestListener;
+    private String pendingOpenRequestId;
 
     @Nullable
     @Override
@@ -148,6 +149,21 @@ public class ToMeRequestsFragment extends Fragment {
                         requestList.addAll(finalList);
                         requestAdapter.notifyDataSetChanged();
                         updateEmptyState();
+
+                        // If there is a pending deep link to open, try now
+                        if (pendingOpenRequestId != null && !pendingOpenRequestId.isEmpty()) {
+                            LocationRequest match = null;
+                            for (LocationRequest r : requestList) {
+                                if (pendingOpenRequestId.equals(r.getRequestId())) {
+                                    match = r;
+                                    break;
+                                }
+                            }
+                            if (match != null && getParentFragment() instanceof RequestAdapter.OnRequestActionListener) {
+                                ((RequestAdapter.OnRequestActionListener) getParentFragment()).onCardClicked(match);
+                                pendingOpenRequestId = null;
+                            }
+                        }
                     });
                 }
             });
@@ -171,6 +187,23 @@ public class ToMeRequestsFragment extends Fragment {
             requestList.remove(position);
             requestAdapter.notifyItemRemoved(position);
             updateEmptyState();
+        }
+    }
+
+    public void openRequestById(String requestId) {
+        if (requestId == null || requestId.isEmpty()) return;
+        LocationRequest match = null;
+        for (LocationRequest r : requestList) {
+            if (requestId.equals(r.getRequestId())) {
+                match = r;
+                break;
+            }
+        }
+        if (match != null && getParentFragment() instanceof RequestAdapter.OnRequestActionListener) {
+            ((RequestAdapter.OnRequestActionListener) getParentFragment()).onCardClicked(match);
+        } else {
+            // Not yet loaded; store and open when data arrives
+            pendingOpenRequestId = requestId;
         }
     }
 

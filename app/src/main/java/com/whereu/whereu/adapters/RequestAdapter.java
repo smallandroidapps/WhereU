@@ -1,6 +1,8 @@
 package com.whereu.whereu.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.ActivityNotFoundException;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,9 +98,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 if ("approved".equals(request.getStatus())) {
                     binding.viewDetailsButton.setVisibility(View.VISIBLE);
                     binding.requestAgainButton.setVisibility(View.GONE);
+                    binding.shareButton.setVisibility(View.VISIBLE);
                 } else {
                     binding.viewDetailsButton.setVisibility(View.GONE);
                     binding.requestAgainButton.setVisibility(View.VISIBLE);
+                    binding.shareButton.setVisibility(View.VISIBLE);
 
                     // Cooldown: prevent re-request within 60 seconds of last request timestamp
                     long cooldownMs = 60_000L;
@@ -147,12 +151,42 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 binding.actionButtonsLayout.setVisibility(View.VISIBLE);
                 binding.viewDetailsButton.setVisibility(View.GONE);
                 binding.requestAgainButton.setVisibility(View.GONE);
+                binding.shareButton.setVisibility(View.GONE);
             }
 
             binding.approveButton.setOnClickListener(v -> listener.onApproveClicked(request));
             binding.rejectButton.setOnClickListener(v -> listener.onRejectClicked(request));
             binding.requestAgainButton.setOnClickListener(v -> listener.onRequestAgainClicked(request));
             binding.viewDetailsButton.setOnClickListener(v -> listener.onViewLocationClicked(request));
+            binding.shareButton.setOnClickListener(v -> {
+                String deepLink = "wheru://open?tab=to&id=" + request.getRequestId();
+                String title = "View Request in WhereU";
+                String receiverName = request.getUserName() != null ? request.getUserName() : "your contact";
+                String area = request.getAreaName() != null ? request.getAreaName() : "";
+                String areaPart = area.isEmpty() ? "" : ("\nArea: " + area);
+                String payload = title + "\nFor: " + receiverName + areaPart + "\n" + deepLink;
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, payload);
+                // Prefer WhatsApp if available
+                shareIntent.setPackage("com.whatsapp");
+                try {
+                    context.startActivity(shareIntent);
+                } catch (ActivityNotFoundException e) {
+                    // Try WhatsApp Business
+                    try {
+                        shareIntent.setPackage("com.whatsapp.w4b");
+                        context.startActivity(shareIntent);
+                    } catch (ActivityNotFoundException e2) {
+                        // Fallback to generic share
+                        Intent genericShare = new Intent(Intent.ACTION_SEND);
+                        genericShare.setType("text/plain");
+                        genericShare.putExtra(Intent.EXTRA_TEXT, payload);
+                        context.startActivity(Intent.createChooser(genericShare, "Share via"));
+                    }
+                }
+            });
 
             // Open details bottom sheet regardless of status when tapping the card
             binding.getRoot().setOnClickListener(v -> listener.onCardClicked(request));
