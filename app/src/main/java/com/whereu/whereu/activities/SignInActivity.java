@@ -161,6 +161,9 @@ public class SignInActivity extends AppCompatActivity {
                     userMap.put("accountType", user.getAccountType());
                     userMap.put("registeredAt", user.getRegisteredAt());
                     userMap.put("lastUpdated", FieldValue.serverTimestamp());
+                    // Initialize subscription fields
+                    userMap.put("isPro", false);
+                    userMap.put("planType", null);
 
                     db.collection("users").document(userId).set(userMap)
                             .addOnSuccessListener(aVoid -> Log.d(TAG, "User created/updated successfully"))

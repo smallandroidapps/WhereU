@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.content.SharedPreferences;
 import androidx.recyclerview.widget.RecyclerView;
 import android.widget.TextView;
@@ -37,9 +38,9 @@ public class PaymentOptionsActivity extends AppCompatActivity implements SavedCa
     private String amount;
 
     private TextView amountText;
-    private Button btnGPay;
-    private Button btnPhonePe;
-    private Button btnUpiOther;
+    private ImageView btnGPay;
+    private ImageView btnPhonePe;
+    private ImageView btnUpiOther;
     private Button btnMarkPaid;
     private RecyclerView savedCardsRecycler;
     private SavedCardsAdapter savedCardsAdapter;

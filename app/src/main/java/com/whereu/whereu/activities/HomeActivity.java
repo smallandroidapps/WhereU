@@ -40,6 +40,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.AdError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -103,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private FusedLocationProviderClient fusedLocationClient;
     private Set<String> dismissedFrequentIds = new HashSet<>();
     private InterstitialAd mInterstitialAd;
+    private boolean hasMobileNumber = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,12 +253,25 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         AdRequest adRequest = new AdRequest.Builder().build();
         // Google sample interstitial ad unit ID
         com.google.android.gms.ads.interstitial.InterstitialAd.load(this,
-                "ca-app-pub-3940256099942544/1033173712",
+                "ca-app-pub-3041890013064110/2975228294",
                 adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                         mInterstitialAd = interstitialAd;
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Reload next interstitial after dismissal
+                                mInterstitialAd = null;
+                                loadInterstitial();
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                                mInterstitialAd = null;
+                            }
+                        });
                     }
 
                     @Override
@@ -362,6 +378,25 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         requestStatusMap.put(request.getToUserId(), request.getStatus());
         requestIdMap.put(request.getToUserId(), request.getRequestId());
         updateSearchResultsRequestStatus();
+
+        // Also refresh frequent contacts list if present
+        updateFrequentContactsStatus();
+    }
+
+    private void updateFrequentContactsStatus() {
+        if (frequentContacts == null || frequentContacts.isEmpty()) return;
+        for (SearchResultAdapter.SearchResult contact : frequentContacts) {
+            String uid = contact.getUserId();
+            if (uid != null && requestStatusMap.containsKey(uid)) {
+                contact.setRequestStatus(requestStatusMap.get(uid));
+                contact.setRequestId(requestIdMap.get(uid));
+            }
+        }
+        runOnUiThread(() -> {
+            if (frequentContactAdapter != null) {
+                frequentContactAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void updateSearchResultsRequestStatus() {
@@ -535,6 +570,10 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void sendLocationRequest(SearchResultAdapter.SearchResult result, Integer position) {
+        // Gate sending requests by mobile number presence
+        if (!ensureMobileNumberPresent()) {
+            return;
+        }
         // Prevent self-requests as a safety check
         if (currentUser != null && result.getUserId() != null && result.getUserId().equals(currentUser.getUid())) {
             Toast.makeText(this, "You cannot request your own location.", Toast.LENGTH_SHORT).show();
@@ -597,6 +636,19 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             // No location permission, save request without coordinates
             saveLocationRequestToFirestore(newRequest, result, position);
         }
+    }
+
+    private boolean ensureMobileNumberPresent() {
+        if (hasMobileNumber) return true;
+        Toast.makeText(this, "Please add your mobile number to continue.", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, ProfileSettingsActivity.class);
+        intent.putExtra("force_mobile_update", true);
+        startActivity(intent);
+        // Also surface the Profile tab for clarity
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_profile);
+        }
+        return false;
     }
     
     private void startCooldownTimer(SearchResultAdapter.SearchResult result, Integer position) {
@@ -946,6 +998,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     if (snapshot != null && snapshot.exists()) {
                         String displayName = snapshot.getString("displayName");
                         setWelcomeMessage(displayName);
+                        String mobile = snapshot.getString("mobileNumber");
+                        hasMobileNumber = mobile != null && !mobile.isEmpty();
                         String photoUrl = snapshot.getString("profilePhotoUrl");
                         if (photoUrl != null && !photoUrl.isEmpty()) {
                             Glide.with(this)

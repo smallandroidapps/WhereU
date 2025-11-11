@@ -133,6 +133,9 @@ attr activeIndicatorLabelPadding
 attr activityAction
 attr activityChooserViewStyle
 attr activityName
+attr adSize
+attr adSizes
+attr adUnitId
 attr addElevationShadow
 attr alertDialogButtonGroupStyle
 attr alertDialogCenterButtons
@@ -2291,6 +2294,7 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color selector_bottom_nav
 color status_approved
 color status_bar
 color status_default
@@ -3210,8 +3214,12 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable admob_close_button_black_circle_white_cross
+drawable admob_close_button_white_circle_black_cross
+drawable admob_close_button_white_cross
 drawable avd_hide_password
 drawable avd_show_password
+drawable bg_pro_gradient
 drawable bg_status_chip
 drawable bottom_sheet_background
 drawable btn_checkbox_checked_mtrl
@@ -3524,9 +3532,11 @@ drawable ic_clear_black_24dp
 drawable ic_clock_black_24dp
 drawable ic_close
 drawable ic_contacts
+drawable ic_crown
 drawable ic_edit
 drawable ic_edit_pen
 drawable ic_filter
+drawable ic_gpay
 drawable ic_hide_location
 drawable ic_home
 drawable ic_keyboard_black_24dp
@@ -3546,6 +3556,7 @@ drawable ic_password
 drawable ic_people
 drawable ic_person
 drawable ic_person_24dp
+drawable ic_phonepe
 drawable ic_profile
 drawable ic_profile_placeholder
 drawable ic_requests
@@ -3557,6 +3568,7 @@ drawable ic_status_expired
 drawable ic_status_pending
 drawable ic_status_rejected
 drawable ic_timer
+drawable ic_upi
 drawable indeterminate_static
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -3630,6 +3642,8 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable offline_dialog_background
+drawable offline_dialog_default_icon_42dp
 drawable rounded_search_bar
 drawable rounded_status_background
 drawable spinner_background
@@ -3785,6 +3799,7 @@ id aligned
 id all
 id allStates
 id always
+id amount_text
 id androidx_window_activity_scope
 id animateToEnd
 id animateToStart
@@ -3824,6 +3839,12 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
+id btn_continue
+id btn_gpay
+id btn_mark_paid
+id btn_phonepe
+id btn_upgrade_now
+id btn_upi_other
 id buttonPanel
 id buttonPhoneSignIn
 id button_approve
@@ -3848,9 +3869,16 @@ id cardViewRoot
 id card_auto_approve
 id card_edit_profile
 id card_hide_location
+id card_lifetime
 id card_location_expiry
 id card_logout
+id card_monthly
+id card_subtitle
+id card_title
 id card_trusted_contacts
+id card_upgrade_banner
+id card_upgrade_pro
+id card_yearly
 id carryVelocity
 id ccp
 id center
@@ -4143,6 +4171,9 @@ id notification_main_column_container
 id notification_message
 id notification_text
 id off
+id offline_dialog_advertiser_name
+id offline_dialog_image
+id offline_dialog_text
 id on
 id onAttachStateChangeListener
 id onDateChanged
@@ -4179,11 +4210,13 @@ id pathRelative
 id peekHeight
 id percent
 id pin
+id plan_radio_group
 id pooling_container_listener_holder_tag
 id position
 id postLayout
 id preferenceDivider
 id pressed
+id pro_crown
 id profileActivity
 id profileImageView
 id profile_image
@@ -4191,6 +4224,9 @@ id profile_loading
 id progress_circular
 id progress_horizontal
 id radio
+id radio_lifetime
+id radio_monthly
+id radio_yearly
 id ratio
 id receiverTextView
 id recent_contacts_recycler_view
@@ -4222,6 +4258,7 @@ id satellite
 id save_non_transition_alpha
 id save_overlay_view
 id save_profile_button
+id saved_cards_recycler
 id sawtooth
 id scale
 id screen
@@ -4536,13 +4573,16 @@ layout activity_home
 layout activity_location_details
 layout activity_map
 layout activity_notification
+layout activity_payment_options
 layout activity_phone_verification
+layout activity_plans
 layout activity_profile
 layout activity_profile_settings
 layout activity_sign_in
 layout activity_splash
 layout activity_trusted_contact_details
 layout activity_trusted_contacts
+layout admob_empty_layout
 layout bottom_sheet_location_details
 layout bottom_sheet_request_details
 layout browser_actions_context_menu_page
@@ -4578,6 +4618,7 @@ layout item_frequently_requested_location
 layout item_past_notification
 layout item_recent_contact
 layout item_request
+layout item_saved_card
 layout item_search_result
 layout item_trusted_contact
 layout layout_code_picker
@@ -4641,6 +4682,7 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout offline_ads_dialog
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
@@ -4688,6 +4730,8 @@ raw ccp_ukrainian
 raw ccp_urdu
 raw ccp_uzbek
 raw ccp_vietnamese
+raw com_android_billingclient_heterodyne_info
+raw com_android_billingclient_registration_info
 raw firebase_common_keep
 raw keep_ccp
 string abc_action_bar_home_description
@@ -4760,7 +4804,16 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
+string content_desc_chevron
+string content_desc_continue_to_payment
+string content_desc_plan_lifetime
+string content_desc_plan_monthly
+string content_desc_plan_yearly
+string content_desc_pro_crown
+string content_desc_upgrade_cta
+string content_desc_upgrade_pro_icon
 string copy_toast_msg
+string cta_continue_payment
 string default_web_client_id
 string dest_title
 string dismiss_button_content_description
@@ -4880,9 +4933,23 @@ string mtrl_switch_track_decoration_path
 string mtrl_switch_track_path
 string mtrl_timepicker_cancel
 string mtrl_timepicker_confirm
+string native_body
+string native_headline
+string native_media_view
 string nav_app_bar_navigate_up_description
 string nav_app_bar_open_drawer_description
 string no_result_found
+string notifications_permission_confirm
+string notifications_permission_decline
+string notifications_permission_title
+string offline_dialog_image_description
+string offline_dialog_text
+string offline_notification_title
+string offline_notification_title_with_advertiser
+string offline_opt_in_confirm
+string offline_opt_in_decline
+string offline_opt_in_message
+string offline_opt_in_title
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
@@ -4892,6 +4959,13 @@ string profile_image_description
 string profile_title
 string project_id
 string requests_title
+string s1
+string s2
+string s3
+string s4
+string s5
+string s6
+string s7
 string search_hint
 string search_menu_title
 string searchbar_scrolling_view_behavior
@@ -4901,6 +4975,9 @@ string select_country
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string status_bar_notification_info_overflow
+string subtitle_unlock_full_access
+string title_upgrade_pro
+string watermark_label_prefix
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog
@@ -5457,6 +5534,7 @@ style Theme_Design_Light_BottomSheetDialog
 style Theme_Design_Light_NoActionBar
 style Theme_Design_NoActionBar
 style Theme_Hidden
+style Theme_IAPTheme
 style Theme_Material3_Dark
 style Theme_Material3_Dark_BottomSheetDialog
 style Theme_Material3_Dark_Dialog
@@ -5654,6 +5732,7 @@ style ThemeOverlay_MaterialComponents_Toolbar_Surface
 style WhiteBackgroundDialogTheme
 style WhiteBackgroundTheme
 style Widget_App_BottomNavigationView
+style Widget_App_Button_Primary
 style Widget_AppCompat_ActionBar
 style Widget_AppCompat_ActionBar_Solid
 style Widget_AppCompat_ActionBar_TabBar
@@ -6047,6 +6126,7 @@ styleable ActivityChooserView expandActivityOverflowButtonDrawable initialActivi
 styleable ActivityFilter activityAction activityName
 styleable ActivityNavigator android_name action data dataPattern targetPackage
 styleable ActivityRule alwaysExpand
+styleable AdsAttrs adSize adSizes adUnitId
 styleable AlertDialog android_layout buttonIconDimen buttonPanelSideLayout listItemLayout listLayout multiChoiceItemLayout showTitle singleChoiceItemLayout
 styleable AnimatedStateListDrawableCompat android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
 styleable AnimatedStateListDrawableItem android_id android_drawable
@@ -6216,5 +6296,7 @@ styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration
 styleable fastscroll__fastScroller fastscroll__bubbleColor fastscroll__bubbleTextAppearance fastscroll__handleColor
 styleable include constraintSet
 xml backup_rules
+xml com_android_billingclient_phenotype
 xml data_extraction_rules
+xml gma_ad_services_config
 xml image_share_filepaths

@@ -34,28 +34,28 @@
             android:gravity="center"
             android:layout_marginTop="12dp">
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_gpay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Google Pay" />
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_gpay"
+                android:contentDescription="Google Pay" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_phonepe"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp"
-                android:text="PhonePe" />
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/ic_phonepe"
+                android:contentDescription="PhonePe" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_upi_other"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp"
-                android:text="Other UPI" />
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/ic_upi"
+                android:contentDescription="Other UPI" />
         </LinearLayout>
 
         <TextView

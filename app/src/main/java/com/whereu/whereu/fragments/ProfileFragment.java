@@ -46,6 +46,8 @@ public class ProfileFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private ActivityResultLauncher<String> pickImageLauncher;
+    private boolean isEditing = false;
+    private String currentPhotoUrl = null;
 
     @Nullable
     @Override
@@ -73,7 +75,16 @@ public class ProfileFragment extends Fragment {
         });
 
         binding.profileImage.setOnClickListener(v -> {
-            pickImageLauncher.launch("image/*");
+            if (isEditing) {
+                pickImageLauncher.launch("image/*");
+            } else {
+                if (currentPhotoUrl != null && !currentPhotoUrl.isEmpty()) {
+                    com.whereu.whereu.fragments.FullScreenImageDialogFragment.newInstance(currentPhotoUrl)
+                            .show(getParentFragmentManager(), "fullscreen_image");
+                } else {
+                    Toast.makeText(getContext(), "No profile image set", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -133,6 +144,7 @@ public class ProfileFragment extends Fragment {
             if (binding.editPenOverlay != null) {
                 binding.editPenOverlay.setVisibility(View.VISIBLE);
             }
+            isEditing = true;
             Toast.makeText(getContext(), "You can now edit your profile.", Toast.LENGTH_SHORT).show();
         });
 
@@ -192,6 +204,7 @@ public class ProfileFragment extends Fragment {
                             }
                             // Load profile image if available
                             if (user.getProfilePhotoUrl() != null && !user.getProfilePhotoUrl().isEmpty()) {
+                                currentPhotoUrl = user.getProfilePhotoUrl();
                                 com.bumptech.glide.Glide.with(requireContext())
                                         .load(user.getProfilePhotoUrl())
                                         .placeholder(R.drawable.ic_profile)
@@ -257,6 +270,7 @@ public class ProfileFragment extends Fragment {
                         if (binding.editPenOverlay != null) {
                             binding.editPenOverlay.setVisibility(View.GONE);
                         }
+                        isEditing = false;
                     })
                     .addOnFailureListener(e -> Toast.makeText(getContext(), "Failed to update profile.", Toast.LENGTH_SHORT).show());
         }
@@ -338,6 +352,7 @@ public class ProfileFragment extends Fragment {
                                     .update("profilePhotoUrl", url)
                                     .addOnSuccessListener(aVoid -> {
                                         if (binding != null) {
+                                            currentPhotoUrl = url;
                                             com.bumptech.glide.Glide.with(requireContext())
                                                     .load(url)
                                                     .placeholder(R.drawable.ic_profile)

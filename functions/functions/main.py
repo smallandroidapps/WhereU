@@ -24,7 +24,7 @@ def revert_user_upgrade(req: https_fn.Request) -> https_fn.Response:
     """
     try:
         data = req.get_json(silent=True) or {}
-        user_id = data.get("userId")
+        user_id = data.get("userId") or req.args.get("userId")
         if not user_id:
             return https_fn.Response("Missing userId", status=400)
 
