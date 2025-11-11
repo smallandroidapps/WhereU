@@ -2318,6 +2318,7 @@ color text_secondary
 color tooltip_background_dark
 color tooltip_background_light
 color warning_orange
+color whatsapp_green
 color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
@@ -3545,6 +3546,7 @@ drawable ic_logout
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
+drawable ic_mail
 drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
@@ -3569,6 +3571,7 @@ drawable ic_status_pending
 drawable ic_status_rejected
 drawable ic_timer
 drawable ic_upi
+drawable ic_whatsapp
 drawable indeterminate_static
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -3866,12 +3869,14 @@ id cache_measures
 id callMeasure
 id cancel_button
 id cardViewRoot
+id card_app_info
 id card_auto_approve
 id card_edit_profile
 id card_hide_location
 id card_lifetime
 id card_location_expiry
 id card_logout
+id card_manage_background_permissions
 id card_monthly
 id card_subtitle
 id card_title
@@ -3938,6 +3943,7 @@ id detail_area_name
 id detail_coordinates
 id detail_distance
 id detail_timestamp
+id detail_user_avatar
 id detail_user_name
 id dialog_button
 id dimensions
@@ -4035,6 +4041,7 @@ id horizontal_only
 id hybrid
 id icon
 id icon_edit_profile_picture
+id icon_feedback_email
 id icon_group
 id icon_only
 id ifRoom
@@ -4221,6 +4228,7 @@ id profileActivity
 id profileImageView
 id profile_image
 id profile_loading
+id progressIndicator
 id progress_circular
 id progress_horizontal
 id radio
@@ -4252,6 +4260,7 @@ id rlClickConsumer
 id rl_query_holder
 id rl_title
 id rounded
+id row_feedback_email
 id row_index_key
 id rtl
 id satellite
@@ -4283,6 +4292,7 @@ id selected
 id selection_type
 id senderTextView
 id sender_receiver_text_view
+id share_button
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -4323,6 +4333,7 @@ id staticLayout
 id staticPostLayout
 id status_icon
 id status_text
+id status_text_chip
 id stop
 id stretch
 id submenuarrow
@@ -4364,10 +4375,13 @@ id textView_noresult
 id textView_selectedCountry
 id textView_title
 id textWatcher
+id text_app_info_title
+id text_app_version
 id text_area_name
 id text_coordinates
 id text_distance
 id text_expires_in
+id text_feedback_email
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -4825,6 +4839,7 @@ string fab_transformation_sheet_behavior
 string fallback_menu_item_copy_link
 string fallback_menu_item_open_in_browser
 string fallback_menu_item_share_link
+string fcm_fallback_notification_channel_label
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id

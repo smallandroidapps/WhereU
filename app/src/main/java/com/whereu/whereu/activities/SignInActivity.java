@@ -3,6 +3,7 @@ package com.whereu.whereu.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -82,10 +83,12 @@ public class SignInActivity extends AppCompatActivity {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                showLoading(true);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);
                 Toast.makeText(this, "Google sign in failed: " + e.getStatusCode(), Toast.LENGTH_LONG).show();
+                showLoading(false);
             }
         }
     }
@@ -96,6 +99,7 @@ public class SignInActivity extends AppCompatActivity {
                 Toast.makeText(this, "This email is already linked with another account.", Toast.LENGTH_SHORT).show();
                 mGoogleSignInClient.signOut();
                 mAuth.signOut();
+                showLoading(false);
             } else {
                 AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                 mAuth.signInWithCredential(credential)
@@ -121,9 +125,11 @@ public class SignInActivity extends AppCompatActivity {
                                             });
                                 } else {
                                     Toast.makeText(SignInActivity.this, "Authentication failed: User is null.", Toast.LENGTH_SHORT).show();
+                                    showLoading(false);
                                 }
                             } else {
                                 Toast.makeText(SignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                showLoading(false);
                             }
                         });
             }
@@ -178,5 +184,12 @@ public class SignInActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    private void showLoading(boolean show) {
+        if (binding == null) return;
+        binding.progressIndicator.setVisibility(show ? View.VISIBLE : View.GONE);
+        binding.signInButton.setEnabled(!show);
+        binding.buttonPhoneSignIn.setEnabled(!show);
     }
 }

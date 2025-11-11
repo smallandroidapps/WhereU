@@ -10,6 +10,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.ContactsContract;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.Group;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -62,6 +64,7 @@ import com.whereu.whereu.fragments.RequestsFragment;
 import com.whereu.whereu.models.LocationRequest;
 import com.wheru.models.User;
 import com.whereu.whereu.utils.NotificationHelper;
+import android.provider.Settings;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private static final int PERMISSIONS_REQUEST_POST_NOTIFICATIONS = 101;
     private static final int PERMISSIONS_REQUEST_LOCATION = 102;
+    private static final int PERMISSIONS_REQUEST_BACKGROUND_LOCATION = 103;
 
     private Group homeContentGroup;
     private TextView titleHome;
@@ -109,6 +113,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private Set<String> dismissedFrequentIds = new HashSet<>();
     private InterstitialAd mInterstitialAd;
     private boolean hasMobileNumber = false;
+    private static final String PREFS_NAME = "wheru_prefs";
+    private static final String KEY_ONLY_WHERU_CONTACTS = "only_wheru_contacts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +203,21 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         frequentlyRequestedTitle = binding.frequentlyRequestedTitle;
 
         bottomNavigationView = binding.bottomNavigationBar;
+
+        // Initialize toggle state and listener
+        if (binding.toggleMyContactsOnly != null) {
+            boolean onlyWheru = isOnlyWheruContactsEnabled();
+            binding.toggleMyContactsOnly.setChecked(onlyWheru);
+            binding.toggleMyContactsOnly.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                        .edit()
+                        .putBoolean(KEY_ONLY_WHERU_CONTACTS, isChecked)
+                        .apply();
+                if (searchBar != null && searchBar.getText() != null && searchBar.getText().length() > 0) {
+                    checkContactsPermissionAndPerformSearch(searchBar.getText().toString());
+                }
+            });
+        }
     }
 
     @Override
@@ -319,6 +340,42 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         if (intent != null) {
             String openFragment = intent.getStringExtra("open_fragment");
             String action = intent.getAction();
+            // Handle custom deep links: wheru://open?id=123&tab=to|from
+            if (Intent.ACTION_VIEW.equals(action)) {
+                Uri data = intent.getData();
+                if (data != null) {
+                    String scheme = data.getScheme();
+                    String host = data.getHost();
+                    if ("wheru".equalsIgnoreCase(scheme) && "open".equalsIgnoreCase(host)) {
+                        int initialTab = 0; // default to "To Me"
+                        String tabParam = data.getQueryParameter("tab");
+                        if (tabParam != null) {
+                            if ("from".equalsIgnoreCase(tabParam)) {
+                                initialTab = 1; // From Me
+                            } else if ("to".equalsIgnoreCase(tabParam)) {
+                                initialTab = 0; // To Me
+                            }
+                        } else {
+                            // Fallback: infer from path segments if provided
+                            List<String> segments = data.getPathSegments();
+                            if (segments != null) {
+                                if (segments.contains("from")) initialTab = 1;
+                                else if (segments.contains("to")) initialTab = 0;
+                            }
+                        }
+
+                        String requestId = data.getQueryParameter("id");
+                        // If request id is present but tab is not specified, prefer To Me
+                        if (requestId != null && tabParam == null) {
+                            initialTab = 0;
+                        }
+
+                        showRequestsFragment(initialTab, requestId);
+                        bottomNavigationView.setSelectedItemId(R.id.navigation_requests);
+                        return;
+                    }
+                }
+            }
             if ("requests".equals(openFragment) || (action != null && action.startsWith("OPEN_REQUESTS"))) {
                 int initialTab = intent.getIntExtra("requests_tab", 0);
                 // If action specifies tab, override
@@ -327,7 +384,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 } else if ("OPEN_REQUESTS_TO_ME".equals(action)) {
                     initialTab = 0;
                 }
-                showRequestsFragment(initialTab);
+                String openRequestId = intent.getStringExtra("open_request_id");
+                showRequestsFragment(initialTab, openRequestId);
                 bottomNavigationView.setSelectedItemId(R.id.navigation_requests);
                 return;
             }
@@ -516,6 +574,24 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
             } else {
                 Toast.makeText(this, "Permission denied for notifications", Toast.LENGTH_SHORT).show();
             }
+        } else if (requestCode == PERMISSIONS_REQUEST_BACKGROUND_LOCATION) {
+            boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            if (!granted) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    new AlertDialog.Builder(this)
+                            .setTitle("Allow location always")
+                            .setMessage("Please set Location permission to 'Allow all the time' in Settings for background updates.")
+                            .setPositiveButton("Open Settings", (dialog, which) -> {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            })
+                            .setNegativeButton("Not now", null)
+                            .show();
+                } else {
+                    Toast.makeText(this, "Background location not granted", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
@@ -571,10 +647,24 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 }
             }
 
+            // Apply filter if enabled
+            boolean onlyWheru = isOnlyWheruContactsEnabled();
+            List<SearchResultAdapter.SearchResult> filtered = new ArrayList<>();
+            for (SearchResultAdapter.SearchResult dc : deviceContacts) {
+                if (!onlyWheru || dc.isExistingUser()) {
+                    filtered.add(dc);
+                }
+            }
+
             searchResultsList.clear();
-            searchResultsList.addAll(deviceContacts);
+            searchResultsList.addAll(filtered);
             updateSearchResultsRequestStatus();
         });
+    }
+
+    private boolean isOnlyWheruContactsEnabled() {
+        return getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .getBoolean(KEY_ONLY_WHERU_CONTACTS, true);
     }
 
     @SuppressLint("Range")
@@ -1189,6 +1279,21 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                 .commit();
     }
 
+    private void showRequestsFragment(int initialTab, @Nullable String openRequestId) {
+        homeContentGroup.setVisibility(View.GONE);
+        titleHome.setText(R.string.requests_title);
+        RequestsFragment fragment = new RequestsFragment();
+        Bundle args = new Bundle();
+        args.putInt("initial_tab", initialTab);
+        if (openRequestId != null && !openRequestId.isEmpty()) {
+            args.putString("open_request_id", openRequestId);
+        }
+        fragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
     private void showProfileFragment() {
         homeContentGroup.setVisibility(View.GONE);
         titleHome.setText(R.string.profile_title);
@@ -1247,6 +1352,53 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         boolean coarseGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         if (!fineGranted || !coarseGranted) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSIONS_REQUEST_LOCATION);
+        }
+        // Background location and battery optimization prompts handled via Profile > Manage Background Permissions
+    }
+
+    private void ensureAlwaysLocationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            boolean backgroundGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            boolean fineGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            if (!backgroundGranted && fineGranted) {
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, PERMISSIONS_REQUEST_BACKGROUND_LOCATION);
+                } else {
+                    new AlertDialog.Builder(this)
+                            .setTitle("Allow location always")
+                            .setMessage("To share or refresh your location in the background, please set Location permission to 'Allow all the time' in Settings.")
+                            .setPositiveButton("Open Settings", (dialog, which) -> {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            })
+                            .setNegativeButton("Not now", null)
+                            .show();
+                }
+            }
+        }
+    }
+
+    private void promptBackgroundRunPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+            if (pm != null && !pm.isIgnoringBatteryOptimizations(getPackageName())) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Allow background run")
+                        .setMessage("To keep WhereU running reliably in the background, please disable battery optimizations for the app.")
+                        .setPositiveButton("Open Settings", (dialog, which) -> {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Not now", null)
+                        .show();
+            }
         }
     }
 

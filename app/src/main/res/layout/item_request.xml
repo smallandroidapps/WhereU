@@ -103,6 +103,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_details_button" />
 
+        <TextView
+            android:id="@+id/status_text_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Rejected"
+            android:textStyle="bold"
+            android:textColor="@color/status_rejected"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timestamp_text_view" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/share_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="WhatsApp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_whatsapp"
+            app:iconGravity="textStart"
+            app:iconTint="@color/whatsapp_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/request_again_button" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

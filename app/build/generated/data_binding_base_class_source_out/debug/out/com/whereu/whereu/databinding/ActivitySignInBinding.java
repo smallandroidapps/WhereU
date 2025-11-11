@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,9 @@ public final class ActivitySignInBinding implements ViewBinding {
   public final MaterialButton buttonPhoneSignIn;
 
   @NonNull
+  public final ProgressBar progressIndicator;
+
+  @NonNull
   public final MaterialButton signInButton;
 
   @NonNull
@@ -37,11 +41,13 @@ public final class ActivitySignInBinding implements ViewBinding {
   public final TextView textView;
 
   private ActivitySignInBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView appIcon,
-      @NonNull MaterialButton buttonPhoneSignIn, @NonNull MaterialButton signInButton,
-      @NonNull TextView subtitle, @NonNull TextView textView) {
+      @NonNull MaterialButton buttonPhoneSignIn, @NonNull ProgressBar progressIndicator,
+      @NonNull MaterialButton signInButton, @NonNull TextView subtitle,
+      @NonNull TextView textView) {
     this.rootView = rootView;
     this.appIcon = appIcon;
     this.buttonPhoneSignIn = buttonPhoneSignIn;
+    this.progressIndicator = progressIndicator;
     this.signInButton = signInButton;
     this.subtitle = subtitle;
     this.textView = textView;
@@ -86,6 +92,12 @@ public final class ActivitySignInBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.progressIndicator;
+      ProgressBar progressIndicator = ViewBindings.findChildViewById(rootView, id);
+      if (progressIndicator == null) {
+        break missingId;
+      }
+
       id = R.id.signInButton;
       MaterialButton signInButton = ViewBindings.findChildViewById(rootView, id);
       if (signInButton == null) {
@@ -105,7 +117,7 @@ public final class ActivitySignInBinding implements ViewBinding {
       }
 
       return new ActivitySignInBinding((ConstraintLayout) rootView, appIcon, buttonPhoneSignIn,
-          signInButton, subtitle, textView);
+          progressIndicator, signInButton, subtitle, textView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

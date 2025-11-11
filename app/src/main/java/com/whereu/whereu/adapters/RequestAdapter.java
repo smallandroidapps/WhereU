@@ -1,6 +1,8 @@
 package com.whereu.whereu.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.ActivityNotFoundException;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
         void onRejectClicked(LocationRequest request);
         void onRequestAgainClicked(LocationRequest request);
         void onViewLocationClicked(LocationRequest request);
+        void onCardClicked(LocationRequest request);
     }
 
     public RequestAdapter(Context context, List<LocationRequest> requestList, OnRequestActionListener listener) {
@@ -76,6 +79,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                         binding.senderReceiverTextView.setText(user.getDisplayName());
                         // Hydrate request with userName for downstream UI (details sheet)
                         request.setUserName(user.getDisplayName());
+                        // Store mobile number for WhatsApp deep link
+                        if (user.getMobileNumber() != null) {
+                            binding.shareButton.setTag(user.getMobileNumber());
+                        }
                         if (user.getProfilePhotoUrl() != null && !user.getProfilePhotoUrl().isEmpty()) {
                             Glide.with(context)
                                     .load(user.getProfilePhotoUrl())
@@ -95,9 +102,18 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 if ("approved".equals(request.getStatus())) {
                     binding.viewDetailsButton.setVisibility(View.VISIBLE);
                     binding.requestAgainButton.setVisibility(View.GONE);
+                    binding.shareButton.setVisibility(View.VISIBLE);
+                    binding.statusTextChip.setVisibility(View.GONE);
                 } else {
                     binding.viewDetailsButton.setVisibility(View.GONE);
                     binding.requestAgainButton.setVisibility(View.VISIBLE);
+                    binding.shareButton.setVisibility(View.VISIBLE);
+                    // Show Rejected status indicator if applicable
+                    if ("rejected".equals(request.getStatus())) {
+                        binding.statusTextChip.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.statusTextChip.setVisibility(View.GONE);
+                    }
 
                     // Cooldown: prevent re-request within 60 seconds of last request timestamp
                     long cooldownMs = 60_000L;
@@ -146,12 +162,76 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 binding.actionButtonsLayout.setVisibility(View.VISIBLE);
                 binding.viewDetailsButton.setVisibility(View.GONE);
                 binding.requestAgainButton.setVisibility(View.GONE);
+                binding.shareButton.setVisibility(View.GONE);
+                binding.statusTextChip.setVisibility(View.GONE);
             }
 
             binding.approveButton.setOnClickListener(v -> listener.onApproveClicked(request));
             binding.rejectButton.setOnClickListener(v -> listener.onRejectClicked(request));
             binding.requestAgainButton.setOnClickListener(v -> listener.onRequestAgainClicked(request));
             binding.viewDetailsButton.setOnClickListener(v -> listener.onViewLocationClicked(request));
+            binding.shareButton.setOnClickListener(v -> {
+                String deepLink = "wheru://open?tab=to&id=" + request.getRequestId();
+                String title = "View Request in WhereU";
+                String receiverName = request.getUserName() != null ? request.getUserName() : "your contact";
+                String area = request.getAreaName() != null ? request.getAreaName() : "";
+                String areaPart = area.isEmpty() ? "" : ("\nArea: " + area);
+                String payload = title + "\nFor: " + receiverName + areaPart + "\n" + deepLink;
+
+                String phoneNumber = null;
+                Object tag = binding.shareButton.getTag();
+                if (tag instanceof String) {
+                    phoneNumber = (String) tag;
+                }
+
+                if (phoneNumber == null || phoneNumber.isEmpty()) {
+                    // Fallback: fetch user doc again quickly
+                    String uid = request.isSentByCurrentUser() ? request.getToUserId() : request.getFromUserId();
+                    FirebaseFirestore.getInstance().collection("users").document(uid).get().addOnSuccessListener(ds -> {
+                        User u = ds.toObject(User.class);
+                        String phone = u != null ? u.getMobileNumber() : null;
+                        launchWhatsApp(phone, payload);
+                    }).addOnFailureListener(e -> launchWhatsApp(null, payload));
+                } else {
+                    launchWhatsApp(phoneNumber, payload);
+                }
+            });
+
+            // Open details bottom sheet regardless of status when tapping the card
+            
+            binding.getRoot().setOnClickListener(v -> listener.onCardClicked(request));
+        }
+
+        private void launchWhatsApp(String phoneNumber, String payload) {
+            try {
+                String normalized = phoneNumber == null ? "" : phoneNumber.replaceAll("[^0-9]+", "");
+                if (normalized.length() == 10) {
+                    normalized = "91" + normalized; // assume India if 10-digit
+                }
+                String url = "https://wa.me/" + normalized + "?text=" + android.net.Uri.encode(payload);
+                Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
+                intent.setPackage("com.whatsapp");
+                context.startActivity(intent);
+            } catch (Exception e) {
+                try {
+                    String normalized = phoneNumber == null ? "" : phoneNumber.replaceAll("[^0-9]+", "");
+                    if (normalized.length() == 10) {
+                        normalized = "91" + normalized;
+                    }
+                    String url = "https://wa.me/" + normalized + "?text=" + android.net.Uri.encode(payload);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
+                    intent.setPackage("com.whatsapp.w4b");
+                    context.startActivity(intent);
+                } catch (Exception e2) {
+                    String normalized = phoneNumber == null ? "" : phoneNumber.replaceAll("[^0-9]+", "");
+                    if (normalized.length() == 10) {
+                        normalized = "91" + normalized;
+                    }
+                    String url = "https://wa.me/" + normalized + "?text=" + android.net.Uri.encode(payload);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
+                    context.startActivity(intent);
+                }
+            }
         }
 
         private String formatRelativeOrAbsolute(long ts) {

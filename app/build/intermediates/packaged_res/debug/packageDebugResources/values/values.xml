@@ -53,6 +53,7 @@
     <color name="text_primary">#222222</color>
     <color name="text_secondary">#9AA0A6</color>
     <color name="warning_orange">#FFA726</color>
+    <color name="whatsapp_green">#25D366</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">WherU</string>
     <string name="avatar_description">User avatar</string>
