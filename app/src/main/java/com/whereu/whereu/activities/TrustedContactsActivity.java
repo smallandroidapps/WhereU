@@ -138,7 +138,58 @@ public class TrustedContactsActivity extends AppCompatActivity implements Truste
                 // Handle deny action
                 break;
             case "Request Again":
-                // Handle request again action
+                // Enforce cooldowns per last status: 1 hour if rejected, else 1 minute
+                FirebaseUser currentUser2 = mAuth.getCurrentUser();
+                if (currentUser2 == null) {
+                    Toast.makeText(TrustedContactsActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                String fromId = currentUser2.getUid();
+                String toId = contact.getUid();
+                // Query latest request between these two users
+                db.collection("locationRequests")
+                        .whereEqualTo("fromUserId", fromId)
+                        .whereEqualTo("toUserId", toId)
+                        .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+                        .limit(1)
+                        .get()
+                        .addOnSuccessListener(querySnapshot -> {
+                            long now = System.currentTimeMillis();
+                            boolean blocked = false;
+                            long remaining = 0L;
+                            if (!querySnapshot.isEmpty()) {
+                                com.google.firebase.firestore.DocumentSnapshot doc = querySnapshot.getDocuments().get(0);
+                                LocationRequest lastReq = doc.toObject(LocationRequest.class);
+                                if (lastReq != null) {
+                                    // Block for 1 hour if rejected; else block for 1 minute
+                                    if ("rejected".equals(lastReq.getStatus())) {
+                                        long basisTs = lastReq.getRejectedTimestamp() > 0 ? lastReq.getRejectedTimestamp() : lastReq.getTimestamp();
+                                        long cooldownMs = 60L * 60L * 1000L;
+                                        remaining = (basisTs + cooldownMs) - now;
+                                        blocked = remaining > 0;
+                                    } else {
+                                        long basisTs = lastReq.getTimestamp();
+                                        long cooldownMs = 60L * 1000L;
+                                        remaining = (basisTs + cooldownMs) - now;
+                                        blocked = remaining > 0;
+                                    }
+                                }
+                            }
+
+                            if (blocked) {
+                                Toast.makeText(TrustedContactsActivity.this, "Please wait " + SearchResultAdapter.SearchResult.formatCooldownTime(remaining) + " before requesting again.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                LocationRequest newReq = new LocationRequest(fromId, toId);
+                                db.collection("locationRequests").add(newReq)
+                                        .addOnSuccessListener(documentReference -> {
+                                            Toast.makeText(TrustedContactsActivity.this, "Location request sent to " + contact.getDisplayName(), Toast.LENGTH_SHORT).show();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(TrustedContactsActivity.this, "Failed to send location request: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        });
+                            }
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(TrustedContactsActivity.this, "Failed to check cooldown: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                 break;
         }
     }

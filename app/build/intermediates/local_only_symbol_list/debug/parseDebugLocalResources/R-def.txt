@@ -51,6 +51,7 @@ drawable bg_status_chip
 drawable bottom_sheet_background
 drawable chip_background_approved
 drawable chip_background_expired
+drawable chip_background_rejected
 drawable circle_background
 drawable dot_background
 drawable gradient_blue

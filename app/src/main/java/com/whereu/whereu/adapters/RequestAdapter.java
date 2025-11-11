@@ -115,9 +115,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                         binding.statusTextChip.setVisibility(View.GONE);
                     }
 
-                    // Cooldown: prevent re-request within 60 seconds of last request timestamp
-                    long cooldownMs = 60_000L;
-                    long lastReqTs = request.getTimestamp();
+                    // Cooldown: 1 hour if rejected; else 1 minute (per contact)
+                    long cooldownMs = "rejected".equals(request.getStatus()) ? (60L * 60L * 1000L) : (60L * 1000L);
+                    long lastReqTs = "rejected".equals(request.getStatus()) && request.getRejectedTimestamp() > 0
+                            ? request.getRejectedTimestamp()
+                            : request.getTimestamp();
                     long now = System.currentTimeMillis();
                     long remaining = (lastReqTs + cooldownMs) - now;
 

@@ -86,12 +86,24 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                     holder.actionButton.setEnabled(true);
                     break;
                 case "expired":
-                    holder.actionButton.setText("Request Again");
-                    holder.actionButton.setEnabled(true);
+                    if (result.isInCooldown()) {
+                        long remainingTime = result.getCooldownRemainingTime();
+                        holder.actionButton.setText("Wait " + SearchResult.formatCooldownTime(remainingTime));
+                        holder.actionButton.setEnabled(false);
+                    } else {
+                        holder.actionButton.setText("Request Again");
+                        holder.actionButton.setEnabled(true);
+                    }
                     break;
                 case "rejected":
-                    holder.actionButton.setText("Request Again");
-                    holder.actionButton.setEnabled(true);
+                    if (result.isInCooldown()) {
+                        long remainingTime = result.getCooldownRemainingTime();
+                        holder.actionButton.setText("Wait " + SearchResult.formatCooldownTime(remainingTime));
+                        holder.actionButton.setEnabled(false);
+                    } else {
+                        holder.actionButton.setText("Request Again");
+                        holder.actionButton.setEnabled(true);
+                    }
                     break;
                 default:
                     holder.actionButton.setText("Request Location");
@@ -288,7 +300,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         public long getCooldownRemainingTime() {
             if (!isInCooldown()) return 0L;
-            long cooldownEndTime = requestSentTimestamp + 60 * 1000;
+            long cooldownMs = "rejected".equals(requestStatus) ? (60L * 60L * 1000L) : (60L * 1000L);
+            long cooldownEndTime = requestSentTimestamp + cooldownMs;
             return cooldownEndTime - System.currentTimeMillis();
         }
 
@@ -298,19 +311,21 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         public boolean isInCooldown() {
             if (requestSentTimestamp == 0L) return false;
-            long cooldownEndTime = requestSentTimestamp + 60 * 1000; // 1 minute cooldown
+            long cooldownMs = "rejected".equals(requestStatus) ? (60L * 60L * 1000L) : (60L * 1000L);
+            long cooldownEndTime = requestSentTimestamp + cooldownMs;
             return System.currentTimeMillis() < cooldownEndTime;
         }
 
         public static String formatCooldownTime(long milliseconds) {
-            long seconds = milliseconds / 1000;
-            if (seconds < 60) {
-                return seconds + "s";
-            } else {
-                long minutes = seconds / 60;
-                long remainingSeconds = seconds % 60;
-                return minutes + "m " + remainingSeconds + "s";
+            long seconds = Math.max(0, milliseconds / 1000);
+            long minutes = seconds / 60;
+            long hours = minutes / 60;
+            long remainingMinutes = minutes % 60;
+            long remainingSeconds = seconds % 60;
+            if (hours > 0) {
+                return hours + "h " + remainingMinutes + "m";
             }
+            return remainingMinutes + "m " + remainingSeconds + "s";
         }
 
         @Override
