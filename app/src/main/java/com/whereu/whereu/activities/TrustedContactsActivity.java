@@ -138,7 +138,7 @@ public class TrustedContactsActivity extends AppCompatActivity implements Truste
                 // Handle deny action
                 break;
             case "Request Again":
-                // Enforce 1-hour cooldown before sending another request
+                // Enforce 1-hour cooldown ONLY when the last request was rejected by this contact
                 FirebaseUser currentUser2 = mAuth.getCurrentUser();
                 if (currentUser2 == null) {
                     Toast.makeText(TrustedContactsActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
@@ -162,14 +162,12 @@ public class TrustedContactsActivity extends AppCompatActivity implements Truste
                                 com.google.firebase.firestore.DocumentSnapshot doc = querySnapshot.getDocuments().get(0);
                                 LocationRequest lastReq = doc.toObject(LocationRequest.class);
                                 if (lastReq != null) {
-                                    long basisTs = 0L;
-                                    if ("rejected".equals(lastReq.getStatus()) && lastReq.getRejectedTimestamp() > 0) {
-                                        basisTs = lastReq.getRejectedTimestamp();
-                                    } else {
-                                        basisTs = lastReq.getTimestamp();
+                                    // Only block if the last request was rejected
+                                    if ("rejected".equals(lastReq.getStatus())) {
+                                        long basisTs = lastReq.getRejectedTimestamp() > 0 ? lastReq.getRejectedTimestamp() : lastReq.getTimestamp();
+                                        remaining = (basisTs + cooldownMs) - now;
+                                        blocked = remaining > 0;
                                     }
-                                    remaining = (basisTs + cooldownMs) - now;
-                                    blocked = remaining > 0;
                                 }
                             }
 
