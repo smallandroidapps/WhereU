@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.whereu.whereu.R;
 import com.whereu.whereu.models.LocationRequest;
+import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.wheru.models.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,6 +45,29 @@ public class FrequentlyRequestedAdapter extends RecyclerView.Adapter<FrequentlyR
         LocationRequest request = frequentlyRequestedList.get(position);
 
         holder.userName.setText(request.getUserName());
+
+        // Load avatar for the other user in the request
+        String otherUserId = request.isSentByCurrentUser() ? request.getToUserId() : request.getFromUserId();
+        if (otherUserId != null && !otherUserId.isEmpty()) {
+            FirebaseFirestore.getInstance().collection("users").document(otherUserId)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            User user = documentSnapshot.toObject(User.class);
+                            if (user != null) {
+                                // Update display name if not set
+                                if (request.getUserName() == null || request.getUserName().isEmpty()) {
+                                    holder.userName.setText(user.getDisplayName());
+                                }
+                                Glide.with(holder.itemView)
+                                        .load(user.getProfilePhotoUrl())
+                                        .placeholder(R.drawable.ic_profile_placeholder)
+                                        .error(R.drawable.ic_profile_placeholder)
+                                        .into(holder.avatar);
+                            }
+                        }
+                    });
+        }
 
         // Set timestamp
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());

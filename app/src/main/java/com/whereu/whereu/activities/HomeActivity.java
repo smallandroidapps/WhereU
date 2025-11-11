@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 import androidx.core.app.ActivityCompat;
@@ -121,7 +122,8 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         initUI();
         setupListeners();
         handleIntent(getIntent());
-        // Permissions are handled in SplashActivity; avoid duplicate prompts here
+        // Request key runtime permissions without blocking UI
+        requestInitialPermissions();
         scheduleBackgroundPolling();
         // Initialize Mobile Ads SDK
         MobileAds.initialize(this);
@@ -165,7 +167,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                                     LocationRequest req = documentSnapshot.toObject(LocationRequest.class);
                                     if (req != null) {
                                         req.setUserName(result.getDisplayName());
-                                    showLocationDetailsBottomSheet(req);
+                                        showLocationDetailsBottomSheet(req, result.getProfilePhotoUrl());
                                     } else {
                                         // Fallback to latest by from/to
                                         openBottomSheetWithLatestOrStub(result);
@@ -442,10 +444,26 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void updateSearchResultsRequestStatus() {
+        long now = System.currentTimeMillis();
+        long fiveMinutesMs = 5L * 60L * 1000L;
         for (SearchResultAdapter.SearchResult result : searchResultsList) {
-            if (requestStatusMap.containsKey(result.getUserId())) {
-                result.setRequestStatus(requestStatusMap.get(result.getUserId()));
-                result.setRequestId(requestIdMap.get(result.getUserId()));
+            String uid = result.getUserId();
+            if (uid != null && requestStatusMap.containsKey(uid)) {
+                String status = requestStatusMap.get(uid);
+                // Use last approved timestamp to gate 'approved' state within 5 minutes
+                if ("approved".equals(status)) {
+                    Long approvedTs = lastApprovedTsMap.get(uid);
+                    result.setLastRequestTimestamp(approvedTs != null ? approvedTs : 0L);
+                    if (approvedTs != null && (now - approvedTs) <= fiveMinutesMs) {
+                        result.setRequestStatus("approved");
+                    } else {
+                        // Treat older approvals as expired to encourage re-request
+                        result.setRequestStatus("expired");
+                    }
+                } else {
+                    result.setRequestStatus(status);
+                }
+                result.setRequestId(requestIdMap.get(uid));
             }
         }
         runOnUiThread(() -> searchResultAdapter.notifyDataSetChanged());
@@ -784,13 +802,17 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     }
 
     private void showLocationDetailsBottomSheet(LocationRequest req) {
+        showLocationDetailsBottomSheet(req, null);
+    }
+
+    private void showLocationDetailsBottomSheet(LocationRequest req, @Nullable String photoUrl) {
         if (req == null) return;
         String tag = "location_details";
         Fragment existing = getSupportFragmentManager().findFragmentByTag(tag);
         if (existing != null && existing.isAdded()) {
             return; // Prevent multiple popups stacking
         }
-        LocationDetailsBottomSheetFragment fragment = LocationDetailsBottomSheetFragment.newInstance(req);
+        LocationDetailsBottomSheetFragment fragment = LocationDetailsBottomSheetFragment.newInstance(req, photoUrl);
         fragment.show(getSupportFragmentManager(), tag);
     }
 
@@ -827,7 +849,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                         latest.setApprovedTimestamp(0);
                     }
                     latest.setUserName(result.getDisplayName());
-                    showLocationDetailsBottomSheet(latest);
+                    showLocationDetailsBottomSheet(latest, result.getProfilePhotoUrl());
                 })
                 .addOnFailureListener(e -> {
                     // Final fallback to a stub
@@ -837,7 +859,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
                     stub.setTimestamp(0);
                     stub.setApprovedTimestamp(0);
                     stub.setUserName(result.getDisplayName());
-                    showLocationDetailsBottomSheet(stub);
+                    showLocationDetailsBottomSheet(stub, result.getProfilePhotoUrl());
                 });
     }
 

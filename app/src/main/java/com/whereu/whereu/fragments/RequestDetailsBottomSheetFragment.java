@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,9 +22,12 @@ import androidx.core.content.ContextCompat;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.auth.FirebaseAuth;
 import com.whereu.whereu.R;
 import com.whereu.whereu.models.LocationRequest;
+import com.wheru.models.User;
+import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -63,6 +67,7 @@ public class RequestDetailsBottomSheetFragment extends BottomSheetDialogFragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottom_sheet_request_details, container, false);
 
+        ImageView avatarView = view.findViewById(R.id.detail_user_avatar);
         TextView userNameTextView = view.findViewById(R.id.detail_user_name);
         TextView coordinatesTextView = view.findViewById(R.id.detail_coordinates);
         TextView timestampTextView = view.findViewById(R.id.detail_timestamp);
@@ -87,6 +92,25 @@ public class RequestDetailsBottomSheetFragment extends BottomSheetDialogFragment
             updateDistance(distanceTextView);
             distanceTextView.setVisibility(View.VISIBLE);
             areaNameTextView.setText(String.format("Area: %s", locationRequest.getAreaName() != null ? locationRequest.getAreaName() : "N/A"));
+
+            // Load avatar for the other user in the request
+            String otherUserId = isReceiver ? locationRequest.getFromUserId() : locationRequest.getToUserId();
+            if (avatarView != null && otherUserId != null && !otherUserId.isEmpty()) {
+                FirebaseFirestore.getInstance().collection("users").document(otherUserId)
+                        .get()
+                        .addOnSuccessListener(documentSnapshot -> {
+                            if (documentSnapshot.exists()) {
+                                User user = documentSnapshot.toObject(User.class);
+                                if (user != null) {
+                                    Glide.with(this)
+                                            .load(user.getProfilePhotoUrl())
+                                            .placeholder(R.drawable.ic_profile_placeholder)
+                                            .error(R.drawable.ic_profile_placeholder)
+                                            .into(avatarView);
+                                }
+                            }
+                        });
+            }
 
             openInMapsButton.setOnClickListener(v -> {
                 String uri = String.format(Locale.ENGLISH, "geo:%f,%f?q=%f,%f", locationRequest.getLatitude(), locationRequest.getLongitude(), locationRequest.getLatitude(), locationRequest.getLongitude());
