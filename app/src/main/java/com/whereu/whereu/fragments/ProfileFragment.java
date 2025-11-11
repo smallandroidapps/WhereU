@@ -135,6 +135,22 @@ public class ProfileFragment extends Fragment {
             }
             Toast.makeText(getContext(), "You can now edit your profile.", Toast.LENGTH_SHORT).show();
         });
+
+        // Upgrade to Pro entry point
+        if (binding.cardUpgradePro != null) {
+            binding.cardUpgradePro.setOnClickListener(v -> {
+                try {
+                    startActivity(new Intent(requireContext(), com.whereu.whereu.activities.PlansActivity.class));
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "Unable to open upgrade", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        // Show crown icon for Pro users
+        if (binding.proCrown != null && com.whereu.whereu.activities.PlansActivity.isProUser(requireContext())) {
+            binding.proCrown.setVisibility(View.VISIBLE);
+        }
     }
 
     private void loadUserProfile() {

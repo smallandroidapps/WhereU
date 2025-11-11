@@ -98,6 +98,9 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
             binding.swipeRefreshLayout.setRefreshing(false);
         });
 
+        // TODO: Hook real limit check; for now method exists to show upgrade prompt
+        setupUpgradeEntryPoint();
+
         return root;
     }
 
@@ -254,6 +257,23 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
                             })
                             .addOnFailureListener(err -> Toast.makeText(getContext(), "Failed to approve request", Toast.LENGTH_SHORT).show());
                 });
+    }
+
+    private void setupUpgradeEntryPoint() {
+        // Initially hidden; show when free limit reached
+        if (binding.cardUpgradeBanner != null) {
+            binding.cardUpgradeBanner.setVisibility(View.GONE);
+        }
+        if (binding.btnUpgradeNow != null) {
+            binding.btnUpgradeNow.setOnClickListener(v -> {
+                // Launch PlansActivity
+                try {
+                    startActivity(new android.content.Intent(requireContext(), com.whereu.whereu.activities.PlansActivity.class));
+                } catch (Exception e) {
+                    Toast.makeText(requireContext(), "Unable to open upgrade", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private LocationRequest pendingApprovalRequest; // hold request while asking for permission

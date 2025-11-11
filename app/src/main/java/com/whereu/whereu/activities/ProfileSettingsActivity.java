@@ -35,10 +35,12 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     private static final String TAG = "ProfileSettingsActivity";
 
     private ImageView imageViewProfilePicture;
+    private ImageView iconEditProfilePicture;
     private EditText editTextDisplayName;
     private EditText editTextPhoneNumber;
     private EditText editTextEmail;
-    private Button buttonSaveProfile;
+    private Button buttonUpdateProfile;
+    private Button buttonCancelProfile;
     private Switch switchHideLocation;
     private boolean forceMobileUpdate = false;
 
@@ -47,6 +49,13 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private String accountType;
     private ActivityResultLauncher<String> pickImageLauncher;
+
+    // Original profile data to check for changes
+    private String originalDisplayName;
+    private String originalPhoneNumber;
+    private String originalEmail;
+    private Boolean originalHideLocation;
+    private String originalProfilePhotoUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +77,16 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
         imageViewProfilePicture = findViewById(R.id.image_profile_picture);
+        iconEditProfilePicture = findViewById(R.id.icon_edit_profile_picture);
         editTextDisplayName = findViewById(R.id.edit_text_display_name);
         editTextPhoneNumber = findViewById(R.id.edit_text_phone_number);
         editTextEmail = findViewById(R.id.edit_text_email);
-        buttonSaveProfile = findViewById(R.id.button_save_profile);
+        buttonUpdateProfile = findViewById(R.id.button_update_profile);
+        buttonCancelProfile = findViewById(R.id.button_cancel_profile);
         switchHideLocation = findViewById(R.id.switch_hide_location);
 
-        buttonSaveProfile.setOnClickListener(v -> saveUserProfile());
+        buttonUpdateProfile.setOnClickListener(v -> saveUserProfile());
+        buttonCancelProfile.setOnClickListener(v -> finish());
 
         // Register image picker
         pickImageLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
@@ -85,6 +97,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
 
         // Tap to change profile photo
         imageViewProfilePicture.setOnClickListener(v -> pickImageLauncher.launch("image/*"));
+        iconEditProfilePicture.setOnClickListener(v -> pickImageLauncher.launch("image/*"));
 
         if (forceMobileUpdate) {
             Toast.makeText(this, "Please update your mobile number to proceed.", Toast.LENGTH_LONG).show();
@@ -98,9 +111,25 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         if (forceMobileUpdate) {
             // Prevent going back if mobile number update is mandatory
             Toast.makeText(this, "Please update your mobile number before proceeding.", Toast.LENGTH_SHORT).show();
+        } else if (hasProfileChanged()) {
+            // If changes are made, show a confirmation dialog or just discard and finish
+            // For now, we'll just discard and finish, similar to the cancel button
+            Toast.makeText(this, "Changes discarded.", Toast.LENGTH_SHORT).show();
+            super.onBackPressed();
         } else {
             super.onBackPressed();
         }
+    }
+
+    private boolean hasProfileChanged() {
+        // Compare current values with original values
+        boolean displayNameChanged = !editTextDisplayName.getText().toString().trim().equals(originalDisplayName);
+        boolean phoneNumberChanged = !editTextPhoneNumber.getText().toString().trim().equals(originalPhoneNumber);
+        boolean emailChanged = !editTextEmail.getText().toString().trim().equals(originalEmail);
+        boolean hideLocationChanged = switchHideLocation.isChecked() != originalHideLocation;
+        // Image change is handled by uploadProfileImage, so we don't need to check originalProfilePhotoUrl here
+
+        return displayNameChanged || phoneNumberChanged || emailChanged || hideLocationChanged;
     }
 
     private void loadUserProfile() {
@@ -111,34 +140,34 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
-                            String name = documentSnapshot.getString("displayName");
-                            String email = documentSnapshot.getString("email");
-                            String mobileNumber = documentSnapshot.getString("mobileNumber");
-                            Boolean hideLocation = documentSnapshot.getBoolean("hideLocation");
-                            String accountType = documentSnapshot.getString("accountType");
-                            String profilePhotoUrl = documentSnapshot.getString("profilePhotoUrl");
+                            originalDisplayName = documentSnapshot.getString("displayName");
+                            originalEmail = documentSnapshot.getString("email");
+                            originalPhoneNumber = documentSnapshot.getString("mobileNumber");
+                            originalHideLocation = documentSnapshot.getBoolean("hideLocation");
+                            originalProfilePhotoUrl = documentSnapshot.getString("profilePhotoUrl");
 
-                            if (name != null) {
-                                editTextDisplayName.setText(name);
+                            if (originalDisplayName != null) {
+                                editTextDisplayName.setText(originalDisplayName);
                             }
-                            if (email != null) {
-                                editTextEmail.setText(email);
+                            if (originalEmail != null) {
+                                editTextEmail.setText(originalEmail);
                             }
-                            if (mobileNumber != null) {
-                                editTextPhoneNumber.setText(mobileNumber);
+                            if (originalPhoneNumber != null) {
+                                editTextPhoneNumber.setText(originalPhoneNumber);
                             }
-                            if (hideLocation != null) {
-                                switchHideLocation.setChecked(hideLocation);
+                            if (originalHideLocation != null) {
+                                switchHideLocation.setChecked(originalHideLocation);
                             }
-                            if (accountType != null) {
-                                this.accountType = accountType;
-                            }
-                            if (profilePhotoUrl != null && !profilePhotoUrl.isEmpty()) {
+                            if (originalProfilePhotoUrl != null && !originalProfilePhotoUrl.isEmpty()) {
                                 Glide.with(ProfileSettingsActivity.this)
-                                        .load(profilePhotoUrl)
+                                        .load(originalProfilePhotoUrl)
                                         .placeholder(R.drawable.ic_profile_placeholder)
                                         .error(R.drawable.ic_profile_placeholder)
                                         .into(imageViewProfilePicture);
+                            }
+                            String accountType = documentSnapshot.getString("accountType");
+                            if (accountType != null) {
+                                this.accountType = accountType;
                             }
                         }
                     })

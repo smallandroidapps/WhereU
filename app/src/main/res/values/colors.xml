@@ -1,4 +1,40 @@
 <resources>
+    <!-- WherU Brand Colors -->
+    <color name="primary_purple">#6A39FF</color>
+    <color name="accent_magenta">#FF2BB3</color>
+    <color name="success_teal">#29D9B6</color>
+    
+    <!-- Neutral Colors -->
+    <color name="neutral_dark">#222222</color>
+    <color name="body_gray">#333333</color>
+    <color name="muted_gray">#9AA0A6</color>
+    <color name="background">#F8F8FA</color>
+    <color name="card_bg">#FFFFFF</color>
+    
+    <!-- Additional UI Colors -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="text_primary">#222222</color>
+    <color name="text_secondary">#9AA0A6</color>
+    <color name="text_hint">#9AA0A6</color>
+    
+    <!-- Status Bar & Navigation -->
+    <color name="status_bar">#5A29E6</color>
+    <color name="navigation_bar">#F8F8FA</color>
+    
+    <!-- Button States -->
+    <color name="button_pressed">#5A29E6</color>
+    <color name="button_disabled">#CCCCCC</color>
+    
+    <!-- Card Elevation Shadows -->
+    <color name="card_shadow">#1A000000</color>
+    
+    <!-- Error/Success States -->
+    <color name="error_red">#FF5252</color>
+    <color name="warning_orange">#FFA726</color>
+    
+    <!-- Legacy Colors (preserved for compatibility) -->
     <color name="purple_accent">#673AB7</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -6,8 +42,6 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="blue_500">#2196F3</color>
     <color name="status_pending">#FFC107</color>
     <color name="status_approved">#4CAF50</color>

@@ -80,15 +80,31 @@
 
             </FrameLayout>
 
-            <EditText
-                android:id="@+id/userName"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/text_color"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:hint="Display Name" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:hint="Display Name" />
+
+                <ImageView
+                    android:id="@+id/pro_crown"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_crown"
+                    android:contentDescription="@string/content_desc_pro_crown"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/user_email"
@@ -342,6 +358,49 @@
                             android:entries="@array/expiry_time_options"
                             android:gravity="center_vertical"
                             android:layout_gravity="center_vertical" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Upgrade to Pro entry point -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_upgrade_pro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:background="@drawable/bg_pro_gradient">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_crown"
+                            android:contentDescription="@string/content_desc_upgrade_pro_icon"
+                            android:tint="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:text="Upgrade to Pro"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_arrow_right"
+                            android:contentDescription="@string/content_desc_chevron"
+                            android:tint="@android:color/white" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
