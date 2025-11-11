@@ -182,10 +182,13 @@ public class LocationDetailsBottomSheetFragment extends BottomSheetDialogFragmen
             dismiss();
         });
 
-        // Enforce 1-hour cooldown for re-request based on last request timestamp
-        long lastSentTs = locationRequest.getTimestamp();
-        long cooldownMs = 60L * 60L * 1000L;
-        long remaining = (lastSentTs + cooldownMs) - System.currentTimeMillis();
+        // Enforce cooldown based on last status: 1 hour if rejected, else 1 minute
+        String reqStatus = locationRequest.getStatus();
+        long basisTs = ("rejected".equals(reqStatus) && locationRequest.getRejectedTimestamp() > 0)
+                ? locationRequest.getRejectedTimestamp()
+                : locationRequest.getTimestamp();
+        long cooldownMs = "rejected".equals(reqStatus) ? (60L * 60L * 1000L) : (60L * 1000L);
+        long remaining = (basisTs + cooldownMs) - System.currentTimeMillis();
         if (remaining > 0) {
             requestAgain.setEnabled(false);
             requestAgain.setText("Wait " + formatCooldownTime(remaining));

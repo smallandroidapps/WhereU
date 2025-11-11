@@ -98,7 +98,17 @@ public class FrequentlyRequestedAdapter extends RecyclerView.Adapter<FrequentlyR
             holder.statusChip.setBackgroundResource(R.drawable.chip_background_expired);
             holder.statusChip.setVisibility(View.VISIBLE);
             holder.requestAgainButton.setVisibility(View.VISIBLE);
-            holder.requestAgainButton.setText("Request Again");
+            // Apply 1-minute cooldown for non-rejected cases
+            long basisTs = request.getTimestamp();
+            long cooldownMs = TimeUnit.MINUTES.toMillis(1);
+            long remaining = (basisTs + cooldownMs) - System.currentTimeMillis();
+            if (remaining > 0) {
+                holder.requestAgainButton.setEnabled(false);
+                holder.requestAgainButton.setText("Wait " + com.whereu.whereu.activities.SearchResultAdapter.SearchResult.formatCooldownTime(remaining));
+            } else {
+                holder.requestAgainButton.setEnabled(true);
+                holder.requestAgainButton.setText("Request Again");
+            }
         } else if (request.getStatus().equals("rejected")) {
             holder.statusChip.setText("Rejected");
             holder.statusChip.setBackgroundResource(R.drawable.chip_background_rejected);

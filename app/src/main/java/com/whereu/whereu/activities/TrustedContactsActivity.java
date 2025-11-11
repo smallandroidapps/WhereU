@@ -138,7 +138,7 @@ public class TrustedContactsActivity extends AppCompatActivity implements Truste
                 // Handle deny action
                 break;
             case "Request Again":
-                // Enforce 1-hour cooldown ONLY when the last request was rejected by this contact
+                // Enforce cooldowns per last status: 1 hour if rejected, else 1 minute
                 FirebaseUser currentUser2 = mAuth.getCurrentUser();
                 if (currentUser2 == null) {
                     Toast.makeText(TrustedContactsActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
@@ -146,7 +146,6 @@ public class TrustedContactsActivity extends AppCompatActivity implements Truste
                 }
                 String fromId = currentUser2.getUid();
                 String toId = contact.getUid();
-                long cooldownMs = 60L * 60L * 1000L;
                 // Query latest request between these two users
                 db.collection("locationRequests")
                         .whereEqualTo("fromUserId", fromId)
@@ -162,9 +161,15 @@ public class TrustedContactsActivity extends AppCompatActivity implements Truste
                                 com.google.firebase.firestore.DocumentSnapshot doc = querySnapshot.getDocuments().get(0);
                                 LocationRequest lastReq = doc.toObject(LocationRequest.class);
                                 if (lastReq != null) {
-                                    // Only block if the last request was rejected
+                                    // Block for 1 hour if rejected; else block for 1 minute
                                     if ("rejected".equals(lastReq.getStatus())) {
                                         long basisTs = lastReq.getRejectedTimestamp() > 0 ? lastReq.getRejectedTimestamp() : lastReq.getTimestamp();
+                                        long cooldownMs = 60L * 60L * 1000L;
+                                        remaining = (basisTs + cooldownMs) - now;
+                                        blocked = remaining > 0;
+                                    } else {
+                                        long basisTs = lastReq.getTimestamp();
+                                        long cooldownMs = 60L * 1000L;
                                         remaining = (basisTs + cooldownMs) - now;
                                         blocked = remaining > 0;
                                     }

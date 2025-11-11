@@ -300,7 +300,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         public long getCooldownRemainingTime() {
             if (!isInCooldown()) return 0L;
-            long cooldownEndTime = requestSentTimestamp + 60L * 60L * 1000L; // 1 hour cooldown
+            long cooldownMs = "rejected".equals(requestStatus) ? (60L * 60L * 1000L) : (60L * 1000L);
+            long cooldownEndTime = requestSentTimestamp + cooldownMs;
             return cooldownEndTime - System.currentTimeMillis();
         }
 
@@ -310,7 +311,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         public boolean isInCooldown() {
             if (requestSentTimestamp == 0L) return false;
-            long cooldownEndTime = requestSentTimestamp + 60L * 60L * 1000L; // 1 hour cooldown
+            long cooldownMs = "rejected".equals(requestStatus) ? (60L * 60L * 1000L) : (60L * 1000L);
+            long cooldownEndTime = requestSentTimestamp + cooldownMs;
             return System.currentTimeMillis() < cooldownEndTime;
         }
 
