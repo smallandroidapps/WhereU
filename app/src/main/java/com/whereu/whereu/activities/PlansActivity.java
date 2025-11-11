@@ -2,6 +2,7 @@ package com.whereu.whereu.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +23,10 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
 import com.whereu.whereu.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,6 +48,9 @@ public class PlansActivity extends AppCompatActivity implements PurchasesUpdated
     private static final String PREFS_NAME = "wheru_prefs";
     private static final String PREF_USER_PLAN = "userPlan"; // Values: MONTHLY, YEARLY, LIFETIME
 
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +64,12 @@ public class PlansActivity extends AppCompatActivity implements PurchasesUpdated
 
         setupCardClicks();
 
+        // Default select Lifetime plan
+        selectPlan("LIFETIME");
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
         billingClient = BillingClient.newBuilder(this)
                 .enablePendingPurchases()
                 .setListener(this)
@@ -63,13 +77,26 @@ public class PlansActivity extends AppCompatActivity implements PurchasesUpdated
 
         connectBilling();
 
-        btnContinue.setOnClickListener(v -> startSelectedBillingFlow());
+        // Skip real payment for now; use dummy upgrade flow
+        btnContinue.setOnClickListener(v -> continueWithDummyPayment());
     }
 
     private void setupCardClicks() {
-        findViewById(R.id.card_monthly).setOnClickListener(v -> radioMonthly.setChecked(true));
-        findViewById(R.id.card_yearly).setOnClickListener(v -> radioYearly.setChecked(true));
-        findViewById(R.id.card_lifetime).setOnClickListener(v -> radioLifetime.setChecked(true));
+        findViewById(R.id.card_monthly).setOnClickListener(v -> selectPlan("MONTHLY"));
+        findViewById(R.id.card_yearly).setOnClickListener(v -> selectPlan("YEARLY"));
+        findViewById(R.id.card_lifetime).setOnClickListener(v -> selectPlan("LIFETIME"));
+
+        radioMonthly.setOnClickListener(v -> selectPlan("MONTHLY"));
+        radioYearly.setOnClickListener(v -> selectPlan("YEARLY"));
+        radioLifetime.setOnClickListener(v -> selectPlan("LIFETIME"));
+    }
+
+    private void selectPlan(String planTag) {
+        selectedPlanTag = planTag;
+        // Ensure exclusive selection since radios are nested inside cards
+        radioMonthly.setChecked("MONTHLY".equals(planTag));
+        radioYearly.setChecked("YEARLY".equals(planTag));
+        radioLifetime.setChecked("LIFETIME".equals(planTag));
     }
 
     private void connectBilling() {
@@ -154,6 +181,20 @@ public class PlansActivity extends AppCompatActivity implements PurchasesUpdated
         }
     }
 
+    private void continueWithDummyPayment() {
+        if (selectedPlanTag == null) {
+            Toast.makeText(this, "Please select a plan", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Simulate payment success and upgrade
+        Toast.makeText(this, "Processing payment...", Toast.LENGTH_SHORT).show();
+        saveUserPlan(selectedPlanTag);
+        writeProStatusToFirestore(selectedPlanTag, null);
+        enablePremiumFeatures();
+        Toast.makeText(this, "Pro activated", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
     private void startBillingFlowForProduct(ProductDetails productDetails, @BillingClient.ProductType String type, String planTag) {
         BillingFlowParams.ProductDetailsParams.Builder pdBuilder = BillingFlowParams.ProductDetailsParams.newBuilder()
                 .setProductDetails(productDetails);
@@ -203,6 +244,7 @@ public class PlansActivity extends AppCompatActivity implements PurchasesUpdated
             billingClient.acknowledgePurchase(params, billingResult -> {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                     saveUserPlan(selectedPlanTag);
+                    writeProStatusToFirestore(selectedPlanTag, purchase);
                     enablePremiumFeatures();
                     Toast.makeText(PlansActivity.this, "Pro activated", Toast.LENGTH_SHORT).show();
                     finish();
@@ -225,5 +267,33 @@ public class PlansActivity extends AppCompatActivity implements PurchasesUpdated
 
     private void enablePremiumFeatures() {
         // TODO: Hook into app feature flags to unlock Pro capabilities
+    }
+
+    private void writeProStatusToFirestore(String planType, Purchase purchase) {
+        try {
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user == null) {
+                Log.w("PlansActivity", "No user; skipping Firestore pro write");
+                return;
+            }
+            String userId = user.getUid();
+            java.util.Map<String, Object> updates = new java.util.HashMap<>();
+            updates.put("isPro", true);
+            updates.put("planType", planType);
+            updates.put("proSince", FieldValue.serverTimestamp());
+            updates.put("lastUpdated", FieldValue.serverTimestamp());
+            // Optional audit fields when purchase is available
+            if (purchase != null) {
+                updates.put("purchaseToken", purchase.getPurchaseToken());
+                updates.put("purchaseProducts", purchase.getProducts());
+            }
+
+            db.collection("users").document(userId)
+                    .update(updates)
+                    .addOnSuccessListener(aVoid -> Log.d("PlansActivity", "Pro status written to Firestore"))
+                    .addOnFailureListener(e -> Log.e("PlansActivity", "Failed to write pro status: " + e.getMessage()));
+        } catch (Exception e) {
+            Log.e("PlansActivity", "Error writing pro status", e);
+        }
     }
 }
