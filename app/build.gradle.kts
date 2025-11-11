@@ -102,4 +102,6 @@ dependencies {
     debugImplementation("androidx.fragment:fragment-testing:1.7.1")
     // Google Play Billing Client v6+
     implementation("com.android.billingclient:billing:6.2.0")
+    // Google Mobile Ads SDK
+    implementation("com.google.android.gms:play-services-ads:23.1.0")
 }

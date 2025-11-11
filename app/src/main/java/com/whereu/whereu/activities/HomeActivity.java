@@ -36,6 +36,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -98,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
     private ListenerRegistration userProfileListener;
     private FusedLocationProviderClient fusedLocationClient;
     private Set<String> dismissedFrequentIds = new HashSet<>();
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +120,9 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         handleIntent(getIntent());
         // Permissions are handled in SplashActivity; avoid duplicate prompts here
         scheduleBackgroundPolling();
+        // Initialize Mobile Ads SDK
+        MobileAds.initialize(this);
+        loadInterstitial();
     }
 
     @Override
@@ -210,6 +218,13 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
+            boolean isPro = com.whereu.whereu.activities.PlansActivity.isProUser(this);
+            if (!isPro && mInterstitialAd != null) {
+                mInterstitialAd.show(this);
+            } else if (!isPro) {
+                // Attempt reload if not ready yet
+                loadInterstitial();
+            }
             if (itemId == R.id.navigation_home) {
                 // Clear search when returning to Home
                 if (searchBar != null && searchBar.getText() != null && searchBar.getText().length() > 0) {
@@ -229,6 +244,25 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
 
         setupFirestoreListeners();
         setupUserProfileListener();
+    }
+
+    private void loadInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // Google sample interstitial ad unit ID
+        com.google.android.gms.ads.interstitial.InterstitialAd.load(this,
+                "ca-app-pub-3940256099942544/1033173712",
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull com.google.android.gms.ads.LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
     private void handleIntent(Intent intent) {

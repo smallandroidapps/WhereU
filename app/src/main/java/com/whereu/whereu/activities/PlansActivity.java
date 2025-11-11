@@ -77,8 +77,18 @@ public class PlansActivity extends AppCompatActivity implements PurchasesUpdated
 
         connectBilling();
 
-        // Skip real payment for now; use dummy upgrade flow
-        btnContinue.setOnClickListener(v -> continueWithDummyPayment());
+        // Redirect to payment options screen with selected plan and amount
+        btnContinue.setOnClickListener(v -> {
+            if (selectedPlanTag == null) {
+                Toast.makeText(this, "Please select a plan", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String amount = getAmountForPlan(selectedPlanTag);
+            Intent i = new Intent(this, PaymentOptionsActivity.class);
+            i.putExtra(PaymentOptionsActivity.EXTRA_PLAN_TAG, selectedPlanTag);
+            i.putExtra(PaymentOptionsActivity.EXTRA_AMOUNT, amount);
+            startActivity(i);
+        });
     }
 
     private void setupCardClicks() {
@@ -97,6 +107,15 @@ public class PlansActivity extends AppCompatActivity implements PurchasesUpdated
         radioMonthly.setChecked("MONTHLY".equals(planTag));
         radioYearly.setChecked("YEARLY".equals(planTag));
         radioLifetime.setChecked("LIFETIME".equals(planTag));
+    }
+
+    private String getAmountForPlan(String planTag) {
+        switch (planTag) {
+            case "MONTHLY": return "10";
+            case "YEARLY": return "100";
+            case "LIFETIME": return "2000";
+            default: return "0";
+        }
     }
 
     private void connectBilling() {
