@@ -12,6 +12,51 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Upgrade to Pro entry point shown when free limit reached -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_upgrade_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:visibility="gone"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:background="@drawable/bg_pro_gradient">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_crown"
+                    android:tint="@android:color/white"
+                    android:contentDescription="@string/content_desc_upgrade_pro_icon" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:text="Upgrade to Pro for unlimited requests"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btn_upgrade_now"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="Upgrade"
+                    android:textStyle="bold"
+                    android:backgroundTint="@android:color/white"
+                    android:textColor="#6A39FF"
+                    android:contentDescription="@string/content_desc_upgrade_cta" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"

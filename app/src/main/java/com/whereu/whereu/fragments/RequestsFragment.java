@@ -98,6 +98,9 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
             binding.swipeRefreshLayout.setRefreshing(false);
         });
 
+        // TODO: Hook real limit check; for now method exists to show upgrade prompt
+        setupUpgradeEntryPoint();
+
         return root;
     }
 
@@ -254,6 +257,40 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
                             })
                             .addOnFailureListener(err -> Toast.makeText(getContext(), "Failed to approve request", Toast.LENGTH_SHORT).show());
                 });
+    }
+
+    private void setupUpgradeEntryPoint() {
+        // Reflect pro status from Firestore; if not pro, show upgrade banner
+        if (binding.cardUpgradeBanner != null) {
+            binding.cardUpgradeBanner.setVisibility(View.GONE);
+        }
+        if (binding.btnUpgradeNow != null) {
+            binding.btnUpgradeNow.setOnClickListener(v -> {
+                try {
+                    startActivity(new android.content.Intent(requireContext(), com.whereu.whereu.activities.PlansActivity.class));
+                } catch (Exception e) {
+                    Toast.makeText(requireContext(), "Unable to open upgrade", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        if (currentUser != null) {
+            FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid())
+                    .get()
+                    .addOnSuccessListener(doc -> {
+                        boolean isPro = doc.exists() && Boolean.TRUE.equals(doc.getBoolean("isPro"));
+                        if (binding.cardUpgradeBanner != null) {
+                            binding.cardUpgradeBanner.setVisibility(isPro ? View.GONE : View.VISIBLE);
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        // Fallback to local preference check
+                        boolean localPro = com.whereu.whereu.activities.PlansActivity.isProUser(requireContext());
+                        if (binding.cardUpgradeBanner != null) {
+                            binding.cardUpgradeBanner.setVisibility(localPro ? View.GONE : View.VISIBLE);
+                        }
+                    });
+        }
     }
 
     private LocationRequest pendingApprovalRequest; // hold request while asking for permission

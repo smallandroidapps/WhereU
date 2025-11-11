@@ -20,4 +20,16 @@
         <item>24 Hours</item>
         <item>Always</item>
     </string-array>
+    <!-- Subscription / Pro strings -->
+    <string name="content_desc_plan_monthly">Monthly plan option</string>
+    <string name="content_desc_plan_yearly">Yearly plan option</string>
+    <string name="content_desc_plan_lifetime">Lifetime plan option</string>
+    <string name="content_desc_chevron">Chevron icon</string>
+    <string name="content_desc_continue_to_payment">Continue to payment</string>
+    <string name="content_desc_upgrade_pro_icon">Upgrade to Pro</string>
+    <string name="content_desc_upgrade_cta">Upgrade now</string>
+    <string name="content_desc_pro_crown">Pro status crown</string>
+    <string name="title_upgrade_pro">Upgrade to WherU Pro</string>
+    <string name="subtitle_unlock_full_access">Unlock full access</string>
+    <string name="cta_continue_payment">Continue to Payment</string>
 </resources>

@@ -100,4 +100,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     androidTestImplementation("org.mockito:mockito-android:3.12.4")
     debugImplementation("androidx.fragment:fragment-testing:1.7.1")
+    // Google Play Billing Client v6+
+    implementation("com.android.billingclient:billing:6.2.0")
 }

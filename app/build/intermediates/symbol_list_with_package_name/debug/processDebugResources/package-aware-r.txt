@@ -1507,10 +1507,12 @@ color abc_tint_edittext
 color abc_tint_seek_thumb
 color abc_tint_spinner
 color abc_tint_switch_track
+color accent_magenta
 color accent_material_dark
 color accent_material_light
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
+color background
 color background_color
 color background_floating_material_dark
 color background_floating_material_light
@@ -1518,6 +1520,7 @@ color background_material_dark
 color background_material_light
 color black
 color blue_500
+color body_gray
 color bottom_nav_item_color
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
@@ -1529,11 +1532,15 @@ color browser_actions_bg_grey
 color browser_actions_divider_color
 color browser_actions_text_color
 color browser_actions_title_color
+color button_disabled
 color button_material_dark
 color button_material_light
+color button_pressed
 color call_notification_answer_color
 color call_notification_decline_color
 color card_background_color
+color card_bg
+color card_shadow
 color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
@@ -1594,8 +1601,10 @@ color dim_foreground_disabled_material_dark
 color dim_foreground_disabled_material_light
 color dim_foreground_material_dark
 color dim_foreground_material_light
+color divider
 color error_color_material_dark
 color error_color_material_light
+color error_red
 color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
@@ -2256,6 +2265,9 @@ color mtrl_textinput_disabled_color
 color mtrl_textinput_filled_box_default_background_color
 color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
+color muted_gray
+color navigation_bar
+color neutral_dark
 color notification_action_color_filter
 color notification_icon_bg_color
 color pressed_bg
@@ -2263,6 +2275,7 @@ color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
 color primary_material_light
+color primary_purple
 color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
@@ -2279,10 +2292,12 @@ color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
 color status_approved
+color status_bar
 color status_default
 color status_pending
 color status_rejected
 color stroke_color
+color success_teal
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -2293,8 +2308,12 @@ color teal_200
 color teal_700
 color test
 color text_color
+color text_hint
+color text_primary
+color text_secondary
 color tooltip_background_dark
 color tooltip_background_light
+color warning_orange
 color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
@@ -3193,6 +3212,7 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable bg_status_chip
 drawable bottom_sheet_background
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
@@ -3205,6 +3225,7 @@ drawable btn_radio_on_to_off_mtrl_animation
 drawable ccp_ic_arrow_drop_down
 drawable chip_background_approved
 drawable chip_background_expired
+drawable circle_background
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -3504,6 +3525,7 @@ drawable ic_clock_black_24dp
 drawable ic_close
 drawable ic_contacts
 drawable ic_edit
+drawable ic_edit_pen
 drawable ic_filter
 drawable ic_hide_location
 drawable ic_home
@@ -3805,6 +3827,7 @@ id browser_actions_menu_view
 id buttonPanel
 id buttonPhoneSignIn
 id button_approve
+id button_cancel_profile
 id button_close
 id button_deny
 id button_reject
@@ -3813,8 +3836,8 @@ id button_request
 id button_request_again
 id button_request_location
 id button_save_contact
-id button_save_profile
 id button_send_verification_code
+id button_update_profile
 id button_verify_phone_number
 id button_view_details
 id button_view_on_map
@@ -3983,6 +4006,7 @@ id horizontal
 id horizontal_only
 id hybrid
 id icon
+id icon_edit_profile_picture
 id icon_group
 id icon_only
 id ifRoom
@@ -3991,6 +4015,7 @@ id ignoreRequest
 id image
 id imageView_arrow
 id image_flag
+id image_fullscreen
 id image_profile_picture
 id image_view_avatar
 id image_view_status_icon
@@ -4538,6 +4563,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_fullscreen_image
 layout fastscroll__default_bubble
 layout fragment_from_me_requests
 layout fragment_location_details

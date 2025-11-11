@@ -45,6 +45,9 @@
         <activity android:name="com.whereu.whereu.activities.AddTrustedContactActivity" />
         <activity android:name="com.whereu.whereu.activities.TrustedContactDetailsActivity" />
         <activity android:name="com.whereu.whereu.activities.MapActivity" />
+        <activity android:name="com.whereu.whereu.activities.PlansActivity"
+            android:exported="false"
+            android:theme="@style/Theme.WherU.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.version"
