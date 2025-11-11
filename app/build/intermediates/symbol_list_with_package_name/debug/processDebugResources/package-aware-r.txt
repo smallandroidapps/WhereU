@@ -3938,6 +3938,7 @@ id detail_area_name
 id detail_coordinates
 id detail_distance
 id detail_timestamp
+id detail_user_avatar
 id detail_user_name
 id dialog_button
 id dimensions
@@ -4221,6 +4222,7 @@ id profileActivity
 id profileImageView
 id profile_image
 id profile_loading
+id progressIndicator
 id progress_circular
 id progress_horizontal
 id radio
@@ -4825,6 +4827,7 @@ string fab_transformation_sheet_behavior
 string fallback_menu_item_copy_link
 string fallback_menu_item_open_in_browser
 string fallback_menu_item_share_link
+string fcm_fallback_notification_channel_label
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id

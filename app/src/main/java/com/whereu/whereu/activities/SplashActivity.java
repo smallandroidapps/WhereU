@@ -114,8 +114,8 @@ public class SplashActivity extends AppCompatActivity {
                 handler.postDelayed(this, 300);
             }
         }, 0);
-        // Request required runtime permissions before navigating further
-        requestRuntimePermissionsIfNeeded();
+        // Proceed to next screen; request runtime permissions contextually in HomeActivity
+        proceedToNextScreenWithDelay();
     }
 
     private boolean hasAllRuntimePermissions() {
@@ -136,28 +136,16 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void requestRuntimePermissionsIfNeeded() {
-        if (!hasAllRuntimePermissions()) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST_RUNTIME
-            );
-        } else {
-            proceedToNextScreenWithDelay();
-        }
+        // No-op: runtime permissions will be requested in HomeActivity when features need them
+        proceedToNextScreenWithDelay();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSIONS_REQUEST_RUNTIME) {
-            if (hasAllRuntimePermissions()) {
-                proceedToNextScreenWithDelay();
-            } else {
-                Toast.makeText(this, "Permissions required to continue", Toast.LENGTH_LONG).show();
-                // Attempt one more request
-                requestRuntimePermissionsIfNeeded();
-            }
+            // Regardless of outcome, continue; HomeActivity will request as needed
+            proceedToNextScreenWithDelay();
         }
     }
 }

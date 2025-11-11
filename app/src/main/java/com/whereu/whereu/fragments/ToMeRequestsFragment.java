@@ -133,8 +133,19 @@ public class ToMeRequestsFragment extends Fragment {
                         List<LocationRequest> pendingRequests = new ArrayList<>(dedupByEmailMobile.values());
                         Collections.sort(pendingRequests, (o1, o2) -> Long.compare(effectiveTs(o2), effectiveTs(o1)));
 
+                        // Final guard: ensure only one entry per sender (fromUserId)
+                        List<LocationRequest> finalList = new ArrayList<>();
+                        Set<String> seenSenders = new HashSet<>();
+                        for (LocationRequest r : pendingRequests) {
+                            String senderId = r.getFromUserId();
+                            if (senderId == null) continue;
+                            if (seenSenders.add(senderId)) {
+                                finalList.add(r);
+                            }
+                        }
+
                         requestList.clear();
-                        requestList.addAll(pendingRequests);
+                        requestList.addAll(finalList);
                         requestAdapter.notifyDataSetChanged();
                         updateEmptyState();
                     });

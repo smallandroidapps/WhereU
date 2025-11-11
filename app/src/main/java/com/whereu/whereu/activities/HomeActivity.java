@@ -319,6 +319,39 @@ public class HomeActivity extends AppCompatActivity implements SearchResultAdapt
         if (intent != null) {
             String openFragment = intent.getStringExtra("open_fragment");
             String action = intent.getAction();
+            // Handle custom deep links: wheru://open?id=123&tab=to|from
+            if (Intent.ACTION_VIEW.equals(action)) {
+                Uri data = intent.getData();
+                if (data != null) {
+                    String scheme = data.getScheme();
+                    String host = data.getHost();
+                    if ("wheru".equalsIgnoreCase(scheme) && "open".equalsIgnoreCase(host)) {
+                        int initialTab = 0; // default to "To Me"
+                        String tabParam = data.getQueryParameter("tab");
+                        if (tabParam != null) {
+                            if ("from".equalsIgnoreCase(tabParam)) {
+                                initialTab = 1; // From Me
+                            } else if ("to".equalsIgnoreCase(tabParam)) {
+                                initialTab = 0; // To Me
+                            }
+                        } else {
+                            // Fallback: infer from path segments if provided
+                            List<String> segments = data.getPathSegments();
+                            if (segments != null) {
+                                if (segments.contains("from")) initialTab = 1;
+                                else if (segments.contains("to")) initialTab = 0;
+                            }
+                        }
+
+                        // Optional: future use for specific request id
+                        // String requestId = data.getQueryParameter("id");
+
+                        showRequestsFragment(initialTab);
+                        bottomNavigationView.setSelectedItemId(R.id.navigation_requests);
+                        return;
+                    }
+                }
+            }
             if ("requests".equals(openFragment) || (action != null && action.startsWith("OPEN_REQUESTS"))) {
                 int initialTab = intent.getIntExtra("requests_tab", 0);
                 // If action specifies tab, override

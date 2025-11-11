@@ -31,6 +31,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
         void onRejectClicked(LocationRequest request);
         void onRequestAgainClicked(LocationRequest request);
         void onViewLocationClicked(LocationRequest request);
+        void onCardClicked(LocationRequest request);
     }
 
     public RequestAdapter(Context context, List<LocationRequest> requestList, OnRequestActionListener listener) {
@@ -152,6 +153,9 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
             binding.rejectButton.setOnClickListener(v -> listener.onRejectClicked(request));
             binding.requestAgainButton.setOnClickListener(v -> listener.onRequestAgainClicked(request));
             binding.viewDetailsButton.setOnClickListener(v -> listener.onViewLocationClicked(request));
+
+            // Open details bottom sheet regardless of status when tapping the card
+            binding.getRoot().setOnClickListener(v -> listener.onCardClicked(request));
         }
 
         private String formatRelativeOrAbsolute(long ts) {

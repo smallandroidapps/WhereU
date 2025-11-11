@@ -148,6 +148,7 @@ id detail_area_name
 id detail_coordinates
 id detail_distance
 id detail_timestamp
+id detail_user_avatar
 id detail_user_name
 id display_name
 id distanceTextView
@@ -201,6 +202,7 @@ id profileActivity
 id profileImageView
 id profile_image
 id profile_loading
+id progressIndicator
 id radio_lifetime
 id radio_monthly
 id radio_yearly

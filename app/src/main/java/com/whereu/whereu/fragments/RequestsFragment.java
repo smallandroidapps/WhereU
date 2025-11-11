@@ -181,6 +181,32 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
         LocationDetailsBottomSheetFragment.newInstance(request).show(getChildFragmentManager(), "LocationDetailsBottomSheetFragment");
     }
 
+    @Override
+    public void onCardClicked(LocationRequest request) {
+        if (request == null) return;
+        String status = request.getStatus();
+        if ("approved".equals(status)) {
+            // Show location details for approved requests
+            LocationDetailsBottomSheetFragment.newInstance(request)
+                    .show(getChildFragmentManager(), "LocationDetailsBottomSheetFragment");
+        } else {
+            // Show request details (with approve/reject for receiver when pending)
+            RequestDetailsBottomSheetFragment sheet = RequestDetailsBottomSheetFragment.newInstance(request);
+            sheet.setOnRequestDetailsActionListener(new RequestDetailsBottomSheetFragment.OnRequestDetailsActionListener() {
+                @Override
+                public void onRequestApproved(LocationRequest req) {
+                    onApproveClicked(req);
+                }
+
+                @Override
+                public void onRequestRejected(LocationRequest req) {
+                    onRejectClicked(req);
+                }
+            });
+            sheet.show(getChildFragmentManager(), "RequestDetailsBottomSheetFragment");
+        }
+    }
+
     private void updateRequestStatus(LocationRequest request, String status) {
         FirebaseFirestore.getInstance().collection("locationRequests").document(request.getRequestId())
                 .update("status", status)
