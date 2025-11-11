@@ -2318,6 +2318,7 @@ color text_secondary
 color tooltip_background_dark
 color tooltip_background_light
 color warning_orange
+color whatsapp_green
 color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
@@ -3570,6 +3571,7 @@ drawable ic_status_pending
 drawable ic_status_rejected
 drawable ic_timer
 drawable ic_upi
+drawable ic_whatsapp
 drawable indeterminate_static
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -4331,6 +4333,7 @@ id staticLayout
 id staticPostLayout
 id status_icon
 id status_text
+id status_text_chip
 id stop
 id stretch
 id submenuarrow

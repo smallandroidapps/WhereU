@@ -263,8 +263,13 @@ public class RequestsFragment extends Fragment implements RequestAdapter.OnReque
     }
 
     private void updateRequestStatus(LocationRequest request, String status) {
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("status", status);
+        if ("rejected".equals(status)) {
+            updates.put("rejectedTimestamp", System.currentTimeMillis());
+        }
         FirebaseFirestore.getInstance().collection("locationRequests").document(request.getRequestId())
-                .update("status", status)
+                .update(updates)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getContext(), "Request " + status, Toast.LENGTH_SHORT).show();
                     // Find the ToMeRequestsFragment and tell it to remove the card

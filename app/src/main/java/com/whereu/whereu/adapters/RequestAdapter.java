@@ -79,6 +79,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                         binding.senderReceiverTextView.setText(user.getDisplayName());
                         // Hydrate request with userName for downstream UI (details sheet)
                         request.setUserName(user.getDisplayName());
+                        // Store mobile number for WhatsApp deep link
+                        if (user.getMobileNumber() != null) {
+                            binding.shareButton.setTag(user.getMobileNumber());
+                        }
                         if (user.getProfilePhotoUrl() != null && !user.getProfilePhotoUrl().isEmpty()) {
                             Glide.with(context)
                                     .load(user.getProfilePhotoUrl())
@@ -99,10 +103,17 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                     binding.viewDetailsButton.setVisibility(View.VISIBLE);
                     binding.requestAgainButton.setVisibility(View.GONE);
                     binding.shareButton.setVisibility(View.VISIBLE);
+                    binding.statusTextChip.setVisibility(View.GONE);
                 } else {
                     binding.viewDetailsButton.setVisibility(View.GONE);
                     binding.requestAgainButton.setVisibility(View.VISIBLE);
                     binding.shareButton.setVisibility(View.VISIBLE);
+                    // Show Rejected status indicator if applicable
+                    if ("rejected".equals(request.getStatus())) {
+                        binding.statusTextChip.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.statusTextChip.setVisibility(View.GONE);
+                    }
 
                     // Cooldown: prevent re-request within 60 seconds of last request timestamp
                     long cooldownMs = 60_000L;
@@ -152,6 +163,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 binding.viewDetailsButton.setVisibility(View.GONE);
                 binding.requestAgainButton.setVisibility(View.GONE);
                 binding.shareButton.setVisibility(View.GONE);
+                binding.statusTextChip.setVisibility(View.GONE);
             }
 
             binding.approveButton.setOnClickListener(v -> listener.onApproveClicked(request));
@@ -166,30 +178,60 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                 String areaPart = area.isEmpty() ? "" : ("\nArea: " + area);
                 String payload = title + "\nFor: " + receiverName + areaPart + "\n" + deepLink;
 
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, payload);
-                // Prefer WhatsApp if available
-                shareIntent.setPackage("com.whatsapp");
-                try {
-                    context.startActivity(shareIntent);
-                } catch (ActivityNotFoundException e) {
-                    // Try WhatsApp Business
-                    try {
-                        shareIntent.setPackage("com.whatsapp.w4b");
-                        context.startActivity(shareIntent);
-                    } catch (ActivityNotFoundException e2) {
-                        // Fallback to generic share
-                        Intent genericShare = new Intent(Intent.ACTION_SEND);
-                        genericShare.setType("text/plain");
-                        genericShare.putExtra(Intent.EXTRA_TEXT, payload);
-                        context.startActivity(Intent.createChooser(genericShare, "Share via"));
-                    }
+                String phoneNumber = null;
+                Object tag = binding.shareButton.getTag();
+                if (tag instanceof String) {
+                    phoneNumber = (String) tag;
+                }
+
+                if (phoneNumber == null || phoneNumber.isEmpty()) {
+                    // Fallback: fetch user doc again quickly
+                    String uid = request.isSentByCurrentUser() ? request.getToUserId() : request.getFromUserId();
+                    FirebaseFirestore.getInstance().collection("users").document(uid).get().addOnSuccessListener(ds -> {
+                        User u = ds.toObject(User.class);
+                        String phone = u != null ? u.getMobileNumber() : null;
+                        launchWhatsApp(phone, payload);
+                    }).addOnFailureListener(e -> launchWhatsApp(null, payload));
+                } else {
+                    launchWhatsApp(phoneNumber, payload);
                 }
             });
 
             // Open details bottom sheet regardless of status when tapping the card
+            
             binding.getRoot().setOnClickListener(v -> listener.onCardClicked(request));
+        }
+
+        private void launchWhatsApp(String phoneNumber, String payload) {
+            try {
+                String normalized = phoneNumber == null ? "" : phoneNumber.replaceAll("[^0-9]+", "");
+                if (normalized.length() == 10) {
+                    normalized = "91" + normalized; // assume India if 10-digit
+                }
+                String url = "https://wa.me/" + normalized + "?text=" + android.net.Uri.encode(payload);
+                Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
+                intent.setPackage("com.whatsapp");
+                context.startActivity(intent);
+            } catch (Exception e) {
+                try {
+                    String normalized = phoneNumber == null ? "" : phoneNumber.replaceAll("[^0-9]+", "");
+                    if (normalized.length() == 10) {
+                        normalized = "91" + normalized;
+                    }
+                    String url = "https://wa.me/" + normalized + "?text=" + android.net.Uri.encode(payload);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
+                    intent.setPackage("com.whatsapp.w4b");
+                    context.startActivity(intent);
+                } catch (Exception e2) {
+                    String normalized = phoneNumber == null ? "" : phoneNumber.replaceAll("[^0-9]+", "");
+                    if (normalized.length() == 10) {
+                        normalized = "91" + normalized;
+                    }
+                    String url = "https://wa.me/" + normalized + "?text=" + android.net.Uri.encode(payload);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
+                    context.startActivity(intent);
+                }
+            }
         }
 
         private String formatRelativeOrAbsolute(long ts) {

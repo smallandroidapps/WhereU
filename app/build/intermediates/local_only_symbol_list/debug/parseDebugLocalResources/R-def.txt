@@ -44,6 +44,7 @@ color text_hint
 color text_primary
 color text_secondary
 color warning_orange
+color whatsapp_green
 color white
 drawable bg_pro_gradient
 drawable bg_status_chip
@@ -89,6 +90,7 @@ drawable ic_status_pending
 drawable ic_status_rejected
 drawable ic_timer
 drawable ic_upi
+drawable ic_whatsapp
 drawable rounded_search_bar
 drawable rounded_status_background
 drawable spinner_background
@@ -235,6 +237,7 @@ id signInButton
 id spinner_location_expiry
 id status_icon
 id status_text
+id status_text_chip
 id subtitle
 id suggested_contacts_carousel
 id suggestions_recycler_view
